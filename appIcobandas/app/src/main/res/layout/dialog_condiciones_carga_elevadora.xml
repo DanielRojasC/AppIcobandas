@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="121dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="28dp"
+                android:text="Material:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtMaterial"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:maxLines="1"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinnerAtaqueQuimico"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtMaterial" />
+
+            <Spinner
+                android:id="@+id/spinnerHorasTrabajoDia"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAtaqueAbrasivo" />
+
+            <Spinner
+                android:id="@+id/spinnerDiasTrabajoSemana"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerHorasTrabajoDia" />
+
+            <Spinner
+                android:id="@+id/spinnerAtaqueTemperatura"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAtaqueQuimico" />
+
+            <Spinner
+                android:id="@+id/spinnerAbrasividad"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerDiasTrabajoSemana" />
+
+            <Spinner
+                android:id="@+id/spinnerPorcentajeFinos"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAbrasividad" />
+
+            <Spinner
+                android:id="@+id/spinnerVariosPuntosAlimentacion"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTipoCarga" />
+
+            <Spinner
+                android:id="@+id/spinnerTipoDescarga"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerVariosPuntosAlimentacion" />
+
+            <Spinner
+                android:id="@+id/spinnerLluviaMaterial"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTipoDescarga" />
+
+            <Spinner
+                android:id="@+id/spinnerAtaqueAceites"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAtaqueTemperatura" />
+
+            <Spinner
+                android:id="@+id/spinnerAtaqueAbrasivo"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAtaqueAceites" />
+
+            <Spinner
+                android:id="@+id/spinnerMaxGranulometria"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPorcentajeFinos" />
+
+            <Spinner
+                android:id="@+id/spinnerTempMaxSobreBandaElevadora"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDensidadMaterial" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDensidadMaterial"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMaxGranulometria" />
+
+            <Spinner
+                android:id="@+id/spinnerTempPromedioMaterialSobreBanda"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTempMaxSobreBandaElevadora" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoPiernaElevador"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerLluviaMaterial" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtProfundidadPiernaElevador"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtAnchoPiernaElevador" />
+
+            <Spinner
+                android:id="@+id/spinnerTempAmbienteMin"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtProfundidadPiernaElevador" />
+
+            <Spinner
+                android:id="@+id/spinnerTempAmbienteMax"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTempAmbienteMin" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtCapacidadHorizontal"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTempAmbienteMax" />
+
+            <Spinner
+                android:id="@+id/spinnerTipoCarga"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTempPromedioMaterialSobreBanda" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="121dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="26dp"
+                android:text="¿Ataque químico?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="20dp"
+                android:text="¿Ataque Temperatura?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/tvLongitudCangilon"
+                android:layout_width="121dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:text="¿Ataque Aceites?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/tvProyeccioCangilon"
+                android:layout_width="121dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="8dp"
+
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="26dp"
+                android:text="¿Ataque Abrasivo?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLongitudCangilon" />
+
+            <TextView
+                android:id="@+id/tvProfundidadCangilon"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Horas de trabajo por día:"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProyeccioCangilon" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="121dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Días de trabajo por semana:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfundidadCangilon" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"
+                android:text="Abrasividad\n(alta, media, baja):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="121dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="22dp"
+                android:text="Porcentaje de finos:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="121dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="18dp"
+                android:text="Max Granulometría (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="14dp"
+                android:text="Densidad Material (libras/pie\u00B3):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="121dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Temp. max. material sobre banda (°C):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <TextView
+                android:id="@+id/tvDistBordesBanda"
+                android:layout_width="125dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="Temp. prom. material sobre banda (°C):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/tvTipoCarga"
+                android:layout_width="121dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"
+                android:text="Tipo de Carga:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDistBordesBanda" />
+
+
+            <TextView
+                android:id="@+id/tvTipoDescarga"
+                android:layout_width="121dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="25dp"
+                android:text="Tipo Descarga:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDistLabioFrontal" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion"
+                android:layout_width="121dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="28dp"
+                android:text="¿Lluvia de material?:"
+                android:textColor="#000"
+                android:textSize="13dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoDescarga" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion2"
+                android:layout_width="121dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"
+                android:text="Ancho pierna del elevador (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion3"
+                android:layout_width="121dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Profundidad pierna del elevador (mm):"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion2" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion4"
+                android:layout_width="121dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Temp. ambiente mínima (°C):"
+
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion3" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion5"
+                android:layout_width="121dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+
+                android:text="Temp. ambiente máxima (°C):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion4" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion23"
+                android:layout_width="121dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="20dp"
+                android:text="Capacidad (TPH):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion5" />
+
+            <TextView
+                android:id="@+id/tvDistLabioFrontal"
+                android:layout_width="121dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="18dp"
+                android:text="Varios puntos de alimentación:"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoCarga" />
+
+            <Button
+                android:id="@+id/btnEnviarRegistroBandaElevadora"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/boton_gradient"
+                android:text="Enviar Registro"
+                android:textColor="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion23"
+                app:layout_constraintVertical_bias="0.0" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

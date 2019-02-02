@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvDiametroPoleaMotrizHorizontal"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="24dp"
+                android:text="Largo Eje Rodillo Central (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinnerRodillosRetorno"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoEjeRodilloLateral"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerRodillosRetorno" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroEjeRodilloLateral"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+               android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoEjeRodilloLateral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroRodilloLateral"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+               android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroEjeRodilloLateral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoTuboRodilloLateral"
+                android:layout_width="159dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroRodilloLateral" />
+
+            <Spinner
+                android:id="@+id/spinnerTipoRodilloCarga"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoTuboRodilloLateral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoExternoChasis"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="24dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAnchoInternoChasis" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDetalleRodilloCargaCentral"
+                android:layout_width="290dp"
+                android:layout_height="68dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="#3000"
+                android:inputType="textCapSentences"
+                android:gravity="top"
+                android:padding="6dp"
+                android:maxLines="10"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDistanciaEntreRodillosRetorno"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:textSize="15dp"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRodilloCarga" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoInternoChasis"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDistanciaEntreRodillosRetorno" />
+
+            <TextView
+                android:id="@+id/tvLargoEjePoleaMotrizHorizontal"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="14dp"
+                android:text="Largo Eje Rodillo Retorno (mm):"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDiametroPoleaMotrizHorizontal" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="130dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="14dp"
+                android:text="Diametro Eje Rodillo Retorno (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLargoEjePoleaMotrizHorizontal" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:text="Diametro Rodillo Retorno (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="14dp"
+                android:text="Largo Tubo Rodillo Retorno (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/tvAnguloAmarrePMHorizontal"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:text="Tipo Rodillo Retorno:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="Distancia entre rodillos retorno (m):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAnguloAmarrePMHorizontal" />
+
+
+            <TextView
+                android:id="@+id/textView63"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:text="Ancho interno chasis (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <TextView
+                android:id="@+id/textView65"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="Ancho externo chasis (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView63" />
+
+            <TextView
+                android:id="@+id/textView73"
+                android:layout_width="159dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Detalle Rodillo Retorno:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView65" />
+
+            <Button
+                android:id="@+id/btnEnviarRegistroBandaHorizontal"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/boton_gradient"
+                android:text="Enviar Registro"
+                android:textColor="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDetalleRodilloCargaCentral" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

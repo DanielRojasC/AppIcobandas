@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_posible"
+    android:orientation="vertical"
+    tools:context=".FragmentPartesHorizontal"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <ImageView
+        android:id="@+id/imgCompleta"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+
+        android:contentDescription="TODO"
+        android:src="@drawable/banda_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"></ImageView>
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnPoleaColaHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginLeft="156dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="134dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnDesviador"
+        app:layout_constraintEnd_toStartOf="@+id/btnBandaHorizontal"
+        app:layout_constraintStart_toEndOf="@+id/btnCondicionesCargaHorizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnRodilloLateral"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="457dp"
+        android:layout_marginRight="457dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnRodilloAlineacion"
+        app:layout_constraintEnd_toStartOf="@+id/btnSeguridadHorizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnCondicionesCargaHorizontal"
+        android:layout_width="76dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgCompleta" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnDesviador"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnRodilloRetorno"
+        app:layout_constraintStart_toEndOf="@+id/btnRodilloAlineacion"
+        app:layout_constraintTop_toBottomOf="@+id/btnPoleaColaHorizontal" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnRodilloCarga"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="112dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnLimpidorSecundario"
+        app:layout_constraintEnd_toStartOf="@+id/btnPoleaAmarreHorizontal"
+        app:layout_constraintStart_toEndOf="@+id/btnBandaHorizontal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnBandaHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="94dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnRodilloRetorno"
+        app:layout_constraintEnd_toStartOf="@+id/btnRodilloCarga"
+        app:layout_constraintStart_toEndOf="@+id/btnPoleaColaHorizontal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnRodilloAlineacion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDesviador"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRodilloLateral" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnLimpiadorPrimario"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPoleaMotrizHorizontal"
+        app:layout_constraintStart_toEndOf="@+id/btnLimpidorSecundario"
+        app:layout_constraintTop_toBottomOf="@+id/btnPoleaAmarreHorizontal" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnLimpidorSecundario"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnLimpiadorPrimario"
+        app:layout_constraintStart_toEndOf="@+id/btnRodilloRetorno"
+        app:layout_constraintTop_toBottomOf="@+id/btnRodilloCarga" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnRodilloRetorno"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginRight="33dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnLimpidorSecundario"
+        app:layout_constraintStart_toEndOf="@+id/btnDesviador"
+        app:layout_constraintTop_toBottomOf="@+id/btnBandaHorizontal" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnPoleaMotrizHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="57dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnLimpiadorPrimario"
+        app:layout_constraintTop_toBottomOf="@+id/btnSeguridadHorizontal" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnSeguridadHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnPoleaMotrizHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnRodilloLateral"
+        app:layout_constraintTop_toBottomOf="@+id/btnPoleaTensora" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnPoleaAmarreHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="94dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnLimpiadorPrimario"
+        app:layout_constraintEnd_toStartOf="@+id/btnPoleaTensora"
+        app:layout_constraintStart_toEndOf="@+id/btnRodilloCarga"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnPoleaTensora"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/boton_redondo"
+        app:layout_constraintBottom_toTopOf="@+id/btnSeguridadHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnPoleaAmarreHorizontal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

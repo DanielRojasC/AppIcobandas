@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvDiametroPoleaMotrizElevadora"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="24dp"
+                android:text="Diámetro PM:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroPoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoPoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroPoleaMotrizElevadora" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoEjePoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroEjePoleaMotrizElevadora" />
+
+            <Spinner
+                android:id="@+id/spinnerBandaCentradaPoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoEjePoleaMotrizElevadora" />
+
+            <Spinner
+                android:id="@+id/spinnerEstadoRvto"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerBandaCentradaPoleaMotrizElevadora" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtPotenciaMotorElevadora"
+                android:layout_width="159dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerEstadoRvto" />
+
+            <Spinner
+                android:id="@+id/spinnerTipoPoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAnchoPoleaMotrizElevadora" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroEjePoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTipoPoleaMotrizElevadora" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtRpmSalidaReductorPoleaMotriz"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPotenciaMotorElevadora" />
+
+            <Spinner
+                android:id="@+id/spinnerGuardaPoleaMotrizElevadora"
+                android:layout_width="159dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtRpmSalidaReductorPoleaMotriz" />
+
+            <TextView
+                android:id="@+id/tvAnchoPoleaMotrizElevadora"
+                android:layout_width="121dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Ancho PM (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDiametroPoleaMotrizElevadora" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="19dp"
+                android:text="Tipo PM:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAnchoPoleaMotrizElevadora" />
+
+            <TextView
+                android:id="@+id/tvDiametroEjePoleaMotrizElevadora"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="12dp"
+                android:text="Diámetro Eje PM (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/tvLargoEjePoleaMotrizElevadora"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="4dp"
+                android:text="Largo Eje PM (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDiametroEjePoleaMotrizElevadora" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="7dp"
+                android:text="Banda centrada en polea"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLargoEjePoleaMotrizElevadora" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="121dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="14dp"
+                android:text="Estado Rvto. PM:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="121dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="18dp"
+                android:text="Potencia Motor HP"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="12dp"
+                android:text="RPM Salida del Reductor:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="121dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="12dp"
+                android:text="Guarda Polea:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+
+            <Button
+                android:id="@+id/btnEnviarRegistroBandaElevadora"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/boton_gradient"
+                android:text="Enviar Registro"
+                android:textColor="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDetalleRodilloCargaCentral"
+                android:layout_width="289dp"
+                android:layout_height="71dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="#3000"
+                android:gravity="top"
+                android:inputType="textCapSentences"
+
+                android:padding="10dp"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion35" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDetalleRodilloCargaLateral"
+                android:layout_width="289dp"
+                android:layout_height="71dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="#3000"
+                android:gravity="top"
+
+                android:inputType="textCapSentences"
+
+
+                android:padding="10dp"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion36" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="121dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="24dp"
+                android:text="Barras IMPACTO:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="121dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="¿Tiene rodillos de Impacto?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="11dp"
+                android:text="¿Tiene cama de Impacto?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:text="¿Tiene cama de sellado?:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="121dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:text="Rodillos de Carga (RC)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="121dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="14dp"
+                android:text="Rodillos de Impacto (RI):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="121dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
+                android:text="Báscula ASGCO:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView71" />
+
+            <TextView
+                android:id="@+id/textView71"
+                android:layout_width="121dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
+                android:text="Báscula Pesaje:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
+            <Spinner
+                android:id="@+id/spinnerBarraImpacto"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+
+                android:background="#3000"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerBaculaASGCO" />
+
+            <Spinner
+                android:id="@+id/spinnerBarraDeslizamiento"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerBarraImpacto" />
+
+            <Spinner
+                android:id="@+id/spinnerTieneRodillosImpacto"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinnerCamaImpacto"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTieneRodillosImpacto" />
+
+            <Spinner
+                android:id="@+id/spinnerCamaSellado"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerCamaImpacto" />
+
+            <Spinner
+                android:id="@+id/spinnerRodillosCargaHorizontal"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerCamaSellado" />
+
+            <Spinner
+                android:id="@+id/spinnerRodillosImpactoHorizontal"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerRodillosCargaHorizontal" />
+
+            <Spinner
+                android:id="@+id/spinnerBaculaASGCO"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerBasculaPesaje" />
+
+            <Spinner
+                android:id="@+id/spinnerBasculaPesaje"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerRodillosImpactoHorizontal" />
+
+            <Spinner
+                android:id="@+id/spinnerAnguloAcanal1artesaPoleaCola"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoBarra" />
+
+            <Spinner
+                android:id="@+id/spinnerAnguloAcanal2artesaPoleaCola"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnguloAcanal1artesaPoleaCola" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtEspesorUHMV"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerBarraDeslizamiento" />
+
+            <Spinner
+                android:id="@+id/spinnerAnguloAcanal3artesaPoleaCola"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnguloAcanal2artesaPoleaCola" />
+
+            <Spinner
+                android:id="@+id/spinnerAnguloAcanal1artesaPoleaMotriz"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnguloAcanal3artesaPoleaCola" />
+
+            <Spinner
+                android:id="@+id/spinnerMaterialAtrapadoEnGuardaBanda"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMaterialAtrapadoEntreCortinas" />
+
+            <Spinner
+                android:id="@+id/spinnerMaterialAtrapadoEnBanda"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMaterialAtrapadoEnGuardaBanda" />
+
+            <Spinner
+                android:id="@+id/spinnerIntegridadSoportesCamaImpacto"
+                android:layout_width="140dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMaterialAtrapadoEnBanda" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoBarra"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEspesorUHMV" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoBarra"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAnchoBarra" />
+
+            <Spinner
+                android:id="@+id/spinnerAnguloAcanal2artesaPoleaMotriz"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnguloAcanal1artesaPoleaMotriz" />
+
+            <Spinner
+                android:id="@+id/spinnerAnguloAcanal3artesaPoleaMotriz"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnguloAcanal2artesaPoleaMotriz" />
+
+            <Spinner
+                android:id="@+id/spinnerIntegridadSoportesRodilloImpacto"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnguloAcanal3artesaPoleaMotriz" />
+
+            <Spinner
+                android:id="@+id/spinnerInclinacionZonaCargue"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerIntegridadSoportesCamaImpacto" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoEjeRodilloCentral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerInclinacionZonaCargue" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroEjeRodilloCentral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoEjeRodilloCentral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroRodilloCentral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroEjeRodilloCentral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoTuboRodilloCentral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroRodilloCentral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoEjeRodilloLateral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoTuboRodilloCentral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroEjeRodilloLateral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoEjeRodilloLateral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtDiametroRodilloLateral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroEjeRodilloLateral" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLargoTuboRodilloLateral"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDiametroRodilloLateral" />
+
+            <Spinner
+                android:id="@+id/spinnerTipoRodilloRC"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLargoTuboRodilloLateral" />
+
+            <Spinner
+                android:id="@+id/spinnerTipoRodilloRI"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRodilloRC" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoInternoChasis"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRodilloRI" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtAnchoExternoChasis"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAnchoInternoChasis" />
+
+            <Spinner
+                android:id="@+id/spinnerMaterialAtrapadoEntreCortinas"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#3000"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerIntegridadSoportesRodilloImpacto" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="121dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="21dp"
+                android:text="Barras DESLIZAMIENTO (Sello):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="11dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="121dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Espesor UHMV (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/tvLongitudCangilon"
+                android:layout_width="121dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="28dp"
+                android:text="Ancho Barra (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/tvProyeccioCangilon"
+                android:layout_width="121dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="23dp"
+
+                android:text="Largo Barra (mm):"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLongitudCangilon" />
+
+            <TextView
+                android:id="@+id/tvProfundidadCangilon"
+                android:layout_width="138dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="18dp"
+                android:text="Ang. Acanal. 1ra artesa desp. polea cola:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProyeccioCangilon" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="138dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:text="Ang. Acanal. 2da artesa desp. polea cola:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfundidadCangilon" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="136dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="15dp"
+                android:text="Ang. Acanal. 3ra artesa desp. polea cola:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="136dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="13dp"
+                android:text="Ang. Acanal. 1ra artesa antes polea motriz:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="139dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="15dp"
+                android:text="Ang. Acanal. 2da artesa antes polea motriz:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="136dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:text="Ang. Acanal. 3ra artesa antes polea motriz:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/tvDistBordesBanda"
+                android:layout_width="123dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="Integridad de los sop. rodillos impacto"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/tvTipoCarga"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:text="Material atrapado entre cortinas"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDistBordesBanda" />
+
+
+            <TextView
+                android:id="@+id/tvTipoDescarga"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="16dp"
+                android:text="Material atrapado en la banda:"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDistLabioFrontal" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion"
+                android:layout_width="123dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="14dp"
+                android:text="Integridad sop. cama impacto / sellado:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoDescarga" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion2"
+                android:layout_width="121dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="14dp"
+                android:text="Inclinación zona de cargue material"
+                android:textAlignment="center"
+                android:textColor="#000"
+
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion" />
+
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion24"
+                android:layout_width="121dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:text="Largo Eje Rodillo Central (mm)"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion2" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion25"
+                android:layout_width="121dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Diametro Eje Rodillo Central (mm)"
+
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion24" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion26"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+
+                android:text="Diametro Rodillo Central (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion25" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion27"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="16dp"
+                android:text="Largo Tubo Rodillo Central (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion26" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion28"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="12dp"
+                android:text="Largo Eje Rodillo Lateral (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion27" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion30"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Diametro Eje Rodillo Lateral (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion28" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion31"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="14dp"
+                android:text="Diametro Rodillo Lateral (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion30" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion32"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="12dp"
+                android:text="Largo Tubo Rodillo Lateral (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion31" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion33"
+                android:layout_width="121dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="16dp"
+                android:text="Tipo Rodillo RC (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion32" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion34"
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="12dp"
+
+                android:layout_marginTop="16dp"
+                android:text="Tipo Rodillo RI (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion33" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion29"
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="12dp"
+                android:text="Ancho Interno Chasis (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion34" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion37"
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="12dp"
+                android:text="Ancho Externo Chasis (mm)"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion29" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion35"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Detalle Rodillo Carga Central"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoVentilacion37" />
+
+            <TextView
+                android:id="@+id/tvTipoVentilacion36"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Detalle Rodillo Carga Lateral"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDetalleRodilloCargaCentral" />
+
+            <TextView
+                android:id="@+id/tvDistLabioFrontal"
+                android:layout_width="121dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="14dp"
+                android:text="Material atrapado en guardabandas:"
+                android:textAlignment="center"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoCarga" />
+
+            <Button
+                android:id="@+id/btnEnviarRegistroBandaElevadora"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/boton_gradient"
+                android:text="Enviar Registro"
+                android:textColor="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDetalleRodilloCargaLateral" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
