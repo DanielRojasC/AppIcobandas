@@ -2,7 +2,6 @@ package com.icobandas.icobandasapp;
 
 
 import android.app.AlertDialog;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -24,7 +23,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,10 +35,10 @@ import com.google.gson.reflect.TypeToken;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,7 +54,6 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
     static SearchableSpinner spinnerClientes;
     static SearchableSpinner spinnerTransportadores;
-    Spinner spinnerPartes;
     ArrayList<String> lista = new ArrayList<>();
     public static ArrayList<String> listaClientes = new ArrayList<>();
     static ArrayList<String> vacio = new ArrayList<>();
@@ -71,10 +68,8 @@ public class FragmentSeleccionarTransportador extends Fragment {
     static Dialog dialogAgregarTransportador;
     RequestQueue queue;
     Gson gson = new Gson();
-    ArrayList<String> listaPlantas = new ArrayList<>();
-    Spinner spinnerPlantas;
+
     public static ArrayAdapter<String> adapterClientes;
-    String codPlanta;
 
     public static String bandera;
 
@@ -128,8 +123,6 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
             }
         });
-
-
         btnIr.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -199,7 +192,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
                                 }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                        MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     }
                                 });
                                 queue.add(request);
@@ -236,7 +229,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
                                 }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                        MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     }
                                 });
                                 queue.add(request);
@@ -274,18 +267,14 @@ public class FragmentSeleccionarTransportador extends Fragment {
                                 }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                        MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     }
                                 });
                                 queue.add(request);
                             }
-
-
                         }
                     }
                 }
-
-
             }
         });
 
@@ -336,8 +325,6 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
 
         vacio.add(0, "");
-
-
     }
 
     public void llenarSpinnerTransportadores(String idRegistro) {
@@ -359,8 +346,6 @@ public class FragmentSeleccionarTransportador extends Fragment {
         spinnerTransportadores.setTitle("Buscar Transportador");
         spinnerTransportadores.setPositiveButton("Cerrar");
         spinnerTransportadores.setAdapter(adapterTansportadores);
-
-
     }
 
 
@@ -411,17 +396,13 @@ public class FragmentSeleccionarTransportador extends Fragment {
                     StringRequest requestCrearTransportador = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
-
-                            Toast.makeText(getContext(), "TRANSPORTADOR REGISTRADO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            MDToast.makeText(getContext(), "TRANSPORTADOR REGISTRADO CORRECTAMENTE", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                             recargarTodo(progressBarTranspor);
-
-
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             progressBarTranspor.setVisibility(View.INVISIBLE);
 
@@ -497,7 +478,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
 
             }
         });

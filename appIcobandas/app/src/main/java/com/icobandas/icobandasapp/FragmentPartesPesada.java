@@ -1,37 +1,21 @@
 package com.icobandas.icobandasapp;
 
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
-import android.graphics.Matrix;
-import android.graphics.PointF;
-import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransitionImpl;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,20 +24,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
-import com.bogdwellers.pinchtozoom.view.ImageViewPager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.icobandas.icobandasapp.Modelos.CiudadesJson;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
-import com.icobandas.icobandasapp.Modelos.InfoGuardada;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,7 +143,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }) {
@@ -216,7 +195,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
 
                                         }
@@ -227,7 +206,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -256,7 +235,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -488,7 +467,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                                 Type type = new TypeToken<List<CiudadesJson>>() {
                                 }.getType();
                                 Login.ciudadesJsons = gson.fromJson(response, type);
-                                Toast.makeText(getContext(), "REGISTRO EXITOSO", Toast.LENGTH_SHORT).show();
+                                MDToast.makeText(getContext(),"REGISTRO EXITOSO",MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 FragmentSeleccionarTransportador.bandera="Actualizar";
                                 dialogCarga.dismiss();
 
@@ -496,7 +475,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                 dialogCarga.dismiss();
                             }
                         });
@@ -506,7 +485,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                        MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                         dialogCarga.dismiss();
                     }
                 });
@@ -520,7 +499,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                 dialogCarga.dismiss();
 
 

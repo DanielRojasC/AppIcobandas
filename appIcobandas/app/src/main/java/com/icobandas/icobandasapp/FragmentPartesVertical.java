@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +32,7 @@ import com.icobandas.icobandasapp.Modelos.CiudadesJson;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -301,7 +301,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -407,7 +407,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -417,7 +417,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -447,7 +447,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }){
@@ -689,7 +689,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -768,7 +768,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -778,7 +778,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -808,7 +808,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }){
@@ -991,7 +991,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -1047,7 +1047,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -1057,7 +1057,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -1092,7 +1092,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     }){
@@ -1147,7 +1147,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -1265,7 +1265,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -1320,7 +1320,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -1330,7 +1330,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -1365,7 +1365,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     }){
@@ -1419,7 +1419,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -1506,7 +1506,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -1535,7 +1535,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -1545,7 +1545,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -1580,7 +1580,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -1610,7 +1610,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -1726,7 +1726,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -1749,7 +1749,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -1759,7 +1759,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -1790,7 +1790,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }){
@@ -1887,7 +1887,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -1924,7 +1924,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
 
                                         }
@@ -1935,7 +1935,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -1970,7 +1970,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -2008,7 +2008,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -2131,7 +2131,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -2158,7 +2158,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -2168,7 +2168,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -2203,7 +2203,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     }){
@@ -2230,7 +2230,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }){
@@ -2411,7 +2411,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                     dialogCarga.dismiss();
                                                 }
                                             }){
@@ -2468,7 +2468,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                             dialogCarga.dismiss();
                                         }
                                     });
@@ -2478,7 +2478,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }) {
@@ -2508,7 +2508,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
                                 }
                             }){
@@ -2959,7 +2959,8 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     Type type = new TypeToken<List<CiudadesJson>>() {
                                     }.getType();
                                     Login.ciudadesJsons = gson.fromJson(response, type);
-                                    Toast.makeText(getContext(), "REGISTRO EXITOSO", Toast.LENGTH_SHORT).show();
+
+                                    MDToast.makeText(getContext(),"REGISTRO EXITOSO",MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                     FragmentSeleccionarTransportador.bandera="Actualizar";
                                     dialogCarga.dismiss();
                                     dialogParte.cancel();
@@ -2971,7 +2972,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     dialogCarga.dismiss();
 
                                 }
@@ -2984,7 +2985,8 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                         @Override
                         public void onErrorResponse(VolleyError error) {
 
-                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+
                             dialogCarga.dismiss();
 
                         }
@@ -3002,7 +3004,8 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+
                 dialogCarga.dismiss();
 
             }

@@ -1,7 +1,6 @@
 package com.icobandas.icobandasapp;
+
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -18,13 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.icobandas.icobandasapp.Adapters.AdapterRegistrosRecientes;
-import com.icobandas.icobandasapp.Database.DBHelper;
-import com.icobandas.icobandasapp.Entities.Clientes;
-import com.icobandas.icobandasapp.Entities.Plantas;
-import com.icobandas.icobandasapp.Entities.Transportador;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
-import com.icobandas.icobandasapp.Utilities.Utilities;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
@@ -51,17 +45,9 @@ public class FragmentRegistrosRecientes extends Fragment {
     String cliente;
     AdapterRegistrosRecientes adapterRegistrosRecientes;
 
-    DBHelper dbHelper;
-    ArrayList<String> plantasString;
-    ArrayList<Plantas> plantasList;
-    ArrayList<Clientes> clientesList;
 
-    ArrayList<String> transportadorString;
-    ArrayList<Transportador>transportadorList;
 
-    Cursor cursorPlantas;
-    Cursor cursorClientes;
-    Cursor cursorTranspotadores;
+
 
 
     public FragmentRegistrosRecientes() {
@@ -84,15 +70,9 @@ public class FragmentRegistrosRecientes extends Fragment {
             {
                 llenarTodo();
             }
-            else
-            {
-                llenarTodoSinConexion();
-            }
+
         }
-        else
-        {
-            llenarTodoSinConexion();
-        }
+
 
         spinnerFiltroPlanta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -176,48 +156,7 @@ public class FragmentRegistrosRecientes extends Fragment {
                     });
                     llenarSpinnerTransportadores(cliente);
                 }
-                else
-                {
-                    if(spinnerFiltroPlanta.getSelectedItem().toString().equals("Seleccione Planta"))
-                    {
-                        transportadorString=new ArrayList<>();
-                        transportadorString.add(0,"Seleccione Transportador");
 
-                        ArrayAdapter adapterTransportadores= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_dropdown_item,transportadorString);
-                        spinnerFiltroTransportador.setAdapter(adapterTransportadores);
-                    }
-                    else
-                    {
-                        SQLiteDatabase db = dbHelper.getReadableDatabase();
-                        String idPlanta=spinnerFiltroPlanta.getSelectedItem().toString().split(" - ")[0];
-                        Transportador transportador= new Transportador();
-                        transportadorList = new ArrayList<>();
-                        transportadorString=new ArrayList<>();
-                        cursorTranspotadores=db.rawQuery("SELECT * FROM "+Utilities.TABLA_TRANSPORTADOR+" WHERE "+Utilities.COD_PLANTA+"="+idPlanta,null);
-
-
-                        transportadorString.add(0, "Seleccione Transportador");
-                        int x=1;
-                        while (cursorTranspotadores.moveToNext())
-                        {
-                            transportador.setIdTransportador(cursorTranspotadores.getString(0));
-                            transportador.setNombreTransportador(cursorTranspotadores.getString(1));
-                            transportador.setTipoTransportador(cursorTranspotadores.getString(2));
-                            transportador.setCaracteristicaTransportador(cursorTranspotadores.getString(3));
-                            transportador.setIdPlanta(cursorTranspotadores.getString(4));
-                            transportadorList.add(transportador);
-                            //Log.e("CONSULTA ", String.valueOf(transportadorList.get(0).getIdTransportador()));
-                            transportadorString.add(x,transportadorList.get(0).getIdTransportador()+" - "+transportadorList.get(0).getNombreTransportador()+" - "+transportadorList.get(0).getTipoTransportador()+" - "+transportadorList.get(0).getCaracteristicaTransportador());
-                            x++;
-
-                        }
-                        
-                        ArrayAdapter adapterTrasportador = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, transportadorString);
-                        spinnerFiltroTransportador.setAdapter(adapterTrasportador);
-
-                        db.close();
-                    }
-                }
             }
 
             @Override
@@ -234,7 +173,6 @@ public class FragmentRegistrosRecientes extends Fragment {
         txtSinRegistros=view.findViewById(R.id.txtSinRegistros);
         spinnerFiltroPlanta=view.findViewById(R.id.spinnerFiltroPlanta);
         spinnerFiltroTransportador=view.findViewById(R.id.spinnerFiltroTransportador);
-        dbHelper= new DBHelper(getContext(),"prueba", null, 1);
     }
 
     public void llenarSpinner() {
@@ -428,59 +366,5 @@ public class FragmentRegistrosRecientes extends Fragment {
         });
 
     }
-    public void llenarTodoSinConexion()
-    {
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Plantas plantas=null;
-        plantasList= new ArrayList();
-
-         cursorPlantas= db.rawQuery("SELECT * from "+ Utilities.TABLA_PLANTAS,null);
-
-        while (cursorPlantas.moveToNext())
-        {
-            plantas = new Plantas();
-            plantas.setIdPlanta(cursorPlantas.getString(0));
-            plantas.setNombrePlanta(cursorPlantas.getString(1));
-
-            plantas.setNitCliente(cursorPlantas.getString(2));
-
-            plantasList.add(plantas);
-        }
-
-        cursorClientes=db.rawQuery("Select * from "+Utilities.TABLA_CLIENTES, null);
-        clientesList=new ArrayList<>();
-        while (cursorClientes.moveToNext())
-        {
-            Clientes clientes= new Clientes();
-            clientes.setNombreCliente(cursorClientes.getString(1));
-            clientesList.add(clientes);
-        }
-
-        plantasString = new ArrayList<>();
-
-        for (int i=1;i<=plantasList.size();i++)
-        {
-            plantasString.add(plantasList.get(i-1).getIdPlanta()+" - "+clientesList.get(i-1).getNombreCliente()+" - "+plantasList.get(i-1).getNombrePlanta());
-        }
-
-        Set<String> hs = new HashSet<>();
-        hs.addAll(plantasString);
-        plantasString.clear();
-        plantasString.addAll(hs);
-        Collections.sort(plantasString,String.CASE_INSENSITIVE_ORDER);
-
-        plantasString.add(0,"Seleccione Planta");
-
-        ArrayAdapter adapterPlantas= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_dropdown_item,plantasString);
-        spinnerFiltroPlanta.setAdapter(adapterPlantas);
-
-        transportadorString= new ArrayList<>();
-        transportadorString.add(0,"Seleccione Transportador");
-
-        ArrayAdapter adapterTransportadores= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_dropdown_item,transportadorString);
-        spinnerFiltroTransportador.setAdapter(adapterTransportadores);
-
-        db.close();
-    }
 }

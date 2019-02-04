@@ -2,7 +2,7 @@ package com.icobandas.icobandasapp;
 
 public class Constants
 {
-      public  static  String url= "http://10ea7855.ngrok.io/api/";
+      public  static  String url= "http://49aa968d.ngrok.io/api/";
 
       public static String[] porcentajeFinos=new String[20];
     public static String[] tempMinAmbiente=new String[66];

@@ -34,10 +34,10 @@ import com.icobandas.icobandasapp.Modelos.IdMaxCliente;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.tooltip.Tooltip;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -207,7 +207,7 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                                                    @Override
                                                    public void onErrorResponse(VolleyError error) {
 
-                                                       Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                                       MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
 
                                                    }
                                                });
@@ -219,7 +219,7 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                                        }, new Response.ErrorListener() {
                                            @Override
                                            public void onErrorResponse(VolleyError error) {
-                                               Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                               MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                progressBar.setVisibility(View.INVISIBLE);
                                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                            }
@@ -245,7 +245,7 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                                        progressBar.setVisibility(View.INVISIBLE);
                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                                       Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                       MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
 
                                    }
                                }){
@@ -267,7 +267,7 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                        @Override
                        public void onErrorResponse(VolleyError error) {
 
-                           Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                           MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                            progressBar.setVisibility(View.VISIBLE);
                            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 

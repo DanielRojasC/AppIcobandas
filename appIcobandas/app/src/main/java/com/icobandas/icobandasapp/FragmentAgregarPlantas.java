@@ -28,10 +28,10 @@ import com.google.gson.reflect.TypeToken;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.tooltip.Tooltip;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -208,7 +208,7 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
                             progressBar.setVisibility(View.INVISIBLE);
                             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
 
                         }
                     });
@@ -221,7 +221,7 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
 
                     progressBar.setVisibility(View.INVISIBLE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
 
                 }
             }){

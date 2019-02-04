@@ -39,7 +39,8 @@ dependencies {
     implementation 'com.bogdwellers:pinchtozoom:0.1'
     implementation 'com.github.vihtarb:tooltip:0.1.9'
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
-    implementation 'com.arasthel:asyncjob-library:1.0.3'
-    implementation 'android.arch.persistence.room:runtime:1.0.0'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+
+    implementation 'com.valdesekamdem.library:md-toast:0.9.0'
+
+
 }
