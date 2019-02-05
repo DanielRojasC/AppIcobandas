@@ -67,7 +67,7 @@ public class AdapterRegistrosRecientes  extends RecyclerView.Adapter<AdapterRegi
     {
 
 
-        TextView txtFecha,txtParte,txtPlanta;
+        TextView txtFecha,txtParte,txtPlanta, txtCliente;
         public Holder(final View itemView)
         {
             super(itemView);
@@ -91,6 +91,7 @@ public class AdapterRegistrosRecientes  extends RecyclerView.Adapter<AdapterRegi
             txtFecha  =itemView.findViewById(R.id.txtFecha);
             txtParte  = itemView.findViewById(R.id.txtParte);
             txtPlanta =itemView.findViewById(R.id.txtNombrePlanta);
+            txtCliente=itemView.findViewById(R.id.txtNombreCliente);
 
 
 
@@ -101,7 +102,8 @@ public class AdapterRegistrosRecientes  extends RecyclerView.Adapter<AdapterRegi
 
                 txtFecha.setText(loginJson.getFechaRegistro());
                 txtParte.setText(loginJson.getNombreTransportador());
-                txtPlanta.setText(loginJson.getNameunido()+" - "+loginJson.getNameplanta());
+                txtPlanta.setText(loginJson.getNameplanta());
+                txtCliente.setText(loginJson.getNameunido());
 
         }
     }

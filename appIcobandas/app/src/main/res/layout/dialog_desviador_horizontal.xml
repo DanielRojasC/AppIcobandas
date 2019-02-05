@@ -79,33 +79,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinnerHayPresionUniforme" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtAnchoCauchoVPlow"
+            <Spinner
+                android:id="@+id/spinnerAnchoCauchoVPlow"
                 android:layout_width="159dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="#3000"
-                android:inputType="numberDecimal"
                 android:textAlignment="center"
-                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinnerCauchoVPlow" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtEspesorCauchoVPlow"
+            <Spinner
+                android:id="@+id/spinnerEspesorCauchoVPlow"
                 android:layout_width="159dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="#3000"
-                android:inputType="numberDecimal"
                 android:textAlignment="center"
-                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAnchoCauchoVPlow" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnchoCauchoVPlow" />
 
             <TextView
                 android:id="@+id/tvLargoTornillo"

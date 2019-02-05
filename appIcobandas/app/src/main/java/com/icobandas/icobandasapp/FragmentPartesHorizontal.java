@@ -35,6 +35,8 @@ import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
@@ -271,11 +273,12 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         ArrayAdapter<String> adapterEstadoEmpalme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
         spinnerEstadoEmpalme.setAdapter(adapterEstadoEmpalme);
-        spinnerResistenciaRoturaAnterior.setAdapter(adapterEstadoEmpalme);
+
 
 
         ArrayAdapter<String> adapterRoturaLona = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.resistenciaRoturaLona);
         spinnerResistenciaRotura.setAdapter(adapterRoturaLona);
+        spinnerResistenciaRoturaAnterior.setAdapter(adapterRoturaLona);
 
         ArrayAdapter<String> adapterLocTensor = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.localizacionTensor);
         spinnerLocTensor.setAdapter(adapterLocTensor);
@@ -627,7 +630,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         final TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaMotrizHorizontal);
         final TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
-        final TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaMotrizHorizontal);
+        final TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaColaHorizontal);
         final TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaMotrizHorizontal);
         final TextInputEditText txtLongTornillo = dialogParte.findViewById(R.id.txtLongitudTensorTornilloHorizontal);
         final TextInputEditText txtLongContrapesa = dialogParte.findViewById(R.id.txtLongitudContraPesaPoleaMotrizHorizontal);
@@ -896,8 +899,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerHayPresionUniforme = dialogParte.findViewById(R.id.spinnerHayPresionUniforme);
         final Spinner spinnerCauchoVPlow = dialogParte.findViewById(R.id.spinnerCauchoVPlow);
 
-        final TextInputEditText txtAchoCaucho = dialogParte.findViewById(R.id.txtAnchoCauchoVPlow);
-        final TextInputEditText txtEspesorCaucho = dialogParte.findViewById(R.id.txtEspesorCauchoVPlow);
+        final Spinner spinnerAnchoVPlow = dialogParte.findViewById(R.id.spinnerAnchoCauchoVPlow);
+        final Spinner spinnerEspesorCaucho = dialogParte.findViewById(R.id.spinnerEspesorCauchoVPlow);
 
 
         ArrayAdapter<String> adapterHayDesviador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
@@ -912,12 +915,17 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         ArrayAdapter<String> adapterCauchoVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
         spinnerCauchoVPlow.setAdapter(adapterCauchoVPlow);
 
+        ArrayAdapter<String> adapterAnchoVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anchoVPlow);
+        spinnerAnchoVPlow.setAdapter(adapterAnchoVPlow);
+
+        ArrayAdapter<String> adapterEspesorVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorVPlow);
+        spinnerEspesorCaucho.setAdapter(adapterEspesorVPlow);
+
         if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Desviador");
         }
 
-        txtAchoCaucho.setOnFocusChangeListener(this);
-        txtEspesorCaucho.setOnFocusChangeListener(this);
+
 
         Button btnEnviarInformacion = dialogParte.findViewById(R.id.btnEnviarRegistroBandaElevadora);
 
@@ -965,22 +973,12 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                 protected Map<String, String> getParams() {
                                                     Map<String, String> params = new HashMap<>();
                                                     params.put("idRegistro", FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
-                                                    params.put("anchoVPlow", txtAchoCaucho.getText().toString());
-                                                    params.put("espesorVPlow", txtEspesorCaucho.getText().toString());
+                                                    params.put("anchoVPlow", spinnerAnchoVPlow.getSelectedItem().toString());
+                                                    params.put("espesorVPlow", spinnerEspesorCaucho.getSelectedItem().toString());
                                                     params.put("cauchoVPlow", spinnerCauchoVPlow.getSelectedItem().toString());
                                                     params.put("hayDesviador", spinnerHayDesviador.getSelectedItem().toString());
                                                     params.put("elDesviadorBascula", spinnerElDesviadorBascula.getSelectedItem().toString());
                                                     params.put("presionUniformeALoAnchoDeLaBanda", spinnerHayPresionUniforme.getSelectedItem().toString());
-
-                                                    if (!txtAchoCaucho.getText().toString().equals("")) {
-                                                        params.put("anchoVPlow", String.valueOf(Float.parseFloat(txtAchoCaucho.getText().toString())));
-                                                    }
-
-
-                                                    if (!txtEspesorCaucho.getText().toString().equals("")) {
-                                                        params.put("espesorVPlow", String.valueOf(Float.parseFloat(txtEspesorCaucho.getText().toString())));
-                                                    }
-
                                                     return params;
                                                 }
                                             };
@@ -1036,21 +1034,12 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                 protected Map<String, String> getParams() {
                                     Map<String, String> params = new HashMap<>();
                                     params.put("idRegistro", FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
-                                    params.put("anchoVPlow", txtAchoCaucho.getText().toString());
-                                    params.put("espesorVPlow", txtEspesorCaucho.getText().toString());
+                                    params.put("anchoVPlow", spinnerAnchoVPlow.getSelectedItem().toString());
+                                    params.put("espesorVPlow", spinnerEspesorCaucho.getSelectedItem().toString());
                                     params.put("cauchoVPlow", spinnerCauchoVPlow.getSelectedItem().toString());
                                     params.put("hayDesviador", spinnerHayDesviador.getSelectedItem().toString());
                                     params.put("elDesviadorBascula", spinnerElDesviadorBascula.getSelectedItem().toString());
                                     params.put("presionUniformeALoAnchoDeLaBanda", spinnerHayPresionUniforme.getSelectedItem().toString());
-
-                                    if (!txtAchoCaucho.getText().toString().equals("")) {
-                                        params.put("anchoVPlow", String.valueOf(Float.parseFloat(txtAchoCaucho.getText().toString())));
-                                    }
-
-
-                                    if (!txtEspesorCaucho.getText().toString().equals("")) {
-                                        params.put("espesorVPlow", String.valueOf(Float.parseFloat(txtEspesorCaucho.getText().toString())));
-                                    }
 
 
                                     return params;
@@ -1117,9 +1106,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerBoquillasAire = dialogParte.findViewById(R.id.spinnerBoquillasDeAire);
         final Spinner spinnerAlimentacionCentrada = dialogParte.findViewById(R.id.spinnerAlimentacionCentrada);
         final Spinner spinnerAtaqueImpacto = dialogParte.findViewById(R.id.spinnerAtaqueImpacto);
+        final Spinner spinnerEspesorGuardabandas=dialogParte.findViewById(R.id.spinnerEspesorGuardabandas);
+
 
         final TextInputEditText txtAlturaCaida=dialogParte.findViewById(R.id.txtAlturaCaida);
-        final TextInputEditText txtLongitudImpacto=dialogParte.findViewById(R.id.txtLongitudImpacto);
+        final Spinner spinnerLongitudImpacto=dialogParte.findViewById(R.id.spinnerLongitudImpacto);
         final TextInputEditText txtMaterial=dialogParte.findViewById(R.id.txtMaterial);
         final TextInputEditText txtMaxGranulometria=dialogParte.findViewById(R.id.txtMaxGranulometria);
         final TextInputEditText txtTempMaxMaterialBanda=dialogParte.findViewById(R.id.txtTempMaxSobreBanda);
@@ -1129,7 +1120,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final TextInputEditText txtAnchoChute=dialogParte.findViewById(R.id.txtAnchoChute);
         final TextInputEditText txtLargoChute=dialogParte.findViewById(R.id.txtLargoChute);
         final TextInputEditText txtAlturaChute=dialogParte.findViewById(R.id.txtAlturaChute);
-        final TextInputEditText txtEspesorGuardabandas=dialogParte.findViewById(R.id.txtEspesorGuardabandas);
         final TextInputEditText txtAnchoGuardabandas=dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
         final TextInputEditText txtLargoGuardabandas=dialogParte.findViewById(R.id.txtLargoGuardaBandas);
         final TextInputEditText txtTempAmbienteMinimaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
@@ -1148,6 +1138,9 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         ArrayAdapter<String> adapterDeflectores = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
         spinnerDeflectores.setAdapter(adapterDeflectores);
+
+        ArrayAdapter<String> adapterEspesorGuardabadas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorVPlow);
+        spinnerEspesorGuardabandas.setAdapter(adapterEspesorGuardabadas);
 
 
         ArrayAdapter<String> adapterMonitorPeligro = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
@@ -1178,6 +1171,9 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         ArrayAdapter<String> adapterCajaCola = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
         spinnerCajaColaTolva.setAdapter(adapterCajaCola);
+
+        ArrayAdapter<String> adapterLongitudImpacto = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.longitudImpacto);
+        spinnerLongitudImpacto.setAdapter(adapterLongitudImpacto);
 
         ArrayAdapter<String> adapterFugaMateriales = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.fugaDeMateriales);
         spinnerFugaMateriales.setAdapter(adapterFugaMateriales);
@@ -1253,7 +1249,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("duracionPromedioRevestimiento", spinnerDuracionRvto.getSelectedItem().toString());
                                                     params.put("deflectores", spinnerDeflectores.getSelectedItem().toString());
                                                     params.put("altureCaida", txtAlturaCaida.getText().toString());
-                                                    params.put("longitudImpacto", txtLongitudImpacto.getText().toString());
+                                                    params.put("longitudImpacto", spinnerLongitudImpacto.getSelectedItem().toString());
                                                     params.put("material", txtMaterial.getText().toString());
                                                     params.put("anguloSobreCarga", txtAnguloSobrecarga.getText().toString());
                                                     params.put("ataqueQuimicoTransportadora", spinnerAtaqueQuimico.getSelectedItem().toString());
@@ -1281,7 +1277,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("cauchoGuardabandas", spinnerCauchoGuardaBandas.getSelectedItem().toString());
                                                     params.put("fugaDeMaterialParticulaALaSalidaDelChute", spinnerFugaMaterialesParticulados.getSelectedItem().toString());
                                                     params.put("triSealMultiSeal", spinnerTreSealMultiSeal.getSelectedItem().toString());
-                                                    params.put("espesorGuardaBandas", txtEspesorGuardabandas.getText().toString());
+                                                    params.put("espesorGuardaBandas", spinnerEspesorGuardabandas.getSelectedItem().toString());
                                                     params.put("anchoGuardaBandas", txtAnchoGuardabandas.getText().toString());
                                                     params.put("largoGuardaBandas", txtLargoGuardabandas.getText().toString());
                                                     params.put("protectorGuardaBandas", spinnerProtectorGuardaBandas.getSelectedItem().toString());
@@ -1298,10 +1294,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     {
                                                         params.put("altureCaida", String.valueOf(Float.parseFloat(txtAlturaCaida.getText().toString())));
                                                     }
-                                                    if(!txtLongitudImpacto.getText().equals(""))
-                                                    {
-                                                        params.put("longitudImpacto", String.valueOf(Float.parseFloat(txtLongitudImpacto.getText().toString())));
-                                                    }
+
                                                     if(!txtAnguloSobrecarga.getText().equals(""))
                                                     {
                                                         params.put("anguloSobreCarga", String.valueOf(Float.parseFloat(txtAnguloSobrecarga.getText().toString())));
@@ -1358,14 +1351,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     {
                                                         params.put("tempAmbienteMinTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMinimaHorizontal.getText().toString())));
                                                     }
-                                                    if(!txtEspesorGuardabandas.getText().equals(""))
-                                                    {
-                                                        params.put("espesorGuardaBandas", String.valueOf(Float.parseFloat(txtEspesorGuardabandas.getText().toString())));
-                                                    }
-
-
-
-
                                                     return params;
                                                 }
                                             };
@@ -1426,7 +1411,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("duracionPromedioRevestimiento", spinnerDuracionRvto.getSelectedItem().toString());
                                     params.put("deflectores", spinnerDeflectores.getSelectedItem().toString());
                                     params.put("altureCaida", txtAlturaCaida.getText().toString());
-                                    params.put("longitudImpacto", txtLongitudImpacto.getText().toString());
+                                    params.put("longitudImpacto", spinnerLongitudImpacto.getSelectedItem().toString());
                                     params.put("material", txtMaterial.getText().toString());
                                     params.put("anguloSobreCarga", txtAnguloSobrecarga.getText().toString());
                                     params.put("ataqueQuimicoTransportadora", spinnerAtaqueQuimico.getSelectedItem().toString());
@@ -1454,7 +1439,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("cauchoGuardabandas", spinnerCauchoGuardaBandas.getSelectedItem().toString());
                                     params.put("fugaDeMaterialParticulaALaSalidaDelChute", spinnerFugaMaterialesParticulados.getSelectedItem().toString());
                                     params.put("triSealMultiSeal", spinnerTreSealMultiSeal.getSelectedItem().toString());
-                                    params.put("espesorGuardaBandas", txtEspesorGuardabandas.getText().toString());
+                                    params.put("espesorGuardaBandas", spinnerEspesorGuardabandas.getSelectedItem().toString());
                                     params.put("anchoGuardaBandas", txtAnchoGuardabandas.getText().toString());
                                     params.put("largoGuardaBandas", txtLargoGuardabandas.getText().toString());
                                     params.put("protectorGuardaBandas", spinnerProtectorGuardaBandas.getSelectedItem().toString());
@@ -1470,10 +1455,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     {
                                         params.put("altureCaida", String.valueOf(Float.parseFloat(txtAlturaCaida.getText().toString())));
                                     }
-                                    if(!txtLongitudImpacto.getText().equals(""))
-                                    {
-                                        params.put("longitudImpacto", String.valueOf(Float.parseFloat(txtLongitudImpacto.getText().toString())));
-                                    }
+
                                     if(!txtAnguloSobrecarga.getText().equals(""))
                                     {
                                         params.put("anguloSobreCarga", String.valueOf(Float.parseFloat(txtAnguloSobrecarga.getText().toString())));
@@ -1530,10 +1512,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     {
                                         params.put("tempAmbienteMinTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMinimaHorizontal.getText().toString())));
                                     }
-                                    if(!txtEspesorGuardabandas.getText().equals(""))
-                                    {
-                                        params.put("espesorGuardaBandas", String.valueOf(Float.parseFloat(txtEspesorGuardabandas.getText().toString())));
-                                    }
+
 
                                     return params;
                                 }
@@ -1570,6 +1549,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         dialogParte.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogParte.setCancelable(true);
 
+        TextView tvDetalleRodilloCargaCentral=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral);
+        TextView tvDetalleRodilloCargaCentral1=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral1);
+        tvDetalleRodilloCargaCentral.setOnClickListener(this);
+        tvDetalleRodilloCargaCentral1.setOnClickListener(this);
+
         final Spinner spinnerTieneRodillosImpacto = dialogParte.findViewById(R.id.spinnerTieneRodillosImpacto);
         final Spinner spinnerCamaImpacto = dialogParte.findViewById(R.id.spinnerCamaImpacto);
         final Spinner spinnerCamaSellado = dialogParte.findViewById(R.id.spinnerCamaSellado);
@@ -1587,6 +1571,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerTipoRodilloRC= dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
         final Spinner spinnerTipoRodilloRI= dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
         final Spinner spinnerBasculaPesaje= dialogParte.findViewById(R.id.spinnerBasculaPesaje);
+        final Spinner spinnerEspesorUHMV=dialogParte.findViewById(R.id.spinnerEspesorUHMV);
+        final Spinner spinnerAnchoBarra=dialogParte.findViewById(R.id.spinnerAnchoBarra);
 
 
         final Spinner spinnerAnguloAcanalmiento1artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaCola);
@@ -1602,6 +1588,9 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         ArrayAdapter<String> adapterAcanalamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.angulosAcanalamiento);
         ArrayAdapter<String> adapterInclinacionZonaCarga = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.inclinacionZonaCarga);
         ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+        ArrayAdapter<String> adapterEspesorUHMV = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorUHMV);
+        ArrayAdapter<String> adapterAnchoBarra = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anchoBarra);
+
 
         spinnerTieneRodillosImpacto.setAdapter(adapterSiNo);
         spinnerCamaImpacto.setAdapter(adapterSiNo);
@@ -1620,6 +1609,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         spinnerTipoRodilloRC.setAdapter(adapterTipoRodillo);
         spinnerTipoRodilloRI.setAdapter(adapterTipoRodillo);
         spinnerBasculaPesaje.setAdapter(adapterSiNo);
+        spinnerEspesorUHMV.setAdapter(adapterEspesorUHMV);
+        spinnerAnchoBarra.setAdapter(adapterAnchoBarra);
 
 
         spinnerAnguloAcanalmiento1artesaPoleaCola.setAdapter(adapterAcanalamiento);
@@ -1639,8 +1630,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final TextInputEditText txtLargoTuboRodilloLateral=dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
         final TextInputEditText txtAnchoInternoChasis=dialogParte.findViewById(R.id.txtAnchoInternoChasis);
         final TextInputEditText txtAnchoExternoChasis=dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-        final TextInputEditText txtEspesorUHMV=dialogParte.findViewById(R.id.txtEspesorUHMV);
-        final TextInputEditText txtAnchoBarra=dialogParte.findViewById(R.id.txtAnchoBarra);
+
+
         final TextInputEditText txtLargoBarra=dialogParte.findViewById(R.id.txtLargoBarra);
 
 
@@ -1708,8 +1699,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("barraImpacto", spinnerBarrasImpacto.getSelectedItem().toString());
                                                     params.put("basculaASGCO", spinnerBasculaASGCO.getSelectedItem().toString());
                                                     params.put("barraDeslizamiento", spinnerBarrasDeslizamiento.getSelectedItem().toString());
-                                                    params.put("espesorUHMV", txtEspesorUHMV.getText().toString());
-                                                    params.put("anchoBarra", txtAnchoBarra.getText().toString());
+                                                    params.put("espesorUHMV", spinnerEspesorUHMV.getSelectedItem().toString());
+                                                    params.put("anchoBarra", spinnerAnchoBarra.getSelectedItem().toString());
                                                     params.put("largoBarra", txtLargoBarra.getText().toString());
                                                     params.put("anguloAcanalamientoArtesa1", spinnerAnguloAcanalmiento1artesaPoleaCola.getSelectedItem().toString());
                                                     params.put("anguloAcanalamientoArtesa2", spinnerAnguloAcanalmiento2artesaPoleaCola.getSelectedItem().toString());
@@ -1739,15 +1730,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("tipoRodilloImpacto", spinnerTipoRodilloRI.getSelectedItem().toString());
                                                     params.put("diametroRodilloCentralCarga", txtDiametroRodilloCentral.getText().toString());
 
-                                                    if(!txtEspesorUHMV.getText().equals(""))
-                                                    {
-                                                        params.put("espesorUHMV", String.valueOf(Float.parseFloat(txtEspesorUHMV.getText().toString())));
-                                                    }
-                                                    if(!txtAnchoBarra.getText().equals(""))
-                                                    {
-                                                        params.put("anchoBarra", String.valueOf(Float.parseFloat(txtAnchoBarra.getText().toString())));
-
-                                                    }
                                                     if(!txtLargoBarra.getText().equals(""))
                                                     {
                                                         params.put("largoBarra", String.valueOf(Float.parseFloat(txtLargoBarra.getText().toString())));
@@ -1870,8 +1852,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("barraImpacto", spinnerBarrasImpacto.getSelectedItem().toString());
                                     params.put("basculaASGCO", spinnerBasculaASGCO.getSelectedItem().toString());
                                     params.put("barraDeslizamiento", spinnerBarrasDeslizamiento.getSelectedItem().toString());
-                                    params.put("espesorUHMV", txtEspesorUHMV.getText().toString());
-                                    params.put("anchoBarra", txtAnchoBarra.getText().toString());
+                                    params.put("espesorUHMV", spinnerEspesorUHMV.getSelectedItem().toString());
+                                    params.put("anchoBarra", spinnerAnchoBarra.getSelectedItem().toString());
                                     params.put("largoBarra", txtLargoBarra.getText().toString());
                                     params.put("anguloAcanalamientoArtesa1", spinnerAnguloAcanalmiento1artesaPoleaCola.getSelectedItem().toString());
                                     params.put("anguloAcanalamientoArtesa2", spinnerAnguloAcanalmiento2artesaPoleaCola.getSelectedItem().toString());
@@ -1901,15 +1883,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("tipoRodilloImpacto", spinnerTipoRodilloRI.getSelectedItem().toString());
                                     params.put("diametroRodilloCentralCarga", txtDiametroRodilloCentral.getText().toString());
 
-                                    if(!txtEspesorUHMV.getText().equals(""))
-                                    {
-                                        params.put("espesorUHMV", String.valueOf(Float.parseFloat(txtEspesorUHMV.getText().toString())));
-                                    }
-                                    if(!txtAnchoBarra.getText().equals(""))
-                                    {
-                                        params.put("anchoBarra", String.valueOf(Float.parseFloat(txtAnchoBarra.getText().toString())));
 
-                                    }
                                     if(!txtLargoBarra.getText().equals(""))
                                     {
                                         params.put("largoBarra", String.valueOf(Float.parseFloat(txtLargoBarra.getText().toString())));
@@ -2213,7 +2187,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         final TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaMotrizHorizontal);
         final TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
-        final TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaMotrizHorizontal);
+        final TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaColaHorizontal);
         final TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaMotrizHorizontal);
         final TextInputEditText txtHpMotor = dialogParte.findViewById(R.id.txtPotenciaMotorHorizontal);
         final TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPMotrizHorizontal);
@@ -2480,7 +2454,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerMaterialAceitosoGrasosoLP = dialogParte.findViewById(R.id.spinnerMaterialAceitosoGrasosoLP);
 
         final Spinner spinnerMarcaLP = dialogParte.findViewById(R.id.spinnerMarcaLP);
-        final Spinner spinnerReferenciaLP = dialogParte.findViewById(R.id.spinnerReferenciaLP);
+        final TextInputEditText txtReferenciaLP = dialogParte.findViewById(R.id.txtReferenciaLP);
         final Spinner spinnerEstadoCuchillaLP = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLP);
         final Spinner spinnerEstadoTensorLP = dialogParte.findViewById(R.id.spinnerEstadoTensorLP);
         final Spinner spinnerEstadoTuboLP = dialogParte.findViewById(R.id.spinnerEstadoTuboLP);
@@ -2493,7 +2467,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         ArrayAdapter<String> adapterFrecRevisionCuchilla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.frecuenciaRevision);
         ArrayAdapter<String> adapterLadosPasarela = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.ladoPasarela);
         ArrayAdapter<String> adapterMarcaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaLimpiador);
-        ArrayAdapter<String> adapterReferenciaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.referenciaLimpiador);
+
 
         spinnerMaterialAlimenticioLP.setAdapter(adapterSiNo);
         spinnerMaterialAcidoLP.setAdapter(adapterSiNo);
@@ -2511,7 +2485,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         spinnerFrecRevisionCuchillaLP.setAdapter(adapterFrecRevisionCuchilla);
         spinnerLadoPasarelaSentidoBanda.setAdapter(adapterLadosPasarela);
         spinnerMarcaLP.setAdapter(adapterMarcaLimpiador);
-        spinnerReferenciaLP.setAdapter(adapterReferenciaLimpiador);
+
 
         final TextInputEditText txtAnchoEstructura = dialogParte.findViewById(R.id.txtAnchoEstructuraLP);
         final TextInputEditText txtAnchoTrayectoCarga = dialogParte.findViewById(R.id.txtAnchoTrayectoCargaLP);
@@ -2581,7 +2555,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("materialPegajosoTransportadora", spinnerMaterialPegajosoLP.getSelectedItem().toString());
                                                     params.put("materialGrasosoAceitosoTransportadora", spinnerMaterialAceitosoGrasosoLP.getSelectedItem().toString());
                                                     params.put("marcaLimpiadorPrimario", spinnerMarcaLP.getSelectedItem().toString());
-                                                    params.put("referenciaLimpiadorPrimario", spinnerReferenciaLP.getSelectedItem().toString());
+                                                    params.put("referenciaLimpiadorPrimario", txtReferenciaLP.getText().toString());
                                                     params.put("anchoCuchillaLimpiadorPrimario", txtAnchoCuchillaLP.getText().toString());
                                                     params.put("altoCuchillaLimpiadorPrimario", txtAltoCuchillaLP.getText().toString());
                                                     params.put("estadoCuchillaLimpiadorPrimario", spinnerEstadoCuchillaLP.getSelectedItem().toString());
@@ -2677,7 +2651,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("materialPegajosoTransportadora", spinnerMaterialPegajosoLP.getSelectedItem().toString());
                                     params.put("materialGrasosoAceitosoTransportadora", spinnerMaterialAceitosoGrasosoLP.getSelectedItem().toString());
                                     params.put("marcaLimpiadorPrimario", spinnerMarcaLP.getSelectedItem().toString());
-                                    params.put("referenciaLimpiadorPrimario", spinnerReferenciaLP.getSelectedItem().toString());
+                                    params.put("referenciaLimpiadorPrimario", txtReferenciaLP.getText().toString());
                                     params.put("anchoCuchillaLimpiadorPrimario", txtAnchoCuchillaLP.getText().toString());
                                     params.put("altoCuchillaLimpiadorPrimario", txtAltoCuchillaLP.getText().toString());
                                     params.put("estadoCuchillaLimpiadorPrimario", spinnerEstadoCuchillaLP.getSelectedItem().toString());
@@ -2744,7 +2718,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
 
         final Spinner spinnerMarcaLS = dialogParte.findViewById(R.id.spinnerMarcaLS);
-        final Spinner spinnerReferenciaLS = dialogParte.findViewById(R.id.spinnerReferenciaLS);
+        final TextInputEditText txtReferenciaLS = dialogParte.findViewById(R.id.txtReferenciaLS);
         final Spinner spinnerEstadoCuchillaLS = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLS);
         final Spinner spinnerEstadoTensorLS = dialogParte.findViewById(R.id.spinnerEstadoTensorLS);
         final Spinner spinnerEstadoTuboLS = dialogParte.findViewById(R.id.spinnerEstadoTuboLS);
@@ -2753,7 +2727,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerSistemaDribbleChuteLS = dialogParte.findViewById(R.id.spinnerSistemaDribbleChuteLS);
 
         final Spinner spinnerMarcaLT = dialogParte.findViewById(R.id.spinnerMarcaLT);
-        final Spinner spinnerReferenciaLT = dialogParte.findViewById(R.id.spinnerReferenciaLT);
+        final TextInputEditText txtReferenciaLT = dialogParte.findViewById(R.id.txtReferenciaLT);
         final Spinner spinnerEstadoCuchillaLT = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLT);
         final Spinner spinnerEstadoTensorLT = dialogParte.findViewById(R.id.spinnerEstadoTensorLT);
         final Spinner spinnerEstadoTuboLT = dialogParte.findViewById(R.id.spinnerEstadoTuboLT);
@@ -2765,13 +2739,10 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
         ArrayAdapter<String> adapterFrecRevisionCuchilla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.frecuenciaRevision);
         ArrayAdapter<String> adapterMarcaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaLimpiador);
-        ArrayAdapter<String> adapterReferenciaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.referenciaLimpiador);
+
 
         spinnerMarcaLS.setAdapter(adapterMarcaLimpiador);
         spinnerMarcaLT.setAdapter(adapterMarcaLimpiador);
-
-        spinnerReferenciaLS.setAdapter(adapterReferenciaLimpiador);
-        spinnerReferenciaLT.setAdapter(adapterReferenciaLimpiador);
 
         spinnerEstadoTensorLS.setAdapter(adapterEstadoPartes);
         spinnerEstadoTensorLT.setAdapter(adapterEstadoPartes);
@@ -2847,7 +2818,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                 protected Map<String, String> getParams() {
                                                     Map<String, String> params = new HashMap<>();
                                                     params.put("marcaLimpiadorSecundario", spinnerMarcaLS.getSelectedItem().toString());
-                                                    params.put("referenciaLimpiadorSecundario", spinnerReferenciaLS.getSelectedItem().toString());
+                                                    params.put("referenciaLimpiadorSecundario", txtReferenciaLS.getText().toString());
                                                     params.put("anchoCuchillaLimpiadorSecundario", txtAnchoCuchillaLS.getText().toString());
                                                     params.put("altoCuchillaLimpiadorSecundario", txtAltoCuchillaLS.getText().toString());
                                                     params.put("estadoCuchillaLimpiadorSecundario", spinnerEstadoCuchillaLS.getSelectedItem().toString());
@@ -2858,7 +2829,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("sistemaDribbleChute", spinnerSistemaDribbleChuteLS.getSelectedItem().toString());
 
                                                     params.put("marcaLimpiadorTerciario", spinnerMarcaLT.getSelectedItem().toString());
-                                                    params.put("referenciaLimpiadorTerciario", spinnerReferenciaLT.getSelectedItem().toString());
+                                                    params.put("referenciaLimpiadorTerciario", txtReferenciaLT.getText().toString());
                                                     params.put("anchoCuchillaLimpiadorTerciario", txtAnchoCuchillaLT.getText().toString());
                                                     params.put("altoCuchillaLimpiadorTerciario", txtAltoCuchillaLT.getText().toString());
                                                     params.put("estadoCuchillaLimpiadorTerciario", spinnerEstadoCuchillaLT.getSelectedItem().toString());
@@ -2944,7 +2915,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("idRegistro", FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
 
                                     params.put("marcaLimpiadorSecundario", spinnerMarcaLS.getSelectedItem().toString());
-                                    params.put("referenciaLimpiadorSecundario", spinnerReferenciaLS.getSelectedItem().toString());
+                                    params.put("referenciaLimpiadorSecundario", txtReferenciaLS.getText().toString());
                                     params.put("anchoCuchillaLimpiadorSecundario", txtAnchoCuchillaLS.getText().toString());
                                     params.put("altoCuchillaLimpiadorSecundario", txtAltoCuchillaLS.getText().toString());
                                     params.put("estadoCuchillaLimpiadorSecundario", spinnerEstadoCuchillaLS.getSelectedItem().toString());
@@ -2955,7 +2926,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("sistemaDribbleChute", spinnerSistemaDribbleChuteLS.getSelectedItem().toString());
 
                                     params.put("marcaLimpiadorTerciario", spinnerMarcaLT.getSelectedItem().toString());
-                                    params.put("referenciaLimpiadorTerciario", spinnerReferenciaLT.getSelectedItem().toString());
+                                    params.put("referenciaLimpiadorTerciario", txtReferenciaLT.getText().toString());
                                     params.put("anchoCuchillaLimpiadorTerciario", txtAnchoCuchillaLT.getText().toString());
                                     params.put("altoCuchillaLimpiadorTerciario", txtAltoCuchillaLT.getText().toString());
                                     params.put("estadoCuchillaLimpiadorTerciario", spinnerEstadoCuchillaLT.getSelectedItem().toString());
@@ -4387,11 +4358,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                 }
                 break;
 
-            case R.id.txtAnchoCauchoVPlow:
-            case R.id.txtEspesorCauchoVPlow:
+            case R.id.spinnerAnchoCauchoVPlow:
+
                 if (!hasFocus) {
-                    EditText txtDiametroRosca = dialogParte.findViewById(R.id.txtAnchoCauchoVPlow);
-                    EditText txtDiametroRosca1 = dialogParte.findViewById(R.id.txtEspesorCauchoVPlow);
+                    EditText txtDiametroRosca = dialogParte.findViewById(R.id.spinnerAnchoCauchoVPlow);
+
                     if (!txtDiametroRosca.getText().toString().equals("")) {
                         float numero = Float.parseFloat(txtDiametroRosca.getText().toString());
                         if (numero < 50 || numero > 305) {
@@ -4399,13 +4370,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             txtDiametroRosca.setError("Éste valor debe estar entre 50mm - 305mm");
                         }
                     }
-                    if (!txtDiametroRosca1.getText().toString().equals("")) {
-                        float numero = Float.parseFloat(txtDiametroRosca1.getText().toString());
-                        if (numero < 6.4 || numero > 25.4) {
-                            txtDiametroRosca1.setText("");
-                            txtDiametroRosca1.setError("Éste valor debe estar entre 6.4mm - 25.4mm");
-                        }
-                    }
+
                 }
                 break;
 
@@ -4479,10 +4444,10 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                 break;
 
             case R.id.txtAnchoPoleaMotrizHorizontal:
-            case R.id.txtDiametroEjePoleaMotrizHorizontal:
+
                 if (!hasFocus) {
                     EditText txtDiametroRosca = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
-                    EditText txtDiametroRosca1 = dialogParte.findViewById(R.id.txtDiametroEjePoleaMotrizHorizontal);
+
 
                     if (!txtDiametroRosca.getText().toString().equals("")) {
                         float numero = Float.parseFloat(txtDiametroRosca.getText().toString());
@@ -4491,13 +4456,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             txtDiametroRosca.setError("Éste valor debe estar entre 2\" / 50mm -  106.3\" / 2700mm");
                         }
                     }
-                    if (!txtDiametroRosca1.getText().toString().equals("")) {
-                        float numero = Float.parseFloat(txtDiametroRosca1.getText().toString());
-                        if (numero < 50 || numero > 2700) {
-                            txtDiametroRosca1.setText("");
-                            txtDiametroRosca1.setError("Éste valor debe estar entre 2\" / 50mm -  106.3\" / 2700mm");
-                        }
-                    }
+
                 }
                 break;
 
@@ -4513,6 +4472,17 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                     }
                 }
                 break;
+
+            case R.id.txtDiametroEjePoleaColaHorizontal:
+                EditText txtDiametroRosca = dialogParte.findViewById(R.id.txtDiametroEjePoleaColaHorizontal);
+
+                if (!txtDiametroRosca.getText().toString().equals("")) {
+                    float numero = Float.parseFloat(txtDiametroRosca.getText().toString());
+                    if (numero < 1 || numero > 25) {
+                        txtDiametroRosca.setText("");
+                        txtDiametroRosca.setError("Éste valor debe estar entre 0.03\" / 1mm -  0.9\" / 25mm");
+                    }
+                }
         }
 
     }
@@ -4568,6 +4538,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
             case R.id.tvAnguloAmarrePC:
             case R.id.tvAnguloAmarrePMHorizontal:
                 abrirDialogParte("Angulo Amarre");
+                break;
+
+            case R.id.tvDetalleRodilloCargaCentral:
+            case R.id.tvDetalleRodilloCargaCentral1:
+                abrirDialogParte("Detalle Rodillo");
                 break;
         }
 
@@ -4658,6 +4633,18 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                 dialogParte.setCancelable(true);
                 dialogParte.show();
                 break;
+
+            case "Detalle Rodillo":
+                dialogParte = new Dialog(getContext());
+                dialogParte.setContentView(R.layout.mas_detalles);
+                imgParte = dialogParte.findViewById(R.id.imgMasDetalles);
+                imgParte.setImageResource(R.drawable.detalle_rodillo);
+                imgParte.getLayoutParams().width= ViewGroup.LayoutParams.WRAP_CONTENT;
+                imgParte.getLayoutParams().height=1200;
+                imgParte.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));
+                dialogParte.setCancelable(true);
+                dialogParte.show();
+                break;
         }
 
     }
@@ -4666,140 +4653,144 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         switch (parte) {
             case "Banda":
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
-                        final Spinner spinnerMarcaBanda = dialogParte.findViewById(R.id.spinnerMarcaBandaHorizontal);
-                        final Spinner spinnerNoLonas = dialogParte.findViewById(R.id.spinnerNoLonasHorizontal);
-                        final Spinner spinnerTipoLona = dialogParte.findViewById(R.id.spinnerTipoDeLonaHorizontal);
-                        final Spinner spinnerTipoCubierta = dialogParte.findViewById(R.id.spinnerTipoCubiertaHorizontal);
-                        final Spinner spinnerTipoEmpalme = dialogParte.findViewById(R.id.spinnerTipoEmpalmeHorizontal);
-                        final Spinner spinnerEstadoEmpalme = dialogParte.findViewById(R.id.spinnerEstadoEmpalmeHorizontal);
-                        final Spinner spinnerResistenciaRotura = dialogParte.findViewById(R.id.spinnerResistenciaRoturaLonaHorizontal);
-                        final Spinner spinnerLocTensor = dialogParte.findViewById(R.id.spinnerLocalizacionTensor);
-                        final Spinner spinnerBandReversible = dialogParte.findViewById(R.id.spinnerBandaReversible);
-                        final Spinner spinnerBandaArrastre = dialogParte.findViewById(R.id.spinnerBandaDeArrastre);
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+                            final Spinner spinnerMarcaBanda = dialogParte.findViewById(R.id.spinnerMarcaBandaHorizontal);
+                            final Spinner spinnerNoLonas = dialogParte.findViewById(R.id.spinnerNoLonasHorizontal);
+                            final Spinner spinnerTipoLona = dialogParte.findViewById(R.id.spinnerTipoDeLonaHorizontal);
+                            final Spinner spinnerTipoCubierta = dialogParte.findViewById(R.id.spinnerTipoCubiertaHorizontal);
+                            final Spinner spinnerTipoEmpalme = dialogParte.findViewById(R.id.spinnerTipoEmpalmeHorizontal);
+                            final Spinner spinnerEstadoEmpalme = dialogParte.findViewById(R.id.spinnerEstadoEmpalmeHorizontal);
+                            final Spinner spinnerResistenciaRotura = dialogParte.findViewById(R.id.spinnerResistenciaRoturaLonaHorizontal);
+                            final Spinner spinnerLocTensor = dialogParte.findViewById(R.id.spinnerLocalizacionTensor);
+                            final Spinner spinnerBandReversible = dialogParte.findViewById(R.id.spinnerBandaReversible);
+                            final Spinner spinnerBandaArrastre = dialogParte.findViewById(R.id.spinnerBandaDeArrastre);
 
 
-                        final Spinner spinnerMarcaBandaAnterior = dialogParte.findViewById(R.id.spinnerMarcaBandaHorizontalAnterior);
-                        final Spinner spinnerNoLonasAnterior = dialogParte.findViewById(R.id.spinnerNoLonasHorizontalAnterior);
-                        final Spinner spinnerTipoLonaAnterior = dialogParte.findViewById(R.id.spinnerTipoDeLonaHorizontalAnterior);
-                        final Spinner spinnerTipoCubiertaAnterior = dialogParte.findViewById(R.id.spinnerTipoCubiertaHorizontalAnterior);
-                        final Spinner spinnerTipoEmpalmeAnterior = dialogParte.findViewById(R.id.spinnerTipoEmpalmeHorizontalAnterior);
-                        final Spinner spinnerResistenciaRoturaAnterior = dialogParte.findViewById(R.id.spinnerResistenciaRoturaLonaHorizontalAnterior);
+                            final Spinner spinnerMarcaBandaAnterior = dialogParte.findViewById(R.id.spinnerMarcaBandaHorizontalAnterior);
+                            final Spinner spinnerNoLonasAnterior = dialogParte.findViewById(R.id.spinnerNoLonasHorizontalAnterior);
+                            final Spinner spinnerTipoLonaAnterior = dialogParte.findViewById(R.id.spinnerTipoDeLonaHorizontalAnterior);
+                            final Spinner spinnerTipoCubiertaAnterior = dialogParte.findViewById(R.id.spinnerTipoCubiertaHorizontalAnterior);
+                            final Spinner spinnerTipoEmpalmeAnterior = dialogParte.findViewById(R.id.spinnerTipoEmpalmeHorizontalAnterior);
+                            final Spinner spinnerResistenciaRoturaAnterior = dialogParte.findViewById(R.id.spinnerResistenciaRoturaLonaHorizontalAnterior);
 
-                        final TextInputEditText txtAnchoBanda = dialogParte.findViewById(R.id.txtAnchoBandaHorizontal);
-                        final TextInputEditText txtEspesorTotal = dialogParte.findViewById(R.id.txtEpesorTotalHorizontal);
-                        final TextInputEditText txtEspCubSup = dialogParte.findViewById(R.id.txtCubSupHorizontal);
-                        final TextInputEditText txtEspCubInf = dialogParte.findViewById(R.id.txtCubInfHorizontal);
-                        final TextInputEditText txtEspCojin = dialogParte.findViewById(R.id.txtEspesorCojinHorizontal);
-                        final TextInputEditText txtVelocidadBanda = dialogParte.findViewById(R.id.txtVelocidadBandaHorizontal);
+                            final TextInputEditText txtAnchoBanda = dialogParte.findViewById(R.id.txtAnchoBandaHorizontal);
+                            final TextInputEditText txtEspesorTotal = dialogParte.findViewById(R.id.txtEpesorTotalHorizontal);
+                            final TextInputEditText txtEspCubSup = dialogParte.findViewById(R.id.txtCubSupHorizontal);
+                            final TextInputEditText txtEspCubInf = dialogParte.findViewById(R.id.txtCubInfHorizontal);
+                            final TextInputEditText txtEspCojin = dialogParte.findViewById(R.id.txtEspesorCojinHorizontal);
+                            final TextInputEditText txtVelocidadBanda = dialogParte.findViewById(R.id.txtVelocidadBandaHorizontal);
 
-                        final TextInputEditText txtDistanciEntrePoleas = dialogParte.findViewById(R.id.txtDistanciaEntrePoleas);
-                        final TextInputEditText txtInclinacion = dialogParte.findViewById(R.id.txtInclinacion);
-                        final TextInputEditText txtRecorridoUtilTensor = dialogParte.findViewById(R.id.txtRecorridoUtilTensor);
-                        final TextInputEditText txtLongitudSinfin = dialogParte.findViewById(R.id.txtLongitudSinfinBanda);
-                        final TextInputEditText txtTonsTransportadas = dialogParte.findViewById(R.id.txtTonsTransportadasBandaAnterior);
+                            final TextInputEditText txtDistanciEntrePoleas = dialogParte.findViewById(R.id.txtDistanciaEntrePoleas);
+                            final TextInputEditText txtInclinacion = dialogParte.findViewById(R.id.txtInclinacion);
+                            final TextInputEditText txtRecorridoUtilTensor = dialogParte.findViewById(R.id.txtRecorridoUtilTensor);
+                            final TextInputEditText txtLongitudSinfin = dialogParte.findViewById(R.id.txtLongitudSinfinBanda);
+                            final TextInputEditText txtTonsTransportadas = dialogParte.findViewById(R.id.txtTonsTransportadasBandaAnterior);
 
-                        final TextInputEditText txtAnchoBandaAnterior = dialogParte.findViewById(R.id.txtAnchoBandaHorizontalAnterior);
-                        final TextInputEditText txtEspesorTotalAnterior = dialogParte.findViewById(R.id.txtEspesorTotalHorizontalAnterior);
-                        final TextInputEditText txtEspCubSupAnterior = dialogParte.findViewById(R.id.txtCubSupHorizontalAnterior);
-                        final TextInputEditText txtEspCubInfAnterior = dialogParte.findViewById(R.id.txtCubInfHorizontalAnterior);
-                        final TextInputEditText txtEspCojinAnterior = dialogParte.findViewById(R.id.txtEspesorCojinHorizontalAnterior);
-                        final TextInputEditText txtCausaFallo = dialogParte.findViewById(R.id.txtCausaFallaBandaAnterior);
-
-
-                        ArrayAdapter<String> adapterMarcaBanda = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaBanda);
-                        spinnerMarcaBanda.setAdapter(adapterMarcaBanda);
-                        spinnerMarcaBandaAnterior.setAdapter(adapterMarcaBanda);
-
-                        ArrayAdapter<String> adapterNoLonas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.noLonas);
-                        spinnerNoLonas.setAdapter(adapterNoLonas);
-                        spinnerNoLonasAnterior.setAdapter(adapterNoLonas);
-
-                        ArrayAdapter<String> adapterTipoLonas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoLona);
-                        spinnerTipoLona.setAdapter(adapterTipoLonas);
-                        spinnerTipoLonaAnterior.setAdapter(adapterTipoLonas);
-
-                        ArrayAdapter<String> adapterTipoCubierta = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoCubierta);
-                        spinnerTipoCubierta.setAdapter(adapterTipoCubierta);
-                        spinnerTipoCubiertaAnterior.setAdapter(adapterTipoCubierta);
-
-                        ArrayAdapter<String> adapterTipoEmpalme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoEmpalme);
-                        spinnerTipoEmpalme.setAdapter(adapterTipoEmpalme);
-                        spinnerTipoEmpalmeAnterior.setAdapter(adapterTipoEmpalme);
-
-                        ArrayAdapter<String> adapterEstadoEmpalme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        spinnerEstadoEmpalme.setAdapter(adapterEstadoEmpalme);
-
-                        ArrayAdapter<String> adapterRoturaLona = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.resistenciaRoturaLona);
-                        spinnerResistenciaRotura.setAdapter(adapterRoturaLona);
-                        spinnerResistenciaRoturaAnterior.setAdapter(adapterRoturaLona);
-
-                        ArrayAdapter<String> adapterLocTensor = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.localizacionTensor);
-                        spinnerLocTensor.setAdapter(adapterLocTensor);
-
-                        ArrayAdapter<String> adapterBandaReversible = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerBandReversible.setAdapter(adapterBandaReversible);
-
-                        ArrayAdapter<String> adapterBandaArastre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerBandaArrastre.setAdapter(adapterBandaArastre);
-
-                        int p1 = adapterMarcaBanda.getPosition(Login.loginJsons.get(i).getMarcaBandaTransportadora());
-                        int p2 = adapterMarcaBanda.getPosition(Login.loginJsons.get(i).getMarcaBandaHorizontalAnterior());
-                        int p4 = adapterNoLonas.getPosition(Login.loginJsons.get(i).getNoLonasBandaTransportadora());
-                        int p5 = adapterNoLonas.getPosition(Login.loginJsons.get(i).getNoLonasBandaHorizontalAnterior());
-                        int p6 = adapterTipoLonas.getPosition(Login.loginJsons.get(i).getTipoLonaBandaTranportadora());
-                        int p7 = adapterTipoLonas.getPosition(Login.loginJsons.get(i).getTipoLonaBandaHorizontalAnterior());
-                        int p8 = adapterTipoCubierta.getPosition(Login.loginJsons.get(i).getTipoCubiertaTransportadora());
-                        int p9 = adapterTipoCubierta.getPosition(Login.loginJsons.get(i).getTipoCubiertaBandaHorizontalAnterior());
-                        int p10 = adapterTipoEmpalme.getPosition(Login.loginJsons.get(i).getTipoEmpalmeTransportadora());
-                        int p11 = adapterTipoEmpalme.getPosition(Login.loginJsons.get(i).getTipoEmpalmeBandaHorizontalAnterior());
-                        int p12 = adapterRoturaLona.getPosition(Login.loginJsons.get(i).getResistenciaRoturaLonaTransportadora());
-                        int p13 = adapterRoturaLona.getPosition(Login.loginJsons.get(i).getResistenciaRoturaLonaBandaHorizontalAnterior());
-                        int p14 = adapterBandaReversible.getPosition(Login.loginJsons.get(i).getBandaReversible());
-                        int p15 = adapterBandaArastre.getPosition(Login.loginJsons.get(i).getBandaDeArrastre());
-                        int p16 = adapterEstadoEmpalme.getPosition(Login.loginJsons.get(i).getEstadoEmpalmeTransportadora());
-                        int p17 = adapterLocTensor.getPosition(Login.loginJsons.get(i).getLocalizacionTensorTransportadora());
-
-                        spinnerMarcaBanda.setSelection(p1);
-                        spinnerMarcaBandaAnterior.setSelection(p2);
-                        spinnerNoLonas.setSelection(p4);
-                        spinnerNoLonasAnterior.setSelection(p5);
-                        spinnerTipoLona.setSelection(p6);
-                        spinnerTipoLonaAnterior.setSelection(p7);
-                        spinnerTipoCubierta.setSelection(p8);
-                        spinnerTipoCubiertaAnterior.setSelection(p9);
-                        spinnerTipoEmpalme.setSelection(p10);
-                        spinnerTipoEmpalmeAnterior.setSelection(p11);
-                        spinnerResistenciaRotura.setSelection(p12);
-                        spinnerResistenciaRoturaAnterior.setSelection(p13);
-                        spinnerBandReversible.setSelection(p14);
-                        spinnerBandaArrastre.setSelection(p15);
-                        spinnerEstadoEmpalme.setSelection(p16);
-                        spinnerLocTensor.setSelection(p17);
-
-                        txtAnchoBandaAnterior.setText(Login.loginJsons.get(i).getAnchoBandaHorizontalAnterior());
-                        txtEspesorTotalAnterior.setText(Login.loginJsons.get(i).getEspesorTotalBandaHorizontalAnterior());
-                        txtEspCubSupAnterior.setText(Login.loginJsons.get(i).getEspesorCubiertaSuperiorBandaHorizontalAnterior());
-                        txtEspCubInfAnterior.setText(Login.loginJsons.get(i).getEspesorCubiertaInferiorBandaHorizontalAnterior());
-                        txtEspCojinAnterior.setText(Login.loginJsons.get(i).getEspesorCojinBandaHorizontalAnterior());
-                        txtCausaFallo.setText(Login.loginJsons.get(i).getCausaFallaCambioBandaHorizontal());
-
-                        txtAnchoBanda.setText(Login.loginJsons.get(i).getAnchoBandaTransportadora());
-                        txtEspesorTotal.setText(Login.loginJsons.get(i).getEspesorTotalBandaTransportadora());
-                        txtEspCubSup.setText(Login.loginJsons.get(i).getEspesorCubiertaSuperiorTransportadora());
-                        txtEspCubInf.setText(Login.loginJsons.get(i).getEspesorCubiertaInferiorTransportadora());
-                        txtEspCojin.setText(Login.loginJsons.get(i).getEspesorCojinTransportadora());
-                        txtVelocidadBanda.setText(Login.loginJsons.get(i).getVelocidadBandaHorizontal());
-
-                        txtDistanciEntrePoleas.setText(Login.loginJsons.get(i).getDistanciaEntrePoleasBandaHorizontal());
-                        txtInclinacion.setText(Login.loginJsons.get(i).getInclinacionBandaHorizontal());
-                        txtRecorridoUtilTensor.setText(Login.loginJsons.get(i).getRecorridoUtilTensorBandaHorizontal());
-                        txtLongitudSinfin.setText(Login.loginJsons.get(i).getLongitudSinfinBandaHorizontal());
-                        txtTonsTransportadas.setText(Login.loginJsons.get(i).getTonsTransportadasBandaHoizontalAnterior());
-
-                        i = Login.loginJsons.size() + 1;
+                            final TextInputEditText txtAnchoBandaAnterior = dialogParte.findViewById(R.id.txtAnchoBandaHorizontalAnterior);
+                            final TextInputEditText txtEspesorTotalAnterior = dialogParte.findViewById(R.id.txtEspesorTotalHorizontalAnterior);
+                            final TextInputEditText txtEspCubSupAnterior = dialogParte.findViewById(R.id.txtCubSupHorizontalAnterior);
+                            final TextInputEditText txtEspCubInfAnterior = dialogParte.findViewById(R.id.txtCubInfHorizontalAnterior);
+                            final TextInputEditText txtEspCojinAnterior = dialogParte.findViewById(R.id.txtEspesorCojinHorizontalAnterior);
+                            final TextInputEditText txtCausaFallo = dialogParte.findViewById(R.id.txtCausaFallaBandaAnterior);
 
 
+                            ArrayAdapter<String> adapterMarcaBanda = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaBanda);
+                            spinnerMarcaBanda.setAdapter(adapterMarcaBanda);
+                            spinnerMarcaBandaAnterior.setAdapter(adapterMarcaBanda);
+
+                            ArrayAdapter<String> adapterNoLonas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.noLonas);
+                            spinnerNoLonas.setAdapter(adapterNoLonas);
+                            spinnerNoLonasAnterior.setAdapter(adapterNoLonas);
+
+                            ArrayAdapter<String> adapterTipoLonas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoLona);
+                            spinnerTipoLona.setAdapter(adapterTipoLonas);
+                            spinnerTipoLonaAnterior.setAdapter(adapterTipoLonas);
+
+                            ArrayAdapter<String> adapterTipoCubierta = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoCubierta);
+                            spinnerTipoCubierta.setAdapter(adapterTipoCubierta);
+                            spinnerTipoCubiertaAnterior.setAdapter(adapterTipoCubierta);
+
+                            ArrayAdapter<String> adapterTipoEmpalme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoEmpalme);
+                            spinnerTipoEmpalme.setAdapter(adapterTipoEmpalme);
+                            spinnerTipoEmpalmeAnterior.setAdapter(adapterTipoEmpalme);
+
+                            ArrayAdapter<String> adapterEstadoEmpalme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            spinnerEstadoEmpalme.setAdapter(adapterEstadoEmpalme);
+
+                            ArrayAdapter<String> adapterRoturaLona = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.resistenciaRoturaLona);
+                            spinnerResistenciaRotura.setAdapter(adapterRoturaLona);
+                            spinnerResistenciaRoturaAnterior.setAdapter(adapterRoturaLona);
+
+                            ArrayAdapter<String> adapterLocTensor = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.localizacionTensor);
+                            spinnerLocTensor.setAdapter(adapterLocTensor);
+
+                            ArrayAdapter<String> adapterBandaReversible = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerBandReversible.setAdapter(adapterBandaReversible);
+
+                            ArrayAdapter<String> adapterBandaArastre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerBandaArrastre.setAdapter(adapterBandaArastre);
+
+                            int p1 = adapterMarcaBanda.getPosition(Login.loginJsons.get(i).getMarcaBandaTransportadora());
+                            int p2 = adapterMarcaBanda.getPosition(Login.loginJsons.get(i).getMarcaBandaHorizontalAnterior());
+                            int p4 = adapterNoLonas.getPosition(Login.loginJsons.get(i).getNoLonasBandaTransportadora());
+                            int p5 = adapterNoLonas.getPosition(Login.loginJsons.get(i).getNoLonasBandaHorizontalAnterior());
+                            int p6 = adapterTipoLonas.getPosition(Login.loginJsons.get(i).getTipoLonaBandaTranportadora());
+                            int p7 = adapterTipoLonas.getPosition(Login.loginJsons.get(i).getTipoLonaBandaHorizontalAnterior());
+                            int p8 = adapterTipoCubierta.getPosition(Login.loginJsons.get(i).getTipoCubiertaTransportadora());
+                            int p9 = adapterTipoCubierta.getPosition(Login.loginJsons.get(i).getTipoCubiertaBandaHorizontalAnterior());
+                            int p10 = adapterTipoEmpalme.getPosition(Login.loginJsons.get(i).getTipoEmpalmeTransportadora());
+                            int p11 = adapterTipoEmpalme.getPosition(Login.loginJsons.get(i).getTipoEmpalmeBandaHorizontalAnterior());
+                            int p12 = adapterRoturaLona.getPosition(Login.loginJsons.get(i).getResistenciaRoturaLonaTransportadora());
+                            int p13 = adapterRoturaLona.getPosition(Login.loginJsons.get(i).getResistenciaRoturaLonaBandaHorizontalAnterior());
+                            int p14 = adapterBandaReversible.getPosition(Login.loginJsons.get(i).getBandaReversible());
+                            int p15 = adapterBandaArastre.getPosition(Login.loginJsons.get(i).getBandaDeArrastre());
+                            int p16 = adapterEstadoEmpalme.getPosition(Login.loginJsons.get(i).getEstadoEmpalmeTransportadora());
+                            int p17 = adapterLocTensor.getPosition(Login.loginJsons.get(i).getLocalizacionTensorTransportadora());
+
+                            spinnerMarcaBanda.setSelection(p1);
+                            spinnerMarcaBandaAnterior.setSelection(p2);
+                            spinnerNoLonas.setSelection(p4);
+                            spinnerNoLonasAnterior.setSelection(p5);
+                            spinnerTipoLona.setSelection(p6);
+                            spinnerTipoLonaAnterior.setSelection(p7);
+                            spinnerTipoCubierta.setSelection(p8);
+                            spinnerTipoCubiertaAnterior.setSelection(p9);
+                            spinnerTipoEmpalme.setSelection(p10);
+                            spinnerTipoEmpalmeAnterior.setSelection(p11);
+                            spinnerResistenciaRotura.setSelection(p12);
+                            spinnerResistenciaRoturaAnterior.setSelection(p13);
+                            spinnerBandReversible.setSelection(p14);
+                            spinnerBandaArrastre.setSelection(p15);
+                            spinnerEstadoEmpalme.setSelection(p16);
+                            spinnerLocTensor.setSelection(p17);
+
+                            txtAnchoBandaAnterior.setText(Login.loginJsons.get(i).getAnchoBandaHorizontalAnterior());
+                            txtEspesorTotalAnterior.setText(Login.loginJsons.get(i).getEspesorTotalBandaHorizontalAnterior());
+                            txtEspCubSupAnterior.setText(Login.loginJsons.get(i).getEspesorCubiertaSuperiorBandaHorizontalAnterior());
+                            txtEspCubInfAnterior.setText(Login.loginJsons.get(i).getEspesorCubiertaInferiorBandaHorizontalAnterior());
+                            txtEspCojinAnterior.setText(Login.loginJsons.get(i).getEspesorCojinBandaHorizontalAnterior());
+                            txtCausaFallo.setText(Login.loginJsons.get(i).getCausaFallaCambioBandaHorizontal());
+
+                            txtAnchoBanda.setText(Login.loginJsons.get(i).getAnchoBandaTransportadora());
+                            txtEspesorTotal.setText(Login.loginJsons.get(i).getEspesorTotalBandaTransportadora());
+                            txtEspCubSup.setText(Login.loginJsons.get(i).getEspesorCubiertaSuperiorTransportadora());
+                            txtEspCubInf.setText(Login.loginJsons.get(i).getEspesorCubiertaInferiorTransportadora());
+                            txtEspCojin.setText(Login.loginJsons.get(i).getEspesorCojinTransportadora());
+                            txtVelocidadBanda.setText(Login.loginJsons.get(i).getVelocidadBandaHorizontal());
+
+                            txtDistanciEntrePoleas.setText(Login.loginJsons.get(i).getDistanciaEntrePoleasBandaHorizontal());
+                            txtInclinacion.setText(Login.loginJsons.get(i).getInclinacionBandaHorizontal());
+                            txtRecorridoUtilTensor.setText(Login.loginJsons.get(i).getRecorridoUtilTensorBandaHorizontal());
+                            txtLongitudSinfin.setText(Login.loginJsons.get(i).getLongitudSinfinBandaHorizontal());
+                            txtTonsTransportadas.setText(Login.loginJsons.get(i).getTonsTransportadasBandaHoizontalAnterior());
+
+                            i = Login.loginJsons.size() + 1;
+
+
+                        }
                     }
                 }
                 break;
@@ -4807,242 +4798,274 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
             case "Desviador":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
 
-                        Spinner spinnerHayDesviador = dialogParte.findViewById(R.id.spinnerHayDesviador);
-                        Spinner spinnerElDesviadorBascula = dialogParte.findViewById(R.id.spinnerElDesviadorBascula);
-                        Spinner spinnerHayPresionUniforme = dialogParte.findViewById(R.id.spinnerHayPresionUniforme);
-                        Spinner spinnerCauchoVPlow = dialogParte.findViewById(R.id.spinnerCauchoVPlow);
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        TextInputEditText txtAchoCaucho = dialogParte.findViewById(R.id.txtAnchoCauchoVPlow);
-                        TextInputEditText txtEspesorCaucho = dialogParte.findViewById(R.id.txtEspesorCauchoVPlow);
+                            final Spinner spinnerHayDesviador = dialogParte.findViewById(R.id.spinnerHayDesviador);
+                            final Spinner spinnerElDesviadorBascula = dialogParte.findViewById(R.id.spinnerElDesviadorBascula);
+                            final Spinner spinnerHayPresionUniforme = dialogParte.findViewById(R.id.spinnerHayPresionUniforme);
+                            final Spinner spinnerCauchoVPlow = dialogParte.findViewById(R.id.spinnerCauchoVPlow);
+
+                            final Spinner spinnerAnchoVPlow = dialogParte.findViewById(R.id.spinnerAnchoCauchoVPlow);
+                            final Spinner spinnerEspesorCaucho = dialogParte.findViewById(R.id.spinnerEspesorCauchoVPlow);
 
 
-                        ArrayAdapter<String> adapterHayDesviador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerHayDesviador.setAdapter(adapterHayDesviador);
+                            ArrayAdapter<String> adapterHayDesviador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerHayDesviador.setAdapter(adapterHayDesviador);
 
-                        ArrayAdapter<String> adapterElDesviadoBascula = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerElDesviadorBascula.setAdapter(adapterElDesviadoBascula);
+                            ArrayAdapter<String> adapterElDesviadoBascula = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerElDesviadorBascula.setAdapter(adapterElDesviadoBascula);
 
-                        ArrayAdapter<String> adapterPresionUniforme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerHayPresionUniforme.setAdapter(adapterPresionUniforme);
+                            ArrayAdapter<String> adapterPresionUniforme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerHayPresionUniforme.setAdapter(adapterPresionUniforme);
 
-                        ArrayAdapter<String> adapterCauchoVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        spinnerCauchoVPlow.setAdapter(adapterCauchoVPlow);
+                            ArrayAdapter<String> adapterCauchoVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            spinnerCauchoVPlow.setAdapter(adapterCauchoVPlow);
 
-                        int p1 = adapterHayDesviador.getPosition(Login.loginJsons.get(i).getHayDesviador());
-                        int p2 = adapterElDesviadoBascula.getPosition(Login.loginJsons.get(i).getElDesviadorBascula());
-                        int p3 = adapterPresionUniforme.getPosition(Login.loginJsons.get(i).getPresionUniformeALoAnchoDeLaBanda());
-                        int p4 = adapterCauchoVPlow.getPosition(Login.loginJsons.get(i).getCauchoVPlow());
+                            ArrayAdapter<String> adapterAnchoVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anchoVPlow);
+                            spinnerAnchoVPlow.setAdapter(adapterAnchoVPlow);
 
-                        spinnerHayDesviador.setSelection(p1);
-                        spinnerElDesviadorBascula.setSelection(p2);
-                        spinnerHayPresionUniforme.setSelection(p3);
-                        spinnerCauchoVPlow.setSelection(p4);
+                            ArrayAdapter<String> adapterEspesorVPlow = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorVPlow);
+                            spinnerEspesorCaucho.setAdapter(adapterEspesorVPlow);
 
-                        txtAchoCaucho.setText(Login.loginJsons.get(i).getAnchoVPlow());
-                        txtEspesorCaucho.setText(Login.loginJsons.get(i).getEspesorVPlow());
 
-                        i = Login.loginJsons.size() + 1;
+                            int p1 = adapterHayDesviador.getPosition(Login.loginJsons.get(i).getHayDesviador());
+                            int p2 = adapterElDesviadoBascula.getPosition(Login.loginJsons.get(i).getElDesviadorBascula());
+                            int p3 = adapterPresionUniforme.getPosition(Login.loginJsons.get(i).getPresionUniformeALoAnchoDeLaBanda());
+                            int p4 = adapterCauchoVPlow.getPosition(Login.loginJsons.get(i).getCauchoVPlow());
+                            int p5 = adapterEspesorVPlow.getPosition(Login.loginJsons.get(i).getEspesorVPlow());
+                            int p6 = adapterAnchoVPlow.getPosition(Login.loginJsons.get(i).getAnchoVPlow());
 
+                            spinnerHayDesviador.setSelection(p1);
+                            spinnerElDesviadorBascula.setSelection(p2);
+                            spinnerHayPresionUniforme.setSelection(p3);
+                            spinnerCauchoVPlow.setSelection(p4);
+                            spinnerEspesorCaucho.setSelection(p5);
+                            spinnerAnchoVPlow.setSelection(p6);
+
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Polea Tensora":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        Spinner spinnerTipoPolea = dialogParte.findViewById(R.id.spinnerTipoPoleaTensoraHorizontal);
-                        Spinner spinnerBandaCentradaEnPolea = dialogParte.findViewById(R.id.spinnerBandaCentradaPoleaTensoraHorizontal);
-                        Spinner spinnerEstadoRvto = dialogParte.findViewById(R.id.spinnerEstadoRvto);
-                        Spinner spinnerGuardaPolea = dialogParte.findViewById(R.id.spinnerGuardaPoleaTensoraHorizontal);
-                        Spinner spinnerTipoTransicion = dialogParte.findViewById(R.id.spinnerTipoTransicionPoleaTensoraHorizontal);
-                        Spinner spinnerRecorrido = dialogParte.findViewById(R.id.spinnerRecorridoPoleaTensora);
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
 
-                        TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaTensoraHorizontal);
-                        TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaTensoraHorizontal);
-                        TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaTensoraHorizontal);
-                        TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaTensoraHorizontal);
-                        TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPoleaTensora);
-                        TextInputEditText txtHpMotor = dialogParte.findViewById(R.id.txtPotenciaMotorHorizontal);
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
-                        ArrayAdapter<String> adapterTipoTransicion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoTransicion);
-                        ArrayAdapter<String> adapterAnguloAmarre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anguloAmarre);
+                            Spinner spinnerTipoPolea = dialogParte.findViewById(R.id.spinnerTipoPoleaTensoraHorizontal);
+                            Spinner spinnerBandaCentradaEnPolea = dialogParte.findViewById(R.id.spinnerBandaCentradaPoleaTensoraHorizontal);
+                            Spinner spinnerEstadoRvto = dialogParte.findViewById(R.id.spinnerEstadoRvto);
+                            Spinner spinnerGuardaPolea = dialogParte.findViewById(R.id.spinnerGuardaPoleaTensoraHorizontal);
+                            Spinner spinnerTipoTransicion = dialogParte.findViewById(R.id.spinnerTipoTransicionPoleaTensoraHorizontal);
+                            Spinner spinnerRecorrido = dialogParte.findViewById(R.id.spinnerRecorridoPoleaTensora);
 
+                            TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaTensoraHorizontal);
+                            TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaTensoraHorizontal);
+                            TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaTensoraHorizontal);
+                            TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaTensoraHorizontal);
+                            TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPoleaTensora);
+                            TextInputEditText txtHpMotor = dialogParte.findViewById(R.id.txtPotenciaMotorHorizontal);
 
-                        spinnerTipoPolea.setAdapter(adapterTipoPolea);
-                        spinnerBandaCentradaEnPolea.setAdapter(adapterSiNo);
-                        spinnerEstadoRvto.setAdapter(adapterEstadoPartes);
-                        spinnerGuardaPolea.setAdapter(adapterEstadoPartes);
-                        spinnerTipoTransicion.setAdapter(adapterTipoTransicion);
-                        spinnerRecorrido.setAdapter(adapterAnguloAmarre);
-
-                        int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaTensora());
-                        int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaEnPoleaTensora());
-                        int p3 = adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaTensora());
-                        int p4 = adapterTipoTransicion.getPosition(Login.loginJsons.get(i).getTipoTransicionPoleaTensora());
-                        int p5 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getGuardaPoleaTensora());
-                        int p6 = adapterAnguloAmarre.getPosition(Login.loginJsons.get(i).getRecorridoPoleaTensora());
-
-                        txtDiametro.setText(Login.loginJsons.get(i).getDiametroPoleaTensora());
-                        txtAncho.setText(Login.loginJsons.get(i).getAnchoPoleaTensora());
-                        txtDiametroEje.setText(Login.loginJsons.get(i).getDiametroEjePoleaTensora());
-                        txtLargoEje.setText(Login.loginJsons.get(i).getLargoEjePoleaTensora());
-                        txtDistanciaTransicion.setText(Login.loginJsons.get(i).getDistanciaTransicionPoleaColaTensora());
-                        txtHpMotor.setText(Login.loginJsons.get(i).getPotenciaMotorPoleaTensora());
-
-                        spinnerTipoPolea.setSelection(p3);
-                        spinnerBandaCentradaEnPolea.setSelection(p2);
-                        spinnerEstadoRvto.setSelection(p1);
-                        spinnerGuardaPolea.setSelection(p5);
-                        spinnerRecorrido.setSelection(p6);
-                        spinnerTipoTransicion.setSelection(p4);
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
+                            ArrayAdapter<String> adapterTipoTransicion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoTransicion);
+                            ArrayAdapter<String> adapterAnguloAmarre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anguloAmarre);
 
 
-                        i = Login.loginJsons.size() + 1;
+                            spinnerTipoPolea.setAdapter(adapterTipoPolea);
+                            spinnerBandaCentradaEnPolea.setAdapter(adapterSiNo);
+                            spinnerEstadoRvto.setAdapter(adapterEstadoPartes);
+                            spinnerGuardaPolea.setAdapter(adapterEstadoPartes);
+                            spinnerTipoTransicion.setAdapter(adapterTipoTransicion);
+                            spinnerRecorrido.setAdapter(adapterAnguloAmarre);
 
+                            int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaTensora());
+                            int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaEnPoleaTensora());
+                            int p3 = adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaTensora());
+                            int p4 = adapterTipoTransicion.getPosition(Login.loginJsons.get(i).getTipoTransicionPoleaTensora());
+                            int p5 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getGuardaPoleaTensora());
+                            int p6 = adapterAnguloAmarre.getPosition(Login.loginJsons.get(i).getRecorridoPoleaTensora());
+
+                            txtDiametro.setText(Login.loginJsons.get(i).getDiametroPoleaTensora());
+                            txtAncho.setText(Login.loginJsons.get(i).getAnchoPoleaTensora());
+                            txtDiametroEje.setText(Login.loginJsons.get(i).getDiametroEjePoleaTensora());
+                            txtLargoEje.setText(Login.loginJsons.get(i).getLargoEjePoleaTensora());
+                            txtDistanciaTransicion.setText(Login.loginJsons.get(i).getDistanciaTransicionPoleaColaTensora());
+                            txtHpMotor.setText(Login.loginJsons.get(i).getPotenciaMotorPoleaTensora());
+
+                            spinnerTipoPolea.setSelection(p3);
+                            spinnerBandaCentradaEnPolea.setSelection(p2);
+                            spinnerEstadoRvto.setSelection(p1);
+                            spinnerGuardaPolea.setSelection(p5);
+                            spinnerRecorrido.setSelection(p6);
+                            spinnerTipoTransicion.setSelection(p4);
+
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Alineacion":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        Spinner spinnerSistAlineacionCarga = dialogParte.findViewById(R.id.spinnerSistAlineacionCarga);
-                        Spinner spinnerFuncionanSACarga = dialogParte.findViewById(R.id.spinnerFuncionanSACarga);
-                        Spinner spinnerSistAlineacionRetorno = dialogParte.findViewById(R.id.spinnerSistAlineacionRetorno);
-                        Spinner spinnerFuncionanSARetorno = dialogParte.findViewById(R.id.spinnerFuncionanSARetorno);
-                        Spinner spinnerSistAlineacionRetornoPlano = dialogParte.findViewById(R.id.spinnerSistAlineacionRetornoPlano);
-                        Spinner spinnerSistAlineacionArtesaCarga = dialogParte.findViewById(R.id.spinnerSistAlineacionArtesaCarga);
-                        Spinner spinnerSistAlineacionV = dialogParte.findViewById(R.id.spinnerSistAlineacionV);
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
 
-                        TextInputEditText txtCantidadSACCarga = dialogParte.findViewById(R.id.txtCantidadSACCarga);
-                        TextInputEditText txtCantidadSACRetorno = dialogParte.findViewById(R.id.txtCantidadSACRetorno);
-                        TextInputEditText txtDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-                        TextInputEditText txtDetalleRodilloCargaLateral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
-                        TextInputEditText txtDetalleRodilloRetornoPlano = dialogParte.findViewById(R.id.txtDetalleRodilloRetornoPlano);
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterEstadoParte = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            Spinner spinnerSistAlineacionCarga = dialogParte.findViewById(R.id.spinnerSistAlineacionCarga);
+                            Spinner spinnerFuncionanSACarga = dialogParte.findViewById(R.id.spinnerFuncionanSACarga);
+                            Spinner spinnerSistAlineacionRetorno = dialogParte.findViewById(R.id.spinnerSistAlineacionRetorno);
+                            Spinner spinnerFuncionanSARetorno = dialogParte.findViewById(R.id.spinnerFuncionanSARetorno);
+                            Spinner spinnerSistAlineacionRetornoPlano = dialogParte.findViewById(R.id.spinnerSistAlineacionRetornoPlano);
+                            Spinner spinnerSistAlineacionArtesaCarga = dialogParte.findViewById(R.id.spinnerSistAlineacionArtesaCarga);
+                            Spinner spinnerSistAlineacionV = dialogParte.findViewById(R.id.spinnerSistAlineacionV);
 
-                        int p1 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                        int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                        int p3 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                        int p4 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                        int p5 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                        int p6 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                        int p7 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            TextInputEditText txtCantidadSACCarga = dialogParte.findViewById(R.id.txtCantidadSACCarga);
+                            TextInputEditText txtCantidadSACRetorno = dialogParte.findViewById(R.id.txtCantidadSACRetorno);
+                            TextInputEditText txtDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+                            TextInputEditText txtDetalleRodilloCargaLateral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+                            TextInputEditText txtDetalleRodilloRetornoPlano = dialogParte.findViewById(R.id.txtDetalleRodilloRetornoPlano);
 
-                        spinnerFuncionanSACarga.setAdapter(adapterSiNo);
-                        spinnerFuncionanSARetorno.setAdapter(adapterSiNo);
-                        spinnerSistAlineacionCarga.setAdapter(adapterSiNo);
-                        spinnerSistAlineacionRetorno.setAdapter(adapterSiNo);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterEstadoParte = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
 
-                        spinnerSistAlineacionRetornoPlano.setAdapter(adapterEstadoParte);
-                        spinnerSistAlineacionArtesaCarga.setAdapter(adapterEstadoParte);
-                        spinnerSistAlineacionV.setAdapter(adapterEstadoParte);
+                            int p1 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p3 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p4 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p5 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p6 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p7 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
 
-                        spinnerFuncionanSACarga.setSelection(p1);
-                        spinnerFuncionanSARetorno.setSelection(p2);
-                        spinnerSistAlineacionCarga.setSelection(p3);
-                        spinnerSistAlineacionRetorno.setSelection(p4);
-                        spinnerSistAlineacionRetornoPlano.setSelection(p5);
-                        spinnerSistAlineacionArtesaCarga.setSelection(p6);
-                        spinnerSistAlineacionV.setSelection(p7);
+                            spinnerFuncionanSACarga.setAdapter(adapterSiNo);
+                            spinnerFuncionanSARetorno.setAdapter(adapterSiNo);
+                            spinnerSistAlineacionCarga.setAdapter(adapterSiNo);
+                            spinnerSistAlineacionRetorno.setAdapter(adapterSiNo);
 
+                            spinnerSistAlineacionRetornoPlano.setAdapter(adapterEstadoParte);
+                            spinnerSistAlineacionArtesaCarga.setAdapter(adapterEstadoParte);
+                            spinnerSistAlineacionV.setAdapter(adapterEstadoParte);
 
-                        txtCantidadSACCarga.setText(Login.loginJsons.get(i).getCantidadSistemaAlineacionEnCarga());
-                        txtCantidadSACRetorno.setText(Login.loginJsons.get(i).getCantidadSistemaAlineacionEnRetorno());
-                        txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloCentralCarga());
-                        txtDetalleRodilloCargaLateral.setText(Login.loginJsons.get(i).getDetalleRodilloLateralCarg());
-                        txtDetalleRodilloRetornoPlano.setText(Login.loginJsons.get(i).getDetalleRodilloRetorno());
+                            spinnerFuncionanSACarga.setSelection(p1);
+                            spinnerFuncionanSARetorno.setSelection(p2);
+                            spinnerSistAlineacionCarga.setSelection(p3);
+                            spinnerSistAlineacionRetorno.setSelection(p4);
+                            spinnerSistAlineacionRetornoPlano.setSelection(p5);
+                            spinnerSistAlineacionArtesaCarga.setSelection(p6);
+                            spinnerSistAlineacionV.setSelection(p7);
 
 
-                        i = Login.loginJsons.size() + 1;
+                            txtCantidadSACCarga.setText(Login.loginJsons.get(i).getCantidadSistemaAlineacionEnCarga());
+                            txtCantidadSACRetorno.setText(Login.loginJsons.get(i).getCantidadSistemaAlineacionEnRetorno());
+                            txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloCentralCarga());
+                            txtDetalleRodilloCargaLateral.setText(Login.loginJsons.get(i).getDetalleRodilloLateralCarg());
+                            txtDetalleRodilloRetornoPlano.setText(Login.loginJsons.get(i).getDetalleRodilloRetorno());
 
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Seguridad":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        Spinner spinnerPuertasInspeccion = dialogParte.findViewById(R.id.spinnerPuertasInspeccionHorizontal);
-                        Spinner spinnerGuardaRodilloRetornoPlano = dialogParte.findViewById(R.id.spinnerGuardaRodilloPlano);
-                        Spinner spinnerGuardaRodilloRetornoEnV = dialogParte.findViewById(R.id.spinnerGuardaRodilloRetornoV);
-                        Spinner spinnerGuardaTruTrainer = dialogParte.findViewById(R.id.spinnerGuardaTruTrainer);
-                        Spinner spinnerGuardaPoleaColaSeguridad = dialogParte.findViewById(R.id.spinnerGuardaPoleaColaSeguridad);
-                        Spinner spinnerGuardaPoleaDeflectora = dialogParte.findViewById(R.id.spinnerGuardaPoleaDeflectora);
-                        Spinner spinnerGuardaPoleaTensora = dialogParte.findViewById(R.id.spinnerGuardaPoleaTensoraSeguridad);
-                        Spinner spinnerGuardaPoleaMotrizSeguridad = dialogParte.findViewById(R.id.spinnerGuardaPoleaMotrizSeguridad);
-                        Spinner spinnerGuardaZonaDeTransito = dialogParte.findViewById(R.id.spinnerGuardaZonaDeTransito);
-                        Spinner spinnerGuardaMotores = dialogParte.findViewById(R.id.spinnerGuardaMotores);
-                        Spinner spinnerGuardaCadenas = dialogParte.findViewById(R.id.spinnerGuardaCadenas);
-                        Spinner spinnerGuardaCorreas = dialogParte.findViewById(R.id.spinnerGuardaCorreas);
-                        Spinner spinnerInterruptoresSeguridadHorizontal = dialogParte.findViewById(R.id.spinnerInterruptoresSeguridadHorizontal);
-                        Spinner spinnerSirenasDeSeguridad = dialogParte.findViewById(R.id.spinnerSirenasSeguridad);
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                            Spinner spinnerPuertasInspeccion = dialogParte.findViewById(R.id.spinnerPuertasInspeccionHorizontal);
+                            Spinner spinnerGuardaRodilloRetornoPlano = dialogParte.findViewById(R.id.spinnerGuardaRodilloPlano);
+                            Spinner spinnerGuardaRodilloRetornoEnV = dialogParte.findViewById(R.id.spinnerGuardaRodilloRetornoV);
+                            Spinner spinnerGuardaTruTrainer = dialogParte.findViewById(R.id.spinnerGuardaTruTrainer);
+                            Spinner spinnerGuardaPoleaColaSeguridad = dialogParte.findViewById(R.id.spinnerGuardaPoleaColaSeguridad);
+                            Spinner spinnerGuardaPoleaDeflectora = dialogParte.findViewById(R.id.spinnerGuardaPoleaDeflectora);
+                            Spinner spinnerGuardaPoleaTensora = dialogParte.findViewById(R.id.spinnerGuardaPoleaTensoraSeguridad);
+                            Spinner spinnerGuardaPoleaMotrizSeguridad = dialogParte.findViewById(R.id.spinnerGuardaPoleaMotrizSeguridad);
+                            Spinner spinnerGuardaZonaDeTransito = dialogParte.findViewById(R.id.spinnerGuardaZonaDeTransito);
+                            Spinner spinnerGuardaMotores = dialogParte.findViewById(R.id.spinnerGuardaMotores);
+                            Spinner spinnerGuardaCadenas = dialogParte.findViewById(R.id.spinnerGuardaCadenas);
+                            Spinner spinnerGuardaCorreas = dialogParte.findViewById(R.id.spinnerGuardaCorreas);
+                            Spinner spinnerInterruptoresSeguridadHorizontal = dialogParte.findViewById(R.id.spinnerInterruptoresSeguridadHorizontal);
+                            Spinner spinnerSirenasDeSeguridad = dialogParte.findViewById(R.id.spinnerSirenasSeguridad);
 
 
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
 
-                        spinnerPuertasInspeccion.setAdapter(adapterSiNo);
-                        spinnerGuardaRodilloRetornoPlano.setAdapter(adapterSiNo);
-                        spinnerGuardaRodilloRetornoEnV.setAdapter(adapterSiNo);
-                        spinnerGuardaTruTrainer.setAdapter(adapterSiNo);
-                        spinnerGuardaPoleaColaSeguridad.setAdapter(adapterSiNo);
-                        spinnerGuardaPoleaDeflectora.setAdapter(adapterSiNo);
-                        spinnerGuardaPoleaTensora.setAdapter(adapterSiNo);
-                        spinnerGuardaPoleaMotrizSeguridad.setAdapter(adapterSiNo);
-                        spinnerGuardaZonaDeTransito.setAdapter(adapterSiNo);
-                        spinnerGuardaMotores.setAdapter(adapterSiNo);
-                        spinnerGuardaCadenas.setAdapter(adapterSiNo);
-                        spinnerGuardaCorreas.setAdapter(adapterSiNo);
+                            spinnerPuertasInspeccion.setAdapter(adapterSiNo);
+                            spinnerGuardaRodilloRetornoPlano.setAdapter(adapterSiNo);
+                            spinnerGuardaRodilloRetornoEnV.setAdapter(adapterSiNo);
+                            spinnerGuardaTruTrainer.setAdapter(adapterSiNo);
+                            spinnerGuardaPoleaColaSeguridad.setAdapter(adapterSiNo);
+                            spinnerGuardaPoleaDeflectora.setAdapter(adapterSiNo);
+                            spinnerGuardaPoleaTensora.setAdapter(adapterSiNo);
+                            spinnerGuardaPoleaMotrizSeguridad.setAdapter(adapterSiNo);
+                            spinnerGuardaZonaDeTransito.setAdapter(adapterSiNo);
+                            spinnerGuardaMotores.setAdapter(adapterSiNo);
+                            spinnerGuardaCadenas.setAdapter(adapterSiNo);
+                            spinnerGuardaCorreas.setAdapter(adapterSiNo);
 
-                        spinnerInterruptoresSeguridadHorizontal.setAdapter(adapterSiNo);
-                        spinnerSirenasDeSeguridad.setAdapter(adapterSiNo);
+                            spinnerInterruptoresSeguridadHorizontal.setAdapter(adapterSiNo);
+                            spinnerSirenasDeSeguridad.setAdapter(adapterSiNo);
 
-                        int p1 = adapterSiNo.getPosition(Login.loginJsons.get(i).getPuertasInspeccion());
-                        int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaRodilloRetornoPlano());
-                        int p3 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaRodilloRetornoV());
-                        int p4 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaTruTrainer());
-                        int p5 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaColaTransportadora());
-                        int p6 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaDeflectora());
-                        int p7 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaTensora());
-                        int p8 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaMotrizTransportadora());
-                        int p9 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaZonaDeTransito());
-                        int p10 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaMotores());
-                        int p11 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaCadenas());
-                        int p12 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaCorreas());
-                        int p13 = adapterSiNo.getPosition(Login.loginJsons.get(i).getInterruptoresDeSeguridad());
-                        int p14 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSirenasDeSeguridad());
+                            int p1 = adapterSiNo.getPosition(Login.loginJsons.get(i).getPuertasInspeccion());
+                            int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaRodilloRetornoPlano());
+                            int p3 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaRodilloRetornoV());
+                            int p4 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaTruTrainer());
+                            int p5 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaColaTransportadora());
+                            int p6 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaDeflectora());
+                            int p7 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaTensora());
+                            int p8 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaPoleaMotrizTransportadora());
+                            int p9 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaZonaDeTransito());
+                            int p10 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaMotores());
+                            int p11 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaCadenas());
+                            int p12 = adapterSiNo.getPosition(Login.loginJsons.get(i).getGuardaCorreas());
+                            int p13 = adapterSiNo.getPosition(Login.loginJsons.get(i).getInterruptoresDeSeguridad());
+                            int p14 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSirenasDeSeguridad());
 
-                        spinnerPuertasInspeccion.setSelection(p1);
-                        spinnerGuardaRodilloRetornoPlano.setSelection(p2);
-                        spinnerGuardaRodilloRetornoEnV.setSelection(p3);
-                        spinnerGuardaTruTrainer.setSelection(p4);
-                        spinnerGuardaPoleaColaSeguridad.setSelection(p5);
-                        spinnerGuardaPoleaDeflectora.setSelection(p6);
-                        spinnerGuardaPoleaTensora.setSelection(p7);
-                        spinnerGuardaPoleaMotrizSeguridad.setSelection(p8);
-                        spinnerGuardaZonaDeTransito.setSelection(p9);
-                        spinnerGuardaMotores.setSelection(p10);
-                        spinnerGuardaCadenas.setSelection(p11);
-                        spinnerGuardaCorreas.setSelection(p12);
-                        spinnerInterruptoresSeguridadHorizontal.setSelection(p13);
-                        spinnerSirenasDeSeguridad.setSelection(p14);
+                            spinnerPuertasInspeccion.setSelection(p1);
+                            spinnerGuardaRodilloRetornoPlano.setSelection(p2);
+                            spinnerGuardaRodilloRetornoEnV.setSelection(p3);
+                            spinnerGuardaTruTrainer.setSelection(p4);
+                            spinnerGuardaPoleaColaSeguridad.setSelection(p5);
+                            spinnerGuardaPoleaDeflectora.setSelection(p6);
+                            spinnerGuardaPoleaTensora.setSelection(p7);
+                            spinnerGuardaPoleaMotrizSeguridad.setSelection(p8);
+                            spinnerGuardaZonaDeTransito.setSelection(p9);
+                            spinnerGuardaMotores.setSelection(p10);
+                            spinnerGuardaCadenas.setSelection(p11);
+                            spinnerGuardaCorreas.setSelection(p12);
+                            spinnerInterruptoresSeguridadHorizontal.setSelection(p13);
+                            spinnerSirenasDeSeguridad.setSelection(p14);
 
-                        i = Login.loginJsons.size() + 1;
+                            i = Login.loginJsons.size() + 1;
 
+                        }
                     }
+
                 }
                 break;
 
@@ -5050,109 +5073,121 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
             case "Polea Motriz":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerTipoPolea = dialogParte.findViewById(R.id.spinnerTipoPoleaMotrizHorizontal);
-                        Spinner spinnerBandaCentradaEnPolea = dialogParte.findViewById(R.id.spinnerBandaCentradaPoleaMotrizHorizontal);
-                        Spinner spinnerEstadoRvto = dialogParte.findViewById(R.id.spinnerEstadoRvto);
-                        Spinner spinnerGuardaPolea = dialogParte.findViewById(R.id.spinnerGuardaPoleaMotrizHorizontal);
-                        Spinner spinnerTipoTransicion = dialogParte.findViewById(R.id.spinnerTipoTransicionPoleaMotrizHorizontal);
-                        Spinner spinnerAnguloAmarre = dialogParte.findViewById(R.id.spinnerAnguloAmarrePMHorizontal);
+                            Spinner spinnerTipoPolea = dialogParte.findViewById(R.id.spinnerTipoPoleaMotrizHorizontal);
+                            Spinner spinnerBandaCentradaEnPolea = dialogParte.findViewById(R.id.spinnerBandaCentradaPoleaMotrizHorizontal);
+                            Spinner spinnerEstadoRvto = dialogParte.findViewById(R.id.spinnerEstadoRvto);
+                            Spinner spinnerGuardaPolea = dialogParte.findViewById(R.id.spinnerGuardaPoleaMotrizHorizontal);
+                            Spinner spinnerTipoTransicion = dialogParte.findViewById(R.id.spinnerTipoTransicionPoleaMotrizHorizontal);
+                            Spinner spinnerAnguloAmarre = dialogParte.findViewById(R.id.spinnerAnguloAmarrePMHorizontal);
 
-                        TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaMotrizHorizontal);
-                        TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
-                        TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaMotrizHorizontal);
-                        TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaMotrizHorizontal);
-                        TextInputEditText txtHpMotor = dialogParte.findViewById(R.id.txtPotenciaMotorHorizontal);
-                        TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPMotrizHorizontal);
+                            TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaMotrizHorizontal);
+                            TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
+                            TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaColaHorizontal);
+                            TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaMotrizHorizontal);
+                            TextInputEditText txtHpMotor = dialogParte.findViewById(R.id.txtPotenciaMotorHorizontal);
+                            TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPMotrizHorizontal);
 
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
-                        ArrayAdapter<String> adapterTipoTransicion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoTransicion);
-                        ArrayAdapter<String> adapterAnguloAmarre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anguloAmarre);
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
+                            ArrayAdapter<String> adapterTipoTransicion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoTransicion);
+                            ArrayAdapter<String> adapterAnguloAmarre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anguloAmarre);
 
-                        int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaMotrizTransportadora());
-                        int p2 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getGuardaPoleaMotrizTransportadora());
-                        int p3 = adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaMotrizTransportadora());
-                        int p4 = adapterTipoTransicion.getPosition(Login.loginJsons.get(i).getTipoTransicionPoleaMotrizTransportadora());
-                        int p5 = adapterAnguloAmarre.getPosition(Login.loginJsons.get(i).getAnguloAmarrePoleaMotrizTransportadora());
-                        int p6 = adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentraEnPoleaMotrizTransportadora());
+                            int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaMotrizTransportadora());
+                            int p2 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getGuardaPoleaMotrizTransportadora());
+                            int p3 = adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaMotrizTransportadora());
+                            int p4 = adapterTipoTransicion.getPosition(Login.loginJsons.get(i).getTipoTransicionPoleaMotrizTransportadora());
+                            int p5 = adapterAnguloAmarre.getPosition(Login.loginJsons.get(i).getAnguloAmarrePoleaMotrizTransportadora());
+                            int p6 = adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentraEnPoleaMotrizTransportadora());
 
-                        spinnerTipoPolea.setSelection(p3);
-                        spinnerBandaCentradaEnPolea.setSelection(p6);
-                        spinnerEstadoRvto.setSelection(p1);
-                        spinnerGuardaPolea.setSelection(p2);
-                        spinnerTipoTransicion.setSelection(p4);
-                        spinnerAnguloAmarre.setSelection(p5);
+                            spinnerTipoPolea.setSelection(p3);
+                            spinnerBandaCentradaEnPolea.setSelection(p6);
+                            spinnerEstadoRvto.setSelection(p1);
+                            spinnerGuardaPolea.setSelection(p2);
+                            spinnerTipoTransicion.setSelection(p4);
+                            spinnerAnguloAmarre.setSelection(p5);
 
-                        txtDiametro.setText(Login.loginJsons.get(i).getDiametroPoleaMotrizTransportadora());
-                        txtAncho.setText(Login.loginJsons.get(i).getAnchoPoleaMotrizTransportadora());
-                        txtDiametroEje.setText(Login.loginJsons.get(i).getDiametroEjeMotrizTransportadora());
-                        txtLargoEje.setText(Login.loginJsons.get(i).getLargoEjePoleaMotrizTransportadora());
-                        txtHpMotor.setText(Login.loginJsons.get(i).getPotenciaMotorTransportadora());
-                        txtDistanciaTransicion.setText(Login.loginJsons.get(i).getDistanciaTransicionPoleaMotrizTransportadora());
+                            txtDiametro.setText(Login.loginJsons.get(i).getDiametroPoleaMotrizTransportadora());
+                            txtAncho.setText(Login.loginJsons.get(i).getAnchoPoleaMotrizTransportadora());
+                            txtDiametroEje.setText(Login.loginJsons.get(i).getDiametroEjeMotrizTransportadora());
+                            txtLargoEje.setText(Login.loginJsons.get(i).getLargoEjePoleaMotrizTransportadora());
+                            txtHpMotor.setText(Login.loginJsons.get(i).getPotenciaMotorTransportadora());
+                            txtDistanciaTransicion.setText(Login.loginJsons.get(i).getDistanciaTransicionPoleaMotrizTransportadora());
 
-                        i = Login.loginJsons.size() + 1;
+                            i = Login.loginJsons.size() + 1;
 
+                        }
                     }
+
                 }
                 break;
 
             case "Polea Cola":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerTipoPolea = dialogParte.findViewById(R.id.spinnerTipoPoleaColaHorizontal);
-                        Spinner spinnerBandaCentradaEnPolea = dialogParte.findViewById(R.id.spinnerBandaCentradaPoleaMotrizHorizontal);
-                        Spinner spinnerEstadoRvto = dialogParte.findViewById(R.id.spinnerEstadoRvto);
-                        Spinner spinnerTipoTransicion = dialogParte.findViewById(R.id.spinnerTipoTransicion);
-                        Spinner spinnerGuardaPoleaCola = dialogParte.findViewById(R.id.spinnerGuardaPoleaColaHorizontal);
-                        Spinner spinnerAnguloAmarre = dialogParte.findViewById(R.id.spinnerAnguloAmarrePCHorizontal);
+                            Spinner spinnerTipoPolea = dialogParte.findViewById(R.id.spinnerTipoPoleaColaHorizontal);
+                            Spinner spinnerBandaCentradaEnPolea = dialogParte.findViewById(R.id.spinnerBandaCentradaPoleaMotrizHorizontal);
+                            Spinner spinnerEstadoRvto = dialogParte.findViewById(R.id.spinnerEstadoRvto);
+                            Spinner spinnerTipoTransicion = dialogParte.findViewById(R.id.spinnerTipoTransicion);
+                            Spinner spinnerGuardaPoleaCola = dialogParte.findViewById(R.id.spinnerGuardaPoleaColaHorizontal);
+                            Spinner spinnerAnguloAmarre = dialogParte.findViewById(R.id.spinnerAnguloAmarrePCHorizontal);
 
 
-                        final TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaMotrizHorizontal);
-                        final TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
-                        final TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaMotrizHorizontal);
-                        final TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaMotrizHorizontal);
-                        final TextInputEditText txtLongTornillo = dialogParte.findViewById(R.id.txtLongitudTensorTornilloHorizontal);
-                        final TextInputEditText txtLongContrapesa = dialogParte.findViewById(R.id.txtLongitudContraPesaPoleaMotrizHorizontal);
-                        final TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPCCola);
+                            final TextInputEditText txtDiametro = dialogParte.findViewById(R.id.txtDiametroPoleaMotrizHorizontal);
+                            final TextInputEditText txtAncho = dialogParte.findViewById(R.id.txtAnchoPoleaMotrizHorizontal);
+                            final TextInputEditText txtDiametroEje = dialogParte.findViewById(R.id.txtDiametroEjePoleaColaHorizontal);
+                            final TextInputEditText txtLargoEje = dialogParte.findViewById(R.id.txtLargoEjePoleaMotrizHorizontal);
+                            final TextInputEditText txtLongTornillo = dialogParte.findViewById(R.id.txtLongitudTensorTornilloHorizontal);
+                            final TextInputEditText txtLongContrapesa = dialogParte.findViewById(R.id.txtLongitudContraPesaPoleaMotrizHorizontal);
+                            final TextInputEditText txtDistanciaTransicion = dialogParte.findViewById(R.id.txtDistanciaTransicionPCCola);
 
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
-                        ArrayAdapter<String> adapterTipoTransicion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoTransicion);
-                        ArrayAdapter<String> adapterAnguloAmarre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anguloAmarre);
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
+                            ArrayAdapter<String> adapterTipoTransicion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoTransicion);
+                            ArrayAdapter<String> adapterAnguloAmarre = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anguloAmarre);
 
-                        int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRvtoPoleaColaTransportadora());
-                        int p2 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getGuardaPoleaColaTransportadora());
-                        int p3 = adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaColaTransportadora());
-                        int p4 = adapterTipoTransicion.getPosition(Login.loginJsons.get(i).getTipoTransicionPoleaColaTransportadora());
-                        int p5 = adapterAnguloAmarre.getPosition(Login.loginJsons.get(i).getAnguloAmarrePoleaColaTransportadora());
-                        int p6 = adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaPoleaColaTransportadora());
+                            int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRvtoPoleaColaTransportadora());
+                            int p2 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getGuardaPoleaColaTransportadora());
+                            int p3 = adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaColaTransportadora());
+                            int p4 = adapterTipoTransicion.getPosition(Login.loginJsons.get(i).getTipoTransicionPoleaColaTransportadora());
+                            int p5 = adapterAnguloAmarre.getPosition(Login.loginJsons.get(i).getAnguloAmarrePoleaColaTransportadora());
+                            int p6 = adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaPoleaColaTransportadora());
 
-                        spinnerTipoPolea.setSelection(p3);
-                        spinnerBandaCentradaEnPolea.setSelection(p6);
-                        spinnerEstadoRvto.setSelection(p1);
-                        spinnerGuardaPoleaCola.setSelection(p2);
-                        spinnerTipoTransicion.setSelection(p4);
-                        spinnerAnguloAmarre.setSelection(p5);
+                            spinnerTipoPolea.setSelection(p3);
+                            spinnerBandaCentradaEnPolea.setSelection(p6);
+                            spinnerEstadoRvto.setSelection(p1);
+                            spinnerGuardaPoleaCola.setSelection(p2);
+                            spinnerTipoTransicion.setSelection(p4);
+                            spinnerAnguloAmarre.setSelection(p5);
 
-                        txtDiametro.setText(Login.loginJsons.get(i).getDiametroPoleaColaTransportadora());
-                        txtAncho.setText(Login.loginJsons.get(i).getAnchoPoleaColaTransportadora());
-                        txtDiametroEje.setText(Login.loginJsons.get(i).getDiametroEjePoleaColaHorizontal());
-                        txtLargoEje.setText(Login.loginJsons.get(i).getLargoEjePoleaColaTransportadora());
-                        txtLongTornillo.setText(Login.loginJsons.get(i).getLongitudTensorTornilloPoleaColaTransportadora());
-                        txtDistanciaTransicion.setText(Login.loginJsons.get(i).getDistanciaTransicionPoleaColaTransportadora());
-                        txtLongContrapesa.setText(Login.loginJsons.get(i).getLongitudRecorridoContrapesaPoleaColaTransportadora());
+                            txtDiametro.setText(Login.loginJsons.get(i).getDiametroPoleaColaTransportadora());
+                            txtAncho.setText(Login.loginJsons.get(i).getAnchoPoleaColaTransportadora());
+                            txtDiametroEje.setText(Login.loginJsons.get(i).getDiametroEjePoleaColaHorizontal());
+                            txtLargoEje.setText(Login.loginJsons.get(i).getLargoEjePoleaColaTransportadora());
+                            txtLongTornillo.setText(Login.loginJsons.get(i).getLongitudTensorTornilloPoleaColaTransportadora());
+                            txtDistanciaTransicion.setText(Login.loginJsons.get(i).getDistanciaTransicionPoleaColaTransportadora());
+                            txtLongContrapesa.setText(Login.loginJsons.get(i).getLongitudRecorridoContrapesaPoleaColaTransportadora());
 
-                        i = Login.loginJsons.size() + 1;
+                            i = Login.loginJsons.size() + 1;
 
+                        }
                     }
+
                 }
                 break;
 
@@ -5160,412 +5195,453 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
             case "Soporte Carga":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerTieneRodillosImpacto = dialogParte.findViewById(R.id.spinnerTieneRodillosImpacto);
-                        Spinner spinnerCamaImpacto = dialogParte.findViewById(R.id.spinnerCamaImpacto);
-                        Spinner spinnerCamaSellado = dialogParte.findViewById(R.id.spinnerCamaSellado);
-                        Spinner spinnerRodillosCarga = dialogParte.findViewById(R.id.spinnerRodillosCargaHorizontal);
-                        Spinner spinnerRodillosImpacto = dialogParte.findViewById(R.id.spinnerRodillosImpactoHorizontal);
-                        Spinner spinnerBasculaASGCO = dialogParte.findViewById(R.id.spinnerBaculaASGCO);
-                        Spinner spinnerBarrasImpacto = dialogParte.findViewById(R.id.spinnerBarraImpacto);
-                        Spinner spinnerBarrasDeslizamiento = dialogParte.findViewById(R.id.spinnerBarraDeslizamiento);
-                        Spinner spinnerIntegridadSoportesRodilloImpacto = dialogParte.findViewById(R.id.spinnerIntegridadSoportesRodilloImpacto);
-                        Spinner spinnerIntegridadSoportesCamaImpactoSellado = dialogParte.findViewById(R.id.spinnerIntegridadSoportesCamaImpacto);
-                        Spinner spinnerMaterialAtrapadoCortinas = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEntreCortinas);
-                        Spinner spinnerMaterialAtrapadoGuardaBandas = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnGuardaBanda);
-                        Spinner spinnerMaterialAtrapadoBanda = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnBanda);
-                        Spinner spinnerInclinacionZonaCargue = dialogParte.findViewById(R.id.spinnerInclinacionZonaCargue);
-                        Spinner spinnerTipoRodilloRC= dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
-                        Spinner spinnerTipoRodilloRI= dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
-                        Spinner spinnerBasculaPesaje= dialogParte.findViewById(R.id.spinnerBasculaPesaje);
-
-                        Spinner spinnerAnguloAcanalmiento1artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaCola);
-                        Spinner spinnerAnguloAcanalmiento2artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal2artesaPoleaCola);
-                        Spinner spinnerAnguloAcanalmiento3artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal3artesaPoleaCola);
-                        Spinner spinnerAnguloAcanalmiento1artesaPoleaMotriz = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaMotriz);
-                        Spinner spinnerAnguloAcanalmiento2artesaPoleaMotriz = dialogParte.findViewById(R.id.spinnerAnguloAcanal2artesaPoleaMotriz);
-                        Spinner spinnerAnguloAcanalmiento3artesaPoleaMotriz = dialogParte.findViewById(R.id.spinnerAnguloAcanal3artesaPoleaMotriz);
-
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterAcanalamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.angulosAcanalamiento);
-                        ArrayAdapter<String> adapterInclinacionZonaCarga = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.inclinacionZonaCarga);
-                        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-
-                        spinnerTieneRodillosImpacto.setAdapter(adapterSiNo);
-                        spinnerCamaImpacto.setAdapter(adapterSiNo);
-                        spinnerCamaSellado.setAdapter(adapterSiNo);
-                        spinnerRodillosCarga.setAdapter(adapterEstadoPartes);
-                        spinnerRodillosImpacto.setAdapter(adapterEstadoPartes);
-                        spinnerBasculaASGCO.setAdapter(adapterEstadoPartes);
-                        spinnerBarrasImpacto.setAdapter(adapterEstadoPartes);
-                        spinnerBarrasDeslizamiento.setAdapter(adapterEstadoPartes);
-                        spinnerIntegridadSoportesCamaImpactoSellado.setAdapter(adapterEstadoPartes);
-                        spinnerIntegridadSoportesRodilloImpacto.setAdapter(adapterEstadoPartes);
-                        spinnerMaterialAtrapadoBanda.setAdapter(adapterSiNo);
-                        spinnerMaterialAtrapadoCortinas.setAdapter(adapterSiNo);
-                        spinnerMaterialAtrapadoGuardaBandas.setAdapter(adapterSiNo);
-                        spinnerInclinacionZonaCargue.setAdapter(adapterInclinacionZonaCarga);
-                        spinnerTipoRodilloRC.setAdapter(adapterTipoRodillo);
-                        spinnerTipoRodilloRI.setAdapter(adapterTipoRodillo);
-                        spinnerBasculaPesaje.setAdapter(adapterSiNo);
-
-                        spinnerAnguloAcanalmiento1artesaPoleaCola.setAdapter(adapterAcanalamiento);
-                        spinnerAnguloAcanalmiento2artesaPoleaCola.setAdapter(adapterAcanalamiento);
-                        spinnerAnguloAcanalmiento3artesaPoleaCola.setAdapter(adapterAcanalamiento);
-                        spinnerAnguloAcanalmiento1artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
-                        spinnerAnguloAcanalmiento2artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
-                        spinnerAnguloAcanalmiento3artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
-
-                        int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getRodilloCarga());
-                        int p2 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getRodilloImpacto());
-                        int p3 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getBasculaASGCO());
-                        int p4 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getBarraImpacto());
-                        int p5 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getBarraDeslizamiento());
-                        int p6 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getIntegridadSoporteCamaSellado());
-                        int p7 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getIntegridadSoportesRodilloImpacto());
-
-                        int p8 = adapterSiNo.getPosition(Login.loginJsons.get(i).getTieneRodillosImpacto());
-                        int p9 = adapterSiNo.getPosition(Login.loginJsons.get(i).getCamaImpacto());
-                        int p10 = adapterSiNo.getPosition(Login.loginJsons.get(i).getCamaSellado());
-                        int p11 = adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAtrapadoEnBanda());
-                        int p12 = adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAtrapadoEntreCortinas());
-                        int p13 = adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAtrapadoEntreGuardabandas());
+                            Spinner spinnerTieneRodillosImpacto = dialogParte.findViewById(R.id.spinnerTieneRodillosImpacto);
+                            Spinner spinnerCamaImpacto = dialogParte.findViewById(R.id.spinnerCamaImpacto);
+                            Spinner spinnerCamaSellado = dialogParte.findViewById(R.id.spinnerCamaSellado);
+                            Spinner spinnerRodillosCarga = dialogParte.findViewById(R.id.spinnerRodillosCargaHorizontal);
+                            Spinner spinnerRodillosImpacto = dialogParte.findViewById(R.id.spinnerRodillosImpactoHorizontal);
+                            Spinner spinnerBasculaASGCO = dialogParte.findViewById(R.id.spinnerBaculaASGCO);
+                            Spinner spinnerBarrasImpacto = dialogParte.findViewById(R.id.spinnerBarraImpacto);
+                            Spinner spinnerBarrasDeslizamiento = dialogParte.findViewById(R.id.spinnerBarraDeslizamiento);
+                            Spinner spinnerIntegridadSoportesRodilloImpacto = dialogParte.findViewById(R.id.spinnerIntegridadSoportesRodilloImpacto);
+                            Spinner spinnerIntegridadSoportesCamaImpactoSellado = dialogParte.findViewById(R.id.spinnerIntegridadSoportesCamaImpacto);
+                            Spinner spinnerMaterialAtrapadoCortinas = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEntreCortinas);
+                            Spinner spinnerMaterialAtrapadoGuardaBandas = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnGuardaBanda);
+                            Spinner spinnerMaterialAtrapadoBanda = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnBanda);
+                            Spinner spinnerInclinacionZonaCargue = dialogParte.findViewById(R.id.spinnerInclinacionZonaCargue);
+                            Spinner spinnerTipoRodilloRC= dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
+                            Spinner spinnerTipoRodilloRI= dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
+                            Spinner spinnerBasculaPesaje= dialogParte.findViewById(R.id.spinnerBasculaPesaje);
+                            Spinner spinnerEspesorUHMV=dialogParte.findViewById(R.id.spinnerEspesorUHMV);
+                            final Spinner spinnerAnchoBarra=dialogParte.findViewById(R.id.spinnerAnchoBarra);
 
 
-                        int p15 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa1());
-                        int p16 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa2());
-                        int p17= adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3());
-                        int p18 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa1AntesPoleaMotriz());
-                        int p19 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa2AntesPoleaMotriz());
-                        int p20 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3AntesPoleaMotriz());
-
-                        int p21 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloCarga());
-                        int p22 = adapterInclinacionZonaCarga.getPosition(Login.loginJsons.get(i).getInclinacionZonaCargue());
-                        int p23 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloImpacto());
-                        int p24 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getBasculaPesaje());
-
-                        spinnerRodillosCarga.setSelection(p1);
-                        spinnerRodillosImpacto.setSelection(p2);
-                        spinnerBasculaASGCO.setSelection(p3);
-                        spinnerBarrasImpacto.setSelection(p4);
-                        spinnerBarrasDeslizamiento.setSelection(p5);
-                        spinnerIntegridadSoportesCamaImpactoSellado.setSelection(p6);
-                        spinnerIntegridadSoportesRodilloImpacto.setSelection(p7);
-
-                        spinnerTieneRodillosImpacto.setSelection(p8);
-                        spinnerCamaImpacto.setSelection(p9);
-                        spinnerCamaSellado.setSelection(p10);
-                        spinnerMaterialAtrapadoBanda.setSelection(p11);
-                        spinnerMaterialAtrapadoCortinas.setSelection(p12);
-                        spinnerMaterialAtrapadoGuardaBandas.setSelection(p13);
+                            final Spinner spinnerAnguloAcanalmiento1artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaCola);
+                            final Spinner spinnerAnguloAcanalmiento2artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal2artesaPoleaCola);
+                            final Spinner spinnerAnguloAcanalmiento3artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal3artesaPoleaCola);
+                            final Spinner spinnerAnguloAcanalmiento1artesaPoleaMotriz = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaMotriz);
+                            final Spinner spinnerAnguloAcanalmiento2artesaPoleaMotriz = dialogParte.findViewById(R.id.spinnerAnguloAcanal2artesaPoleaMotriz);
+                            final Spinner spinnerAnguloAcanalmiento3artesaPoleaMotriz = dialogParte.findViewById(R.id.spinnerAnguloAcanal3artesaPoleaMotriz);
 
 
-                        spinnerAnguloAcanalmiento1artesaPoleaCola.setSelection(p15);
-                        spinnerAnguloAcanalmiento2artesaPoleaCola.setSelection(p16);
-                        spinnerAnguloAcanalmiento3artesaPoleaCola.setSelection(p17);
-                        spinnerAnguloAcanalmiento1artesaPoleaMotriz.setSelection(p18);
-                        spinnerAnguloAcanalmiento2artesaPoleaMotriz.setSelection(p19);
-                        spinnerAnguloAcanalmiento3artesaPoleaMotriz.setSelection(p20);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterAcanalamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.angulosAcanalamiento);
+                            ArrayAdapter<String> adapterInclinacionZonaCarga = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.inclinacionZonaCarga);
+                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+                            ArrayAdapter<String> adapterEspesorUHMV = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorUHMV);
+                            ArrayAdapter<String> adapterAnchoBarra = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.anchoBarra);
 
-                        spinnerTipoRodilloRC.setSelection(p21);
 
-                        spinnerInclinacionZonaCargue.setSelection(p22);
-                        spinnerTipoRodilloRI.setSelection(p23);
-                        spinnerBasculaPesaje.setSelection(p24);
+                            spinnerTieneRodillosImpacto.setAdapter(adapterSiNo);
+                            spinnerCamaImpacto.setAdapter(adapterSiNo);
+                            spinnerCamaSellado.setAdapter(adapterSiNo);
+                            spinnerRodillosCarga.setAdapter(adapterEstadoPartes);
+                            spinnerRodillosImpacto.setAdapter(adapterEstadoPartes);
+                            spinnerBasculaASGCO.setAdapter(adapterEstadoPartes);
+                            spinnerBarrasImpacto.setAdapter(adapterEstadoPartes);
+                            spinnerBarrasDeslizamiento.setAdapter(adapterEstadoPartes);
+                            spinnerIntegridadSoportesCamaImpactoSellado.setAdapter(adapterEstadoPartes);
+                            spinnerIntegridadSoportesRodilloImpacto.setAdapter(adapterEstadoPartes);
+                            spinnerMaterialAtrapadoBanda.setAdapter(adapterSiNo);
+                            spinnerMaterialAtrapadoCortinas.setAdapter(adapterSiNo);
+                            spinnerMaterialAtrapadoGuardaBandas.setAdapter(adapterSiNo);
+                            spinnerInclinacionZonaCargue.setAdapter(adapterInclinacionZonaCarga);
+                            spinnerTipoRodilloRC.setAdapter(adapterTipoRodillo);
+                            spinnerTipoRodilloRI.setAdapter(adapterTipoRodillo);
+                            spinnerBasculaPesaje.setAdapter(adapterSiNo);
+                            spinnerEspesorUHMV.setAdapter(adapterEspesorUHMV);
+                            spinnerAnchoBarra.setAdapter(adapterAnchoBarra);
 
-                        TextInputEditText txtLargoEjeRodilloCentral=dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
-                        TextInputEditText txtDiametroEjeRodilloCentral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
-                        TextInputEditText txtDiametroRodilloCentral=dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
-                        TextInputEditText txtLargoTuboRodilloCentral=dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
-                        TextInputEditText txtLargoEjeRodilloLateral=dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-                        TextInputEditText txtDiametroEjeRodilloLateral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-                        TextInputEditText txtDiametroRodilloLateral=dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-                        TextInputEditText txtLargoTuboRodilloLateral=dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-                        TextInputEditText txtAnchoInternoChasis=dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-                        TextInputEditText txtAnchoExternoChasis=dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+                            spinnerAnguloAcanalmiento1artesaPoleaCola.setAdapter(adapterAcanalamiento);
+                            spinnerAnguloAcanalmiento2artesaPoleaCola.setAdapter(adapterAcanalamiento);
+                            spinnerAnguloAcanalmiento3artesaPoleaCola.setAdapter(adapterAcanalamiento);
+                            spinnerAnguloAcanalmiento1artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
+                            spinnerAnguloAcanalmiento2artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
+                            spinnerAnguloAcanalmiento3artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
 
-                        TextInputEditText txtDetalleRodilloCentral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-                        TextInputEditText txtDetalleRodilloLateral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
-                        TextInputEditText txtEspesorUHMV=dialogParte.findViewById(R.id.txtEspesorUHMV);
-                        final TextInputEditText txtAnchoBarra=dialogParte.findViewById(R.id.txtAnchoBarra);
-                        final TextInputEditText txtLargoBarra=dialogParte.findViewById(R.id.txtLargoBarra);
+                            int p1 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getRodilloCarga());
+                            int p2 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getRodilloImpacto());
+                            int p3 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getBasculaASGCO());
+                            int p4 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getBarraImpacto());
+                            int p5 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getBarraDeslizamiento());
+                            int p6 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getIntegridadSoporteCamaSellado());
+                            int p7 = adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getIntegridadSoportesRodilloImpacto());
 
-                        txtLargoEjeRodilloCentral.setText(Login.loginJsons.get(i).getLargoEjeRodilloCentralCarga());
-                        txtDiametroEjeRodilloCentral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloCentralCarga());
-                        txtDiametroRodilloCentral.setText(Login.loginJsons.get(i).getDiametroRodilloCentralCarga());
-                        txtLargoTuboRodilloCentral.setText(Login.loginJsons.get(i).getLargoTuboRodilloCentralCarga());
-                        txtLargoEjeRodilloLateral.setText(Login.loginJsons.get(i).getLargoEjeRodilloLateralCarga());
-                        txtDiametroEjeRodilloLateral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloLateralCarga());
-                        txtDiametroRodilloLateral.setText(Login.loginJsons.get(i).getDiametroRodilloLateralCarga());
-                        txtLargoTuboRodilloLateral.setText(Login.loginJsons.get(i).getLargoTuboRodilloLateralCarga());
-                        txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRodilloCarga());
-                        txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRodilloCarga());
-                        txtDetalleRodilloCentral.setText(Login.loginJsons.get(i).getDetalleRodilloCentralCarga());
-                        txtDetalleRodilloLateral.setText(Login.loginJsons.get(i).getDetalleRodilloLateralCarg());
-                        txtEspesorUHMV.setText(Login.loginJsons.get(i).getEspesorUHMV());
-                        txtAnchoBarra.setText(Login.loginJsons.get(i).getAnchoBarra());
-                        txtLargoBarra.setText(Login.loginJsons.get(i).getLargoBarra());
+                            int p8 = adapterSiNo.getPosition(Login.loginJsons.get(i).getTieneRodillosImpacto());
+                            int p9 = adapterSiNo.getPosition(Login.loginJsons.get(i).getCamaImpacto());
+                            int p10 = adapterSiNo.getPosition(Login.loginJsons.get(i).getCamaSellado());
+                            int p11 = adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAtrapadoEnBanda());
+                            int p12 = adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAtrapadoEntreCortinas());
+                            int p13 = adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAtrapadoEntreGuardabandas());
 
-                        i = Login.loginJsons.size() + 1;
 
+                            int p15 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa1());
+                            int p16 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa2());
+                            int p17= adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3());
+                            int p18 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa1AntesPoleaMotriz());
+                            int p19 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa2AntesPoleaMotriz());
+                            int p20 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3AntesPoleaMotriz());
+
+                            int p21 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloCarga());
+                            int p22 = adapterInclinacionZonaCarga.getPosition(Login.loginJsons.get(i).getInclinacionZonaCargue());
+                            int p23 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloImpacto());
+                            int p24 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getBasculaPesaje());
+                            int p25 = adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getAnchoBarra());
+                            int p26 = adapterEspesorUHMV.getPosition(Login.loginJsons.get(i).getEspesorUHMV());
+
+                            spinnerRodillosCarga.setSelection(p1);
+                            spinnerRodillosImpacto.setSelection(p2);
+                            spinnerBasculaASGCO.setSelection(p3);
+                            spinnerBarrasImpacto.setSelection(p4);
+                            spinnerBarrasDeslizamiento.setSelection(p5);
+                            spinnerIntegridadSoportesCamaImpactoSellado.setSelection(p6);
+                            spinnerIntegridadSoportesRodilloImpacto.setSelection(p7);
+
+                            spinnerTieneRodillosImpacto.setSelection(p8);
+                            spinnerCamaImpacto.setSelection(p9);
+                            spinnerCamaSellado.setSelection(p10);
+                            spinnerMaterialAtrapadoBanda.setSelection(p11);
+                            spinnerMaterialAtrapadoCortinas.setSelection(p12);
+                            spinnerMaterialAtrapadoGuardaBandas.setSelection(p13);
+
+
+                            spinnerAnguloAcanalmiento1artesaPoleaCola.setSelection(p15);
+                            spinnerAnguloAcanalmiento2artesaPoleaCola.setSelection(p16);
+                            spinnerAnguloAcanalmiento3artesaPoleaCola.setSelection(p17);
+                            spinnerAnguloAcanalmiento1artesaPoleaMotriz.setSelection(p18);
+                            spinnerAnguloAcanalmiento2artesaPoleaMotriz.setSelection(p19);
+                            spinnerAnguloAcanalmiento3artesaPoleaMotriz.setSelection(p20);
+
+                            spinnerTipoRodilloRC.setSelection(p21);
+
+                            spinnerInclinacionZonaCargue.setSelection(p22);
+                            spinnerTipoRodilloRI.setSelection(p23);
+                            spinnerBasculaPesaje.setSelection(p24);
+                            spinnerAnchoBarra.setSelection(p25);
+                            spinnerEspesorUHMV.setSelection(p26);
+
+                            TextInputEditText txtLargoEjeRodilloCentral=dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
+                            TextInputEditText txtDiametroEjeRodilloCentral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
+                            TextInputEditText txtDiametroRodilloCentral=dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
+                            TextInputEditText txtLargoTuboRodilloCentral=dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
+                            TextInputEditText txtLargoEjeRodilloLateral=dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
+                            TextInputEditText txtDiametroEjeRodilloLateral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+                            TextInputEditText txtDiametroRodilloLateral=dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+                            TextInputEditText txtLargoTuboRodilloLateral=dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+                            TextInputEditText txtAnchoInternoChasis=dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+                            TextInputEditText txtAnchoExternoChasis=dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+
+                            TextInputEditText txtDetalleRodilloCentral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+                            TextInputEditText txtDetalleRodilloLateral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+
+
+                            final TextInputEditText txtLargoBarra=dialogParte.findViewById(R.id.txtLargoBarra);
+
+                            txtLargoEjeRodilloCentral.setText(Login.loginJsons.get(i).getLargoEjeRodilloCentralCarga());
+                            txtDiametroEjeRodilloCentral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloCentralCarga());
+                            txtDiametroRodilloCentral.setText(Login.loginJsons.get(i).getDiametroRodilloCentralCarga());
+                            txtLargoTuboRodilloCentral.setText(Login.loginJsons.get(i).getLargoTuboRodilloCentralCarga());
+                            txtLargoEjeRodilloLateral.setText(Login.loginJsons.get(i).getLargoEjeRodilloLateralCarga());
+                            txtDiametroEjeRodilloLateral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloLateralCarga());
+                            txtDiametroRodilloLateral.setText(Login.loginJsons.get(i).getDiametroRodilloLateralCarga());
+                            txtLargoTuboRodilloLateral.setText(Login.loginJsons.get(i).getLargoTuboRodilloLateralCarga());
+                            txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRodilloCarga());
+                            txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRodilloCarga());
+                            txtDetalleRodilloCentral.setText(Login.loginJsons.get(i).getDetalleRodilloCentralCarga());
+                            txtDetalleRodilloLateral.setText(Login.loginJsons.get(i).getDetalleRodilloLateralCarg());
+
+                            txtLargoBarra.setText(Login.loginJsons.get(i).getLargoBarra());
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Condicion Carga":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        Constants.llenar();
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
 
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
-                        Spinner spinnerTipoRevestimientoTolva = dialogParte.findViewById(R.id.spinnerTipoRvtoTolva);
-                        Spinner spinnerEstadoRvtoTolva = dialogParte.findViewById(R.id.spinnerEstadoRvtoTolva);
-                        Spinner spinnerDuracionRvto = dialogParte.findViewById(R.id.spinnerDuracionRvto);
-                        Spinner spinnerDeflectores = dialogParte.findViewById(R.id.spinnerDeflectores);
-                        Spinner spinnerAtaqueQuimico = dialogParte.findViewById(R.id.spinnerAtaqueQuimico);
-                        Spinner spinnerAtaqueTemperatura = dialogParte.findViewById(R.id.spinnerAtaqueTemperatura);
-                        Spinner spinnerAtaqueAceites = dialogParte.findViewById(R.id.spinnerAtaqueAceites);
-                        Spinner spinnerAtaqueAbrasivo = dialogParte.findViewById(R.id.spinnerAtaqueAbrasivo);
-                        Spinner spinnerHorasTrabajoDia = dialogParte.findViewById(R.id.spinnerHorasTrabajoDia);
-                        Spinner spinnerDiasTrabajoSemana = dialogParte.findViewById(R.id.spinnerDiasTrabajoSemana);
-                        Spinner spinnerAbrasividad = dialogParte.findViewById(R.id.spinnerAbrasividad);
-                        Spinner spinnerPorcentajeFinos = dialogParte.findViewById(R.id.spinnerPorcentajeFinos);
-                        Spinner spinnerCajaColaTolva = dialogParte.findViewById(R.id.spinnerCajaColaTolva);
-                        Spinner spinnerFugaMateriales = dialogParte.findViewById(R.id.spinnerFugaDeMateriales);
-                        Spinner spinnerFugaMatrialesCola = dialogParte.findViewById(R.id.spinnerFugaMaterialColaChute);
-                        Spinner spinnerFugaMaterialesCostados = dialogParte.findViewById(R.id.spinnerFugaMaterialCostados);
-                        Spinner spinnerFugaMaterialesParticulados = dialogParte.findViewById(R.id.spinnerFugaMaterialParticulado);
-                        Spinner spinnerSistemaSujecion = dialogParte.findViewById(R.id.spinnerAbrazadera);
-                        Spinner spinnerCauchoGuardaBandas = dialogParte.findViewById(R.id.spinnerCauchoGuardabandas);
-                        Spinner spinnerTreSealMultiSeal = dialogParte.findViewById(R.id.spinnerTriSealMultiSeal);
-                        Spinner spinnerProtectorGuardaBandas = dialogParte.findViewById(R.id.spinnerProtectorGuardaBandas);
-                        Spinner spinnerCortina1 = dialogParte.findViewById(R.id.spinnerCortina1);
-                        Spinner spinnerCortina2 = dialogParte.findViewById(R.id.spinnerCortina2);
-                        Spinner spinnerCortina3 = dialogParte.findViewById(R.id.spinnerCortina3);
-                        Spinner spinnerBoquillasAire = dialogParte.findViewById(R.id.spinnerBoquillasDeAire);
-                        Spinner spinnerAlimentacionCentrada = dialogParte.findViewById(R.id.spinnerAlimentacionCentrada);
-                        Spinner spinnerAtaqueImpacto = dialogParte.findViewById(R.id.spinnerAtaqueImpacto);
-
-                        ArrayAdapter<String> adapterTipoRvtoTolva = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRevestimiento);
-                        spinnerTipoRevestimientoTolva.setAdapter(adapterTipoRvtoTolva);
-
-                        ArrayAdapter<String> adapterEstadoRvtoTolva = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        spinnerEstadoRvtoTolva.setAdapter(adapterEstadoRvtoTolva);
-
-                        ArrayAdapter<String> adapterDuracionRvto = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.meses);
-                        spinnerDuracionRvto.setAdapter(adapterDuracionRvto);
-
-                        ArrayAdapter<String> adapterDeflectores = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerDeflectores.setAdapter(adapterDeflectores);
+                            Constants.llenar();
 
 
-                        ArrayAdapter<String> adapterMonitorPeligro = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerAtaqueQuimico.setAdapter(adapterMonitorPeligro);
-                        spinnerAlimentacionCentrada.setAdapter(adapterMonitorPeligro);
-                        spinnerAtaqueImpacto.setAdapter(adapterMonitorPeligro);
+                            Spinner spinnerTipoRevestimientoTolva = dialogParte.findViewById(R.id.spinnerTipoRvtoTolva);
+                            Spinner spinnerEstadoRvtoTolva = dialogParte.findViewById(R.id.spinnerEstadoRvtoTolva);
+                            Spinner spinnerDuracionRvto = dialogParte.findViewById(R.id.spinnerDuracionRvto);
+                            Spinner spinnerDeflectores = dialogParte.findViewById(R.id.spinnerDeflectores);
+                            Spinner spinnerAtaqueQuimico = dialogParte.findViewById(R.id.spinnerAtaqueQuimico);
+                            Spinner spinnerAtaqueTemperatura = dialogParte.findViewById(R.id.spinnerAtaqueTemperatura);
+                            Spinner spinnerAtaqueAceites = dialogParte.findViewById(R.id.spinnerAtaqueAceites);
+                            Spinner spinnerAtaqueAbrasivo = dialogParte.findViewById(R.id.spinnerAtaqueAbrasivo);
+                            Spinner spinnerHorasTrabajoDia = dialogParte.findViewById(R.id.spinnerHorasTrabajoDia);
+                            Spinner spinnerDiasTrabajoSemana = dialogParte.findViewById(R.id.spinnerDiasTrabajoSemana);
+                            Spinner spinnerAbrasividad = dialogParte.findViewById(R.id.spinnerAbrasividad);
+                            Spinner spinnerPorcentajeFinos = dialogParte.findViewById(R.id.spinnerPorcentajeFinos);
+                            Spinner spinnerCajaColaTolva = dialogParte.findViewById(R.id.spinnerCajaColaTolva);
+                            Spinner spinnerFugaMateriales = dialogParte.findViewById(R.id.spinnerFugaDeMateriales);
+                            Spinner spinnerFugaMatrialesCola = dialogParte.findViewById(R.id.spinnerFugaMaterialColaChute);
+                            Spinner spinnerFugaMaterialesCostados = dialogParte.findViewById(R.id.spinnerFugaMaterialCostados);
+                            Spinner spinnerFugaMaterialesParticulados = dialogParte.findViewById(R.id.spinnerFugaMaterialParticulado);
+                            Spinner spinnerSistemaSujecion = dialogParte.findViewById(R.id.spinnerAbrazadera);
+                            Spinner spinnerCauchoGuardaBandas = dialogParte.findViewById(R.id.spinnerCauchoGuardabandas);
+                            Spinner spinnerTreSealMultiSeal = dialogParte.findViewById(R.id.spinnerTriSealMultiSeal);
+                            Spinner spinnerProtectorGuardaBandas = dialogParte.findViewById(R.id.spinnerProtectorGuardaBandas);
+                            Spinner spinnerCortina1 = dialogParte.findViewById(R.id.spinnerCortina1);
+                            final Spinner spinnerCortina2 = dialogParte.findViewById(R.id.spinnerCortina2);
+                            final Spinner spinnerCortina3 = dialogParte.findViewById(R.id.spinnerCortina3);
+                            final Spinner spinnerBoquillasAire = dialogParte.findViewById(R.id.spinnerBoquillasDeAire);
+                            final Spinner spinnerAlimentacionCentrada = dialogParte.findViewById(R.id.spinnerAlimentacionCentrada);
+                            final Spinner spinnerAtaqueImpacto = dialogParte.findViewById(R.id.spinnerAtaqueImpacto);
+                            final Spinner spinnerEspesorGuardabandas=dialogParte.findViewById(R.id.spinnerEspesorGuardabandas);
 
-                        ArrayAdapter<String> adapterRodamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerAtaqueTemperatura.setAdapter(adapterRodamiento);
-
-                        ArrayAdapter<String> adapterMonitorDesalineacion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerAtaqueAceites.setAdapter(adapterMonitorDesalineacion);
-
-                        ArrayAdapter<String> adapterMonitorVelocidad = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        spinnerAtaqueAbrasivo.setAdapter(adapterMonitorVelocidad);
-
-                        ArrayAdapter<String> adapterSensorInductivo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.horasTrabajo);
-                        spinnerHorasTrabajoDia.setAdapter(adapterSensorInductivo);
-
-                        ArrayAdapter<String> adapterIndicadorNivel = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.diasSemana);
-                        spinnerDiasTrabajoSemana.setAdapter(adapterIndicadorNivel);
-
-                        ArrayAdapter<String> adapterCajaUnion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.abrasividad);
-                        spinnerAbrasividad.setAdapter(adapterCajaUnion);
-
-                        ArrayAdapter<String> adapterAlarmaPantalla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.porcentajeFinos);
-                        spinnerPorcentajeFinos.setAdapter(adapterAlarmaPantalla);
-
-                        ArrayAdapter<String> adapterCajaCola = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        spinnerCajaColaTolva.setAdapter(adapterCajaCola);
-
-                        ArrayAdapter<String> adapterFugaMateriales = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.fugaDeMateriales);
-                        spinnerFugaMateriales.setAdapter(adapterFugaMateriales);
-                        spinnerFugaMatrialesCola.setAdapter(adapterMonitorPeligro);
-                        spinnerFugaMaterialesCostados.setAdapter(adapterMonitorPeligro);
-                        spinnerFugaMaterialesParticulados.setAdapter(adapterMonitorPeligro);
-
-                        spinnerSistemaSujecion.setAdapter(adapterEstadoRvtoTolva);
-                        spinnerCauchoGuardaBandas.setAdapter(adapterEstadoRvtoTolva);
-                        spinnerTreSealMultiSeal.setAdapter(adapterEstadoRvtoTolva);
-
-                        spinnerCortina1.setAdapter(adapterEstadoRvtoTolva);
-                        spinnerCortina2.setAdapter(adapterEstadoRvtoTolva);
-                        spinnerCortina3.setAdapter(adapterEstadoRvtoTolva);
-                        spinnerBoquillasAire.setAdapter(adapterEstadoRvtoTolva);
-
-                        ArrayAdapter<String> adapterProtectorGuardaBandas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.protectorGuardaBandas);
-                        spinnerProtectorGuardaBandas.setAdapter(adapterProtectorGuardaBandas);
-
-                        spinnerTipoRevestimientoTolva.setSelection(adapterTipoRvtoTolva.getPosition(Login.loginJsons.get(i).getTipoRevestimientoTolvaCarga()));
-                        spinnerEstadoRvtoTolva.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoTolvaCarga()));
-                        spinnerDuracionRvto.setSelection(adapterDuracionRvto.getPosition(Login.loginJsons.get(i).getDuracionPromedioRevestimiento()));
-                        spinnerDeflectores.setSelection(adapterDeflectores.getPosition(Login.loginJsons.get(i).getDeflectores()));
-                        spinnerAtaqueQuimico.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAtaqueQuimicoTransportadora()));
-                        spinnerAtaqueTemperatura.setSelection(adapterRodamiento.getPosition(Login.loginJsons.get(i).getAtaqueTemperaturaTransportadora()));
-                        spinnerAtaqueAceites.setSelection(adapterMonitorDesalineacion.getPosition(Login.loginJsons.get(i).getAtaqueAceiteTransportadora()));
-                        spinnerAtaqueAbrasivo.setSelection(adapterMonitorVelocidad.getPosition(Login.loginJsons.get(i).getAtaqueAbrasivoTransportadora()));
-                        spinnerHorasTrabajoDia.setSelection(adapterSensorInductivo.getPosition(Login.loginJsons.get(i).getHorasTrabajoPorDiaTransportadora()));
-                        spinnerDiasTrabajoSemana.setSelection(adapterIndicadorNivel.getPosition(Login.loginJsons.get(i).getDiasTrabajoPorSemanaTransportadora()));
-                        spinnerAbrasividad.setSelection(adapterCajaUnion.getPosition(Login.loginJsons.get(i).getAbrasividadTransportadora()));
-                        spinnerPorcentajeFinos.setSelection(adapterAlarmaPantalla.getPosition(Login.loginJsons.get(i).getPorcentajeFinosTransportadora()));
-                        spinnerCajaColaTolva.setSelection(adapterCajaCola.getPosition(Login.loginJsons.get(i).getCajaColaDeTolva()));
-                        spinnerFugaMateriales.setSelection(adapterFugaMateriales.getPosition(Login.loginJsons.get(i).getFugaMateriales()));
-                        spinnerFugaMatrialesCola.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getFugaDeMaterialesEnLaColaDelChute()));
-                        spinnerFugaMaterialesCostados.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getFugaDeMaterialesPorLosCostados()));
-                        spinnerFugaMaterialesParticulados.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getFugaDeMaterialParticuladoALaSalidaDelChute()));
-                        spinnerSistemaSujecion.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getAbrazadera()));
-                        spinnerCauchoGuardaBandas.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCauchoGuardabandas()));
-                        spinnerTreSealMultiSeal.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getTriSealMultiSeal()));
-                        spinnerProtectorGuardaBandas.setSelection(adapterProtectorGuardaBandas.getPosition(Login.loginJsons.get(i).getProtectorGuardaBandas()));
-                        spinnerCortina1.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCortinaAntiPolvo1()));
-                        spinnerCortina2.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCortinaAntiPolvo2()));
-                        spinnerCortina3.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCortinaAntiPolvo3()));
-                        spinnerBoquillasAire.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getBoquillasCanonesDeAire()));
-                        spinnerAlimentacionCentrada.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAlimentacionCentradaTransportadora()));
-                        spinnerAtaqueImpacto.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAtaqueImpactoTransportadora()));
-
-                        TextInputEditText txtAlturaCaida=dialogParte.findViewById(R.id.txtAlturaCaida);
-                        TextInputEditText txtLongitudImpacto=dialogParte.findViewById(R.id.txtLongitudImpacto);
-                        TextInputEditText txtMaterial=dialogParte.findViewById(R.id.txtMaterial);
-                        TextInputEditText txtMaxGranulometria=dialogParte.findViewById(R.id.txtMaxGranulometria);
-                        TextInputEditText txtTempMaxMaterialBanda=dialogParte.findViewById(R.id.txtTempMaxSobreBanda);
-                        TextInputEditText txtTempPromedioBanda=dialogParte.findViewById(R.id.txtTempPromedioBanda);
-                        TextInputEditText txtMaxPeso=dialogParte.findViewById(R.id.txtMaxPeso);
-                        TextInputEditText txtDensidad=dialogParte.findViewById(R.id.txtDensidadMaterial);
-                        TextInputEditText txtAnchoChute=dialogParte.findViewById(R.id.txtAnchoChute);
-                        TextInputEditText txtLargoChute=dialogParte.findViewById(R.id.txtLargoChute);
-                        TextInputEditText txtAlturaChute=dialogParte.findViewById(R.id.txtAlturaChute);
-                        TextInputEditText txtEspesorGuardabandas=dialogParte.findViewById(R.id.txtEspesorGuardabandas);
-                        TextInputEditText txtAnchoGuardabandas=dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
-                        TextInputEditText txtLargoGuardabandas=dialogParte.findViewById(R.id.txtLargoGuardaBandas);
-                        TextInputEditText txtTempAmbienteMinimaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
-                        TextInputEditText txtTempAmbienteMaximaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMaximaHorizontal);
-                        TextInputEditText txtAnguloSobrecarga=dialogParte.findViewById(R.id.txtAnguloSobreCarga);
-                        TextInputEditText txtCapacidadHorizontal=dialogParte.findViewById(R.id.txtCapacidadHorizontal);
+                            final Spinner spinnerLongitudImpacto=dialogParte.findViewById(R.id.spinnerLongitudImpacto);
 
 
-                        txtAlturaCaida.setText(Login.loginJsons.get(i).getAltureCaida());
-                        txtLongitudImpacto.setText(Login.loginJsons.get(i).getLongitudImpacto());
-                        txtMaterial.setText(Login.loginJsons.get(i).getMaterial());
-                        txtMaxGranulometria.setText(Login.loginJsons.get(i).getMaxGranulometriaTransportadora());
-                        txtTempMaxMaterialBanda.setText(Login.loginJsons.get(i).getTempMaximaMaterialSobreBandaTransportadora());
-                        txtTempPromedioBanda.setText(Login.loginJsons.get(i).getTempPromedioMaterialSobreBandaTransportadora());
-                        txtMaxPeso.setText(Login.loginJsons.get(i).getMaxPesoTransportadora());
-                        txtDensidad.setText(Login.loginJsons.get(i).getDensidadTransportadora());
-                        txtAnchoChute.setText(Login.loginJsons.get(i).getAnchoChute());
-                        txtLargoChute.setText(Login.loginJsons.get(i).getLargoChute());
-                        txtAlturaChute.setText(Login.loginJsons.get(i).getAlturaChute());
-                        txtEspesorGuardabandas.setText(Login.loginJsons.get(i).getEspesorGuardaBandas());
-                        txtAnchoGuardabandas.setText(Login.loginJsons.get(i).getAnchoGuardaBandas());
-                        txtLargoGuardabandas.setText(Login.loginJsons.get(i).getLargoGuardaBandas());
-                        txtTempAmbienteMinimaHorizontal.setText(Login.loginJsons.get(i).getTempAmbienteMinTransportadora());
-                        txtTempAmbienteMaximaHorizontal.setText(Login.loginJsons.get(i).getTempAmbienteMaxTransportadora());
-                        txtAnguloSobrecarga.setText(Login.loginJsons.get(i).getAnguloSobreCarga());
-                        txtCapacidadHorizontal.setText(Login.loginJsons.get(i).getCapacidadTransportadora());
+                            ArrayAdapter<String> adapterTipoRvtoTolva = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRevestimiento);
+                            spinnerTipoRevestimientoTolva.setAdapter(adapterTipoRvtoTolva);
 
-                        i = Login.loginJsons.size() + 1;
+                            ArrayAdapter<String> adapterEstadoRvtoTolva = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            spinnerEstadoRvtoTolva.setAdapter(adapterEstadoRvtoTolva);
 
+                            ArrayAdapter<String> adapterDuracionRvto = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.meses);
+                            spinnerDuracionRvto.setAdapter(adapterDuracionRvto);
+
+                            ArrayAdapter<String> adapterDeflectores = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerDeflectores.setAdapter(adapterDeflectores);
+
+                            ArrayAdapter<String> adapterEspesorGuardabadas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorVPlow);
+                            spinnerEspesorGuardabandas.setAdapter(adapterEspesorGuardabadas);
+
+
+                            ArrayAdapter<String> adapterMonitorPeligro = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerAtaqueQuimico.setAdapter(adapterMonitorPeligro);
+                            spinnerAlimentacionCentrada.setAdapter(adapterMonitorPeligro);
+                            spinnerAtaqueImpacto.setAdapter(adapterMonitorPeligro);
+
+                            ArrayAdapter<String> adapterRodamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerAtaqueTemperatura.setAdapter(adapterRodamiento);
+
+                            ArrayAdapter<String> adapterMonitorDesalineacion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerAtaqueAceites.setAdapter(adapterMonitorDesalineacion);
+
+                            ArrayAdapter<String> adapterMonitorVelocidad = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            spinnerAtaqueAbrasivo.setAdapter(adapterMonitorVelocidad);
+
+                            ArrayAdapter<String> adapterSensorInductivo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.horasTrabajo);
+                            spinnerHorasTrabajoDia.setAdapter(adapterSensorInductivo);
+
+                            ArrayAdapter<String> adapterIndicadorNivel = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.diasSemana);
+                            spinnerDiasTrabajoSemana.setAdapter(adapterIndicadorNivel);
+
+                            ArrayAdapter<String> adapterCajaUnion = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.abrasividad);
+                            spinnerAbrasividad.setAdapter(adapterCajaUnion);
+
+                            ArrayAdapter<String> adapterAlarmaPantalla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.porcentajeFinos);
+                            spinnerPorcentajeFinos.setAdapter(adapterAlarmaPantalla);
+
+                            ArrayAdapter<String> adapterCajaCola = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            spinnerCajaColaTolva.setAdapter(adapterCajaCola);
+                            ArrayAdapter<String> adapterLongitudImpacto = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.longitudImpacto);
+                            spinnerLongitudImpacto.setAdapter(adapterLongitudImpacto);
+
+                            ArrayAdapter<String> adapterFugaMateriales = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.fugaDeMateriales);
+                            spinnerFugaMateriales.setAdapter(adapterFugaMateriales);
+                            spinnerFugaMatrialesCola.setAdapter(adapterMonitorPeligro);
+                            spinnerFugaMaterialesCostados.setAdapter(adapterMonitorPeligro);
+                            spinnerFugaMaterialesParticulados.setAdapter(adapterMonitorPeligro);
+
+                            spinnerSistemaSujecion.setAdapter(adapterEstadoRvtoTolva);
+                            spinnerCauchoGuardaBandas.setAdapter(adapterEstadoRvtoTolva);
+                            spinnerTreSealMultiSeal.setAdapter(adapterEstadoRvtoTolva);
+
+                            spinnerCortina1.setAdapter(adapterEstadoRvtoTolva);
+                            spinnerCortina2.setAdapter(adapterEstadoRvtoTolva);
+                            spinnerCortina3.setAdapter(adapterEstadoRvtoTolva);
+                            spinnerBoquillasAire.setAdapter(adapterEstadoRvtoTolva);
+
+                            ArrayAdapter<String> adapterProtectorGuardaBandas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.protectorGuardaBandas);
+                            spinnerProtectorGuardaBandas.setAdapter(adapterProtectorGuardaBandas);
+
+                            spinnerTipoRevestimientoTolva.setSelection(adapterTipoRvtoTolva.getPosition(Login.loginJsons.get(i).getTipoRevestimientoTolvaCarga()));
+                            spinnerEstadoRvtoTolva.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoTolvaCarga()));
+                            spinnerDuracionRvto.setSelection(adapterDuracionRvto.getPosition(Login.loginJsons.get(i).getDuracionPromedioRevestimiento()));
+                            spinnerDeflectores.setSelection(adapterDeflectores.getPosition(Login.loginJsons.get(i).getDeflectores()));
+                            spinnerAtaqueQuimico.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAtaqueQuimicoTransportadora()));
+                            spinnerAtaqueTemperatura.setSelection(adapterRodamiento.getPosition(Login.loginJsons.get(i).getAtaqueTemperaturaTransportadora()));
+                            spinnerAtaqueAceites.setSelection(adapterMonitorDesalineacion.getPosition(Login.loginJsons.get(i).getAtaqueAceiteTransportadora()));
+                            spinnerAtaqueAbrasivo.setSelection(adapterMonitorVelocidad.getPosition(Login.loginJsons.get(i).getAtaqueAbrasivoTransportadora()));
+                            spinnerHorasTrabajoDia.setSelection(adapterSensorInductivo.getPosition(Login.loginJsons.get(i).getHorasTrabajoPorDiaTransportadora()));
+                            spinnerDiasTrabajoSemana.setSelection(adapterIndicadorNivel.getPosition(Login.loginJsons.get(i).getDiasTrabajoPorSemanaTransportadora()));
+                            spinnerAbrasividad.setSelection(adapterCajaUnion.getPosition(Login.loginJsons.get(i).getAbrasividadTransportadora()));
+                            spinnerPorcentajeFinos.setSelection(adapterAlarmaPantalla.getPosition(Login.loginJsons.get(i).getPorcentajeFinosTransportadora()));
+                            spinnerCajaColaTolva.setSelection(adapterCajaCola.getPosition(Login.loginJsons.get(i).getCajaColaDeTolva()));
+                            spinnerFugaMateriales.setSelection(adapterFugaMateriales.getPosition(Login.loginJsons.get(i).getFugaMateriales()));
+                            spinnerFugaMatrialesCola.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getFugaDeMaterialesEnLaColaDelChute()));
+                            spinnerFugaMaterialesCostados.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getFugaDeMaterialesPorLosCostados()));
+                            spinnerFugaMaterialesParticulados.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getFugaDeMaterialParticuladoALaSalidaDelChute()));
+                            spinnerSistemaSujecion.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getAbrazadera()));
+                            spinnerCauchoGuardaBandas.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCauchoGuardabandas()));
+                            spinnerTreSealMultiSeal.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getTriSealMultiSeal()));
+                            spinnerProtectorGuardaBandas.setSelection(adapterProtectorGuardaBandas.getPosition(Login.loginJsons.get(i).getProtectorGuardaBandas()));
+                            spinnerCortina1.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCortinaAntiPolvo1()));
+                            spinnerCortina2.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCortinaAntiPolvo2()));
+                            spinnerCortina3.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getCortinaAntiPolvo3()));
+                            spinnerBoquillasAire.setSelection(adapterEstadoRvtoTolva.getPosition(Login.loginJsons.get(i).getBoquillasCanonesDeAire()));
+                            spinnerAlimentacionCentrada.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAlimentacionCentradaTransportadora()));
+                            spinnerAtaqueImpacto.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAtaqueImpactoTransportadora()));
+                            spinnerLongitudImpacto.setSelection(adapterLongitudImpacto.getPosition(Login.loginJsons.get(i).getLongitudImpacto()));
+                            spinnerEspesorGuardabandas.setSelection(adapterEspesorGuardabadas.getPosition(Login.loginJsons.get(i).getEspesorGuardaBandas()));
+
+                            TextInputEditText txtAlturaCaida=dialogParte.findViewById(R.id.txtAlturaCaida);
+                            TextInputEditText txtMaterial=dialogParte.findViewById(R.id.txtMaterial);
+                            TextInputEditText txtMaxGranulometria=dialogParte.findViewById(R.id.txtMaxGranulometria);
+                            TextInputEditText txtTempMaxMaterialBanda=dialogParte.findViewById(R.id.txtTempMaxSobreBanda);
+                            TextInputEditText txtTempPromedioBanda=dialogParte.findViewById(R.id.txtTempPromedioBanda);
+                            TextInputEditText txtMaxPeso=dialogParte.findViewById(R.id.txtMaxPeso);
+                            TextInputEditText txtDensidad=dialogParte.findViewById(R.id.txtDensidadMaterial);
+                            TextInputEditText txtAnchoChute=dialogParte.findViewById(R.id.txtAnchoChute);
+                            TextInputEditText txtLargoChute=dialogParte.findViewById(R.id.txtLargoChute);
+                            TextInputEditText txtAlturaChute=dialogParte.findViewById(R.id.txtAlturaChute);
+                            TextInputEditText txtAnchoGuardabandas=dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
+                            TextInputEditText txtLargoGuardabandas=dialogParte.findViewById(R.id.txtLargoGuardaBandas);
+                            TextInputEditText txtTempAmbienteMinimaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
+                            TextInputEditText txtTempAmbienteMaximaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMaximaHorizontal);
+                            TextInputEditText txtAnguloSobrecarga=dialogParte.findViewById(R.id.txtAnguloSobreCarga);
+                            TextInputEditText txtCapacidadHorizontal=dialogParte.findViewById(R.id.txtCapacidadHorizontal);
+
+
+                            txtAlturaCaida.setText(Login.loginJsons.get(i).getAltureCaida());
+
+                            txtMaterial.setText(Login.loginJsons.get(i).getMaterial());
+                            txtMaxGranulometria.setText(Login.loginJsons.get(i).getMaxGranulometriaTransportadora());
+                            txtTempMaxMaterialBanda.setText(Login.loginJsons.get(i).getTempMaximaMaterialSobreBandaTransportadora());
+                            txtTempPromedioBanda.setText(Login.loginJsons.get(i).getTempPromedioMaterialSobreBandaTransportadora());
+                            txtMaxPeso.setText(Login.loginJsons.get(i).getMaxPesoTransportadora());
+                            txtDensidad.setText(Login.loginJsons.get(i).getDensidadTransportadora());
+                            txtAnchoChute.setText(Login.loginJsons.get(i).getAnchoChute());
+                            txtLargoChute.setText(Login.loginJsons.get(i).getLargoChute());
+                            txtAlturaChute.setText(Login.loginJsons.get(i).getAlturaChute());
+
+                            txtAnchoGuardabandas.setText(Login.loginJsons.get(i).getAnchoGuardaBandas());
+                            txtLargoGuardabandas.setText(Login.loginJsons.get(i).getLargoGuardaBandas());
+                            txtTempAmbienteMinimaHorizontal.setText(Login.loginJsons.get(i).getTempAmbienteMinTransportadora());
+                            txtTempAmbienteMaximaHorizontal.setText(Login.loginJsons.get(i).getTempAmbienteMaxTransportadora());
+                            txtAnguloSobrecarga.setText(Login.loginJsons.get(i).getAnguloSobreCarga());
+                            txtCapacidadHorizontal.setText(Login.loginJsons.get(i).getCapacidadTransportadora());
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Limpiador Primario":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerLadoPasarelaSentidoBanda = dialogParte.findViewById(R.id.spinnerLadoPasarelaLP);
-                        Spinner spinnerMaterialAlimenticioLP = dialogParte.findViewById(R.id.spinnerMaterialAlimenticioLP);
-                        Spinner spinnerMaterialAcidoLP = dialogParte.findViewById(R.id.spinnerMaterialAcidoLP);
-                        Spinner spinnerMaterial80y150LP = dialogParte.findViewById(R.id.spinnerMat80y15GradosLP);
-                        Spinner spinnerMaterialSecoLP = dialogParte.findViewById(R.id.spinnerMaterialSecoLP);
-                        Spinner spinnerMaterialHumedoLP = dialogParte.findViewById(R.id.spinnerMaterialHumedoLP);
-                        Spinner spinnerMaterialAbrasivoFinoLP = dialogParte.findViewById(R.id.spinnerMaterialAbrasivoFinoLP);
-                        Spinner spinnerMaterialPegajosoLP = dialogParte.findViewById(R.id.spinnerMaterialPegajosoLP);
-                        Spinner spinnerMaterialAceitosoGrasosoLP = dialogParte.findViewById(R.id.spinnerMaterialAceitosoGrasosoLP);
+                            Spinner spinnerLadoPasarelaSentidoBanda = dialogParte.findViewById(R.id.spinnerLadoPasarelaLP);
+                            Spinner spinnerMaterialAlimenticioLP = dialogParte.findViewById(R.id.spinnerMaterialAlimenticioLP);
+                            Spinner spinnerMaterialAcidoLP = dialogParte.findViewById(R.id.spinnerMaterialAcidoLP);
+                            Spinner spinnerMaterial80y150LP = dialogParte.findViewById(R.id.spinnerMat80y15GradosLP);
+                            Spinner spinnerMaterialSecoLP = dialogParte.findViewById(R.id.spinnerMaterialSecoLP);
+                            Spinner spinnerMaterialHumedoLP = dialogParte.findViewById(R.id.spinnerMaterialHumedoLP);
+                            Spinner spinnerMaterialAbrasivoFinoLP = dialogParte.findViewById(R.id.spinnerMaterialAbrasivoFinoLP);
+                            Spinner spinnerMaterialPegajosoLP = dialogParte.findViewById(R.id.spinnerMaterialPegajosoLP);
+                            Spinner spinnerMaterialAceitosoGrasosoLP = dialogParte.findViewById(R.id.spinnerMaterialAceitosoGrasosoLP);
 
-                        Spinner spinnerMarcaLP = dialogParte.findViewById(R.id.spinnerMarcaLP);
-                        Spinner spinnerReferenciaLP = dialogParte.findViewById(R.id.spinnerReferenciaLP);
-                        Spinner spinnerEstadoCuchillaLP = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLP);
-                        Spinner spinnerEstadoTensorLP = dialogParte.findViewById(R.id.spinnerEstadoTensorLP);
-                        Spinner spinnerEstadoTuboLP = dialogParte.findViewById(R.id.spinnerEstadoTuboLP);
-                        Spinner spinnerFrecRevisionCuchillaLP = dialogParte.findViewById(R.id.spinnerFrecRevisionCuchillaLP);
-                        Spinner spinnerCuchillaEnContactoConBandaLP = dialogParte.findViewById(R.id.spinnerCuchillaEnContactoConBandaLP);
+                            Spinner spinnerMarcaLP = dialogParte.findViewById(R.id.spinnerMarcaLP);
 
-
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterFrecRevisionCuchilla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.frecuenciaRevision);
-                        ArrayAdapter<String> adapterLadosPasarela = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.ladoPasarela);
-                        ArrayAdapter<String> adapterMarcaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaLimpiador);
-                        ArrayAdapter<String> adapterReferenciaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.referenciaLimpiador);
-
-                        spinnerMaterialAlimenticioLP.setAdapter(adapterSiNo);
-                        spinnerMaterialAcidoLP.setAdapter(adapterSiNo);
-                        spinnerMaterial80y150LP.setAdapter(adapterSiNo);
-                        spinnerMaterialSecoLP.setAdapter(adapterSiNo);
-                        spinnerMaterialHumedoLP.setAdapter(adapterSiNo);
-                        spinnerMaterialAbrasivoFinoLP.setAdapter(adapterSiNo);
-                        spinnerMaterialPegajosoLP.setAdapter(adapterSiNo);
-                        spinnerMaterialAceitosoGrasosoLP.setAdapter(adapterSiNo);
-                        spinnerCuchillaEnContactoConBandaLP.setAdapter(adapterSiNo);
-
-                        spinnerEstadoCuchillaLP.setAdapter(adapterEstadoPartes);
-                        spinnerEstadoTuboLP.setAdapter(adapterEstadoPartes);
-                        spinnerEstadoTensorLP.setAdapter(adapterEstadoPartes);
-                        spinnerFrecRevisionCuchillaLP.setAdapter(adapterFrecRevisionCuchilla);
-                        spinnerLadoPasarelaSentidoBanda.setAdapter(adapterLadosPasarela);
-                        spinnerMarcaLP.setAdapter(adapterMarcaLimpiador);
-                        spinnerReferenciaLP.setAdapter(adapterReferenciaLimpiador);
-
-                        TextInputEditText txtAnchoEstructura = dialogParte.findViewById(R.id.txtAnchoEstructuraLP);
-                        TextInputEditText txtAnchoTrayectoCarga = dialogParte.findViewById(R.id.txtAnchoTrayectoCargaLP);
-                        TextInputEditText txtAnchoCuchillaLP = dialogParte.findViewById(R.id.txtAnchoCuchillaLP);
-                        TextInputEditText txtAltoCuchillaLP = dialogParte.findViewById(R.id.txtAltoCuchillaLP);
+                            Spinner spinnerEstadoCuchillaLP = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLP);
+                            Spinner spinnerEstadoTensorLP = dialogParte.findViewById(R.id.spinnerEstadoTensorLP);
+                            Spinner spinnerEstadoTuboLP = dialogParte.findViewById(R.id.spinnerEstadoTuboLP);
+                            Spinner spinnerFrecRevisionCuchillaLP = dialogParte.findViewById(R.id.spinnerFrecRevisionCuchillaLP);
+                            Spinner spinnerCuchillaEnContactoConBandaLP = dialogParte.findViewById(R.id.spinnerCuchillaEnContactoConBandaLP);
 
 
-                        spinnerLadoPasarelaSentidoBanda.setSelection(adapterLadosPasarela.getPosition(Login.loginJsons.get(i).getPasarelaRespectoAvanceBanda()));
-                        spinnerMaterialAlimenticioLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAlimenticioTransportadora()));
-                        spinnerMaterialAcidoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAcidoTransportadora()));
-                        spinnerMaterial80y150LP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialTempEntre80y150Transportadora()));
-                        spinnerMaterialSecoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialSecoTransportadora()));
-                        spinnerMaterialHumedoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialHumedoTransportadora()));
-                        spinnerMaterialAbrasivoFinoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAbrasivoFinoTransportadora()));
-                        spinnerMaterialPegajosoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialPegajosoTransportadora()));
-                        spinnerMaterialAceitosoGrasosoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialGrasosoAceitosoTransportadora()));
-                        spinnerMarcaLP.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorPrimario()));
-                        spinnerReferenciaLP.setSelection(adapterReferenciaLimpiador.getPosition(Login.loginJsons.get(i).getReferenciaLimpiadorPrimario()));
-                        spinnerEstadoCuchillaLP.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorPrimario()));
-                        spinnerEstadoTensorLP.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTensorLimpiadorPrimario()));
-                        spinnerEstadoTuboLP.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTuboLimpiadorPrimario()));
-                        spinnerFrecRevisionCuchillaLP.setSelection(adapterFrecRevisionCuchilla.getPosition(Login.loginJsons.get(i).getFrecuenciaRevisionCuchilla()));
-                        spinnerCuchillaEnContactoConBandaLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getCuchillaEnContactoConBanda()));
-
-                        txtAnchoEstructura.setText(Login.loginJsons.get(i).getAnchoEstructura());
-                        txtAnchoTrayectoCarga.setText(Login.loginJsons.get(i).getAnchoTrayectoCarga());
-                        txtAnchoCuchillaLP.setText(Login.loginJsons.get(i).getAnchoCuchillaLimpiadorPrimario());
-                        txtAltoCuchillaLP.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorPrimario());
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterFrecRevisionCuchilla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.frecuenciaRevision);
+                            ArrayAdapter<String> adapterLadosPasarela = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.ladoPasarela);
+                            ArrayAdapter<String> adapterMarcaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaLimpiador);
 
 
-                        i = Login.loginJsons.size() + 1;
+                            spinnerMaterialAlimenticioLP.setAdapter(adapterSiNo);
+                            spinnerMaterialAcidoLP.setAdapter(adapterSiNo);
+                            spinnerMaterial80y150LP.setAdapter(adapterSiNo);
+                            spinnerMaterialSecoLP.setAdapter(adapterSiNo);
+                            spinnerMaterialHumedoLP.setAdapter(adapterSiNo);
+                            spinnerMaterialAbrasivoFinoLP.setAdapter(adapterSiNo);
+                            spinnerMaterialPegajosoLP.setAdapter(adapterSiNo);
+                            spinnerMaterialAceitosoGrasosoLP.setAdapter(adapterSiNo);
+                            spinnerCuchillaEnContactoConBandaLP.setAdapter(adapterSiNo);
 
+                            spinnerEstadoCuchillaLP.setAdapter(adapterEstadoPartes);
+                            spinnerEstadoTuboLP.setAdapter(adapterEstadoPartes);
+                            spinnerEstadoTensorLP.setAdapter(adapterEstadoPartes);
+                            spinnerFrecRevisionCuchillaLP.setAdapter(adapterFrecRevisionCuchilla);
+                            spinnerLadoPasarelaSentidoBanda.setAdapter(adapterLadosPasarela);
+                            spinnerMarcaLP.setAdapter(adapterMarcaLimpiador);
+
+
+                            TextInputEditText txtAnchoEstructura = dialogParte.findViewById(R.id.txtAnchoEstructuraLP);
+                            TextInputEditText txtAnchoTrayectoCarga = dialogParte.findViewById(R.id.txtAnchoTrayectoCargaLP);
+                            TextInputEditText txtAnchoCuchillaLP = dialogParte.findViewById(R.id.txtAnchoCuchillaLP);
+                            TextInputEditText txtAltoCuchillaLP = dialogParte.findViewById(R.id.txtAltoCuchillaLP);
+                            TextInputEditText txtReferenciaLP = dialogParte.findViewById(R.id.txtReferenciaLP);
+
+
+                            spinnerLadoPasarelaSentidoBanda.setSelection(adapterLadosPasarela.getPosition(Login.loginJsons.get(i).getPasarelaRespectoAvanceBanda()));
+                            spinnerMaterialAlimenticioLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAlimenticioTransportadora()));
+                            spinnerMaterialAcidoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAcidoTransportadora()));
+                            spinnerMaterial80y150LP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialTempEntre80y150Transportadora()));
+                            spinnerMaterialSecoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialSecoTransportadora()));
+                            spinnerMaterialHumedoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialHumedoTransportadora()));
+                            spinnerMaterialAbrasivoFinoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialAbrasivoFinoTransportadora()));
+                            spinnerMaterialPegajosoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialPegajosoTransportadora()));
+                            spinnerMaterialAceitosoGrasosoLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getMaterialGrasosoAceitosoTransportadora()));
+                            spinnerMarcaLP.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorPrimario()));
+
+                            spinnerEstadoCuchillaLP.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorPrimario()));
+                            spinnerEstadoTensorLP.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTensorLimpiadorPrimario()));
+                            spinnerEstadoTuboLP.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTuboLimpiadorPrimario()));
+                            spinnerFrecRevisionCuchillaLP.setSelection(adapterFrecRevisionCuchilla.getPosition(Login.loginJsons.get(i).getFrecuenciaRevisionCuchilla()));
+                            spinnerCuchillaEnContactoConBandaLP.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getCuchillaEnContactoConBanda()));
+
+                            txtAnchoEstructura.setText(Login.loginJsons.get(i).getAnchoEstructura());
+                            txtAnchoTrayectoCarga.setText(Login.loginJsons.get(i).getAnchoTrayectoCarga());
+                            txtAnchoCuchillaLP.setText(Login.loginJsons.get(i).getAnchoCuchillaLimpiadorPrimario());
+                            txtAltoCuchillaLP.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorPrimario());
+                            txtReferenciaLP.setText(Login.loginJsons.get(i).getReferenciaLimpiadorPrimario());
+
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
@@ -5573,256 +5649,285 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
             case "Limpiador Secundario":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerMarcaLS = dialogParte.findViewById(R.id.spinnerMarcaLS);
-                        Spinner spinnerReferenciaLS = dialogParte.findViewById(R.id.spinnerReferenciaLS);
-                        Spinner spinnerEstadoCuchillaLS = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLS);
-                        Spinner spinnerEstadoTensorLS = dialogParte.findViewById(R.id.spinnerEstadoTensorLS);
-                        Spinner spinnerEstadoTuboLS = dialogParte.findViewById(R.id.spinnerEstadoTuboLS);
-                        Spinner spinnerFrecRevisionCuchillaLS = dialogParte.findViewById(R.id.spinnerFrecRevisionCuchillaLS);
-                        Spinner spinnerCuchillaEnContactoConBandaLS = dialogParte.findViewById(R.id.spinnerCuchillaEnContactoConBandaLS);
-                        Spinner spinnerSistemaDribbleChuteLS = dialogParte.findViewById(R.id.spinnerSistemaDribbleChuteLS);
+                            Spinner spinnerMarcaLS = dialogParte.findViewById(R.id.spinnerMarcaLS);
 
-                        Spinner spinnerMarcaLT = dialogParte.findViewById(R.id.spinnerMarcaLT);
-                        Spinner spinnerReferenciaLT = dialogParte.findViewById(R.id.spinnerReferenciaLT);
-                        Spinner spinnerEstadoCuchillaLT = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLT);
-                        Spinner spinnerEstadoTensorLT = dialogParte.findViewById(R.id.spinnerEstadoTensorLT);
-                        Spinner spinnerEstadoTuboLT = dialogParte.findViewById(R.id.spinnerEstadoTuboLT);
-                        Spinner spinnerFrecRevisionCuchillaLT = dialogParte.findViewById(R.id.spinnerFrecRevisionCuchillaLT);
-                        Spinner spinnerCuchillaEnContactoConBandaLT = dialogParte.findViewById(R.id.spinnerCuchillaEnContactoConBandaLT);
+                            Spinner spinnerEstadoCuchillaLS = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLS);
+                            Spinner spinnerEstadoTensorLS = dialogParte.findViewById(R.id.spinnerEstadoTensorLS);
+                            Spinner spinnerEstadoTuboLS = dialogParte.findViewById(R.id.spinnerEstadoTuboLS);
+                            Spinner spinnerFrecRevisionCuchillaLS = dialogParte.findViewById(R.id.spinnerFrecRevisionCuchillaLS);
+                            Spinner spinnerCuchillaEnContactoConBandaLS = dialogParte.findViewById(R.id.spinnerCuchillaEnContactoConBandaLS);
+                            Spinner spinnerSistemaDribbleChuteLS = dialogParte.findViewById(R.id.spinnerSistemaDribbleChuteLS);
 
+                            Spinner spinnerMarcaLT = dialogParte.findViewById(R.id.spinnerMarcaLT);
 
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterFrecRevisionCuchilla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.frecuenciaRevision);
-                        ArrayAdapter<String> adapterMarcaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaLimpiador);
-                        ArrayAdapter<String> adapterReferenciaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.referenciaLimpiador);
-
-                        spinnerMarcaLS.setAdapter(adapterMarcaLimpiador);
-                        spinnerMarcaLT.setAdapter(adapterMarcaLimpiador);
-
-                        spinnerReferenciaLS.setAdapter(adapterReferenciaLimpiador);
-                        spinnerReferenciaLT.setAdapter(adapterReferenciaLimpiador);
-
-                        spinnerEstadoTensorLS.setAdapter(adapterEstadoPartes);
-                        spinnerEstadoTensorLT.setAdapter(adapterEstadoPartes);
-
-                        spinnerEstadoTuboLS.setAdapter(adapterEstadoPartes);
-                        spinnerEstadoTuboLT.setAdapter(adapterEstadoPartes);
-
-                        spinnerCuchillaEnContactoConBandaLS.setAdapter(adapterSiNo);
-                        spinnerCuchillaEnContactoConBandaLT.setAdapter(adapterSiNo);
-                        spinnerSistemaDribbleChuteLS.setAdapter(adapterSiNo);
+                            Spinner spinnerEstadoCuchillaLT = dialogParte.findViewById(R.id.spinnerEstadoCuchillaLT);
+                            Spinner spinnerEstadoTensorLT = dialogParte.findViewById(R.id.spinnerEstadoTensorLT);
+                            Spinner spinnerEstadoTuboLT = dialogParte.findViewById(R.id.spinnerEstadoTuboLT);
+                            Spinner spinnerFrecRevisionCuchillaLT = dialogParte.findViewById(R.id.spinnerFrecRevisionCuchillaLT);
+                            Spinner spinnerCuchillaEnContactoConBandaLT = dialogParte.findViewById(R.id.spinnerCuchillaEnContactoConBandaLT);
 
 
-                        spinnerEstadoCuchillaLS.setAdapter(adapterEstadoPartes);
-                        spinnerEstadoCuchillaLT.setAdapter(adapterEstadoPartes);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterFrecRevisionCuchilla = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.frecuenciaRevision);
+                            ArrayAdapter<String> adapterMarcaLimpiador = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaLimpiador);
 
 
-                        spinnerFrecRevisionCuchillaLS.setAdapter(adapterFrecRevisionCuchilla);
-                        spinnerFrecRevisionCuchillaLT.setAdapter(adapterFrecRevisionCuchilla);
-
-                        TextInputEditText txtAnchoCuchillaLS=dialogParte.findViewById(R.id.txtAnchoCuchillaLS);
-                        TextInputEditText txtAltoCuchillaLS=dialogParte.findViewById(R.id.txtAltoCuchillaLS);
-
-                        TextInputEditText txtAnchoCuchillaLT=dialogParte.findViewById(R.id.txtAnchoCuchillaLT);
-                        TextInputEditText txtAltoCuchillaLT=dialogParte.findViewById(R.id.txtAltoCuchillaLT);
+                            spinnerMarcaLS.setAdapter(adapterMarcaLimpiador);
+                            spinnerMarcaLT.setAdapter(adapterMarcaLimpiador);
 
 
 
-                        spinnerMarcaLS.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorSecundario()));
-                        spinnerMarcaLT.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorTerciario()));
 
-                        spinnerSistemaDribbleChuteLS.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaDribbleChute()));
+                            spinnerEstadoTensorLS.setAdapter(adapterEstadoPartes);
+                            spinnerEstadoTensorLT.setAdapter(adapterEstadoPartes);
 
-                        spinnerReferenciaLS.setSelection(adapterReferenciaLimpiador.getPosition(Login.loginJsons.get(i).getReferenciaLimpiadorSecundario()));
-                        spinnerReferenciaLT.setSelection(adapterReferenciaLimpiador.getPosition(Login.loginJsons.get(i).getReferenciaLimpiadorTerciario()));
+                            spinnerEstadoTuboLS.setAdapter(adapterEstadoPartes);
+                            spinnerEstadoTuboLT.setAdapter(adapterEstadoPartes);
 
-                        spinnerEstadoCuchillaLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorSecundario()));
-                        spinnerEstadoCuchillaLT.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorTerciario()));
-
-                        spinnerEstadoTensorLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTensorLimpiadorSecundario()));
-                        spinnerEstadoTensorLT.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTensorLimpiadorTerciario()));
-
-                        spinnerEstadoTuboLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTuboLimpiadorSecundario()));
-                        spinnerEstadoTuboLT.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTuboLimpiadorTerciario()));
-
-                        spinnerFrecRevisionCuchillaLS.setSelection(adapterFrecRevisionCuchilla.getPosition(Login.loginJsons.get(i).getFrecuenciaRevisionCuchilla1()));
-                        spinnerFrecRevisionCuchillaLT.setSelection(adapterFrecRevisionCuchilla.getPosition(Login.loginJsons.get(i).getFrecuenciaRevisionCuchilla2()));
-
-                        spinnerCuchillaEnContactoConBandaLS.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getCuchillaEnContactoConBanda1()));
-                        spinnerCuchillaEnContactoConBandaLT.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getCuchillaEnContactoConBanda2()));
-
-                        txtAnchoCuchillaLS.setText(Login.loginJsons.get(i).getAnchoCuchillaLimpiadorSecundario());
-                        txtAltoCuchillaLS.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorSecundario());
-
-                        txtAnchoCuchillaLT.setText(Login.loginJsons.get(i).getAnchoCuchillaLimpiadorTerciario());
-                        txtAltoCuchillaLT.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorTerciario());
+                            spinnerCuchillaEnContactoConBandaLS.setAdapter(adapterSiNo);
+                            spinnerCuchillaEnContactoConBandaLT.setAdapter(adapterSiNo);
+                            spinnerSistemaDribbleChuteLS.setAdapter(adapterSiNo);
 
 
-                        i = Login.loginJsons.size() + 1;
+                            spinnerEstadoCuchillaLS.setAdapter(adapterEstadoPartes);
+                            spinnerEstadoCuchillaLT.setAdapter(adapterEstadoPartes);
 
+
+                            spinnerFrecRevisionCuchillaLS.setAdapter(adapterFrecRevisionCuchilla);
+                            spinnerFrecRevisionCuchillaLT.setAdapter(adapterFrecRevisionCuchilla);
+
+                            TextInputEditText txtAnchoCuchillaLS=dialogParte.findViewById(R.id.txtAnchoCuchillaLS);
+                            TextInputEditText txtAltoCuchillaLS=dialogParte.findViewById(R.id.txtAltoCuchillaLS);
+                            TextInputEditText txtReferenciaLS=dialogParte.findViewById(R.id.txtReferenciaLS);
+
+                            TextInputEditText txtAnchoCuchillaLT=dialogParte.findViewById(R.id.txtAnchoCuchillaLT);
+                            TextInputEditText txtAltoCuchillaLT=dialogParte.findViewById(R.id.txtAltoCuchillaLT);
+                            TextInputEditText txtReferenciaLT=dialogParte.findViewById(R.id.txtReferenciaLT);
+
+
+
+                            spinnerMarcaLS.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorSecundario()));
+                            spinnerMarcaLT.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorTerciario()));
+
+                            spinnerSistemaDribbleChuteLS.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaDribbleChute()));
+
+
+
+                            spinnerEstadoCuchillaLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorSecundario()));
+                            spinnerEstadoCuchillaLT.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorTerciario()));
+
+                            spinnerEstadoTensorLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTensorLimpiadorSecundario()));
+                            spinnerEstadoTensorLT.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTensorLimpiadorTerciario()));
+
+                            spinnerEstadoTuboLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTuboLimpiadorSecundario()));
+                            spinnerEstadoTuboLT.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoTuboLimpiadorTerciario()));
+
+                            spinnerFrecRevisionCuchillaLS.setSelection(adapterFrecRevisionCuchilla.getPosition(Login.loginJsons.get(i).getFrecuenciaRevisionCuchilla1()));
+                            spinnerFrecRevisionCuchillaLT.setSelection(adapterFrecRevisionCuchilla.getPosition(Login.loginJsons.get(i).getFrecuenciaRevisionCuchilla2()));
+
+                            spinnerCuchillaEnContactoConBandaLS.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getCuchillaEnContactoConBanda1()));
+                            spinnerCuchillaEnContactoConBandaLT.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getCuchillaEnContactoConBanda2()));
+
+                            txtAnchoCuchillaLS.setText(Login.loginJsons.get(i).getAnchoCuchillaLimpiadorSecundario());
+                            txtAltoCuchillaLS.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorSecundario());
+                            txtAltoCuchillaLS.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorSecundario());
+                            txtReferenciaLS.setText(Login.loginJsons.get(i).getReferenciaLimpiadorSecundario());
+
+                            txtAnchoCuchillaLT.setText(Login.loginJsons.get(i).getAnchoCuchillaLimpiadorTerciario());
+                            txtAltoCuchillaLT.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorTerciario());
+                            txtAltoCuchillaLT.setText(Login.loginJsons.get(i).getAltoCuchillaLimpiadorTerciario());
+                            txtReferenciaLT.setText(Login.loginJsons.get(i).getReferenciaLimpiadorTerciario());
+
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Polea Amarre":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerTipoPAmarrePM = dialogParte.findViewById(R.id.spinnerTipoPAmarrePM);
-                        Spinner spinnerIcobandasCentradaPAmarrePM = dialogParte.findViewById(R.id.spinnerIcobandasCentradaPAmarraPM);
-                        Spinner spinnerEstadoRvtoPAmarrePM = dialogParte.findViewById(R.id.spinnerEstadoRvtoPAmarrePM);
+                            Spinner spinnerTipoPAmarrePM = dialogParte.findViewById(R.id.spinnerTipoPAmarrePM);
+                            Spinner spinnerIcobandasCentradaPAmarrePM = dialogParte.findViewById(R.id.spinnerIcobandasCentradaPAmarraPM);
+                            Spinner spinnerEstadoRvtoPAmarrePM = dialogParte.findViewById(R.id.spinnerEstadoRvtoPAmarrePM);
 
-                        Spinner spinnerTipoPAmarrePC = dialogParte.findViewById(R.id.spinnerTipoPAmarrePC);
-                        Spinner spinnerIcobandasCentradaPAmarrePC = dialogParte.findViewById(R.id.spinnerIcobandasCentradaPAmarraPC);
-                        Spinner spinnerEstadoRvtoPAmarrePC = dialogParte.findViewById(R.id.spinnerEstadoRvtoPAmarrePC);
-
-
-                        ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
-                        ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
-                        ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
-
-                        TextInputEditText txtDiametroPAmarrePM = dialogParte.findViewById(R.id.txtDiametroPAmarrePM);
-                        TextInputEditText txtAnchoPAmarrePM = dialogParte.findViewById(R.id.txtAnchoPAmarrePM);
-                        TextInputEditText txtDiametroEjePAmarrePM = dialogParte.findViewById(R.id.txtDiametrooEjePAmarrePM);
-                        TextInputEditText txtLargoEjePAmarrePM = dialogParte.findViewById(R.id.txtLargoEjePAmarrePM);
-
-                        TextInputEditText txtDiametroPAmarrePC = dialogParte.findViewById(R.id.txtDiametroPAmarrePC);
-                        TextInputEditText txtAnchoPAmarrePC = dialogParte.findViewById(R.id.txtAnchoPAmarrePC);
-                        TextInputEditText txtDiametroEjePAmarrePC = dialogParte.findViewById(R.id.txtDiametrooEjePAmarrePC);
-                        TextInputEditText txtLargoEjePAmarrePC = dialogParte.findViewById(R.id.txtLargoEjePAmarrePC);
-
-                        spinnerEstadoRvtoPAmarrePM.setAdapter(adapterEstadoPartes);
-                        spinnerEstadoRvtoPAmarrePC.setAdapter(adapterEstadoPartes);
-                        spinnerIcobandasCentradaPAmarrePC.setAdapter(adapterSiNo);
-                        spinnerIcobandasCentradaPAmarrePM.setAdapter(adapterSiNo);
-                        spinnerTipoPAmarrePM.setAdapter(adapterTipoPolea);
-                        spinnerTipoPAmarrePC.setAdapter(adapterTipoPolea);
-
-                        spinnerTipoPAmarrePM.setSelection(adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaAmarrePoleaMotriz()));
-                        spinnerIcobandasCentradaPAmarrePM.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaPoleaAmarrePoleaMotriz()));
-                        spinnerEstadoRvtoPAmarrePM.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaAmarrePoleaMotriz()));
-                        spinnerTipoPAmarrePC.setSelection(adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaAmarrePoleaCola()));
-                        spinnerIcobandasCentradaPAmarrePC.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaPoleaAmarrePoleaCola()));
-                        spinnerEstadoRvtoPAmarrePC.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaAmarrePoleaCola()));
+                            Spinner spinnerTipoPAmarrePC = dialogParte.findViewById(R.id.spinnerTipoPAmarrePC);
+                            Spinner spinnerIcobandasCentradaPAmarrePC = dialogParte.findViewById(R.id.spinnerIcobandasCentradaPAmarraPC);
+                            Spinner spinnerEstadoRvtoPAmarrePC = dialogParte.findViewById(R.id.spinnerEstadoRvtoPAmarrePC);
 
 
-                        txtDiametroPAmarrePM.setText(Login.loginJsons.get(i).getDiametroPoleaAmarrePoleaMotriz());
-                        txtAnchoPAmarrePM.setText(Login.loginJsons.get(i).getAnchoPoleaAmarrePoleaMotriz());
-                        txtDiametroEjePAmarrePM.setText(Login.loginJsons.get(i).getDiametroEjePoleaAmarrePoleaMotriz());
-                        txtLargoEjePAmarrePM.setText(Login.loginJsons.get(i).getLargoEjePoleaAmarrePoleaMotriz());
-                        txtDiametroPAmarrePC.setText(Login.loginJsons.get(i).getDimetroPoleaAmarrePoleaCola());
-                        txtAnchoPAmarrePC.setText(Login.loginJsons.get(i).getAnchoPoleaAmarrePoleaCola());
-                        txtDiametroEjePAmarrePC.setText(Login.loginJsons.get(i).getDiametroEjePoleaAmarrePoleaCola());
-                        txtLargoEjePAmarrePC.setText(Login.loginJsons.get(i).getLargoEjePoleaAmarrePoleaCola());
+                            ArrayAdapter<String> adapterEstadoPartes = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
+                            ArrayAdapter<String> adapterTipoPolea = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoPolea);
 
-                        i = Login.loginJsons.size() + 1;
+                            TextInputEditText txtDiametroPAmarrePM = dialogParte.findViewById(R.id.txtDiametroPAmarrePM);
+                            TextInputEditText txtAnchoPAmarrePM = dialogParte.findViewById(R.id.txtAnchoPAmarrePM);
+                            TextInputEditText txtDiametroEjePAmarrePM = dialogParte.findViewById(R.id.txtDiametrooEjePAmarrePM);
+                            TextInputEditText txtLargoEjePAmarrePM = dialogParte.findViewById(R.id.txtLargoEjePAmarrePM);
 
+                            TextInputEditText txtDiametroPAmarrePC = dialogParte.findViewById(R.id.txtDiametroPAmarrePC);
+                            TextInputEditText txtAnchoPAmarrePC = dialogParte.findViewById(R.id.txtAnchoPAmarrePC);
+                            TextInputEditText txtDiametroEjePAmarrePC = dialogParte.findViewById(R.id.txtDiametrooEjePAmarrePC);
+                            TextInputEditText txtLargoEjePAmarrePC = dialogParte.findViewById(R.id.txtLargoEjePAmarrePC);
+
+                            spinnerEstadoRvtoPAmarrePM.setAdapter(adapterEstadoPartes);
+                            spinnerEstadoRvtoPAmarrePC.setAdapter(adapterEstadoPartes);
+                            spinnerIcobandasCentradaPAmarrePC.setAdapter(adapterSiNo);
+                            spinnerIcobandasCentradaPAmarrePM.setAdapter(adapterSiNo);
+                            spinnerTipoPAmarrePM.setAdapter(adapterTipoPolea);
+                            spinnerTipoPAmarrePC.setAdapter(adapterTipoPolea);
+
+                            spinnerTipoPAmarrePM.setSelection(adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaAmarrePoleaMotriz()));
+                            spinnerIcobandasCentradaPAmarrePM.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaPoleaAmarrePoleaMotriz()));
+                            spinnerEstadoRvtoPAmarrePM.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaAmarrePoleaMotriz()));
+                            spinnerTipoPAmarrePC.setSelection(adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaAmarrePoleaCola()));
+                            spinnerIcobandasCentradaPAmarrePC.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getIcobandasCentradaPoleaAmarrePoleaCola()));
+                            spinnerEstadoRvtoPAmarrePC.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaAmarrePoleaCola()));
+
+
+                            txtDiametroPAmarrePM.setText(Login.loginJsons.get(i).getDiametroPoleaAmarrePoleaMotriz());
+                            txtAnchoPAmarrePM.setText(Login.loginJsons.get(i).getAnchoPoleaAmarrePoleaMotriz());
+                            txtDiametroEjePAmarrePM.setText(Login.loginJsons.get(i).getDiametroEjePoleaAmarrePoleaMotriz());
+                            txtLargoEjePAmarrePM.setText(Login.loginJsons.get(i).getLargoEjePoleaAmarrePoleaMotriz());
+                            txtDiametroPAmarrePC.setText(Login.loginJsons.get(i).getDiametroPoleaAmarrePoleaCola());
+                            txtAnchoPAmarrePC.setText(Login.loginJsons.get(i).getAnchoPoleaAmarrePoleaCola());
+                            txtDiametroEjePAmarrePC.setText(Login.loginJsons.get(i).getDiametroEjePoleaAmarrePoleaCola());
+                            txtLargoEjePAmarrePC.setText(Login.loginJsons.get(i).getLargoEjePoleaAmarrePoleaCola());
+
+                            i = Login.loginJsons.size() + 1;
+
+                        }
                     }
+
                 }
                 break;
 
             case "Rodillo Carga":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
-                        Spinner spinnerAnguloAcanalArtesaCarga = dialogParte.findViewById(R.id.spinnerAnguloAcanalArtesaCarga);
+                            Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
+                            Spinner spinnerAnguloAcanalArtesaCarga = dialogParte.findViewById(R.id.spinnerAnguloAcanalArtesaCarga);
 
-                        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-                        ArrayAdapter<String> adapterAnguloAcanalamiento= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.angulosAcanalamiento);
+                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+                            ArrayAdapter<String> adapterAnguloAcanalamiento= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.angulosAcanalamiento);
 
-                        spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
-                        spinnerAnguloAcanalArtesaCarga.setAdapter(adapterAnguloAcanalamiento);
+                            spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
+                            spinnerAnguloAcanalArtesaCarga.setAdapter(adapterAnguloAcanalamiento);
 
-                        TextInputEditText txtlargoEjeRodilloCentral = dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
-                        TextInputEditText txtDiametroEjeRodilloCentral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
-                        TextInputEditText txtDiametroRodilloCentral= dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
-                        TextInputEditText txtLargoTuboRodilloCentral= dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
-                        TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-                        TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-                        TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-                        TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-                        TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaArtesasCarga);
-                        TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-                        TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-                        TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-                        TextInputEditText txtDetalleRodilloCargaLateral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+                            TextInputEditText txtlargoEjeRodilloCentral = dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
+                            TextInputEditText txtDiametroEjeRodilloCentral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
+                            TextInputEditText txtDiametroRodilloCentral= dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
+                            TextInputEditText txtLargoTuboRodilloCentral= dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
+                            TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
+                            TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+                            TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+                            TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+                            TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaArtesasCarga);
+                            TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+                            TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+                            TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+                            TextInputEditText txtDetalleRodilloCargaLateral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
 
-                        spinnerAnguloAcanalArtesaCarga.setSelection(adapterAnguloAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesaCArga()));
-                        spinnerTipoRodilloCarga.setSelection(adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloCarga()));
+                            spinnerAnguloAcanalArtesaCarga.setSelection(adapterAnguloAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesaCArga()));
+                            spinnerTipoRodilloCarga.setSelection(adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloCarga()));
 
-                        txtlargoEjeRodilloCentral.setText(Login.loginJsons.get(i).getLargoEjeRodilloCentralCarga());
-                        txtDiametroEjeRodilloCentral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloCentralCarga());
-                        txtDiametroRodilloCentral.setText(Login.loginJsons.get(i).getDiametroRodilloCentralCarga());
-                        txtLargoTuboRodilloCentral.setText(Login.loginJsons.get(i).getLargoTuboRodilloCentralCarga());
-                        txtLargoEjeRodilloLateral.setText(Login.loginJsons.get(i).getLargoEjeRodilloLateralCarga());
-                        txtDiametroEjeRodilloLateral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloLateralCarga());
-                        txtLargoTuboRodilloLateral.setText(Login.loginJsons.get(i).getLargoTuboRodilloLateralCarga());
-                        txtDiametroRodilloLateral.setText(Login.loginJsons.get(i).getDiametroRodilloLateralCarga());
-                        txtDistanciaArtesasCarga.setText(Login.loginJsons.get(i).getDistanciaEntreArtesasCarga());
-                        txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRodilloCarga());
-                        txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRodilloCarga());
-                        txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloCentralCarga());
-                        txtDetalleRodilloCargaLateral.setText(Login.loginJsons.get(i).getDetalleRodilloLateralCarg());
+                            txtlargoEjeRodilloCentral.setText(Login.loginJsons.get(i).getLargoEjeRodilloCentralCarga());
+                            txtDiametroEjeRodilloCentral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloCentralCarga());
+                            txtDiametroRodilloCentral.setText(Login.loginJsons.get(i).getDiametroRodilloCentralCarga());
+                            txtLargoTuboRodilloCentral.setText(Login.loginJsons.get(i).getLargoTuboRodilloCentralCarga());
+                            txtLargoEjeRodilloLateral.setText(Login.loginJsons.get(i).getLargoEjeRodilloLateralCarga());
+                            txtDiametroEjeRodilloLateral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloLateralCarga());
+                            txtLargoTuboRodilloLateral.setText(Login.loginJsons.get(i).getLargoTuboRodilloLateralCarga());
+                            txtDiametroRodilloLateral.setText(Login.loginJsons.get(i).getDiametroRodilloLateralCarga());
+                            txtDistanciaArtesasCarga.setText(Login.loginJsons.get(i).getDistanciaEntreArtesasCarga());
+                            txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRodilloCarga());
+                            txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRodilloCarga());
+                            txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloCentralCarga());
+                            txtDetalleRodilloCargaLateral.setText(Login.loginJsons.get(i).getDetalleRodilloLateralCarg());
 
 
-                        i = Login.loginJsons.size() + 1;
+                            i = Login.loginJsons.size() + 1;
 
+                        }
                     }
+
                 }
                 break;
 
             case "Rodillo Retorno":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
+
+                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
+                    {
+
+                        if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
 
-                        final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
-                        final Spinner spinnerRodillosRetorno = dialogParte.findViewById(R.id.spinnerRodillosRetorno);
+                            final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
+                            final Spinner spinnerRodillosRetorno = dialogParte.findViewById(R.id.spinnerRodillosRetorno);
 
-                        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-                        ArrayAdapter<String> adapterRodillosRetorno= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+                            ArrayAdapter<String> adapterRodillosRetorno= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.estadoPartes);
 
-                        spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
-                        spinnerRodillosRetorno.setAdapter(adapterRodillosRetorno);
-
-
-                        final TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-                        final TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-                        final TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-                        final TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-                        final TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaEntreRodillosRetorno);
-                        final TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-                        final TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-                        final TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-
-                        spinnerRodillosRetorno.setSelection(adapterRodillosRetorno.getPosition(Login.loginJsons.get(i).getEstadoRodilloRetorno()));
-                        spinnerTipoRodilloCarga.setSelection(adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloRetorno()));
+                            spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
+                            spinnerRodillosRetorno.setAdapter(adapterRodillosRetorno);
 
 
-                        txtLargoEjeRodilloLateral.setText(Login.loginJsons.get(i).getLargoEjeRodilloRetorno());
-                        txtDiametroEjeRodilloLateral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloRetorno());
-                        txtLargoTuboRodilloLateral.setText(Login.loginJsons.get(i).getLargoTuboRodilloRetorno());
-                        txtDiametroRodilloLateral.setText(Login.loginJsons.get(i).getDiametroRodilloRetorno());
-                        txtDistanciaArtesasCarga.setText(Login.loginJsons.get(i).getDistanciaEntreRodillosRetorno());
-                        txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRetorno());
-                        txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRetorno());
-                        txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloRetorno());
+                            final TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
+                            final TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+                            final TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+                            final TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+                            final TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaEntreRodillosRetorno);
+                            final TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+                            final TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+                            final TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+
+                            spinnerRodillosRetorno.setSelection(adapterRodillosRetorno.getPosition(Login.loginJsons.get(i).getEstadoRodilloRetorno()));
+                            spinnerTipoRodilloCarga.setSelection(adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloRetorno()));
+
+
+                            txtLargoEjeRodilloLateral.setText(Login.loginJsons.get(i).getLargoEjeRodilloRetorno());
+                            txtDiametroEjeRodilloLateral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloRetorno());
+                            txtLargoTuboRodilloLateral.setText(Login.loginJsons.get(i).getLargoTuboRodilloRetorno());
+                            txtDiametroRodilloLateral.setText(Login.loginJsons.get(i).getDiametroRodilloRetorno());
+                            txtDistanciaArtesasCarga.setText(Login.loginJsons.get(i).getDistanciaEntreRodillosRetorno());
+                            txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRetorno());
+                            txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRetorno());
+                            txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloRetorno());
 
 
 
-                        i = Login.loginJsons.size() + 1;
+                            i = Login.loginJsons.size() + 1;
 
+                        }
                     }
+
                 }
                 break;
         }

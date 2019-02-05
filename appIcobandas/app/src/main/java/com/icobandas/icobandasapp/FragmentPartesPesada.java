@@ -414,27 +414,29 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
 
         for(int i=0;i<Login.loginJsons.size();i++)
         {
-            if(Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax()))
+            if(Login.loginJsons.get(i).getIdRegistro()!=null)
             {
-                txtDiametroPoleaConducida.setText(Login.loginJsons.get(i).getDiametroPoleaConducidaTransmision());
-                txtAnchoBandaTransmision.setText(Login.loginJsons.get(i).getAnchoBandaTransmision());
-                txtAnchoPoleaConducida.setText(Login.loginJsons.get(i).getAnchoPoleaConducidaTransmision());
-                txtAnchoPoleaMotriz.setText(Login.loginJsons.get(i).getAnchoPoleaMotrizTransmision());
-                txtDistanciaEntreCentros.setText(Login.loginJsons.get(i).getDistanciaEntreCentrosTransmision());
-                txtDiametroPoleaMotriz.setText(Login.loginJsons.get(i).getDiametroPoleaMotrizTransmision());
-                txtPotenciaMotor.setText(Login.loginJsons.get(i).getPotenciaMotorTransmision());
-                txtRpmSalidaReductor.setText(Login.loginJsons.get(i).getRpmSalidaReductorTransmision());
+                if(Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax()))
+                {
+                    txtDiametroPoleaConducida.setText(Login.loginJsons.get(i).getDiametroPoleaConducidaTransmision());
+                    txtAnchoBandaTransmision.setText(Login.loginJsons.get(i).getAnchoBandaTransmision());
+                    txtAnchoPoleaConducida.setText(Login.loginJsons.get(i).getAnchoPoleaConducidaTransmision());
+                    txtAnchoPoleaMotriz.setText(Login.loginJsons.get(i).getAnchoPoleaMotrizTransmision());
+                    txtDistanciaEntreCentros.setText(Login.loginJsons.get(i).getDistanciaEntreCentrosTransmision());
+                    txtDiametroPoleaMotriz.setText(Login.loginJsons.get(i).getDiametroPoleaMotrizTransmision());
+                    txtPotenciaMotor.setText(Login.loginJsons.get(i).getPotenciaMotorTransmision());
+                    txtRpmSalidaReductor.setText(Login.loginJsons.get(i).getRpmSalidaReductorTransmision());
 
-                int p1=adapterTipoTransmision.getPosition(Login.loginJsons.get(i).getTipoParteTransmision());
+                    int p1=adapterTipoTransmision.getPosition(Login.loginJsons.get(i).getTipoParteTransmision());
 
-                spinnerTipoTransmision.setSelection(p1);
+                    spinnerTipoTransmision.setSelection(p1);
 
-                i=Login.loginJsons.size()+1;
+                    i=Login.loginJsons.size()+1;
 
+                }
             }
+
         }
-
-
     }
 
 

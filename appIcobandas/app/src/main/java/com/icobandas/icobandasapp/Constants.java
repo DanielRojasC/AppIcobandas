@@ -2,7 +2,7 @@ package com.icobandas.icobandasapp;
 
 public class Constants
 {
-      public  static  String url= "http://49aa968d.ngrok.io/api/";
+      public  static  String url= "http://7373bd79.ngrok.io/api/";
 
       public static String[] porcentajeFinos=new String[20];
     public static String[] tempMinAmbiente=new String[66];
@@ -231,8 +231,30 @@ public class Constants
     };
 
     public static final String [] diametroRosca={
-            "6.35","8.4","9.6"
+            "1/4\" / 6.35","5/16\" / 8.4","3/8 \" / 9.6"
     };
+
+    public static final String [] longitudImpacto={
+            "18","48","60"
+    };
+
+    public static final String [] espesorVPlow={
+            "0.25\" / 6.4","0.375\" / 9.6","0.5\" / 12.7","0.625\" / 12.9","0.75\" / 19.1","1\" / 25.4"
+    };
+
+    public static final String [] anchoVPlow={
+            "2\" / 50","4\" / 100","6\" / 150","8\" / 204","10\" / 254","12\" / 305"
+    };
+
+    public static final String [] espesorUHMV={
+            "1/4\"","1/2\"","1\""
+    };
+
+    public static final String [] anchoBarra={
+        "2\" / 50","3\" / 75","4\" / 100"
+    };
+
+
 
     public static void llenarLargoTornillo()
     {
@@ -244,8 +266,4 @@ public class Constants
         }
 
     }
-
-
-
-
 }

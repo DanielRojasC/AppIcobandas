@@ -38,32 +38,6 @@ public class LoginJson {
     String distanciaTransicionPoleaColaTransportadora;
     String longitudTensorTornilloPoleaColaTransportadora;
     String materialAtrapadoEntreGuardabandas;
-
-    public String getMaterialAtrapadoEntreGuardabandas() {
-        return materialAtrapadoEntreGuardabandas;
-    }
-
-    public void setMaterialAtrapadoEntreGuardabandas(String materialAtrapadoEntreGuardabandas) {
-        this.materialAtrapadoEntreGuardabandas = materialAtrapadoEntreGuardabandas;
-    }
-
-    public String getLongitudRecorridoContrapesaPoleaColaTransportadora() {
-        return longitudRecorridoContrapesaPoleaColaTransportadora;
-    }
-
-    public void setLongitudRecorridoContrapesaPoleaColaTransportadora(String longitudRecorridoContrapesaPoleaColaTransportadora) {
-        this.longitudRecorridoContrapesaPoleaColaTransportadora = longitudRecorridoContrapesaPoleaColaTransportadora;
-    }
-    String integridadSoportesRodilloImpacto;
-
-    public String getIntegridadSoportesRodilloImpacto() {
-        return integridadSoportesRodilloImpacto;
-    }
-
-    public void setIntegridadSoportesRodilloImpacto(String integridadSoportesRodilloImpacto) {
-        this.integridadSoportesRodilloImpacto = integridadSoportesRodilloImpacto;
-    }
-
     String longitudRecorridoContrapesaPoleaColaTransportadora;
     String guardaPoleaColaTransportadora;
     String hayDesviador;
@@ -82,23 +56,6 @@ public class LoginJson {
     String anguloSobreCarga;
     String ataqueQuimicoTransportadora;
     String ataqueAbrasivoTransportadora;
-
-    public String getAtaqueAbrasivoTransportadora() {
-        return ataqueAbrasivoTransportadora;
-    }
-
-    public void setAtaqueAbrasivoTransportadora(String ataqueAbrasivoTransportadora) {
-        this.ataqueAbrasivoTransportadora = ataqueAbrasivoTransportadora;
-    }
-
-    public String getAtaqueQuimicoTransportadora() {
-        return ataqueQuimicoTransportadora;
-    }
-
-    public void setAtaqueQuimicoTransportadora(String ataqueQuimicoTransportadora) {
-        this.ataqueQuimicoTransportadora = ataqueQuimicoTransportadora;
-    }
-
     String ataqueTemperaturaTransportadora;
     String ataqueAceiteTransportadora;
     String ataqueImpactoTransportadora;
@@ -124,15 +81,6 @@ public class LoginJson {
     String abrazadera;
     String cauchoGuardabandas;
     String triSealMultiSeal;
-
-    public String getEspesorGuardaBandas() {
-        return espesorGuardaBandas;
-    }
-
-    public void setEspesorGuardaBandas(String espesorGuardaBandas) {
-        this.espesorGuardaBandas = espesorGuardaBandas;
-    }
-
     String espesorGuardaBandas;
     String anchoGuardaBandas;
     String largoGuardaBandas;
@@ -140,28 +88,10 @@ public class LoginJson {
     String cortinaAntiPolvo1;
     String cortinaAntiPolvo2;
     String cortinaAntiPolvo3;
-
-    public String getBoquillasCanonesDeAire() {
-        return boquillasCanonesDeAire;
-    }
-
-    public void setBoquillasCanonesDeAire(String boquillasCanonesDeAire) {
-        this.boquillasCanonesDeAire = boquillasCanonesDeAire;
-    }
-
     String boquillasCanonesDeAire;
     String tempAmbienteMaxTransportadora;
     String tempAmbienteMinTransportadora;
     String tieneRodillosImpacto;
-
-    public String getTieneRodillosImpacto() {
-        return tieneRodillosImpacto;
-    }
-
-    public void setTieneRodillosImpacto(String tieneRodillosImpacto) {
-        this.tieneRodillosImpacto = tieneRodillosImpacto;
-    }
-
     String camaImpacto;
     String camaSellado;
     String basculaPesaje;
@@ -179,8 +109,6 @@ public class LoginJson {
     String anguloAcanalamientoArtesa1AntesPoleaMotriz;
     String anguloAcanalamientoArtesa2AntesPoleaMotriz;
     String anguloAcanalamientoArtesa3AntesPoleaMotriz;
-
-
     String materialAtrapadoEntreCortinas;
     String materialAtrapadoEnBanda;
     String integridadSoporteCamaSellado;
@@ -196,57 +124,12 @@ public class LoginJson {
     String sistemaAlineacionRetornoEnV;
     String largoEjeRodilloCentralCarga;
     String tipoRodilloImpacto;
-
-    public String getTipoRodilloImpacto() {
-        return tipoRodilloImpacto;
-    }
-
-    public void setTipoRodilloImpacto(String tipoRodilloImpacto) {
-        this.tipoRodilloImpacto = tipoRodilloImpacto;
-    }
-
-    public String getDiametroRodilloCentralCarga() {
-        return diametroRodilloCentralCarga;
-    }
-
-    public void setDiametroRodilloCentralCarga(String diametroRodilloCentralCarga) {
-        this.diametroRodilloCentralCarga = diametroRodilloCentralCarga;
-    }
-
     String diametroRodilloCentralCarga;
-
-    public String getDiametroEjeRodilloCentralCarga() {
-        return diametroEjeRodilloCentralCarga;
-    }
-
-    public void setDiametroEjeRodilloCentralCarga(String diametroEjeRodilloCentralCarga) {
-        this.diametroEjeRodilloCentralCarga = diametroEjeRodilloCentralCarga;
-    }
-
     String diametroEjeRodilloCentralCarga;
     String largoTuboRodilloCentralCarga;
     String largoEjeRodilloLateralCarga;
     String diametroEjeRodilloLateralCarga;
     String diametroRodilloLateralCarga;
-
-    public String getLargoTuboRodilloLateralCarga() {
-        return largoTuboRodilloLateralCarga;
-    }
-
-    public void setLargoTuboRodilloLateralCarga(String largoTuboRodilloLateralCarga) {
-        this.largoTuboRodilloLateralCarga = largoTuboRodilloLateralCarga;
-    }
-
-    String largoTuboRodilloLateralCarga;
-
-    public String getTipoRodilloCarga() {
-        return tipoRodilloCarga;
-    }
-
-    public void setTipoRodilloCarga(String tipoRodilloCarga) {
-        this.tipoRodilloCarga = tipoRodilloCarga;
-    }
-
     String tipoRodilloCarga;
     String distanciaEntreArtesasCarga;
     String anchoInternoChasisRodilloCarga;
@@ -298,25 +181,6 @@ public class LoginJson {
     String marcaLimpiadorTerciario;
     String referenciaLimpiadorTerciario;
     String anchoCuchillaLimpiadorTerciario;
-
-    public String getAltoCuchillaLimpiadorTerciario() {
-        return altoCuchillaLimpiadorTerciario;
-    }
-
-    public void setAltoCuchillaLimpiadorTerciario(String altoCuchillaLimpiadorTerciario) {
-        this.altoCuchillaLimpiadorTerciario = altoCuchillaLimpiadorTerciario;
-    }
-
-    String dimetroPoleaAmarrePoleaCola;
-
-    public String getDimetroPoleaAmarrePoleaCola() {
-        return dimetroPoleaAmarrePoleaCola;
-    }
-
-    public void setDimetroPoleaAmarrePoleaCola(String dimetroPoleaAmarrePoleaCola) {
-        this.dimetroPoleaAmarrePoleaCola = dimetroPoleaAmarrePoleaCola;
-    }
-
     String altoCuchillaLimpiadorTerciario;
     String estadoCuchillaLimpiadorTerciario;
     String estadoTensorLimpiadorTerciario;
@@ -325,35 +189,6 @@ public class LoginJson {
     String cuchillaEnContactoConBanda2;
     String estadoRodilloRetorno;
     String largoEjeRodilloRetorno;
-
-    public String getDiametroEjeRodilloRetorno() {
-        return diametroEjeRodilloRetorno;
-    }
-
-    public void setDiametroEjeRodilloRetorno(String diametroEjeRodilloRetorno) {
-        this.diametroEjeRodilloRetorno = diametroEjeRodilloRetorno;
-    }
-
-    String diametroEjeRodilloRetorno;
-
-    public String getLargoTuboRodilloRetorno() {
-        return largoTuboRodilloRetorno;
-    }
-
-    public void setLargoTuboRodilloRetorno(String largoTuboRodilloRetorno) {
-        this.largoTuboRodilloRetorno = largoTuboRodilloRetorno;
-    }
-
-    String largoTuboRodilloRetorno;
-
-    public String getLargoEjeRodilloRetorno() {
-        return largoEjeRodilloRetorno;
-    }
-
-    public void setLargoEjeRodilloRetorno(String largoEjeRodilloRetorno) {
-        this.largoEjeRodilloRetorno = largoEjeRodilloRetorno;
-    }
-
     String diametroEjRodilloRetorno;
     String diametroRodilloRetorno;
     String largoTubiRodilloRetorno;
@@ -366,38 +201,6 @@ public class LoginJson {
     String anchoPoleaAmarrePoleaMotriz;
     String tipoPoleaAmarrePoleaMotriz;
     String largoEjePoleaAmarrePoleaMotriz;
-
-    public String getLargoEjePoleaAmarrePoleaMotriz() {
-        return largoEjePoleaAmarrePoleaMotriz;
-    }
-
-    public void setLargoEjePoleaAmarrePoleaMotriz(String largoEjePoleaAmarrePoleaMotriz) {
-        this.largoEjePoleaAmarrePoleaMotriz = largoEjePoleaAmarrePoleaMotriz;
-    }
-
-    String diametroEjePoleaAmarrePoleaMotriz;
-    String icobandasCentradaPoleaAmarrePoleaMotriz;
-    String estadoRevestimientoPoleaAmarrePoleaMotriz;
-    String diametroPoleaAmarrePoleaCola;
-    String anchoPoleaAmarrePoleaCola;
-
-    public String getAnchoPoleaAmarrePoleaCola() {
-        return anchoPoleaAmarrePoleaCola;
-    }
-
-    public void setAnchoPoleaAmarrePoleaCola(String anchoPoleaAmarrePoleaCola) {
-        this.anchoPoleaAmarrePoleaCola = anchoPoleaAmarrePoleaCola;
-    }
-    String diametroEjePoleaAmarrePoleaCola;
-
-    public String getDiametroEjePoleaAmarrePoleaCola() {
-        return diametroEjePoleaAmarrePoleaCola;
-    }
-
-    public void setDiametroEjePoleaAmarrePoleaCola(String diametroEjePoleaAmarrePoleaCola) {
-        this.diametroEjePoleaAmarrePoleaCola = diametroEjePoleaAmarrePoleaCola;
-    }
-
     String tipoPoleaAmarrePoleaCola;
     String largoEjePoleaAmarrePoleaCola;
     String diametroEjePoleaCola;
@@ -411,9 +214,6 @@ public class LoginJson {
     String icobandasCentradaEnPoleaTensora;
     String recorridoPoleaTensora;
     String estadoRevestimientoPoleaTensora;
-
-
-
     String tipoTransicionPoleaTensora;
     String distanciaTransicionPoleaColaTensora;
     String potenciaMotorPoleaTensora;
@@ -434,8 +234,6 @@ public class LoginJson {
     String noLonaBandaElevadora;
     String tipoLonaBandaElevadora;
     String espesorTotalBandaElevadora;
-
-
     String espesorCojinActualElevadora;
     String espesorCubiertaSuperiorElevadora;
     String espesorCubiertaInferiorElevadora;
@@ -466,7 +264,6 @@ public class LoginJson {
     String tipoPoleaMotrizElevadora;
     String largoEjeMotrizElevadora;
     String diametroEjeMotrizElevadora;
-
     String estadoRevestimientoPoleaMotrizElevadora;
     String potenciaMotorMotrizElevadora;
     String rpmSalidaReductorMotrizElevadora;
@@ -576,62 +373,68 @@ public class LoginJson {
     String bandaCentradaEnPoleaAMotrizElevadora;
     String anchoPoleaColaTransportadora;
     String materialPegajosoTransportadora;
+    String diametroEjePoleaAmarrePoleaMotriz;
+    String icobandasCentradaPoleaAmarrePoleaMotriz;
+    String estadoRevestimientoPoleaAmarrePoleaMotriz;
+    String diametroPoleaAmarrePoleaCola;
+    String anchoPoleaAmarrePoleaCola;
+    String diametroEjePoleaAmarrePoleaCola;
+    String integridadSoportesRodilloImpacto;
+    String diametroEjeRodilloRetorno;
 
-    public String getMaterialPegajosoTransportadora() {
-        return materialPegajosoTransportadora;
+    public String getDiametroEjeRodilloRetorno() {
+        return diametroEjeRodilloRetorno;
     }
 
-    public void setMaterialPegajosoTransportadora(String materialPegajosoTransportadora) {
-        this.materialPegajosoTransportadora = materialPegajosoTransportadora;
+    public void setDiametroEjeRodilloRetorno(String diametroEjeRodilloRetorno) {
+        this.diametroEjeRodilloRetorno = diametroEjeRodilloRetorno;
     }
 
-    public String getAnchoPoleaColaTransportadora() {
-        return anchoPoleaColaTransportadora;
+    public String getLargoTuboRodilloRetorno() {
+        return largoTuboRodilloRetorno;
     }
 
-    public void setAnchoPoleaColaTransportadora(String anchoPoleaColaTransportadora) {
-        this.anchoPoleaColaTransportadora = anchoPoleaColaTransportadora;
+    public void setLargoTuboRodilloRetorno(String largoTuboRodilloRetorno) {
+        this.largoTuboRodilloRetorno = largoTuboRodilloRetorno;
     }
 
-    public String getDiametroEjePoleaColaHorizontal() {
-        return diametroEjePoleaColaHorizontal;
+    String largoTuboRodilloRetorno;
+
+    public String getIntegridadSoportesRodilloImpacto() {
+        return integridadSoportesRodilloImpacto;
     }
 
-    public void setDiametroEjePoleaColaHorizontal(String diametroEjePoleaColaHorizontal) {
-        this.diametroEjePoleaColaHorizontal = diametroEjePoleaColaHorizontal;
+    public void setIntegridadSoportesRodilloImpacto(String integridadSoportesRodilloImpacto) {
+        this.integridadSoportesRodilloImpacto = integridadSoportesRodilloImpacto;
     }
 
-    public String getBandaCentradaEnPoleaAMotrizElevadora() {
-        return bandaCentradaEnPoleaAMotrizElevadora;
+    public String getDiametroEjePoleaAmarrePoleaCola() {
+        return diametroEjePoleaAmarrePoleaCola;
     }
 
-    public void setBandaCentradaEnPoleaAMotrizElevadora(String bandaCentradaEnPoleaAMotrizElevadora) {
-        this.bandaCentradaEnPoleaAMotrizElevadora = bandaCentradaEnPoleaAMotrizElevadora;
+    public void setDiametroEjePoleaAmarrePoleaCola(String diametroEjePoleaAmarrePoleaCola) {
+        this.diametroEjePoleaAmarrePoleaCola = diametroEjePoleaAmarrePoleaCola;
     }
 
-    public String getTipoPoleaMotrizTransportadora() {
-        return tipoPoleaMotrizTransportadora;
+    public String getAnchoPoleaAmarrePoleaCola() {
+        return anchoPoleaAmarrePoleaCola;
     }
 
-    public void setTipoPoleaMotrizTransportadora(String tipoPoleaMotrizTransportadora) {
-        this.tipoPoleaMotrizTransportadora = tipoPoleaMotrizTransportadora;
+    public void setAnchoPoleaAmarrePoleaCola(String anchoPoleaAmarrePoleaCola) {
+        this.anchoPoleaAmarrePoleaCola = anchoPoleaAmarrePoleaCola;
     }
 
-    public String getVelocidadBandaHorizontal() {
-        return velocidadBandaHorizontal;
+
+
+    public String getLargoTuboRodilloLateralCarga() {
+        return largoTuboRodilloLateralCarga;
     }
 
-    public void setVelocidadBandaHorizontal(String velocidadBandaHorizontal) {
-        this.velocidadBandaHorizontal = velocidadBandaHorizontal;
+    public void setLargoTuboRodilloLateralCarga(String largoTuboRodilloLateralCarga) {
+        this.largoTuboRodilloLateralCarga = largoTuboRodilloLateralCarga;
     }
 
-    public String getCausaFallaCambioBandaHorizontal() {
-        return causaFallaCambioBandaHorizontal;
-    }
-
-    public void setCausaFallaCambioBandaHorizontal(String causaFallaCambioBandaHorizontal) {
-        this.causaFallaCambioBandaHorizontal = causaFallaCambioBandaHorizontal;
-    }
+    String largoTuboRodilloLateralCarga;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -849,8 +652,29 @@ public class LoginJson {
         this.tipoPoleaColaTransportadora = tipoPoleaColaTransportadora;
     }
 
+    public String getLargoEjePoleaColaTransportadora() {
+        return largoEjePoleaColaTransportadora;
+    }
 
+    public void setLargoEjePoleaColaTransportadora(String largoEjePoleaColaTransportadora) {
+        this.largoEjePoleaColaTransportadora = largoEjePoleaColaTransportadora;
+    }
 
+    public String getDiametroEjePoleaColaHorizontal() {
+        return diametroEjePoleaColaHorizontal;
+    }
+
+    public void setDiametroEjePoleaColaHorizontal(String diametroEjePoleaColaHorizontal) {
+        this.diametroEjePoleaColaHorizontal = diametroEjePoleaColaHorizontal;
+    }
+
+    public String getIcobandasCentradaPoleaColaTransportadora() {
+        return icobandasCentradaPoleaColaTransportadora;
+    }
+
+    public void setIcobandasCentradaPoleaColaTransportadora(String icobandasCentradaPoleaColaTransportadora) {
+        this.icobandasCentradaPoleaColaTransportadora = icobandasCentradaPoleaColaTransportadora;
+    }
 
     public String getAnguloAmarrePoleaColaTransportadora() {
         return anguloAmarrePoleaColaTransportadora;
@@ -892,7 +716,21 @@ public class LoginJson {
         this.longitudTensorTornilloPoleaColaTransportadora = longitudTensorTornilloPoleaColaTransportadora;
     }
 
+    public String getMaterialAtrapadoEntreGuardabandas() {
+        return materialAtrapadoEntreGuardabandas;
+    }
 
+    public void setMaterialAtrapadoEntreGuardabandas(String materialAtrapadoEntreGuardabandas) {
+        this.materialAtrapadoEntreGuardabandas = materialAtrapadoEntreGuardabandas;
+    }
+
+    public String getLongitudRecorridoContrapesaPoleaColaTransportadora() {
+        return longitudRecorridoContrapesaPoleaColaTransportadora;
+    }
+
+    public void setLongitudRecorridoContrapesaPoleaColaTransportadora(String longitudRecorridoContrapesaPoleaColaTransportadora) {
+        this.longitudRecorridoContrapesaPoleaColaTransportadora = longitudRecorridoContrapesaPoleaColaTransportadora;
+    }
 
     public String getGuardaPoleaColaTransportadora() {
         return guardaPoleaColaTransportadora;
@@ -1014,6 +852,21 @@ public class LoginJson {
         this.anguloSobreCarga = anguloSobreCarga;
     }
 
+    public String getAtaqueQuimicoTransportadora() {
+        return ataqueQuimicoTransportadora;
+    }
+
+    public void setAtaqueQuimicoTransportadora(String ataqueQuimicoTransportadora) {
+        this.ataqueQuimicoTransportadora = ataqueQuimicoTransportadora;
+    }
+
+    public String getAtaqueAbrasivoTransportadora() {
+        return ataqueAbrasivoTransportadora;
+    }
+
+    public void setAtaqueAbrasivoTransportadora(String ataqueAbrasivoTransportadora) {
+        this.ataqueAbrasivoTransportadora = ataqueAbrasivoTransportadora;
+    }
 
     public String getAtaqueTemperaturaTransportadora() {
         return ataqueTemperaturaTransportadora;
@@ -1215,7 +1068,13 @@ public class LoginJson {
         this.triSealMultiSeal = triSealMultiSeal;
     }
 
+    public String getEspesorGuardaBandas() {
+        return espesorGuardaBandas;
+    }
 
+    public void setEspesorGuardaBandas(String espesorGuardaBandas) {
+        this.espesorGuardaBandas = espesorGuardaBandas;
+    }
 
     public String getAnchoGuardaBandas() {
         return anchoGuardaBandas;
@@ -1265,6 +1124,13 @@ public class LoginJson {
         this.cortinaAntiPolvo3 = cortinaAntiPolvo3;
     }
 
+    public String getBoquillasCanonesDeAire() {
+        return boquillasCanonesDeAire;
+    }
+
+    public void setBoquillasCanonesDeAire(String boquillasCanonesDeAire) {
+        this.boquillasCanonesDeAire = boquillasCanonesDeAire;
+    }
 
     public String getTempAmbienteMaxTransportadora() {
         return tempAmbienteMaxTransportadora;
@@ -1280,6 +1146,14 @@ public class LoginJson {
 
     public void setTempAmbienteMinTransportadora(String tempAmbienteMinTransportadora) {
         this.tempAmbienteMinTransportadora = tempAmbienteMinTransportadora;
+    }
+
+    public String getTieneRodillosImpacto() {
+        return tieneRodillosImpacto;
+    }
+
+    public void setTieneRodillosImpacto(String tieneRodillosImpacto) {
+        this.tieneRodillosImpacto = tieneRodillosImpacto;
     }
 
     public String getCamaImpacto() {
@@ -1530,7 +1404,29 @@ public class LoginJson {
         this.largoEjeRodilloCentralCarga = largoEjeRodilloCentralCarga;
     }
 
+    public String getTipoRodilloImpacto() {
+        return tipoRodilloImpacto;
+    }
 
+    public void setTipoRodilloImpacto(String tipoRodilloImpacto) {
+        this.tipoRodilloImpacto = tipoRodilloImpacto;
+    }
+
+    public String getDiametroRodilloCentralCarga() {
+        return diametroRodilloCentralCarga;
+    }
+
+    public void setDiametroRodilloCentralCarga(String diametroRodilloCentralCarga) {
+        this.diametroRodilloCentralCarga = diametroRodilloCentralCarga;
+    }
+
+    public String getDiametroEjeRodilloCentralCarga() {
+        return diametroEjeRodilloCentralCarga;
+    }
+
+    public void setDiametroEjeRodilloCentralCarga(String diametroEjeRodilloCentralCarga) {
+        this.diametroEjeRodilloCentralCarga = diametroEjeRodilloCentralCarga;
+    }
 
     public String getLargoTuboRodilloCentralCarga() {
         return largoTuboRodilloCentralCarga;
@@ -1564,8 +1460,13 @@ public class LoginJson {
         this.diametroRodilloLateralCarga = diametroRodilloLateralCarga;
     }
 
+    public String getTipoRodilloCarga() {
+        return tipoRodilloCarga;
+    }
 
-
+    public void setTipoRodilloCarga(String tipoRodilloCarga) {
+        this.tipoRodilloCarga = tipoRodilloCarga;
+    }
 
     public String getDistanciaEntreArtesasCarga() {
         return distanciaEntreArtesasCarga;
@@ -1665,14 +1566,6 @@ public class LoginJson {
 
     public String getAnguloAmarrePoleaMotrizTransportadora() {
         return anguloAmarrePoleaMotrizTransportadora;
-    }
-
-    public String getLargoEjePoleaColaTransportadora() {
-        return largoEjePoleaColaTransportadora;
-    }
-
-    public void setLargoEjePoleaColaTransportadora(String largoEjePoleaColaTransportadora) {
-        this.largoEjePoleaColaTransportadora = largoEjePoleaColaTransportadora;
     }
 
     public void setAnguloAmarrePoleaMotrizTransportadora(String anguloAmarrePoleaMotrizTransportadora) {
@@ -1975,7 +1868,13 @@ public class LoginJson {
         this.anchoCuchillaLimpiadorTerciario = anchoCuchillaLimpiadorTerciario;
     }
 
+    public String getAltoCuchillaLimpiadorTerciario() {
+        return altoCuchillaLimpiadorTerciario;
+    }
 
+    public void setAltoCuchillaLimpiadorTerciario(String altoCuchillaLimpiadorTerciario) {
+        this.altoCuchillaLimpiadorTerciario = altoCuchillaLimpiadorTerciario;
+    }
 
     public String getEstadoCuchillaLimpiadorTerciario() {
         return estadoCuchillaLimpiadorTerciario;
@@ -2025,7 +1924,13 @@ public class LoginJson {
         this.estadoRodilloRetorno = estadoRodilloRetorno;
     }
 
+    public String getLargoEjeRodilloRetorno() {
+        return largoEjeRodilloRetorno;
+    }
 
+    public void setLargoEjeRodilloRetorno(String largoEjeRodilloRetorno) {
+        this.largoEjeRodilloRetorno = largoEjeRodilloRetorno;
+    }
 
     public String getDiametroEjRodilloRetorno() {
         return diametroEjRodilloRetorno;
@@ -2115,40 +2020,13 @@ public class LoginJson {
         this.tipoPoleaAmarrePoleaMotriz = tipoPoleaAmarrePoleaMotriz;
     }
 
-
-
-    public String getDiametroEjePoleaAmarrePoleaMotriz() {
-        return diametroEjePoleaAmarrePoleaMotriz;
+    public String getLargoEjePoleaAmarrePoleaMotriz() {
+        return largoEjePoleaAmarrePoleaMotriz;
     }
 
-    public void setDiametroEjePoleaAmarrePoleaMotriz(String diametroEjePoleaAmarrePoleaMotriz) {
-        this.diametroEjePoleaAmarrePoleaMotriz = diametroEjePoleaAmarrePoleaMotriz;
+    public void setLargoEjePoleaAmarrePoleaMotriz(String largoEjePoleaAmarrePoleaMotriz) {
+        this.largoEjePoleaAmarrePoleaMotriz = largoEjePoleaAmarrePoleaMotriz;
     }
-
-    public String getIcobandasCentradaPoleaAmarrePoleaMotriz() {
-        return icobandasCentradaPoleaAmarrePoleaMotriz;
-    }
-
-    public void setIcobandasCentradaPoleaAmarrePoleaMotriz(String icobandasCentradaPoleaAmarrePoleaMotriz) {
-        this.icobandasCentradaPoleaAmarrePoleaMotriz = icobandasCentradaPoleaAmarrePoleaMotriz;
-    }
-
-    public String getEstadoRevestimientoPoleaAmarrePoleaMotriz() {
-        return estadoRevestimientoPoleaAmarrePoleaMotriz;
-    }
-
-    public void setEstadoRevestimientoPoleaAmarrePoleaMotriz(String estadoRevestimientoPoleaAmarrePoleaMotriz) {
-        this.estadoRevestimientoPoleaAmarrePoleaMotriz = estadoRevestimientoPoleaAmarrePoleaMotriz;
-    }
-
-    public String getDiametroPoleaAmarrePoleaCola() {
-        return diametroPoleaAmarrePoleaCola;
-    }
-
-    public void setDiametroPoleaAmarrePoleaCola(String diametroPoleaAmarrePoleaCola) {
-        this.diametroPoleaAmarrePoleaCola = diametroPoleaAmarrePoleaCola;
-    }
-
 
     public String getTipoPoleaAmarrePoleaCola() {
         return tipoPoleaAmarrePoleaCola;
@@ -2176,14 +2054,6 @@ public class LoginJson {
 
     public String getIcobandasCentradaPoleaAmarrePoleaCola() {
         return icobandasCentradaPoleaAmarrePoleaCola;
-    }
-
-    public String getIcobandasCentradaPoleaColaTransportadora() {
-        return icobandasCentradaPoleaColaTransportadora;
-    }
-
-    public void setIcobandasCentradaPoleaColaTransportadora(String icobandasCentradaPoleaColaTransportadora) {
-        this.icobandasCentradaPoleaColaTransportadora = icobandasCentradaPoleaColaTransportadora;
     }
 
     public void setIcobandasCentradaPoleaAmarrePoleaCola(String icobandasCentradaPoleaAmarrePoleaCola) {
@@ -3484,6 +3354,86 @@ public class LoginJson {
 
     public void setGuardaRodilloRetornoV(String guardaRodilloRetornoV) {
         this.guardaRodilloRetornoV = guardaRodilloRetornoV;
+    }
+
+    public String getVelocidadBandaHorizontal() {
+        return velocidadBandaHorizontal;
+    }
+
+    public void setVelocidadBandaHorizontal(String velocidadBandaHorizontal) {
+        this.velocidadBandaHorizontal = velocidadBandaHorizontal;
+    }
+
+    public String getCausaFallaCambioBandaHorizontal() {
+        return causaFallaCambioBandaHorizontal;
+    }
+
+    public void setCausaFallaCambioBandaHorizontal(String causaFallaCambioBandaHorizontal) {
+        this.causaFallaCambioBandaHorizontal = causaFallaCambioBandaHorizontal;
+    }
+
+    public String getTipoPoleaMotrizTransportadora() {
+        return tipoPoleaMotrizTransportadora;
+    }
+
+    public void setTipoPoleaMotrizTransportadora(String tipoPoleaMotrizTransportadora) {
+        this.tipoPoleaMotrizTransportadora = tipoPoleaMotrizTransportadora;
+    }
+
+    public String getBandaCentradaEnPoleaAMotrizElevadora() {
+        return bandaCentradaEnPoleaAMotrizElevadora;
+    }
+
+    public void setBandaCentradaEnPoleaAMotrizElevadora(String bandaCentradaEnPoleaAMotrizElevadora) {
+        this.bandaCentradaEnPoleaAMotrizElevadora = bandaCentradaEnPoleaAMotrizElevadora;
+    }
+
+    public String getAnchoPoleaColaTransportadora() {
+        return anchoPoleaColaTransportadora;
+    }
+
+    public void setAnchoPoleaColaTransportadora(String anchoPoleaColaTransportadora) {
+        this.anchoPoleaColaTransportadora = anchoPoleaColaTransportadora;
+    }
+
+    public String getMaterialPegajosoTransportadora() {
+        return materialPegajosoTransportadora;
+    }
+
+    public void setMaterialPegajosoTransportadora(String materialPegajosoTransportadora) {
+        this.materialPegajosoTransportadora = materialPegajosoTransportadora;
+    }
+
+    public String getDiametroEjePoleaAmarrePoleaMotriz() {
+        return diametroEjePoleaAmarrePoleaMotriz;
+    }
+
+    public void setDiametroEjePoleaAmarrePoleaMotriz(String diametroEjePoleaAmarrePoleaMotriz) {
+        this.diametroEjePoleaAmarrePoleaMotriz = diametroEjePoleaAmarrePoleaMotriz;
+    }
+
+    public String getIcobandasCentradaPoleaAmarrePoleaMotriz() {
+        return icobandasCentradaPoleaAmarrePoleaMotriz;
+    }
+
+    public void setIcobandasCentradaPoleaAmarrePoleaMotriz(String icobandasCentradaPoleaAmarrePoleaMotriz) {
+        this.icobandasCentradaPoleaAmarrePoleaMotriz = icobandasCentradaPoleaAmarrePoleaMotriz;
+    }
+
+    public String getEstadoRevestimientoPoleaAmarrePoleaMotriz() {
+        return estadoRevestimientoPoleaAmarrePoleaMotriz;
+    }
+
+    public void setEstadoRevestimientoPoleaAmarrePoleaMotriz(String estadoRevestimientoPoleaAmarrePoleaMotriz) {
+        this.estadoRevestimientoPoleaAmarrePoleaMotriz = estadoRevestimientoPoleaAmarrePoleaMotriz;
+    }
+
+    public String getDiametroPoleaAmarrePoleaCola() {
+        return diametroPoleaAmarrePoleaCola;
+    }
+
+    public void setDiametroPoleaAmarrePoleaCola(String diametroPoleaAmarrePoleaCola) {
+        this.diametroPoleaAmarrePoleaCola = diametroPoleaAmarrePoleaCola;
     }
 
     public LoginJson() {
