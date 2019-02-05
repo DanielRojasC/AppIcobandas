@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="wrap_content"
 
     android:layout_marginStart="0dp"
     android:layout_marginTop="8dp"
@@ -19,141 +19,168 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="2dp">
 
-
-        <TextView
-            android:id="@+id/txtFecha"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="2018-11-12"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="13dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txtFecha2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/txtFecha2"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:text="Fecha :"
 
-        <TextView
-            android:id="@+id/txtFecha2"
-            android:layout_width="95dp"
+                android:textColor="#000"
+
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="223dp" />
+
+            <TextView
+                android:id="@+id/txtFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018-11-12"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="223dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Fecha :"
-
-            android:textColor="#000"
-
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtFecha3"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Cliente:"
-
-            android:textColor="#000"
-
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFecha2" />
-
-        <TextView
-            android:id="@+id/txtFecha5"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Planta:"
-
-            android:textColor="#000"
-
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFecha3" />
-
-        <TextView
-            android:id="@+id/txtFecha4"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Transportador:"
-            android:textAlignment="center"
-            android:textColor="#000"
-
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFecha5" />
-
-        <TextView
-            android:id="@+id/txtNombreCliente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="7dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="PLANTA 1"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="13dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+
+            <TextView
+                android:id="@+id/txtFecha3"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:text="Cliente:"
+
+                android:textColor="#000"
+
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="246dp" />
+
+            <TextView
+                android:id="@+id/txtNombreCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PLANTA 1"
+
+                android:textColor="#000"
+                android:textSize="13dp"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="247dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txtFecha3"
-            app:layout_constraintTop_toBottomOf="@+id/txtFecha" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-        <TextView
-            android:id="@+id/txtNombrePlanta"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/txtFecha5"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:text="Planta:"
+
+                android:textColor="#000"
+
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <TextView
+                android:id="@+id/txtNombrePlanta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PLANTA 1"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                tools:layout_editor_absoluteX="133dp"
+                tools:layout_editor_absoluteY="270dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="PLANTA 1"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="13dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.004"
-            app:layout_constraintStart_toEndOf="@+id/txtFecha5"
-            app:layout_constraintTop_toBottomOf="@+id/txtNombreCliente" />
-
-        <TextView
-            android:id="@+id/txtParte"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="CANGILON"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="13dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txtFecha4"
-            app:layout_constraintTop_toBottomOf="@+id/txtNombrePlanta" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <TextView
+                android:id="@+id/txtFecha4"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:text="Transportador:"
+
+                android:textColor="#000"
+
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="293dp" />
+
+            <TextView
+                android:id="@+id/txtParte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CANGILON"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="13dp"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="294dp" />
+
+        </LinearLayout>
 
 
     </android.support.constraint.ConstraintLayout>

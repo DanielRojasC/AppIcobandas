@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -279,6 +280,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
         });
 
         btnAgregarTransportador.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 dialogAgregarTransportador();
@@ -349,6 +351,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void dialogAgregarTransportador() {
         dialogAgregarTransportador = new Dialog(getContext());
         dialogAgregarTransportador.setContentView(R.layout.dialog_crear_transportador);
@@ -356,12 +359,20 @@ public class FragmentSeleccionarTransportador extends Fragment {
         final TextInputEditText txtDescripcionTransportador = dialogAgregarTransportador.findViewById(R.id.txtDescripcionTransportador);
 
         final SearchableSpinner spinnerPlanta = dialogAgregarTransportador.findViewById(R.id.spinnerPlanta);
+
         spinnerPlanta.setTitle("Buscar Planta");
         spinnerPlanta.setPositiveButton("Cerrar");
+
         final Spinner spinnerTipoTransportador = dialogAgregarTransportador.findViewById(R.id.spinnerTipoTransportador);
         final ProgressBar progressBarTranspor = dialogAgregarTransportador.findViewById(R.id.progressBarTranspor);
         progressBarTranspor.setVisibility(View.INVISIBLE);
         llenarSpinnerDialog(spinnerPlanta, spinnerTipoTransportador);
+        spinnerPlanta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Toast.makeText(getContext(), "DIO CLICK EN EL SPINNER", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Button btnCrearTransportador = dialogAgregarTransportador.findViewById(R.id.btnAgregarTransportador);
 

@@ -126,7 +126,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/spinnerReferenciaCangilon"
+                android:id="@+id/txtReferenciaCangilon"
                 android:layout_width="140dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="20dp"
@@ -149,7 +149,7 @@
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerReferenciaCangilon" />
+                app:layout_constraintTop_toBottomOf="@+id/txtReferenciaCangilon" />
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txtLabioFrontalCangilonBanda"

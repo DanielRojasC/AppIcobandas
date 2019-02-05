@@ -34,6 +34,8 @@ import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -603,7 +605,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
         final Spinner spinnerMaterialCangilon = dialogParte.findViewById(R.id.spinnerMaterialCangilon);
         final Spinner spinnerMarcaCangilon = dialogParte.findViewById(R.id.spinnerMarcaCangilon);
-        final Spinner spinnerReferenciaCangilon = dialogParte.findViewById(R.id.spinnerReferenciaCangilon);
+        final TextInputEditText spinnerReferenciaCangilon = dialogParte.findViewById(R.id.txtReferenciaCangilon);
         final Spinner spinnerNoFilasCangilon=dialogParte.findViewById(R.id.spinnerNoFilasCangilones);
         final Spinner spinnerNoAgujeros = dialogParte.findViewById(R.id.spinnerNoAgujeros);
         final Spinner spinnerTipoVentilacion = dialogParte.findViewById(R.id.spinnerTipoVentilacion);
@@ -629,7 +631,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
         spinnerMarcaCangilon.setAdapter(adapterMarcaCangilon);
 
         ArrayAdapter<String> adapterReferenciaCangilon = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaCangilon);
-        spinnerReferenciaCangilon.setAdapter(adapterReferenciaCangilon);
+
 
         ArrayAdapter<String> adapterNoFilasCangilon = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.noFilasCangilon);
         spinnerNoFilasCangilon.setAdapter(adapterNoFilasCangilon);
@@ -704,7 +706,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                                     params.put("pesoMaterialEnCadaCangilon", txtPesoMaterialCangilon.getText().toString());
                                                     params.put("pesoCangilonVacio", txtPesoCangilonVacio.getText().toString());
                                                     params.put("marcaCangilon", spinnerMarcaCangilon.getSelectedItem().toString());
-                                                    params.put("referenciaCangilon", spinnerReferenciaCangilon.getSelectedItem().toString());
+                                                    params.put("referenciaCangilon", spinnerReferenciaCangilon.getText().toString());
                                                     params.put("capacidadCangilon", txtCapacidadCangilon.getText().toString());
                                                     params.put("noFilasCangilones", spinnerNoFilasCangilon.getSelectedItem().toString());
                                                     params.put("separacionCangilones", txtSeparacionEntreCangilones.getText().toString());
@@ -823,7 +825,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     params.put("pesoMaterialEnCadaCangilon", txtPesoMaterialCangilon.getText().toString());
                                     params.put("pesoCangilonVacio", txtPesoCangilonVacio.getText().toString());
                                     params.put("marcaCangilon", spinnerMarcaCangilon.getSelectedItem().toString());
-                                    params.put("referenciaCangilon", spinnerReferenciaCangilon.getSelectedItem().toString());
+                                    params.put("referenciaCangilon", spinnerReferenciaCangilon.getText().toString());
                                     params.put("capacidadCangilon", txtCapacidadCangilon.getText().toString());
                                     params.put("noFilasCangilones", spinnerNoFilasCangilon.getSelectedItem().toString());
                                     params.put("separacionCangilones", txtSeparacionEntreCangilones.getText().toString());
@@ -3296,7 +3298,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                         if (Login.loginJsons.get(i).getIdRegistro().equals(idMaximaRegistro.get(0).getMax())) {
                             Spinner spinnerMaterialCangilon = dialogParte.findViewById(R.id.spinnerMaterialCangilon);
                             Spinner spinnerMarcaCangilon = dialogParte.findViewById(R.id.spinnerMarcaCangilon);
-                            Spinner spinnerReferenciaCangilon = dialogParte.findViewById(R.id.spinnerReferenciaCangilon);
+                            TextInputEditText txtReferenciaCangilon = dialogParte.findViewById(R.id.txtReferenciaCangilon);
                             Spinner spinnerNoFilasCangilon = dialogParte.findViewById(R.id.spinnerNoFilasCangilones);
                             Spinner spinnerNoAgujeros = dialogParte.findViewById(R.id.spinnerNoAgujeros);
                             Spinner spinnerTipoVentilacion = dialogParte.findViewById(R.id.spinnerTipoVentilacion);
@@ -3326,6 +3328,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             txtDistanciaPosteriorBandaEstructura.setText(Login.loginJsons.get(i).getDistanciaPosteriorBandaEstructura());
                             txtDistLabioFrontalCangilon.setText(Login.loginJsons.get(i).getDistanciaLabioFrontalCangilonEstructura());
                             txtDistBordesCangilonEstructura.setText(Login.loginJsons.get(i).getDistanciaBordesCangilonEstructura());
+                            txtReferenciaCangilon.setText(Login.loginJsons.get(i).getReferenciaCangilon());
 
                             ArrayAdapter<String> adapterMaterialCangilon = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.materialCangilon);
                             spinnerMaterialCangilon.setAdapter(adapterMaterialCangilon);
@@ -3333,8 +3336,6 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             ArrayAdapter<String> adapterMarcaCangilon = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaCangilon);
                             spinnerMarcaCangilon.setAdapter(adapterMarcaCangilon);
 
-                            ArrayAdapter<String> adapterReferenciaCangilon = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.marcaCangilon);
-                            spinnerReferenciaCangilon.setAdapter(adapterReferenciaCangilon);
 
                             ArrayAdapter<String> adapterNoFilasCangilon = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.noFilasCangilon);
                             spinnerNoFilasCangilon.setAdapter(adapterNoFilasCangilon);
@@ -3350,7 +3351,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             int p1 = adapterMaterialCangilon.getPosition(Login.loginJsons.get(i).getMaterialCangilon());
                             int p2 = adapterMarcaCangilon.getPosition(Login.loginJsons.get(i).getMarcaCangilon());
-                            int p3 = adapterReferenciaCangilon.getPosition(Login.loginJsons.get(i).getReferenciaCangilon());
+
                             int p4 = adapterNoFilasCangilon.getPosition(Login.loginJsons.get(i).getNoFilasCangilones());
                             int p5 = adapterNoAgujeros.getPosition(Login.loginJsons.get(i).getNoAgujeros());
                             int p6 = adapterTipoVentilacion.getPosition(Login.loginJsons.get(i).getTipoVentilacion());
@@ -3358,7 +3359,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             spinnerMaterialCangilon.setSelection(p1);
                             spinnerMarcaCangilon.setSelection(p2);
-                            spinnerReferenciaCangilon.setSelection(p3);
+
                             spinnerNoFilasCangilon.setSelection(p4);
                             spinnerNoAgujeros.setSelection(p5);
                             spinnerTipoVentilacion.setSelection(p6);

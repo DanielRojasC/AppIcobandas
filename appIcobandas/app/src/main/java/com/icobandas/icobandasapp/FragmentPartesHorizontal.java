@@ -35,8 +35,6 @@ import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
@@ -109,7 +107,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         });
         btnCondicionesCarga.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { abrirDialogCondicionesCarga();
+            public void onClick(View v) {
+                abrirDialogCondicionesCarga();
             }
         });
         btnSoporteCarga.setOnClickListener(new View.OnClickListener() {
@@ -132,12 +131,16 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         });
         btnLimpiadorPrimario.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { abrirDialogLimpiadorPrimario();
+            public void onClick(View v) {
+                abrirDialogLimpiadorPrimario();
             }
         });
         btnLimpiadorSecundarioTerciario.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { abrirDialogLimpiadorSecundarioTerciario();}});
+            public void onClick(View v) {
+                abrirDialogLimpiadorSecundarioTerciario();
+            }
+        });
         btnPoleaAmarre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,8 +182,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
     }
 
 
-
-
     private void inicializar() {
         queue = Volley.newRequestQueue(getContext());
         btnBanda = view.findViewById(R.id.btnBandaHorizontal);
@@ -195,8 +196,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         btnPoleaAmarre = view.findViewById(R.id.btnPoleaAmarreHorizontal);
         btnPoleaTensora = view.findViewById(R.id.btnPoleaTensora);
         btnSeguridad = view.findViewById(R.id.btnSeguridadHorizontal);
-        btnRodilloCarga=view.findViewById(R.id.btnRodilloCarga);
-        btnRodilloRetorno=view.findViewById(R.id.btnRodilloRetorno);
+        btnRodilloCarga = view.findViewById(R.id.btnRodilloCarga);
+        btnRodilloRetorno = view.findViewById(R.id.btnRodilloRetorno);
 
         dialogCarga = new SpotsDialog(getContext(), "Ejecutando Registro");
         alerta = new AlertDialog.Builder(getContext());
@@ -273,7 +274,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         ArrayAdapter<String> adapterEstadoEmpalme = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
         spinnerEstadoEmpalme.setAdapter(adapterEstadoEmpalme);
-
 
 
         ArrayAdapter<String> adapterRoturaLona = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.resistenciaRoturaLona);
@@ -651,8 +651,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         spinnerTipoTransicion.setAdapter(adapterTipoTransicion);
         spinnerAnguloAmarre.setAdapter(adapterAnguloAmarre);
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Polea Cola");
         }
 
@@ -732,33 +731,26 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("longitudRecorridoContrapesaPoleaColaTransportadora", txtLongContrapesa.getText().toString());
                                                     params.put("guardaPoleaColaTransportadora", spinnerGuardaPoleaCola.getSelectedItem().toString());
 
-                                                    if(!txtDiametro.getText().toString().equals(""))
-                                                    {
-                                                        params.put("diametroPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString()))) ;
+                                                    if (!txtDiametro.getText().toString().equals("")) {
+                                                        params.put("diametroPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString())));
                                                     }
-                                                    if(!txtAncho.getText().toString().equals(""))
-                                                    {
-                                                        params.put("anchoPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString()))) ;
+                                                    if (!txtAncho.getText().toString().equals("")) {
+                                                        params.put("anchoPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString())));
                                                     }
-                                                    if(!txtLargoEje.getText().toString().equals(""))
-                                                    {
-                                                        params.put("largoEjePoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString()))) ;
+                                                    if (!txtLargoEje.getText().toString().equals("")) {
+                                                        params.put("largoEjePoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString())));
                                                     }
-                                                    if(!txtDiametroEje.getText().toString().equals(""))
-                                                    {
-                                                        params.put("diametroEjePoleaColaHorizontal", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString()))) ;
+                                                    if (!txtDiametroEje.getText().toString().equals("")) {
+                                                        params.put("diametroEjePoleaColaHorizontal", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString())));
                                                     }
-                                                    if(!txtDistanciaTransicion.getText().toString().equals(""))
-                                                    {
-                                                        params.put("distanciaTransicionPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString()))) ;
+                                                    if (!txtDistanciaTransicion.getText().toString().equals("")) {
+                                                        params.put("distanciaTransicionPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString())));
                                                     }
-                                                    if(!txtLongTornillo.getText().toString().equals(""))
-                                                    {
-                                                        params.put("longitudTensorTornilloPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongTornillo.getText().toString()))) ;
+                                                    if (!txtLongTornillo.getText().toString().equals("")) {
+                                                        params.put("longitudTensorTornilloPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongTornillo.getText().toString())));
                                                     }
-                                                    if(!txtLongContrapesa.getText().toString().equals(""))
-                                                    {
-                                                        params.put("longitudRecorridoContrapesaPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongContrapesa.getText().toString()))) ;
+                                                    if (!txtLongContrapesa.getText().toString().equals("")) {
+                                                        params.put("longitudRecorridoContrapesaPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongContrapesa.getText().toString())));
                                                     }
 
                                                     return params;
@@ -830,33 +822,26 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("longitudRecorridoContrapesaPoleaColaTransportadora", txtLongContrapesa.getText().toString());
                                     params.put("guardaPoleaColaTransportadora", spinnerGuardaPoleaCola.getSelectedItem().toString());
 
-                                    if(!txtDiametro.getText().toString().equals(""))
-                                    {
-                                        params.put("diametroPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString()))) ;
+                                    if (!txtDiametro.getText().toString().equals("")) {
+                                        params.put("diametroPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString())));
                                     }
-                                    if(!txtAncho.getText().toString().equals(""))
-                                    {
-                                        params.put("anchoPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString()))) ;
+                                    if (!txtAncho.getText().toString().equals("")) {
+                                        params.put("anchoPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString())));
                                     }
-                                    if(!txtLargoEje.getText().toString().equals(""))
-                                    {
-                                        params.put("largoEjePoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString()))) ;
+                                    if (!txtLargoEje.getText().toString().equals("")) {
+                                        params.put("largoEjePoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString())));
                                     }
-                                    if(!txtDiametroEje.getText().toString().equals(""))
-                                    {
-                                        params.put("diametroEjePoleaColaHorizontal", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString()))) ;
+                                    if (!txtDiametroEje.getText().toString().equals("")) {
+                                        params.put("diametroEjePoleaColaHorizontal", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString())));
                                     }
-                                    if(!txtDistanciaTransicion.getText().toString().equals(""))
-                                    {
-                                        params.put("distanciaTransicionPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString()))) ;
+                                    if (!txtDistanciaTransicion.getText().toString().equals("")) {
+                                        params.put("distanciaTransicionPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString())));
                                     }
-                                    if(!txtLongTornillo.getText().toString().equals(""))
-                                    {
-                                        params.put("longitudTensorTornilloPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongTornillo.getText().toString()))) ;
+                                    if (!txtLongTornillo.getText().toString().equals("")) {
+                                        params.put("longitudTensorTornilloPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongTornillo.getText().toString())));
                                     }
-                                    if(!txtLongContrapesa.getText().toString().equals(""))
-                                    {
-                                        params.put("longitudRecorridoContrapesaPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongContrapesa.getText().toString()))) ;
+                                    if (!txtLongContrapesa.getText().toString().equals("")) {
+                                        params.put("longitudRecorridoContrapesaPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongContrapesa.getText().toString())));
                                     }
 
 
@@ -926,7 +911,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         }
 
 
-
         Button btnEnviarInformacion = dialogParte.findViewById(R.id.btnEnviarRegistroBandaElevadora);
 
         btnEnviarInformacion.setOnClickListener(new View.OnClickListener() {
@@ -958,7 +942,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                 @Override
                                                 public void onResponse(String response) {
                                                     login("dialogTornillo");
-
 
 
                                                 }
@@ -1106,26 +1089,26 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerBoquillasAire = dialogParte.findViewById(R.id.spinnerBoquillasDeAire);
         final Spinner spinnerAlimentacionCentrada = dialogParte.findViewById(R.id.spinnerAlimentacionCentrada);
         final Spinner spinnerAtaqueImpacto = dialogParte.findViewById(R.id.spinnerAtaqueImpacto);
-        final Spinner spinnerEspesorGuardabandas=dialogParte.findViewById(R.id.spinnerEspesorGuardabandas);
+        final Spinner spinnerEspesorGuardabandas = dialogParte.findViewById(R.id.spinnerEspesorGuardabandas);
 
 
-        final TextInputEditText txtAlturaCaida=dialogParte.findViewById(R.id.txtAlturaCaida);
-        final Spinner spinnerLongitudImpacto=dialogParte.findViewById(R.id.spinnerLongitudImpacto);
-        final TextInputEditText txtMaterial=dialogParte.findViewById(R.id.txtMaterial);
-        final TextInputEditText txtMaxGranulometria=dialogParte.findViewById(R.id.txtMaxGranulometria);
-        final TextInputEditText txtTempMaxMaterialBanda=dialogParte.findViewById(R.id.txtTempMaxSobreBanda);
-        final TextInputEditText txtTempPromedioBanda=dialogParte.findViewById(R.id.txtTempPromedioBanda);
-        final TextInputEditText txtMaxPeso=dialogParte.findViewById(R.id.txtMaxPeso);
-        final TextInputEditText txtDensidad=dialogParte.findViewById(R.id.txtDensidadMaterial);
-        final TextInputEditText txtAnchoChute=dialogParte.findViewById(R.id.txtAnchoChute);
-        final TextInputEditText txtLargoChute=dialogParte.findViewById(R.id.txtLargoChute);
-        final TextInputEditText txtAlturaChute=dialogParte.findViewById(R.id.txtAlturaChute);
-        final TextInputEditText txtAnchoGuardabandas=dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
-        final TextInputEditText txtLargoGuardabandas=dialogParte.findViewById(R.id.txtLargoGuardaBandas);
-        final TextInputEditText txtTempAmbienteMinimaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
-        final TextInputEditText txtTempAmbienteMaximaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMaximaHorizontal);
-        final TextInputEditText txtAnguloSobrecarga=dialogParte.findViewById(R.id.txtAnguloSobreCarga);
-        final TextInputEditText txtCapacidadHorizontal=dialogParte.findViewById(R.id.txtCapacidadHorizontal);
+        final TextInputEditText txtAlturaCaida = dialogParte.findViewById(R.id.txtAlturaCaida);
+        final Spinner spinnerLongitudImpacto = dialogParte.findViewById(R.id.spinnerLongitudImpacto);
+        final TextInputEditText txtMaterial = dialogParte.findViewById(R.id.txtMaterial);
+        final TextInputEditText txtMaxGranulometria = dialogParte.findViewById(R.id.txtMaxGranulometria);
+        final Spinner txtTempMaxMaterialBanda = dialogParte.findViewById(R.id.spinnerTempMaxSobreBanda);
+        final Spinner txtTempPromedioBanda = dialogParte.findViewById(R.id.spinnerTempPromedioBanda);
+        final TextInputEditText txtMaxPeso = dialogParte.findViewById(R.id.txtMaxPeso);
+        final TextInputEditText txtDensidad = dialogParte.findViewById(R.id.txtDensidadMaterial);
+        final TextInputEditText txtAnchoChute = dialogParte.findViewById(R.id.txtAnchoChute);
+        final TextInputEditText txtLargoChute = dialogParte.findViewById(R.id.txtLargoChute);
+        final TextInputEditText txtAlturaChute = dialogParte.findViewById(R.id.txtAlturaChute);
+        final TextInputEditText txtAnchoGuardabandas = dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
+        final TextInputEditText txtLargoGuardabandas = dialogParte.findViewById(R.id.txtLargoGuardaBandas);
+        final TextInputEditText txtTempAmbienteMinimaHorizontal = dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
+        final TextInputEditText txtTempAmbienteMaximaHorizontal = dialogParte.findViewById(R.id.txtTempAmbienteMaximaHorizontal);
+        final TextInputEditText txtAnguloSobrecarga = dialogParte.findViewById(R.id.txtAnguloSobreCarga);
+        final TextInputEditText txtCapacidadHorizontal = dialogParte.findViewById(R.id.txtCapacidadHorizontal);
 
         ArrayAdapter<String> adapterTipoRvtoTolva = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRevestimiento);
         spinnerTipoRevestimientoTolva.setAdapter(adapterTipoRvtoTolva);
@@ -1175,6 +1158,10 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         ArrayAdapter<String> adapterLongitudImpacto = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.longitudImpacto);
         spinnerLongitudImpacto.setAdapter(adapterLongitudImpacto);
 
+        ArrayAdapter<String> adapterTempSobreBanda= new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.temperaturaSobreLaBanda);
+        txtTempMaxMaterialBanda.setAdapter(adapterTempSobreBanda);
+        txtTempPromedioBanda.setAdapter(adapterTempSobreBanda);
+
         ArrayAdapter<String> adapterFugaMateriales = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.fugaDeMateriales);
         spinnerFugaMateriales.setAdapter(adapterFugaMateriales);
         spinnerFugaMatrialesCola.setAdapter(adapterMonitorPeligro);
@@ -1193,8 +1180,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         ArrayAdapter<String> adapterProtectorGuardaBandas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.protectorGuardaBandas);
         spinnerProtectorGuardaBandas.setAdapter(adapterProtectorGuardaBandas);
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Condicion Carga");
         }
 
@@ -1264,8 +1250,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("maxGranulometriaTransportadora", txtMaxGranulometria.getText().toString());
                                                     params.put("maxPesoTransportadora", txtMaxPeso.getText().toString());
                                                     params.put("densidadTransportadora", txtDensidad.getText().toString());
-                                                    params.put("tempMaximaMaterialSobreBandaTransportadora", txtTempMaxMaterialBanda.getText().toString());
-                                                    params.put("tempPromedioMaterialSobreBandaTransportadora", txtTempPromedioBanda.getText().toString());
+                                                    params.put("tempMaximaMaterialSobreBandaTransportadora", txtTempMaxMaterialBanda.getSelectedItem().toString());
+                                                    params.put("tempPromedioMaterialSobreBandaTransportadora", txtTempPromedioBanda.getSelectedItem().toString());
                                                     params.put("cajaColaDeTolva", spinnerCajaColaTolva.getSelectedItem().toString());
                                                     params.put("fugaMateriales", spinnerFugaMateriales.getSelectedItem().toString());
                                                     params.put("fugaDeMaterialesEnLaColaDelChute", spinnerFugaMatrialesCola.getSelectedItem().toString());
@@ -1290,65 +1276,45 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("tempAmbienteMaxTransportadora", txtTempAmbienteMaximaHorizontal.getText().toString());
                                                     params.put("tempAmbienteMinTransportadora", txtTempAmbienteMinimaHorizontal.getText().toString());
 
-                                                    if(!txtAlturaCaida.getText().equals(""))
-                                                    {
+                                                    if (!txtAlturaCaida.getText().equals("")) {
                                                         params.put("altureCaida", String.valueOf(Float.parseFloat(txtAlturaCaida.getText().toString())));
                                                     }
 
-                                                    if(!txtAnguloSobrecarga.getText().equals(""))
-                                                    {
+                                                    if (!txtAnguloSobrecarga.getText().equals("")) {
                                                         params.put("anguloSobreCarga", String.valueOf(Float.parseFloat(txtAnguloSobrecarga.getText().toString())));
                                                     }
-                                                    if(!txtMaxGranulometria.getText().equals(""))
-                                                    {
+                                                    if (!txtMaxGranulometria.getText().equals("")) {
                                                         params.put("maxGranulometriaTransportadora", String.valueOf(Float.parseFloat(txtMaxGranulometria.getText().toString())));
                                                     }
-                                                    if(!txtMaxPeso.getText().equals(""))
-                                                    {
+                                                    if (!txtMaxPeso.getText().equals("")) {
                                                         params.put("maxPesoTransportadora", String.valueOf(Float.parseFloat(txtMaxPeso.getText().toString())));
                                                     }
-                                                    if(!txtDensidad.getText().equals(""))
-                                                    {
+                                                    if (!txtDensidad.getText().equals("")) {
                                                         params.put("densidadTransportadora", String.valueOf(Float.parseFloat(txtDensidad.getText().toString())));
                                                     }
-                                                    if(!txtTempMaxMaterialBanda.getText().equals(""))
-                                                    {
-                                                        params.put("tempMaximaMaterialSobreBandaTransportadora", String.valueOf(Float.parseFloat(txtTempMaxMaterialBanda.getText().toString())));
-                                                    }
-                                                    if(!txtTempPromedioBanda.getText().equals(""))
-                                                    {
-                                                        params.put("tempPromedioMaterialSobreBandaTransportadora", String.valueOf(Float.parseFloat(txtTempPromedioBanda.getText().toString())));
-                                                    }
-                                                    if(!txtAnchoChute.getText().equals(""))
-                                                    {
+
+                                                    if (!txtAnchoChute.getText().equals("")) {
                                                         params.put("anchoChute", String.valueOf(Float.parseFloat(txtAnchoChute.getText().toString())));
                                                     }
-                                                    if(!txtLargoChute.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoChute.getText().equals("")) {
                                                         params.put("largoChute", String.valueOf(Float.parseFloat(txtLargoChute.getText().toString())));
                                                     }
-                                                    if(!txtAlturaChute.getText().equals(""))
-                                                    {
+                                                    if (!txtAlturaChute.getText().equals("")) {
                                                         params.put("alturaChute", String.valueOf(Float.parseFloat(txtAlturaChute.getText().toString())));
                                                     }
-                                                    if(!txtAnchoGuardabandas.getText().equals(""))
-                                                    {
+                                                    if (!txtAnchoGuardabandas.getText().equals("")) {
                                                         params.put("anchoGuardaBandas", String.valueOf(Float.parseFloat(txtAnchoGuardabandas.getText().toString())));
                                                     }
-                                                    if(!txtLargoGuardabandas.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoGuardabandas.getText().equals("")) {
                                                         params.put("largoGuardaBandas", String.valueOf(Float.parseFloat(txtLargoGuardabandas.getText().toString())));
                                                     }
-                                                    if(!txtCapacidadHorizontal.getText().equals(""))
-                                                    {
+                                                    if (!txtCapacidadHorizontal.getText().equals("")) {
                                                         params.put("capacidadTransportadora", String.valueOf(Float.parseFloat(txtCapacidadHorizontal.getText().toString())));
                                                     }
-                                                    if(!txtTempAmbienteMaximaHorizontal.getText().equals(""))
-                                                    {
+                                                    if (!txtTempAmbienteMaximaHorizontal.getText().equals("")) {
                                                         params.put("tempAmbienteMaxTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMaximaHorizontal.getText().toString())));
                                                     }
-                                                    if(!txtTempAmbienteMinimaHorizontal.getText().equals(""))
-                                                    {
+                                                    if (!txtTempAmbienteMinimaHorizontal.getText().equals("")) {
                                                         params.put("tempAmbienteMinTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMinimaHorizontal.getText().toString())));
                                                     }
                                                     return params;
@@ -1426,8 +1392,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("maxGranulometriaTransportadora", txtMaxGranulometria.getText().toString());
                                     params.put("maxPesoTransportadora", txtMaxPeso.getText().toString());
                                     params.put("densidadTransportadora", txtDensidad.getText().toString());
-                                    params.put("tempMaximaMaterialSobreBandaTransportadora", txtTempMaxMaterialBanda.getText().toString());
-                                    params.put("tempPromedioMaterialSobreBandaTransportadora", txtTempPromedioBanda.getText().toString());
+                                    params.put("tempMaximaMaterialSobreBandaTransportadora", txtTempMaxMaterialBanda.getSelectedItem().toString());
+                                    params.put("tempPromedioMaterialSobreBandaTransportadora", txtTempPromedioBanda.getSelectedItem().toString());
                                     params.put("cajaColaDeTolva", spinnerCajaColaTolva.getSelectedItem().toString());
                                     params.put("fugaMateriales", spinnerFugaMateriales.getSelectedItem().toString());
                                     params.put("fugaDeMaterialesEnLaColaDelChute", spinnerFugaMatrialesCola.getSelectedItem().toString());
@@ -1451,65 +1417,45 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("capacidadTransportadora", txtCapacidadHorizontal.getText().toString());
                                     params.put("tempAmbienteMaxTransportadora", txtTempAmbienteMaximaHorizontal.getText().toString());
                                     params.put("tempAmbienteMinTransportadora", txtTempAmbienteMinimaHorizontal.getText().toString());
-                                    if(!txtAlturaCaida.getText().equals(""))
-                                    {
+                                    if (!txtAlturaCaida.getText().equals("")) {
                                         params.put("altureCaida", String.valueOf(Float.parseFloat(txtAlturaCaida.getText().toString())));
                                     }
 
-                                    if(!txtAnguloSobrecarga.getText().equals(""))
-                                    {
+                                    if (!txtAnguloSobrecarga.getText().equals("")) {
                                         params.put("anguloSobreCarga", String.valueOf(Float.parseFloat(txtAnguloSobrecarga.getText().toString())));
                                     }
-                                    if(!txtMaxGranulometria.getText().equals(""))
-                                    {
+                                    if (!txtMaxGranulometria.getText().equals("")) {
                                         params.put("maxGranulometriaTransportadora", String.valueOf(Float.parseFloat(txtMaxGranulometria.getText().toString())));
                                     }
-                                    if(!txtMaxPeso.getText().equals(""))
-                                    {
+                                    if (!txtMaxPeso.getText().equals("")) {
                                         params.put("maxPesoTransportadora", String.valueOf(Float.parseFloat(txtMaxPeso.getText().toString())));
                                     }
-                                    if(!txtDensidad.getText().equals(""))
-                                    {
+                                    if (!txtDensidad.getText().equals("")) {
                                         params.put("densidadTransportadora", String.valueOf(Float.parseFloat(txtDensidad.getText().toString())));
                                     }
-                                    if(!txtTempMaxMaterialBanda.getText().equals(""))
-                                    {
-                                        params.put("tempMaximaMaterialSobreBandaTransportadora", String.valueOf(Float.parseFloat(txtTempMaxMaterialBanda.getText().toString())));
-                                    }
-                                    if(!txtTempPromedioBanda.getText().equals(""))
-                                    {
-                                        params.put("tempPromedioMaterialSobreBandaTransportadora", String.valueOf(Float.parseFloat(txtTempPromedioBanda.getText().toString())));
-                                    }
-                                    if(!txtAnchoChute.getText().equals(""))
-                                    {
+
+                                    if (!txtAnchoChute.getText().equals("")) {
                                         params.put("anchoChute", String.valueOf(Float.parseFloat(txtAnchoChute.getText().toString())));
                                     }
-                                    if(!txtLargoChute.getText().equals(""))
-                                    {
+                                    if (!txtLargoChute.getText().equals("")) {
                                         params.put("largoChute", String.valueOf(Float.parseFloat(txtLargoChute.getText().toString())));
                                     }
-                                    if(!txtAlturaChute.getText().equals(""))
-                                    {
+                                    if (!txtAlturaChute.getText().equals("")) {
                                         params.put("alturaChute", String.valueOf(Float.parseFloat(txtAlturaChute.getText().toString())));
                                     }
-                                    if(!txtAnchoGuardabandas.getText().equals(""))
-                                    {
+                                    if (!txtAnchoGuardabandas.getText().equals("")) {
                                         params.put("anchoGuardaBandas", String.valueOf(Float.parseFloat(txtAnchoGuardabandas.getText().toString())));
                                     }
-                                    if(!txtLargoGuardabandas.getText().equals(""))
-                                    {
+                                    if (!txtLargoGuardabandas.getText().equals("")) {
                                         params.put("largoGuardaBandas", String.valueOf(Float.parseFloat(txtLargoGuardabandas.getText().toString())));
                                     }
-                                    if(!txtCapacidadHorizontal.getText().equals(""))
-                                    {
+                                    if (!txtCapacidadHorizontal.getText().equals("")) {
                                         params.put("capacidadTransportadora", String.valueOf(Float.parseFloat(txtCapacidadHorizontal.getText().toString())));
                                     }
-                                    if(!txtTempAmbienteMaximaHorizontal.getText().equals(""))
-                                    {
+                                    if (!txtTempAmbienteMaximaHorizontal.getText().equals("")) {
                                         params.put("tempAmbienteMaxTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMaximaHorizontal.getText().toString())));
                                     }
-                                    if(!txtTempAmbienteMinimaHorizontal.getText().equals(""))
-                                    {
+                                    if (!txtTempAmbienteMinimaHorizontal.getText().equals("")) {
                                         params.put("tempAmbienteMinTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMinimaHorizontal.getText().toString())));
                                     }
 
@@ -1549,8 +1495,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         dialogParte.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogParte.setCancelable(true);
 
-        TextView tvDetalleRodilloCargaCentral=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral);
-        TextView tvDetalleRodilloCargaCentral1=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral1);
+        TextView tvDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral);
+        TextView tvDetalleRodilloCargaCentral1 = dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral1);
         tvDetalleRodilloCargaCentral.setOnClickListener(this);
         tvDetalleRodilloCargaCentral1.setOnClickListener(this);
 
@@ -1568,11 +1514,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerMaterialAtrapadoGuardaBandas = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnGuardaBanda);
         final Spinner spinnerMaterialAtrapadoBanda = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnBanda);
         final Spinner spinnerInclinacionZonaCargue = dialogParte.findViewById(R.id.spinnerInclinacionZonaCargue);
-        final Spinner spinnerTipoRodilloRC= dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
-        final Spinner spinnerTipoRodilloRI= dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
-        final Spinner spinnerBasculaPesaje= dialogParte.findViewById(R.id.spinnerBasculaPesaje);
-        final Spinner spinnerEspesorUHMV=dialogParte.findViewById(R.id.spinnerEspesorUHMV);
-        final Spinner spinnerAnchoBarra=dialogParte.findViewById(R.id.spinnerAnchoBarra);
+        final Spinner spinnerTipoRodilloRC = dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
+        final Spinner spinnerTipoRodilloRI = dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
+        final Spinner spinnerBasculaPesaje = dialogParte.findViewById(R.id.spinnerBasculaPesaje);
+        final Spinner spinnerEspesorUHMV = dialogParte.findViewById(R.id.spinnerEspesorUHMV);
+        final Spinner spinnerAnchoBarra = dialogParte.findViewById(R.id.spinnerAnchoBarra);
 
 
         final Spinner spinnerAnguloAcanalmiento1artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaCola);
@@ -1620,27 +1566,26 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         spinnerAnguloAcanalmiento2artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
         spinnerAnguloAcanalmiento3artesaPoleaMotriz.setAdapter(adapterAcanalamiento);
 
-        final TextInputEditText txtLargoEjeRodilloCentral=dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
-        final TextInputEditText txtDiametroEjeRodilloCentral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
-        final TextInputEditText txtDiametroRodilloCentral=dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
-        final TextInputEditText txtLargoTuboRodilloCentral=dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
-        final TextInputEditText txtLargoEjeRodilloLateral=dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-        final TextInputEditText txtDiametroEjeRodilloLateral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-        final TextInputEditText txtDiametroRodilloLateral=dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-        final TextInputEditText txtLargoTuboRodilloLateral=dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-        final TextInputEditText txtAnchoInternoChasis=dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-        final TextInputEditText txtAnchoExternoChasis=dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+        final TextInputEditText txtLargoEjeRodilloCentral = dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
+        final TextInputEditText txtDiametroEjeRodilloCentral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
+        final TextInputEditText txtDiametroRodilloCentral = dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
+        final TextInputEditText txtLargoTuboRodilloCentral = dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
+        final TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
+        final TextInputEditText txtDiametroEjeRodilloLateral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+        final TextInputEditText txtDiametroRodilloLateral = dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+        final TextInputEditText txtLargoTuboRodilloLateral = dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+        final TextInputEditText txtAnchoInternoChasis = dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+        final TextInputEditText txtAnchoExternoChasis = dialogParte.findViewById(R.id.txtAnchoExternoChasis);
 
 
-        final TextInputEditText txtLargoBarra=dialogParte.findViewById(R.id.txtLargoBarra);
+        final TextInputEditText txtLargoBarra = dialogParte.findViewById(R.id.txtLargoBarra);
 
 
-        final TextInputEditText txtDetalleRodilloCentral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-        final TextInputEditText txtDetalleRodilloLateral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+        final TextInputEditText txtDetalleRodilloCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+        final TextInputEditText txtDetalleRodilloLateral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
 
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Soporte Carga");
         }
 
@@ -1730,62 +1675,50 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("tipoRodilloImpacto", spinnerTipoRodilloRI.getSelectedItem().toString());
                                                     params.put("diametroRodilloCentralCarga", txtDiametroRodilloCentral.getText().toString());
 
-                                                    if(!txtLargoBarra.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoBarra.getText().equals("")) {
                                                         params.put("largoBarra", String.valueOf(Float.parseFloat(txtLargoBarra.getText().toString())));
 
                                                     }
-                                                    if(!txtLargoEjeRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoEjeRodilloCentral.getText().equals("")) {
                                                         params.put("largoEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtLargoEjeRodilloCentral.getText().toString())));
 
                                                     }
-                                                    if(!txtDiametroEjeRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjeRodilloCentral.getText().equals("")) {
                                                         params.put("diametroEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloCentral.getText().toString())));
 
                                                     }
-                                                    if(!txtLargoTuboRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoTuboRodilloCentral.getText().equals("")) {
                                                         params.put("largoTuboRodilloCentralCarga", String.valueOf(Float.parseFloat(txtLargoTuboRodilloCentral.getText().toString())));
 
                                                     }
-                                                    if(!txtLargoEjeRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoEjeRodilloLateral.getText().equals("")) {
                                                         params.put("largoEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtLargoEjeRodilloLateral.getText().toString())));
 
                                                     }
-                                                    if(!txtDiametroEjeRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjeRodilloLateral.getText().equals("")) {
                                                         params.put("diametroEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloLateral.getText().toString())));
 
                                                     }
-                                                    if(!txtDiametroRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroRodilloLateral.getText().equals("")) {
                                                         params.put("diametroRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloLateral.getText().toString())));
 
                                                     }
-                                                    if(!txtLargoTuboRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoTuboRodilloLateral.getText().equals("")) {
                                                         params.put("largoTuboRodilloLateralCarga", String.valueOf(Float.parseFloat(txtLargoTuboRodilloLateral.getText().toString())));
 
                                                     }
-                                                    if(!txtAnchoInternoChasis.getText().equals(""))
-                                                    {
+                                                    if (!txtAnchoInternoChasis.getText().equals("")) {
                                                         params.put("anchoInternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoInternoChasis.getText().toString())));
 
                                                     }
-                                                    if(!txtAnchoExternoChasis.getText().equals(""))
-                                                    {
+                                                    if (!txtAnchoExternoChasis.getText().equals("")) {
                                                         params.put("anchoExternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoExternoChasis.getText().toString())));
 
                                                     }
-                                                    if(!txtDiametroRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroRodilloCentral.getText().equals("")) {
                                                         params.put("diametroRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloCentral.getText().toString())));
 
                                                     }
-
 
 
                                                     return params;
@@ -1884,58 +1817,47 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("diametroRodilloCentralCarga", txtDiametroRodilloCentral.getText().toString());
 
 
-                                    if(!txtLargoBarra.getText().equals(""))
-                                    {
+                                    if (!txtLargoBarra.getText().equals("")) {
                                         params.put("largoBarra", String.valueOf(Float.parseFloat(txtLargoBarra.getText().toString())));
 
                                     }
-                                    if(!txtLargoEjeRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtLargoEjeRodilloCentral.getText().equals("")) {
                                         params.put("largoEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtLargoEjeRodilloCentral.getText().toString())));
 
                                     }
-                                    if(!txtDiametroEjeRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroEjeRodilloCentral.getText().equals("")) {
                                         params.put("diametroEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloCentral.getText().toString())));
 
                                     }
-                                    if(!txtLargoTuboRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtLargoTuboRodilloCentral.getText().equals("")) {
                                         params.put("largoTuboRodilloCentralCarga", String.valueOf(Float.parseFloat(txtLargoTuboRodilloCentral.getText().toString())));
 
                                     }
-                                    if(!txtLargoEjeRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtLargoEjeRodilloLateral.getText().equals("")) {
                                         params.put("largoEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtLargoEjeRodilloLateral.getText().toString())));
 
                                     }
-                                    if(!txtDiametroEjeRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroEjeRodilloLateral.getText().equals("")) {
                                         params.put("diametroEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloLateral.getText().toString())));
 
                                     }
-                                    if(!txtDiametroRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroRodilloLateral.getText().equals("")) {
                                         params.put("diametroRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloLateral.getText().toString())));
 
                                     }
-                                    if(!txtLargoTuboRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtLargoTuboRodilloLateral.getText().equals("")) {
                                         params.put("largoTuboRodilloLateralCarga", String.valueOf(Float.parseFloat(txtLargoTuboRodilloLateral.getText().toString())));
 
                                     }
-                                    if(!txtAnchoInternoChasis.getText().equals(""))
-                                    {
+                                    if (!txtAnchoInternoChasis.getText().equals("")) {
                                         params.put("anchoInternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoInternoChasis.getText().toString())));
 
                                     }
-                                    if(!txtAnchoExternoChasis.getText().equals(""))
-                                    {
+                                    if (!txtAnchoExternoChasis.getText().equals("")) {
                                         params.put("anchoExternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoExternoChasis.getText().toString())));
 
                                     }
-                                    if(!txtDiametroRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroRodilloCentral.getText().equals("")) {
                                         params.put("diametroRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloCentral.getText().toString())));
 
                                     }
@@ -2282,31 +2204,24 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("potenciaMotorTransportadora", txtHpMotor.getText().toString());
                                                     params.put("guardaPoleaMotrizTransportadora", spinnerGuardaPolea.getSelectedItem().toString());
 
-                                                    if(!txtDiametro.getText().toString().equals(""))
-                                                    {
-                                                        params.put("diametroPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString()))) ;
+                                                    if (!txtDiametro.getText().toString().equals("")) {
+                                                        params.put("diametroPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString())));
                                                     }
-                                                    if(!txtAncho.getText().toString().equals(""))
-                                                    {
-                                                        params.put("anchoPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString()))) ;
+                                                    if (!txtAncho.getText().toString().equals("")) {
+                                                        params.put("anchoPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString())));
                                                     }
-                                                    if(!txtLargoEje.getText().toString().equals(""))
-                                                    {
-                                                        params.put("largoEjePoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString()))) ;
+                                                    if (!txtLargoEje.getText().toString().equals("")) {
+                                                        params.put("largoEjePoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString())));
                                                     }
-                                                    if(!txtDiametroEje.getText().toString().equals(""))
-                                                    {
-                                                        params.put("diametroEjeMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString()))) ;
+                                                    if (!txtDiametroEje.getText().toString().equals("")) {
+                                                        params.put("diametroEjeMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString())));
                                                     }
-                                                    if(!txtDistanciaTransicion.getText().toString().equals(""))
-                                                    {
-                                                        params.put("distanciaTransicionPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString()))) ;
+                                                    if (!txtDistanciaTransicion.getText().toString().equals("")) {
+                                                        params.put("distanciaTransicionPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString())));
                                                     }
-                                                    if(!txtHpMotor.getText().toString().equals(""))
-                                                    {
-                                                        params.put("potenciaMotorTransportadora", String.valueOf(Float.parseFloat(txtHpMotor.getText().toString()))) ;
+                                                    if (!txtHpMotor.getText().toString().equals("")) {
+                                                        params.put("potenciaMotorTransportadora", String.valueOf(Float.parseFloat(txtHpMotor.getText().toString())));
                                                     }
-
 
 
                                                     return params;
@@ -2377,35 +2292,24 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("potenciaMotorTransportadora", txtHpMotor.getText().toString());
                                     params.put("guardaPoleaMotrizTransportadora", spinnerGuardaPolea.getSelectedItem().toString());
 
-                                    if(!txtDiametro.getText().toString().equals(""))
-                                    {
-                                        params.put("diametroPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString()))) ;
+                                    if (!txtDiametro.getText().toString().equals("")) {
+                                        params.put("diametroPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString())));
                                     }
-                                    if(!txtAncho.getText().toString().equals(""))
-                                    {
-                                        params.put("anchoPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString()))) ;
+                                    if (!txtAncho.getText().toString().equals("")) {
+                                        params.put("anchoPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtAncho.getText().toString())));
                                     }
-                                    if(!txtLargoEje.getText().toString().equals(""))
-                                    {
-                                        params.put("largoEjePoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString()))) ;
+                                    if (!txtLargoEje.getText().toString().equals("")) {
+                                        params.put("largoEjePoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtLargoEje.getText().toString())));
                                     }
-                                    if(!txtDiametroEje.getText().toString().equals(""))
-                                    {
-                                        params.put("diametroEjeMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString()))) ;
+                                    if (!txtDiametroEje.getText().toString().equals("")) {
+                                        params.put("diametroEjeMotrizTransportadora", String.valueOf(Float.parseFloat(txtDiametroEje.getText().toString())));
                                     }
-                                    if(!txtDistanciaTransicion.getText().toString().equals(""))
-                                    {
-                                        params.put("distanciaTransicionPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString()))) ;
+                                    if (!txtDistanciaTransicion.getText().toString().equals("")) {
+                                        params.put("distanciaTransicionPoleaMotrizTransportadora", String.valueOf(Float.parseFloat(txtDistanciaTransicion.getText().toString())));
                                     }
-                                    if(!txtHpMotor.getText().toString().equals(""))
-                                    {
-                                        params.put("potenciaMotorTransportadora", String.valueOf(Float.parseFloat(txtHpMotor.getText().toString()))) ;
+                                    if (!txtHpMotor.getText().toString().equals("")) {
+                                        params.put("potenciaMotorTransportadora", String.valueOf(Float.parseFloat(txtHpMotor.getText().toString())));
                                     }
-
-
-
-
-
 
 
                                     return params;
@@ -2492,8 +2396,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final TextInputEditText txtAnchoCuchillaLP = dialogParte.findViewById(R.id.txtAnchoCuchillaLP);
         final TextInputEditText txtAltoCuchillaLP = dialogParte.findViewById(R.id.txtAltoCuchillaLP);
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Limpiador Primario");
         }
 
@@ -2565,22 +2468,18 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("cuchillaEnContactoConBanda", spinnerCuchillaEnContactoConBandaLP.getSelectedItem().toString());
                                                     params.put("materialHumedoTransportadora", spinnerMaterialHumedoLP.getSelectedItem().toString());
 
-                                                    if(!txtAnchoEstructura.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoEstructura.getText().toString().equals("")) {
                                                         params.put("anchoEstructura", String.valueOf(Float.parseFloat(txtAnchoEstructura.getText().toString())));
                                                     }
-                                                    if(!txtAnchoTrayectoCarga.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoTrayectoCarga.getText().toString().equals("")) {
                                                         params.put("anchoTrayectoCarga", String.valueOf(Float.parseFloat(txtAnchoTrayectoCarga.getText().toString())));
 
                                                     }
-                                                    if(!txtAnchoCuchillaLP.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoCuchillaLP.getText().toString().equals("")) {
                                                         params.put("anchoCuchillaLimpiadorPrimario", String.valueOf(Float.parseFloat(txtAnchoCuchillaLP.getText().toString())));
 
                                                     }
-                                                    if(!txtAltoCuchillaLP.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAltoCuchillaLP.getText().toString().equals("")) {
                                                         params.put("altoCuchillaLimpiadorPrimario", String.valueOf(Float.parseFloat(txtAltoCuchillaLP.getText().toString())));
                                                     }
 
@@ -2661,22 +2560,18 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("cuchillaEnContactoConBanda", spinnerCuchillaEnContactoConBandaLP.getSelectedItem().toString());
                                     params.put("materialHumedoTransportadora", spinnerMaterialHumedoLP.getSelectedItem().toString());
 
-                                    if(!txtAnchoEstructura.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoEstructura.getText().toString().equals("")) {
                                         params.put("anchoEstructura", String.valueOf(Float.parseFloat(txtAnchoEstructura.getText().toString())));
                                     }
-                                    if(!txtAnchoTrayectoCarga.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoTrayectoCarga.getText().toString().equals("")) {
                                         params.put("anchoTrayectoCarga", String.valueOf(Float.parseFloat(txtAnchoTrayectoCarga.getText().toString())));
 
                                     }
-                                    if(!txtAnchoCuchillaLP.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoCuchillaLP.getText().toString().equals("")) {
                                         params.put("anchoCuchillaLimpiadorPrimario", String.valueOf(Float.parseFloat(txtAnchoCuchillaLP.getText().toString())));
 
                                     }
-                                    if(!txtAltoCuchillaLP.getText().toString().equals(""))
-                                    {
+                                    if (!txtAltoCuchillaLP.getText().toString().equals("")) {
                                         params.put("altoCuchillaLimpiadorPrimario", String.valueOf(Float.parseFloat(txtAltoCuchillaLP.getText().toString())));
                                     }
 
@@ -2757,18 +2652,17 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
         spinnerEstadoCuchillaLS.setAdapter(adapterEstadoPartes);
         spinnerEstadoCuchillaLT.setAdapter(adapterEstadoPartes);
-        final TextInputEditText txtAnchoCuchillaLS=dialogParte.findViewById(R.id.txtAnchoCuchillaLS);
-        final TextInputEditText txtAltoCuchillaLS=dialogParte.findViewById(R.id.txtAltoCuchillaLS);
+        final TextInputEditText txtAnchoCuchillaLS = dialogParte.findViewById(R.id.txtAnchoCuchillaLS);
+        final TextInputEditText txtAltoCuchillaLS = dialogParte.findViewById(R.id.txtAltoCuchillaLS);
 
-        final TextInputEditText txtAnchoCuchillaLT=dialogParte.findViewById(R.id.txtAnchoCuchillaLT);
-        final TextInputEditText txtAltoCuchillaLT=dialogParte.findViewById(R.id.txtAltoCuchillaLT);
+        final TextInputEditText txtAnchoCuchillaLT = dialogParte.findViewById(R.id.txtAnchoCuchillaLT);
+        final TextInputEditText txtAltoCuchillaLT = dialogParte.findViewById(R.id.txtAltoCuchillaLT);
 
 
         spinnerFrecRevisionCuchillaLS.setAdapter(adapterFrecRevisionCuchilla);
         spinnerFrecRevisionCuchillaLT.setAdapter(adapterFrecRevisionCuchilla);
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Limpiador Secundario");
         }
 
@@ -2838,22 +2732,18 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("frecuenciaRevisionCuchilla2", spinnerFrecRevisionCuchillaLT.getSelectedItem().toString());
                                                     params.put("cuchillaEnContactoConBanda2", spinnerCuchillaEnContactoConBandaLT.getSelectedItem().toString());
 
-                                                    if(!txtAnchoCuchillaLS.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoCuchillaLS.getText().toString().equals("")) {
                                                         params.put("anchoCuchillaLimpiadorSecundario", String.valueOf(Float.parseFloat(txtAnchoCuchillaLS.getText().toString())));
                                                     }
-                                                    if(!txtAltoCuchillaLS.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAltoCuchillaLS.getText().toString().equals("")) {
                                                         params.put("altoCuchillaLimpiadorSecundario", String.valueOf(Float.parseFloat(txtAltoCuchillaLS.getText().toString())));
 
                                                     }
-                                                    if(!txtAnchoCuchillaLT.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoCuchillaLT.getText().toString().equals("")) {
                                                         params.put("anchoCuchillaLimpiadorTerciario", String.valueOf(Float.parseFloat(txtAnchoCuchillaLT.getText().toString())));
 
                                                     }
-                                                    if(!txtAltoCuchillaLT.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAltoCuchillaLT.getText().toString().equals("")) {
                                                         params.put("altoCuchillaLimpiadorTerciario", String.valueOf(Float.parseFloat(txtAltoCuchillaLT.getText().toString())));
                                                     }
 
@@ -2935,25 +2825,20 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("frecuenciaRevisionCuchilla2", spinnerFrecRevisionCuchillaLT.getSelectedItem().toString());
                                     params.put("cuchillaEnContactoConBanda2", spinnerCuchillaEnContactoConBandaLT.getSelectedItem().toString());
 
-                                    if(!txtAnchoCuchillaLS.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoCuchillaLS.getText().toString().equals("")) {
                                         params.put("anchoCuchillaLimpiadorSecundario", String.valueOf(Float.parseFloat(txtAnchoCuchillaLS.getText().toString())));
                                     }
-                                    if(!txtAltoCuchillaLS.getText().toString().equals(""))
-                                    {
+                                    if (!txtAltoCuchillaLS.getText().toString().equals("")) {
                                         params.put("altoCuchillaLimpiadorSecundario", String.valueOf(Float.parseFloat(txtAltoCuchillaLS.getText().toString())));
 
                                     }
-                                    if(!txtAnchoCuchillaLT.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoCuchillaLT.getText().toString().equals("")) {
                                         params.put("anchoCuchillaLimpiadorTerciario", String.valueOf(Float.parseFloat(txtAnchoCuchillaLT.getText().toString())));
 
                                     }
-                                    if(!txtAltoCuchillaLT.getText().toString().equals(""))
-                                    {
+                                    if (!txtAltoCuchillaLT.getText().toString().equals("")) {
                                         params.put("altoCuchillaLimpiadorTerciario", String.valueOf(Float.parseFloat(txtAltoCuchillaLT.getText().toString())));
                                     }
-
 
 
                                     return params;
@@ -3022,8 +2907,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         spinnerTipoPAmarrePM.setAdapter(adapterTipoPolea);
         spinnerTipoPAmarrePC.setAdapter(adapterTipoPolea);
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Polea Amarre");
         }
 
@@ -3090,41 +2974,32 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("icobandasCentradaPoleaAmarrePoleaCola", spinnerIcobandasCentradaPAmarrePC.getSelectedItem().toString());
                                                     params.put("estadoRevestimientoPoleaAmarrePoleaCola", spinnerEstadoRvtoPAmarrePC.getSelectedItem().toString());
 
-                                                    if(!txtDiametroPAmarrePM.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDiametroPAmarrePM.getText().toString().equals("")) {
                                                         params.put("diametroPoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtDiametroPAmarrePM.getText().toString())));
                                                     }
-                                                    if(!txtLargoEjePAmarrePM.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtLargoEjePAmarrePM.getText().toString().equals("")) {
                                                         params.put("largoEjePoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtLargoEjePAmarrePM.getText().toString())));
 
                                                     }
-                                                    if(!txtDiametroEjePAmarrePM.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjePAmarrePM.getText().toString().equals("")) {
                                                         params.put("diametroEjePoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtDiametroEjePAmarrePM.getText().toString())));
 
                                                     }
-                                                    if(!txtAnchoPAmarrePM.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoPAmarrePM.getText().toString().equals("")) {
                                                         params.put("anchoPoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtAnchoPAmarrePM.getText().toString())));
                                                     }
-                                                    if(!txtDiametroPAmarrePC.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDiametroPAmarrePC.getText().toString().equals("")) {
                                                         params.put("dimetroPoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtDiametroPAmarrePC.getText().toString())));
                                                     }
-                                                    if(!txtAnchoPAmarrePC.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoPAmarrePC.getText().toString().equals("")) {
                                                         params.put("anchoPoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtAnchoPAmarrePC.getText().toString())));
                                                     }
-                                                    if(!txtLargoEjePAmarrePC.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtLargoEjePAmarrePC.getText().toString().equals("")) {
                                                         params.put("largoEjePoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtLargoEjePAmarrePC.getText().toString())));
                                                     }
-                                                    if(!txtDiametroEjePAmarrePC.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjePAmarrePC.getText().toString().equals("")) {
                                                         params.put("diametroEjePoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtDiametroEjePAmarrePC.getText().toString())));
                                                     }
-
 
 
                                                     return params;
@@ -3198,38 +3073,30 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("icobandasCentradaPoleaAmarrePoleaCola", spinnerIcobandasCentradaPAmarrePC.getSelectedItem().toString());
                                     params.put("estadoRevestimientoPoleaAmarrePoleaCola", spinnerEstadoRvtoPAmarrePC.getSelectedItem().toString());
 
-                                    if(!txtDiametroPAmarrePM.getText().toString().equals(""))
-                                    {
+                                    if (!txtDiametroPAmarrePM.getText().toString().equals("")) {
                                         params.put("diametroPoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtDiametroPAmarrePM.getText().toString())));
                                     }
-                                    if(!txtLargoEjePAmarrePM.getText().toString().equals(""))
-                                    {
+                                    if (!txtLargoEjePAmarrePM.getText().toString().equals("")) {
                                         params.put("largoEjePoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtLargoEjePAmarrePM.getText().toString())));
 
                                     }
-                                    if(!txtDiametroEjePAmarrePM.getText().toString().equals(""))
-                                    {
+                                    if (!txtDiametroEjePAmarrePM.getText().toString().equals("")) {
                                         params.put("diametroEjePoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtDiametroEjePAmarrePM.getText().toString())));
 
                                     }
-                                    if(!txtAnchoPAmarrePM.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoPAmarrePM.getText().toString().equals("")) {
                                         params.put("anchoPoleaAmarrePoleaMotriz", String.valueOf(Float.parseFloat(txtAnchoPAmarrePM.getText().toString())));
                                     }
-                                    if(!txtDiametroPAmarrePC.getText().toString().equals(""))
-                                    {
+                                    if (!txtDiametroPAmarrePC.getText().toString().equals("")) {
                                         params.put("dimetroPoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtDiametroPAmarrePC.getText().toString())));
                                     }
-                                    if(!txtAnchoPAmarrePC.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoPAmarrePC.getText().toString().equals("")) {
                                         params.put("anchoPoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtAnchoPAmarrePC.getText().toString())));
                                     }
-                                    if(!txtLargoEjePAmarrePC.getText().toString().equals(""))
-                                    {
+                                    if (!txtLargoEjePAmarrePC.getText().toString().equals("")) {
                                         params.put("largoEjePoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtLargoEjePAmarrePC.getText().toString())));
                                     }
-                                    if(!txtDiametroEjePAmarrePC.getText().toString().equals(""))
-                                    {
+                                    if (!txtDiametroEjePAmarrePC.getText().toString().equals("")) {
                                         params.put("diametroEjePoleaAmarrePoleaCola", String.valueOf(Float.parseFloat(txtDiametroEjePAmarrePC.getText().toString())));
                                     }
 
@@ -3723,28 +3590,27 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
         final Spinner spinnerAnguloAcanalArtesaCarga = dialogParte.findViewById(R.id.spinnerAnguloAcanalArtesaCarga);
 
-        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-        ArrayAdapter<String> adapterAnguloAcanalamiento= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.angulosAcanalamiento);
+        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+        ArrayAdapter<String> adapterAnguloAcanalamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.angulosAcanalamiento);
 
         spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
         spinnerAnguloAcanalArtesaCarga.setAdapter(adapterAnguloAcanalamiento);
 
         final TextInputEditText txtlargoEjeRodilloCentral = dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
-        final TextInputEditText txtDiametroEjeRodilloCentral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
-        final TextInputEditText txtDiametroRodilloCentral= dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
-        final TextInputEditText txtLargoTuboRodilloCentral= dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
+        final TextInputEditText txtDiametroEjeRodilloCentral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
+        final TextInputEditText txtDiametroRodilloCentral = dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
+        final TextInputEditText txtLargoTuboRodilloCentral = dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
         final TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-        final TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-        final TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-        final TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-        final TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaArtesasCarga);
-        final TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-        final TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-        final TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-        final TextInputEditText txtDetalleRodilloCargaLateral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+        final TextInputEditText txtDiametroEjeRodilloLateral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+        final TextInputEditText txtDiametroRodilloLateral = dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+        final TextInputEditText txtLargoTuboRodilloLateral = dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+        final TextInputEditText txtDistanciaArtesasCarga = dialogParte.findViewById(R.id.txtDistanciaArtesasCarga);
+        final TextInputEditText txtAnchoInternoChasis = dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+        final TextInputEditText txtAnchoExternoChasis = dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+        final TextInputEditText txtDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+        final TextInputEditText txtDetalleRodilloCargaLateral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Rodillo Carga");
         }
 
@@ -3811,50 +3677,36 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("distanciaEntreArtesasCarga", txtDistanciaArtesasCarga.getText().toString());
                                                     params.put("anchoInternoChasisRodilloCarga", txtAnchoInternoChasis.getText().toString());
 
-                                                    if(!txtlargoEjeRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtlargoEjeRodilloCentral.getText().equals("")) {
                                                         params.put("largoEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtlargoEjeRodilloCentral.getText().toString())));
                                                     }
-                                                    if(!txtDiametroEjeRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjeRodilloCentral.getText().equals("")) {
                                                         params.put("diametroEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloCentral.getText().toString())));
                                                     }
-                                                    if(!txtLargoTuboRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoTuboRodilloCentral.getText().equals("")) {
                                                         params.put("largoTuboRodilloCentralCarga", String.valueOf(Float.parseFloat(txtLargoTuboRodilloCentral.getText().toString())));
                                                     }
-                                                    if(!txtLargoEjeRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtLargoEjeRodilloLateral.getText().equals("")) {
                                                         params.put("largoEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtLargoEjeRodilloLateral.getText().toString())));
                                                     }
-                                                    if(!txtDiametroEjeRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjeRodilloLateral.getText().equals("")) {
                                                         params.put("diametroEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloLateral.getText().toString())));
                                                     }
-                                                    if(!txtDiametroRodilloLateral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroRodilloLateral.getText().equals("")) {
                                                         params.put("diametroRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloLateral.getText().toString())));
                                                     }
-                                                    if(!txtAnchoExternoChasis.getText().equals(""))
-                                                    {
+                                                    if (!txtAnchoExternoChasis.getText().equals("")) {
                                                         params.put("anchoExternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoExternoChasis.getText().toString())));
                                                     }
-                                                    if(!txtDiametroRodilloCentral.getText().equals(""))
-                                                    {
+                                                    if (!txtDiametroRodilloCentral.getText().equals("")) {
                                                         params.put("diametroRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloCentral.getText().toString())));
                                                     }
-                                                    if(!txtDistanciaArtesasCarga.getText().equals(""))
-                                                    {
+                                                    if (!txtDistanciaArtesasCarga.getText().equals("")) {
                                                         params.put("distanciaEntreArtesasCarga", String.valueOf(Float.parseFloat(txtDistanciaArtesasCarga.getText().toString())));
                                                     }
-                                                    if(!txtAnchoInternoChasis.getText().equals(""))
-                                                    {
+                                                    if (!txtAnchoInternoChasis.getText().equals("")) {
                                                         params.put("anchoInternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoInternoChasis.getText().toString())));
                                                     }
-
-
-
-
 
 
                                                     return params;
@@ -3928,44 +3780,34 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("distanciaEntreArtesasCarga", txtDistanciaArtesasCarga.getText().toString());
                                     params.put("anchoInternoChasisRodilloCarga", txtAnchoInternoChasis.getText().toString());
 
-                                    if(!txtlargoEjeRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtlargoEjeRodilloCentral.getText().equals("")) {
                                         params.put("largoEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtlargoEjeRodilloCentral.getText().toString())));
                                     }
-                                    if(!txtDiametroEjeRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroEjeRodilloCentral.getText().equals("")) {
                                         params.put("diametroEjeRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloCentral.getText().toString())));
                                     }
-                                    if(!txtLargoTuboRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtLargoTuboRodilloCentral.getText().equals("")) {
                                         params.put("largoTuboRodilloCentralCarga", String.valueOf(Float.parseFloat(txtLargoTuboRodilloCentral.getText().toString())));
                                     }
-                                    if(!txtLargoEjeRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtLargoEjeRodilloLateral.getText().equals("")) {
                                         params.put("largoEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtLargoEjeRodilloLateral.getText().toString())));
                                     }
-                                    if(!txtDiametroEjeRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroEjeRodilloLateral.getText().equals("")) {
                                         params.put("diametroEjeRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloLateral.getText().toString())));
                                     }
-                                    if(!txtDiametroRodilloLateral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroRodilloLateral.getText().equals("")) {
                                         params.put("diametroRodilloLateralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloLateral.getText().toString())));
                                     }
-                                    if(!txtAnchoExternoChasis.getText().equals(""))
-                                    {
+                                    if (!txtAnchoExternoChasis.getText().equals("")) {
                                         params.put("anchoExternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoExternoChasis.getText().toString())));
                                     }
-                                    if(!txtDiametroRodilloCentral.getText().equals(""))
-                                    {
+                                    if (!txtDiametroRodilloCentral.getText().equals("")) {
                                         params.put("diametroRodilloCentralCarga", String.valueOf(Float.parseFloat(txtDiametroRodilloCentral.getText().toString())));
                                     }
-                                    if(!txtDistanciaArtesasCarga.getText().equals(""))
-                                    {
+                                    if (!txtDistanciaArtesasCarga.getText().equals("")) {
                                         params.put("distanciaEntreArtesasCarga", String.valueOf(Float.parseFloat(txtDistanciaArtesasCarga.getText().toString())));
                                     }
-                                    if(!txtAnchoInternoChasis.getText().equals(""))
-                                    {
+                                    if (!txtAnchoInternoChasis.getText().equals("")) {
                                         params.put("anchoInternoChasisRodilloCarga", String.valueOf(Float.parseFloat(txtAnchoInternoChasis.getText().toString())));
                                     }
 
@@ -4009,25 +3851,24 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
         final Spinner spinnerRodillosRetorno = dialogParte.findViewById(R.id.spinnerRodillosRetorno);
 
-        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-        ArrayAdapter<String> adapterRodillosRetorno= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.estadoPartes);
+        ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+        ArrayAdapter<String> adapterRodillosRetorno = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
 
         spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
         spinnerRodillosRetorno.setAdapter(adapterRodillosRetorno);
 
 
         final TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-        final TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-        final TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-        final TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-        final TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaEntreRodillosRetorno);
-        final TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-        final TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-        final TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+        final TextInputEditText txtDiametroEjeRodilloLateral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+        final TextInputEditText txtDiametroRodilloLateral = dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+        final TextInputEditText txtLargoTuboRodilloLateral = dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+        final TextInputEditText txtDistanciaArtesasCarga = dialogParte.findViewById(R.id.txtDistanciaEntreRodillosRetorno);
+        final TextInputEditText txtAnchoInternoChasis = dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+        final TextInputEditText txtAnchoExternoChasis = dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+        final TextInputEditText txtDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
 
 
-        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
-        {
+        if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros("Rodillo Retorno");
         }
 
@@ -4089,38 +3930,30 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("estadoRodilloRetorno", spinnerRodillosRetorno.getSelectedItem().toString());
                                                     params.put("anchoInternoChasisRetorno", txtAnchoInternoChasis.getText().toString());
 
-                                                    if(!txtLargoEjeRodilloLateral.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtLargoEjeRodilloLateral.getText().toString().equals("")) {
                                                         params.put("largoEjeRodilloRetorno", String.valueOf(Float.parseFloat(txtLargoEjeRodilloLateral.getText().toString())));
                                                     }
-                                                    if(!txtDiametroEjeRodilloLateral.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDiametroEjeRodilloLateral.getText().toString().equals("")) {
                                                         params.put("diametroEjeRodilloRetorno", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloLateral.getText().toString())));
 
                                                     }
-                                                    if(!txtDiametroRodilloLateral.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDiametroRodilloLateral.getText().toString().equals("")) {
                                                         params.put("diametroRodilloRetorno", String.valueOf(Float.parseFloat(txtDiametroRodilloLateral.getText().toString())));
 
                                                     }
-                                                    if(!txtAnchoExternoChasis.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoExternoChasis.getText().toString().equals("")) {
                                                         params.put("anchoExternoChasisRetorno", String.valueOf(Float.parseFloat(txtAnchoExternoChasis.getText().toString())));
                                                     }
-                                                    if(!txtDetalleRodilloCargaCentral.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDetalleRodilloCargaCentral.getText().toString().equals("")) {
                                                         params.put("detalleRodilloRetorno", String.valueOf(Float.parseFloat(txtDetalleRodilloCargaCentral.getText().toString())));
                                                     }
-                                                    if(!txtLargoTuboRodilloLateral.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtLargoTuboRodilloLateral.getText().toString().equals("")) {
                                                         params.put("largoTuboRodilloRetorno", String.valueOf(Float.parseFloat(txtLargoTuboRodilloLateral.getText().toString())));
                                                     }
-                                                    if(!txtDistanciaArtesasCarga.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtDistanciaArtesasCarga.getText().toString().equals("")) {
                                                         params.put("distanciaEntreRodillosRetorno", String.valueOf(Float.parseFloat(txtDistanciaArtesasCarga.getText().toString())));
                                                     }
-                                                    if(!txtAnchoInternoChasis.getText().toString().equals(""))
-                                                    {
+                                                    if (!txtAnchoInternoChasis.getText().toString().equals("")) {
                                                         params.put("anchoInternoChasisRetorno", String.valueOf(Float.parseFloat(txtAnchoInternoChasis.getText().toString())));
                                                     }
 
@@ -4190,35 +4023,28 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("estadoRodilloRetorno", spinnerRodillosRetorno.getSelectedItem().toString());
                                     params.put("anchoInternoChasisRetorno", txtAnchoInternoChasis.getText().toString());
 
-                                    if(!txtLargoEjeRodilloLateral.getText().toString().equals(""))
-                                    {
+                                    if (!txtLargoEjeRodilloLateral.getText().toString().equals("")) {
                                         params.put("largoEjeRodilloRetorno", String.valueOf(Float.parseFloat(txtLargoEjeRodilloLateral.getText().toString())));
                                     }
-                                    if(!txtDiametroEjeRodilloLateral.getText().toString().equals(""))
-                                    {
+                                    if (!txtDiametroEjeRodilloLateral.getText().toString().equals("")) {
                                         params.put("diametroEjeRodilloRetorno", String.valueOf(Float.parseFloat(txtDiametroEjeRodilloLateral.getText().toString())));
 
                                     }
-                                    if(!txtDiametroRodilloLateral.getText().toString().equals(""))
-                                    {
+                                    if (!txtDiametroRodilloLateral.getText().toString().equals("")) {
                                         params.put("diametroRodilloRetorno", String.valueOf(Float.parseFloat(txtDiametroRodilloLateral.getText().toString())));
 
                                     }
-                                    if(!txtAnchoExternoChasis.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoExternoChasis.getText().toString().equals("")) {
                                         params.put("anchoExternoChasisRetorno", String.valueOf(Float.parseFloat(txtAnchoExternoChasis.getText().toString())));
                                     }
 
-                                    if(!txtLargoTuboRodilloLateral.getText().toString().equals(""))
-                                    {
+                                    if (!txtLargoTuboRodilloLateral.getText().toString().equals("")) {
                                         params.put("largoTuboRodilloRetorno", String.valueOf(Float.parseFloat(txtLargoTuboRodilloLateral.getText().toString())));
                                     }
-                                    if(!txtDistanciaArtesasCarga.getText().toString().equals(""))
-                                    {
+                                    if (!txtDistanciaArtesasCarga.getText().toString().equals("")) {
                                         params.put("distanciaEntreRodillosRetorno", String.valueOf(Float.parseFloat(txtDistanciaArtesasCarga.getText().toString())));
                                     }
-                                    if(!txtAnchoInternoChasis.getText().toString().equals(""))
-                                    {
+                                    if (!txtAnchoInternoChasis.getText().toString().equals("")) {
                                         params.put("anchoInternoChasisRetorno", String.valueOf(Float.parseFloat(txtAnchoInternoChasis.getText().toString())));
                                     }
 
@@ -4424,8 +4250,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                         }
                     }
                 }
-            break;
-
+                break;
 
 
             case R.id.txtDiametroPoleaMotrizHorizontal:
@@ -4639,8 +4464,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                 dialogParte.setContentView(R.layout.mas_detalles);
                 imgParte = dialogParte.findViewById(R.id.imgMasDetalles);
                 imgParte.setImageResource(R.drawable.detalle_rodillo);
-                imgParte.getLayoutParams().width= ViewGroup.LayoutParams.WRAP_CONTENT;
-                imgParte.getLayoutParams().height=1200;
+                imgParte.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                imgParte.getLayoutParams().height = 1200;
                 imgParte.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));
                 dialogParte.setCancelable(true);
                 dialogParte.show();
@@ -4653,8 +4478,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         switch (parte) {
             case "Banda":
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
                             final Spinner spinnerMarcaBanda = dialogParte.findViewById(R.id.spinnerMarcaBandaHorizontal);
@@ -4798,8 +4622,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
             case "Desviador":
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -4858,8 +4681,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -4925,8 +4747,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -4992,8 +4813,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5074,8 +4894,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5133,8 +4952,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5196,8 +5014,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5216,11 +5033,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             Spinner spinnerMaterialAtrapadoGuardaBandas = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnGuardaBanda);
                             Spinner spinnerMaterialAtrapadoBanda = dialogParte.findViewById(R.id.spinnerMaterialAtrapadoEnBanda);
                             Spinner spinnerInclinacionZonaCargue = dialogParte.findViewById(R.id.spinnerInclinacionZonaCargue);
-                            Spinner spinnerTipoRodilloRC= dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
-                            Spinner spinnerTipoRodilloRI= dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
-                            Spinner spinnerBasculaPesaje= dialogParte.findViewById(R.id.spinnerBasculaPesaje);
-                            Spinner spinnerEspesorUHMV=dialogParte.findViewById(R.id.spinnerEspesorUHMV);
-                            final Spinner spinnerAnchoBarra=dialogParte.findViewById(R.id.spinnerAnchoBarra);
+                            Spinner spinnerTipoRodilloRC = dialogParte.findViewById(R.id.spinnerTipoRodilloRC);
+                            Spinner spinnerTipoRodilloRI = dialogParte.findViewById(R.id.spinnerTipoRodilloRI);
+                            Spinner spinnerBasculaPesaje = dialogParte.findViewById(R.id.spinnerBasculaPesaje);
+                            Spinner spinnerEspesorUHMV = dialogParte.findViewById(R.id.spinnerEspesorUHMV);
+                            final Spinner spinnerAnchoBarra = dialogParte.findViewById(R.id.spinnerAnchoBarra);
 
 
                             final Spinner spinnerAnguloAcanalmiento1artesaPoleaCola = dialogParte.findViewById(R.id.spinnerAnguloAcanal1artesaPoleaCola);
@@ -5285,7 +5102,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                             int p15 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa1());
                             int p16 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa2());
-                            int p17= adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3());
+                            int p17 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3());
                             int p18 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa1AntesPoleaMotriz());
                             int p19 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa2AntesPoleaMotriz());
                             int p20 = adapterAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesa3AntesPoleaMotriz());
@@ -5328,22 +5145,22 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             spinnerAnchoBarra.setSelection(p25);
                             spinnerEspesorUHMV.setSelection(p26);
 
-                            TextInputEditText txtLargoEjeRodilloCentral=dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
-                            TextInputEditText txtDiametroEjeRodilloCentral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
-                            TextInputEditText txtDiametroRodilloCentral=dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
-                            TextInputEditText txtLargoTuboRodilloCentral=dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
-                            TextInputEditText txtLargoEjeRodilloLateral=dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-                            TextInputEditText txtDiametroEjeRodilloLateral=dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-                            TextInputEditText txtDiametroRodilloLateral=dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-                            TextInputEditText txtLargoTuboRodilloLateral=dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-                            TextInputEditText txtAnchoInternoChasis=dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-                            TextInputEditText txtAnchoExternoChasis=dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+                            TextInputEditText txtLargoEjeRodilloCentral = dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
+                            TextInputEditText txtDiametroEjeRodilloCentral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
+                            TextInputEditText txtDiametroRodilloCentral = dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
+                            TextInputEditText txtLargoTuboRodilloCentral = dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
+                            TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
+                            TextInputEditText txtDiametroEjeRodilloLateral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+                            TextInputEditText txtDiametroRodilloLateral = dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+                            TextInputEditText txtLargoTuboRodilloLateral = dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+                            TextInputEditText txtAnchoInternoChasis = dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+                            TextInputEditText txtAnchoExternoChasis = dialogParte.findViewById(R.id.txtAnchoExternoChasis);
 
-                            TextInputEditText txtDetalleRodilloCentral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-                            TextInputEditText txtDetalleRodilloLateral=dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+                            TextInputEditText txtDetalleRodilloCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+                            TextInputEditText txtDetalleRodilloLateral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
 
 
-                            final TextInputEditText txtLargoBarra=dialogParte.findViewById(R.id.txtLargoBarra);
+                            final TextInputEditText txtLargoBarra = dialogParte.findViewById(R.id.txtLargoBarra);
 
                             txtLargoEjeRodilloCentral.setText(Login.loginJsons.get(i).getLargoEjeRodilloCentralCarga());
                             txtDiametroEjeRodilloCentral.setText(Login.loginJsons.get(i).getDiametroEjeRodilloCentralCarga());
@@ -5372,8 +5189,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5407,9 +5223,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             final Spinner spinnerBoquillasAire = dialogParte.findViewById(R.id.spinnerBoquillasDeAire);
                             final Spinner spinnerAlimentacionCentrada = dialogParte.findViewById(R.id.spinnerAlimentacionCentrada);
                             final Spinner spinnerAtaqueImpacto = dialogParte.findViewById(R.id.spinnerAtaqueImpacto);
-                            final Spinner spinnerEspesorGuardabandas=dialogParte.findViewById(R.id.spinnerEspesorGuardabandas);
+                            final Spinner spinnerEspesorGuardabandas = dialogParte.findViewById(R.id.spinnerEspesorGuardabandas);
+                            Spinner txtTempMaxMaterialBanda = dialogParte.findViewById(R.id.spinnerTempMaxSobreBanda);
+                            Spinner txtTempPromedioBanda = dialogParte.findViewById(R.id.spinnerTempPromedioBanda);
 
-                            final Spinner spinnerLongitudImpacto=dialogParte.findViewById(R.id.spinnerLongitudImpacto);
+                            final Spinner spinnerLongitudImpacto = dialogParte.findViewById(R.id.spinnerLongitudImpacto);
 
 
                             ArrayAdapter<String> adapterTipoRvtoTolva = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRevestimiento);
@@ -5426,6 +5244,11 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                             ArrayAdapter<String> adapterEspesorGuardabadas = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.espesorVPlow);
                             spinnerEspesorGuardabandas.setAdapter(adapterEspesorGuardabadas);
+
+
+                            ArrayAdapter<String> adapterTempBanda= new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.temperaturaSobreLaBanda);
+                            txtTempMaxMaterialBanda.setAdapter(adapterTempBanda);
+                            txtTempPromedioBanda.setAdapter(adapterTempBanda);
 
 
                             ArrayAdapter<String> adapterMonitorPeligro = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
@@ -5506,31 +5329,31 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             spinnerAtaqueImpacto.setSelection(adapterMonitorPeligro.getPosition(Login.loginJsons.get(i).getAtaqueImpactoTransportadora()));
                             spinnerLongitudImpacto.setSelection(adapterLongitudImpacto.getPosition(Login.loginJsons.get(i).getLongitudImpacto()));
                             spinnerEspesorGuardabandas.setSelection(adapterEspesorGuardabadas.getPosition(Login.loginJsons.get(i).getEspesorGuardaBandas()));
+                            txtTempMaxMaterialBanda.setSelection(adapterTempBanda.getPosition(Login.loginJsons.get(i).getTempMaximaMaterialSobreBandaTransportadora()));
+                            txtTempPromedioBanda.setSelection(adapterTempBanda.getPosition(Login.loginJsons.get(i).getTempPromedioMaterialSobreBandaTransportadora()));
 
-                            TextInputEditText txtAlturaCaida=dialogParte.findViewById(R.id.txtAlturaCaida);
-                            TextInputEditText txtMaterial=dialogParte.findViewById(R.id.txtMaterial);
-                            TextInputEditText txtMaxGranulometria=dialogParte.findViewById(R.id.txtMaxGranulometria);
-                            TextInputEditText txtTempMaxMaterialBanda=dialogParte.findViewById(R.id.txtTempMaxSobreBanda);
-                            TextInputEditText txtTempPromedioBanda=dialogParte.findViewById(R.id.txtTempPromedioBanda);
-                            TextInputEditText txtMaxPeso=dialogParte.findViewById(R.id.txtMaxPeso);
-                            TextInputEditText txtDensidad=dialogParte.findViewById(R.id.txtDensidadMaterial);
-                            TextInputEditText txtAnchoChute=dialogParte.findViewById(R.id.txtAnchoChute);
-                            TextInputEditText txtLargoChute=dialogParte.findViewById(R.id.txtLargoChute);
-                            TextInputEditText txtAlturaChute=dialogParte.findViewById(R.id.txtAlturaChute);
-                            TextInputEditText txtAnchoGuardabandas=dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
-                            TextInputEditText txtLargoGuardabandas=dialogParte.findViewById(R.id.txtLargoGuardaBandas);
-                            TextInputEditText txtTempAmbienteMinimaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
-                            TextInputEditText txtTempAmbienteMaximaHorizontal=dialogParte.findViewById(R.id.txtTempAmbienteMaximaHorizontal);
-                            TextInputEditText txtAnguloSobrecarga=dialogParte.findViewById(R.id.txtAnguloSobreCarga);
-                            TextInputEditText txtCapacidadHorizontal=dialogParte.findViewById(R.id.txtCapacidadHorizontal);
+                            TextInputEditText txtAlturaCaida = dialogParte.findViewById(R.id.txtAlturaCaida);
+                            TextInputEditText txtMaterial = dialogParte.findViewById(R.id.txtMaterial);
+                            TextInputEditText txtMaxGranulometria = dialogParte.findViewById(R.id.txtMaxGranulometria);
+
+                            TextInputEditText txtMaxPeso = dialogParte.findViewById(R.id.txtMaxPeso);
+                            TextInputEditText txtDensidad = dialogParte.findViewById(R.id.txtDensidadMaterial);
+                            TextInputEditText txtAnchoChute = dialogParte.findViewById(R.id.txtAnchoChute);
+                            TextInputEditText txtLargoChute = dialogParte.findViewById(R.id.txtLargoChute);
+                            TextInputEditText txtAlturaChute = dialogParte.findViewById(R.id.txtAlturaChute);
+                            TextInputEditText txtAnchoGuardabandas = dialogParte.findViewById(R.id.txtAnchoGuardaBandas);
+                            TextInputEditText txtLargoGuardabandas = dialogParte.findViewById(R.id.txtLargoGuardaBandas);
+                            TextInputEditText txtTempAmbienteMinimaHorizontal = dialogParte.findViewById(R.id.txtTempAmbienteMinimaHorizontal);
+                            TextInputEditText txtTempAmbienteMaximaHorizontal = dialogParte.findViewById(R.id.txtTempAmbienteMaximaHorizontal);
+                            TextInputEditText txtAnguloSobrecarga = dialogParte.findViewById(R.id.txtAnguloSobreCarga);
+                            TextInputEditText txtCapacidadHorizontal = dialogParte.findViewById(R.id.txtCapacidadHorizontal);
 
 
                             txtAlturaCaida.setText(Login.loginJsons.get(i).getAltureCaida());
 
                             txtMaterial.setText(Login.loginJsons.get(i).getMaterial());
                             txtMaxGranulometria.setText(Login.loginJsons.get(i).getMaxGranulometriaTransportadora());
-                            txtTempMaxMaterialBanda.setText(Login.loginJsons.get(i).getTempMaximaMaterialSobreBandaTransportadora());
-                            txtTempPromedioBanda.setText(Login.loginJsons.get(i).getTempPromedioMaterialSobreBandaTransportadora());
+
                             txtMaxPeso.setText(Login.loginJsons.get(i).getMaxPesoTransportadora());
                             txtDensidad.setText(Login.loginJsons.get(i).getDensidadTransportadora());
                             txtAnchoChute.setText(Login.loginJsons.get(i).getAnchoChute());
@@ -5556,8 +5379,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5650,8 +5472,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5684,8 +5505,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             spinnerMarcaLT.setAdapter(adapterMarcaLimpiador);
 
 
-
-
                             spinnerEstadoTensorLS.setAdapter(adapterEstadoPartes);
                             spinnerEstadoTensorLT.setAdapter(adapterEstadoPartes);
 
@@ -5704,21 +5523,19 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             spinnerFrecRevisionCuchillaLS.setAdapter(adapterFrecRevisionCuchilla);
                             spinnerFrecRevisionCuchillaLT.setAdapter(adapterFrecRevisionCuchilla);
 
-                            TextInputEditText txtAnchoCuchillaLS=dialogParte.findViewById(R.id.txtAnchoCuchillaLS);
-                            TextInputEditText txtAltoCuchillaLS=dialogParte.findViewById(R.id.txtAltoCuchillaLS);
-                            TextInputEditText txtReferenciaLS=dialogParte.findViewById(R.id.txtReferenciaLS);
+                            TextInputEditText txtAnchoCuchillaLS = dialogParte.findViewById(R.id.txtAnchoCuchillaLS);
+                            TextInputEditText txtAltoCuchillaLS = dialogParte.findViewById(R.id.txtAltoCuchillaLS);
+                            TextInputEditText txtReferenciaLS = dialogParte.findViewById(R.id.txtReferenciaLS);
 
-                            TextInputEditText txtAnchoCuchillaLT=dialogParte.findViewById(R.id.txtAnchoCuchillaLT);
-                            TextInputEditText txtAltoCuchillaLT=dialogParte.findViewById(R.id.txtAltoCuchillaLT);
-                            TextInputEditText txtReferenciaLT=dialogParte.findViewById(R.id.txtReferenciaLT);
-
+                            TextInputEditText txtAnchoCuchillaLT = dialogParte.findViewById(R.id.txtAnchoCuchillaLT);
+                            TextInputEditText txtAltoCuchillaLT = dialogParte.findViewById(R.id.txtAltoCuchillaLT);
+                            TextInputEditText txtReferenciaLT = dialogParte.findViewById(R.id.txtReferenciaLT);
 
 
                             spinnerMarcaLS.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorSecundario()));
                             spinnerMarcaLT.setSelection(adapterMarcaLimpiador.getPosition(Login.loginJsons.get(i).getMarcaLimpiadorTerciario()));
 
                             spinnerSistemaDribbleChuteLS.setSelection(adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaDribbleChute()));
-
 
 
                             spinnerEstadoCuchillaLS.setSelection(adapterEstadoPartes.getPosition(Login.loginJsons.get(i).getEstadoCuchillaLimpiadorSecundario()));
@@ -5759,8 +5576,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5824,8 +5640,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5833,25 +5648,25 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
                             Spinner spinnerAnguloAcanalArtesaCarga = dialogParte.findViewById(R.id.spinnerAnguloAcanalArtesaCarga);
 
-                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-                            ArrayAdapter<String> adapterAnguloAcanalamiento= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.angulosAcanalamiento);
+                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+                            ArrayAdapter<String> adapterAnguloAcanalamiento = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.angulosAcanalamiento);
 
                             spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
                             spinnerAnguloAcanalArtesaCarga.setAdapter(adapterAnguloAcanalamiento);
 
                             TextInputEditText txtlargoEjeRodilloCentral = dialogParte.findViewById(R.id.txtLargoEjeRodilloCentral);
-                            TextInputEditText txtDiametroEjeRodilloCentral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
-                            TextInputEditText txtDiametroRodilloCentral= dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
-                            TextInputEditText txtLargoTuboRodilloCentral= dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
+                            TextInputEditText txtDiametroEjeRodilloCentral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloCentral);
+                            TextInputEditText txtDiametroRodilloCentral = dialogParte.findViewById(R.id.txtDiametroRodilloCentral);
+                            TextInputEditText txtLargoTuboRodilloCentral = dialogParte.findViewById(R.id.txtLargoTuboRodilloCentral);
                             TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-                            TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-                            TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-                            TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-                            TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaArtesasCarga);
-                            TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-                            TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-                            TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
-                            TextInputEditText txtDetalleRodilloCargaLateral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
+                            TextInputEditText txtDiametroEjeRodilloLateral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+                            TextInputEditText txtDiametroRodilloLateral = dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+                            TextInputEditText txtLargoTuboRodilloLateral = dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+                            TextInputEditText txtDistanciaArtesasCarga = dialogParte.findViewById(R.id.txtDistanciaArtesasCarga);
+                            TextInputEditText txtAnchoInternoChasis = dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+                            TextInputEditText txtAnchoExternoChasis = dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+                            TextInputEditText txtDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+                            TextInputEditText txtDetalleRodilloCargaLateral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaLateral);
 
                             spinnerAnguloAcanalArtesaCarga.setSelection(adapterAnguloAcanalamiento.getPosition(Login.loginJsons.get(i).getAnguloAcanalamientoArtesaCArga()));
                             spinnerTipoRodilloCarga.setSelection(adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloCarga()));
@@ -5883,8 +5698,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
                 for (int i = 0; i < Login.loginJsons.size(); i++) {
 
-                    if(Login.loginJsons.get(i).getIdRegistro()!=null)
-                    {
+                    if (Login.loginJsons.get(i).getIdRegistro() != null) {
 
                         if (Login.loginJsons.get(i).getIdRegistro().equals(FragmentPartesVertical.idMaximaRegistro.get(0).getMax())) {
 
@@ -5892,21 +5706,21 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
                             final Spinner spinnerRodillosRetorno = dialogParte.findViewById(R.id.spinnerRodillosRetorno);
 
-                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.tipoRodilloCarga);
-                            ArrayAdapter<String> adapterRodillosRetorno= new ArrayAdapter(getContext(),R.layout.estilo_spinner, Constants.estadoPartes);
+                            ArrayAdapter<String> adapterTipoRodillo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.tipoRodilloCarga);
+                            ArrayAdapter<String> adapterRodillosRetorno = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
 
                             spinnerTipoRodilloCarga.setAdapter(adapterTipoRodillo);
                             spinnerRodillosRetorno.setAdapter(adapterRodillosRetorno);
 
 
                             final TextInputEditText txtLargoEjeRodilloLateral = dialogParte.findViewById(R.id.txtLargoEjeRodilloLateral);
-                            final TextInputEditText txtDiametroEjeRodilloLateral= dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
-                            final TextInputEditText txtDiametroRodilloLateral= dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
-                            final TextInputEditText txtLargoTuboRodilloLateral= dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
-                            final TextInputEditText txtDistanciaArtesasCarga= dialogParte.findViewById(R.id.txtDistanciaEntreRodillosRetorno);
-                            final TextInputEditText txtAnchoInternoChasis= dialogParte.findViewById(R.id.txtAnchoInternoChasis);
-                            final TextInputEditText txtAnchoExternoChasis= dialogParte.findViewById(R.id.txtAnchoExternoChasis);
-                            final TextInputEditText txtDetalleRodilloCargaCentral= dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
+                            final TextInputEditText txtDiametroEjeRodilloLateral = dialogParte.findViewById(R.id.txtDiametroEjeRodilloLateral);
+                            final TextInputEditText txtDiametroRodilloLateral = dialogParte.findViewById(R.id.txtDiametroRodilloLateral);
+                            final TextInputEditText txtLargoTuboRodilloLateral = dialogParte.findViewById(R.id.txtLargoTuboRodilloLateral);
+                            final TextInputEditText txtDistanciaArtesasCarga = dialogParte.findViewById(R.id.txtDistanciaEntreRodillosRetorno);
+                            final TextInputEditText txtAnchoInternoChasis = dialogParte.findViewById(R.id.txtAnchoInternoChasis);
+                            final TextInputEditText txtAnchoExternoChasis = dialogParte.findViewById(R.id.txtAnchoExternoChasis);
+                            final TextInputEditText txtDetalleRodilloCargaCentral = dialogParte.findViewById(R.id.txtDetalleRodilloCargaCentral);
 
                             spinnerRodillosRetorno.setSelection(adapterRodillosRetorno.getPosition(Login.loginJsons.get(i).getEstadoRodilloRetorno()));
                             spinnerTipoRodilloCarga.setSelection(adapterTipoRodillo.getPosition(Login.loginJsons.get(i).getTipoRodilloRetorno()));
@@ -5920,7 +5734,6 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             txtAnchoInternoChasis.setText(Login.loginJsons.get(i).getAnchoInternoChasisRetorno());
                             txtAnchoExternoChasis.setText(Login.loginJsons.get(i).getAnchoExternoChasisRetorno());
                             txtDetalleRodilloCargaCentral.setText(Login.loginJsons.get(i).getDetalleRodilloRetorno());
-
 
 
                             i = Login.loginJsons.size() + 1;
@@ -5961,7 +5774,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                 Type type = new TypeToken<List<CiudadesJson>>() {
                                 }.getType();
                                 Login.ciudadesJsons = gson.fromJson(response, type);
-                                MDToast.makeText(getContext(),"REGISTRO EXITOSO",MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+                                MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -124,9 +125,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:maxLines="1"
-                android:inputType="textCapSentences"
                 android:background="#3000"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinnerLongitudImpacto" />
@@ -382,33 +383,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinnerPorcentajeFinos" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtTempMaxSobreBanda"
+            <Spinner
+                android:id="@+id/spinnerTempMaxSobreBanda"
                 android:layout_width="140dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="#3000"
-                android:inputType="numberDecimal"
                 android:textAlignment="center"
-                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtMaxGranulometria" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtTempPromedioBanda"
+            <Spinner
+                android:id="@+id/spinnerTempPromedioBanda"
                 android:layout_width="140dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="#3000"
-                android:inputType="numberDecimal"
-                android:textSize="15dp"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTempMaxSobreBanda" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTempMaxSobreBanda" />
 
             <Spinner
                 android:id="@+id/spinnerCajaColaTolva"
@@ -578,8 +575,8 @@
                 android:layout_marginRight="16dp"
                 android:background="#3000"
                 android:inputType="numberDecimal"
-                android:textSize="15dp"
                 android:textAlignment="center"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtAnchoGuardaBandas" />
 
@@ -715,7 +712,7 @@
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTempPromedioBanda" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTempPromedioBanda" />
 
             <TextView
                 android:id="@+id/textView5"
