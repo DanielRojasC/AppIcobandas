@@ -17,5 +17,11 @@
         <item name="android:textAlignment">center</item>
         <item name="android:background">#2000</item>
         <item name="android:textSize">8dp</item>
+
+
+    </style>
+
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+    <item name="android:textColor">#fff</item>
     </style>
 </resources>

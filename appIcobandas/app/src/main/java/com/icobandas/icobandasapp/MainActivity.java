@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         if(isOnline(getApplicationContext()))
         {
-            navUsername.setText(Login.loginJsons.get(0).getNombreVendedor());
+            navUsername.setText("AGENTE:\n"+Login.loginJsons.get(0).getNombreVendedor());
         }
         else
         {

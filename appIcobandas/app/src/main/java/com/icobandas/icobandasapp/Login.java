@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -39,8 +40,8 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    EditText txtUsuario;
-    EditText txtContraseña;
+    TextInputEditText txtUsuario;
+    TextInputEditText txtContraseña;
     Spinner spinnerPrueba;
     Button btnIniciarSesion;
     ProgressBar progressBarLogin;
@@ -100,6 +101,7 @@ public class Login extends AppCompatActivity {
                                     alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
+                                            txtContraseña.setText("");
                                             dialog.cancel();
                                         }
                                     });
