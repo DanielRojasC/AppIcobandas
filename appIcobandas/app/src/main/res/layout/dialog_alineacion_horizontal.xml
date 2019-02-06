@@ -164,10 +164,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.466"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView70" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDetalleRodilloCargaCentral2" />
 
             <TextView
-                android:id="@+id/textView70"
+                android:id="@+id/tvDetalleRodilloCargaCentral2"
                 android:layout_width="188dp"
                 android:layout_height="21dp"
                 android:layout_marginStart="8dp"
@@ -179,6 +179,7 @@
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="13dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtDetalleRodilloCargaLateral" />
@@ -203,7 +204,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView69" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDetalleRodilloCargaCentral1" />
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txtDetalleRodilloCargaCentral"
@@ -225,10 +226,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView68" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDetalleRodilloCargaCentral" />
 
             <TextView
-                android:id="@+id/textView69"
+                android:id="@+id/tvDetalleRodilloCargaCentral1"
                 android:layout_width="188dp"
                 android:layout_height="21dp"
                 android:layout_marginStart="8dp"
@@ -240,6 +241,7 @@
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="13dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtDetalleRodilloCargaCentral" />
@@ -356,7 +358,7 @@
 
 
             <TextView
-                android:id="@+id/textView68"
+                android:id="@+id/tvDetalleRodilloCargaCentral"
                 android:layout_width="188dp"
                 android:layout_height="21dp"
                 android:layout_marginStart="8dp"
@@ -368,6 +370,7 @@
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="13dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />

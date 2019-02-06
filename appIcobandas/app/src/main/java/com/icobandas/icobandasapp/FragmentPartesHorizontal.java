@@ -1899,6 +1899,14 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         dialogParte.setCancelable(true);
         dialogParte.show();
 
+        TextView tvRodillo=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral);
+        TextView tvRodillo1=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral1);
+        TextView tvRodillo2=dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral2);
+
+        tvRodillo.setOnClickListener(this);
+        tvRodillo1.setOnClickListener(this);
+        tvRodillo2.setOnClickListener(this);
+
         final Spinner spinnerSistAlineacionCarga = dialogParte.findViewById(R.id.spinnerSistAlineacionCarga);
         final Spinner spinnerFuncionanSACarga = dialogParte.findViewById(R.id.spinnerFuncionanSACarga);
         Spinner spinnerSistAlineacionRetorno = dialogParte.findViewById(R.id.spinnerSistAlineacionRetorno);
@@ -3587,6 +3595,12 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         dialogParte.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogParte.setCancelable(true);
 
+        TextView tvRodillo = dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral);
+        TextView tvRodillo1 = dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral1);
+
+        tvRodillo.setOnClickListener(this);
+        tvRodillo1.setOnClickListener(this);
+
         final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
         final Spinner spinnerAnguloAcanalArtesaCarga = dialogParte.findViewById(R.id.spinnerAnguloAcanalArtesaCarga);
 
@@ -3847,6 +3861,9 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
         dialogParte.setContentView(R.layout.dialog_rodillo_retorno);
         dialogParte.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogParte.setCancelable(true);
+
+        TextView tvRodillo = dialogParte.findViewById(R.id.tvDetalleRodilloCargaCentral);
+        tvRodillo.setOnClickListener(this);
 
         final Spinner spinnerTipoRodilloCarga = dialogParte.findViewById(R.id.spinnerTipoRodilloCarga);
         final Spinner spinnerRodillosRetorno = dialogParte.findViewById(R.id.spinnerRodillosRetorno);
@@ -4367,6 +4384,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
 
             case R.id.tvDetalleRodilloCargaCentral:
             case R.id.tvDetalleRodilloCargaCentral1:
+            case R.id.tvDetalleRodilloCargaCentral2:
                 abrirDialogParte("Detalle Rodillo");
                 break;
         }
@@ -4464,8 +4482,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                 dialogParte.setContentView(R.layout.mas_detalles);
                 imgParte = dialogParte.findViewById(R.id.imgMasDetalles);
                 imgParte.setImageResource(R.drawable.detalle_rodillo);
-                imgParte.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                imgParte.getLayoutParams().height = 1200;
+                /*imgParte.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                imgParte.getLayoutParams().height = 1200;*/
                 imgParte.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));
                 dialogParte.setCancelable(true);
                 dialogParte.show();

@@ -63,13 +63,9 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
 
     ProgressBar progressBar;
 
-
     ArrayList<String> listaCiudades= new ArrayList<>();
-    ArrayList<IdMaxCliente> idMaxClientes= new ArrayList<>();
 
     View view;
-
-
 
     public FragmentAgregarCliente() {
         // Required empty public constructor
@@ -177,11 +173,6 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                                    @Override
                                    public void onResponse(String response) {
 
-
-
-
-                                       ////////////////////////////////////////////////////////
-
                                        String url=Constants.url+"crearPlanta";
                                        StringRequest requestCrearPlanta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                                            @Override
@@ -275,16 +266,10 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                    });
                    queue.add(requestValidarNit);
                }
-
-
-
             }
         });
-
-
         return view;
     }
-
     private void inicializar() {
         spinnerCiudades=view.findViewById(R.id.spinnerCiudades);
         txtDireccion=view.findViewById(R.id.txtDireccion);
@@ -299,7 +284,6 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
     }
     public void listas()
     {
-
         listaCiudades.clear();
         listaCiudades.add(0,"Seleccione Ciudad");
         for (int i=1; i<=Login.ciudadesJsons.size(); i++)
@@ -310,8 +294,6 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
         spinnerCiudades.setAdapter(adapterCiudades);
         spinnerCiudades.setTitle("Buscar Ciudad");
         spinnerCiudades.setPositiveButton("Cerrar");
-
-
     }
 
     @Override
