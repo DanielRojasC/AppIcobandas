@@ -385,7 +385,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("longitudSinfinBandaHorizontal", txtLongitudSinfin.getText().toString());
                                                     params.put("tonsTransportadasBandaHoizontalAnterior", txtTonsTransportadas.getText().toString());
 
-
+/*
                                                     if (!txtAnchoBanda.getText().toString().equals("")) {
                                                         params.put("anchoBandaTransportadora", String.valueOf(Float.parseFloat(txtAnchoBanda.getText().toString())));
                                                     }
@@ -433,7 +433,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     if (!txtLongitudSinfin.getText().toString().equals("")) {
                                                         params.put("longitudSinfinBandaHorizontal", String.valueOf(Float.parseFloat(txtLongitudSinfin.getText().toString())));
                                                     }
-
+*/
 
                                                     return params;
                                                 }
@@ -525,7 +525,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("longitudSinfinBandaHorizontal", txtLongitudSinfin.getText().toString());
                                     params.put("tonsTransportadasBandaHoizontalAnterior", txtTonsTransportadas.getText().toString());
 
-                                    if (!txtAnchoBanda.getText().toString().equals("")) {
+                                    /*if (!txtAnchoBanda.getText().toString().equals("")) {
                                         params.put("anchoBandaTransportadora", String.valueOf(Float.parseFloat(txtAnchoBanda.getText().toString())));
                                     }
 
@@ -571,7 +571,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     }
                                     if (!txtLongitudSinfin.getText().toString().equals("")) {
                                         params.put("longitudSinfinBandaHorizontal", String.valueOf(Float.parseFloat(txtLongitudSinfin.getText().toString())));
-                                    }
+                                    }*/
 
 
                                     return params;
@@ -731,7 +731,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("longitudRecorridoContrapesaPoleaColaTransportadora", txtLongContrapesa.getText().toString());
                                                     params.put("guardaPoleaColaTransportadora", spinnerGuardaPoleaCola.getSelectedItem().toString());
 
-                                                    if (!txtDiametro.getText().toString().equals("")) {
+                                                    /*if (!txtDiametro.getText().toString().equals("")) {
                                                         params.put("diametroPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString())));
                                                     }
                                                     if (!txtAncho.getText().toString().equals("")) {
@@ -751,7 +751,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     }
                                                     if (!txtLongContrapesa.getText().toString().equals("")) {
                                                         params.put("longitudRecorridoContrapesaPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongContrapesa.getText().toString())));
-                                                    }
+                                                    }*/
 
                                                     return params;
                                                 }
@@ -822,7 +822,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("longitudRecorridoContrapesaPoleaColaTransportadora", txtLongContrapesa.getText().toString());
                                     params.put("guardaPoleaColaTransportadora", spinnerGuardaPoleaCola.getSelectedItem().toString());
 
-                                    if (!txtDiametro.getText().toString().equals("")) {
+                                    /*if (!txtDiametro.getText().toString().equals("")) {
                                         params.put("diametroPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtDiametro.getText().toString())));
                                     }
                                     if (!txtAncho.getText().toString().equals("")) {
@@ -843,7 +843,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     if (!txtLongContrapesa.getText().toString().equals("")) {
                                         params.put("longitudRecorridoContrapesaPoleaColaTransportadora", String.valueOf(Float.parseFloat(txtLongContrapesa.getText().toString())));
                                     }
-
+                                    */
 
                                     return params;
                                 }
@@ -1276,7 +1276,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     params.put("tempAmbienteMaxTransportadora", txtTempAmbienteMaximaHorizontal.getText().toString());
                                                     params.put("tempAmbienteMinTransportadora", txtTempAmbienteMinimaHorizontal.getText().toString());
 
-                                                    if (!txtAlturaCaida.getText().equals("")) {
+                                                    /*if (!txtAlturaCaida.getText().equals("")) {
                                                         params.put("altureCaida", String.valueOf(Float.parseFloat(txtAlturaCaida.getText().toString())));
                                                     }
 
@@ -1316,7 +1316,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                                     }
                                                     if (!txtTempAmbienteMinimaHorizontal.getText().equals("")) {
                                                         params.put("tempAmbienteMinTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMinimaHorizontal.getText().toString())));
-                                                    }
+                                                    }*/
                                                     return params;
                                                 }
                                             };
@@ -1417,7 +1417,8 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     params.put("capacidadTransportadora", txtCapacidadHorizontal.getText().toString());
                                     params.put("tempAmbienteMaxTransportadora", txtTempAmbienteMaximaHorizontal.getText().toString());
                                     params.put("tempAmbienteMinTransportadora", txtTempAmbienteMinimaHorizontal.getText().toString());
-                                    if (!txtAlturaCaida.getText().equals("")) {
+
+                                   /* if (!txtAlturaCaida.getText().equals("")) {
                                         params.put("altureCaida", String.valueOf(Float.parseFloat(txtAlturaCaida.getText().toString())));
                                     }
 
@@ -1457,7 +1458,7 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                                     }
                                     if (!txtTempAmbienteMinimaHorizontal.getText().equals("")) {
                                         params.put("tempAmbienteMinTransportadora", String.valueOf(Float.parseFloat(txtTempAmbienteMinimaHorizontal.getText().toString())));
-                                    }
+                                    }*/
 
 
                                     return params;
@@ -4786,13 +4787,13 @@ public class FragmentPartesHorizontal extends Fragment implements View.OnFocusCh
                             ArrayAdapter<String> adapterSiNo = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.opcionSiNo);
                             ArrayAdapter<String> adapterEstadoParte = new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
 
-                            int p1 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                            int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p1 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemasAlineacionCargFuncionando());
+                            int p2 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemasAlineacionRetornoFuncionando());
                             int p3 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                            int p4 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                            int p5 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                            int p6 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
-                            int p7 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionCarga());
+                            int p4 = adapterSiNo.getPosition(Login.loginJsons.get(i).getSistemaAlineacionEnRetorno());
+                            int p5 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionRetornoPlano());
+                            int p6 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionArtesaCarga());
+                            int p7 = adapterEstadoParte.getPosition(Login.loginJsons.get(i).getSistemaAlineacionRetornoEnV());
 
                             spinnerFuncionanSACarga.setAdapter(adapterSiNo);
                             spinnerFuncionanSARetorno.setAdapter(adapterSiNo);

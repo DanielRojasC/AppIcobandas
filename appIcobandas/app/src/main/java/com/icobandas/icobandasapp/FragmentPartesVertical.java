@@ -3041,8 +3041,8 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             spinnerLargoTornillo.setAdapter(adapterLargoTornillo);
 
                             int posicion= adapterMaterialTornillos.getPosition(Login.loginJsons.get(i).getMaterialTornilloElevadora());
-                            int posicion2= adapterMaterialTornillos.getPosition(Login.loginJsons.get(i).getDiametroRoscaElevadora());
-                            int posicion3= adapterMaterialTornillos.getPosition(Login.loginJsons.get(i).getLargoTornilloElevadora());
+                            int posicion2= adapterDiametroRosca.getPosition(Login.loginJsons.get(i).getDiametroRoscaElevadora());
+                            int posicion3= adapterLargoTornillo.getPosition(Login.loginJsons.get(i).getLargoTornilloElevadora());
 
 
                             spinnerMaterialTornillo.setSelection(posicion);
@@ -3206,7 +3206,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             ArrayAdapter<String> adapterGuardaPolea=new ArrayAdapter(getContext(), R.layout.estilo_spinner, Constants.estadoPartes);
 
                             int p1=adapterTipoPolea.getPosition(Login.loginJsons.get(i).getTipoPoleaMotrizElevadora());
-                            int p2= adapterBandaCentrada.getPosition(Login.loginJsons.get(i).getBandaCentradaEnPoleaAMotrizElevadora());
+                            int p2= adapterBandaCentrada.getPosition(Login.loginJsons.get(i).getBandaCentradaEnPoleaMotrizElevadora());
                             int p3= adapterEstadoRvto.getPosition(Login.loginJsons.get(i).getEstadoRevestimientoPoleaMotrizElevadora());
                             int p4= adapterGuardaPolea.getPosition(Login.loginJsons.get(i).getGuardaReductorPoleaMotrizElevadora());
 
@@ -3326,7 +3326,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             txtSeparacionEntreCangilones.setText(Login.loginJsons.get(i).getSeparacionCangilones());
                             txtDistanciaBordesBandaEstructura.setText(Login.loginJsons.get(i).getDistanciaBordeBandaEstructura());
                             txtDistanciaPosteriorBandaEstructura.setText(Login.loginJsons.get(i).getDistanciaPosteriorBandaEstructura());
-                            txtDistLabioFrontalCangilon.setText(Login.loginJsons.get(i).getDistanciaLabioFrontalCangilonEstructura());
+                            txtDistLabioFrontalCangilon.setText(Login.loginJsons.get(i).getDistanciaLaboFrontalCangilonEstructura());
                             txtDistBordesCangilonEstructura.setText(Login.loginJsons.get(i).getDistanciaBordesCangilonEstructura());
                             txtReferenciaCangilon.setText(Login.loginJsons.get(i).getReferenciaCangilon());
 
@@ -3473,7 +3473,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
 
                             int p1 = adapterAtaqueQuimico.getPosition(Login.loginJsons.get(i).getAtaqueQuimicoElevadora());
-                            int p2 = adapterAtaqueTemperatura.getPosition(Login.loginJsons.get(i).getGetAtaqueTemperaturaElevadora());
+                            int p2 = adapterAtaqueTemperatura.getPosition(Login.loginJsons.get(i).getAtaqueTemperaturaElevadora());
                             int p3 = adapterAtaqueAceites.getPosition(Login.loginJsons.get(i).getAtaqueAceitesElevadora());
                             int p4 = adapterAtaqueAbrasivo.getPosition(Login.loginJsons.get(i).getAtaqueAbrasivoElevadora());
                             int p5 = adapterSensorInductivo.getPosition(Login.loginJsons.get(i).getHorasTrabajoDiaElevadora());

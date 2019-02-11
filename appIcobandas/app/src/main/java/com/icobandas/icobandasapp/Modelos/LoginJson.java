@@ -112,6 +112,16 @@ public class LoginJson {
     String materialAtrapadoEntreCortinas;
     String materialAtrapadoEnBanda;
     String integridadSoporteCamaSellado;
+
+    public String getIntegridadSoportesCamaImpacto() {
+        return integridadSoportesCamaImpacto;
+    }
+
+    public void setIntegridadSoportesCamaImpacto(String integridadSoportesCamaImpacto) {
+        this.integridadSoportesCamaImpacto = integridadSoportesCamaImpacto;
+    }
+
+    String integridadSoportesCamaImpacto;
     String inclinacionZonaCargue;
     String sistemaAlineacionCarga;
     String cantidadSistemaAlineacionEnCarga;
@@ -119,7 +129,7 @@ public class LoginJson {
     String sistemaAlineacionEnRetorno;
     String cantidadSistemaAlineacionEnRetorno;
     String sistemasAlineacionRetornoFuncionando;
-    String sistemaAlinecaionRetornoPlano;
+    String sistemaAlineacionRetornoPlano;
     String istemaAlineacionArtesaCarga;
     String sistemaAlineacionRetornoEnV;
     String largoEjeRodilloCentralCarga;
@@ -256,7 +266,16 @@ public class LoginJson {
     String noAgujeros;
     String distanciaBordeBandaEstructura;
     String distanciaPosteriorBandaEstructura;
-    String distanciaLabioFrontalCangilonEstructura;
+
+    public String getDistanciaLaboFrontalCangilonEstructura() {
+        return distanciaLaboFrontalCangilonEstructura;
+    }
+
+    public void setDistanciaLaboFrontalCangilonEstructura(String distanciaLaboFrontalCangilonEstructura) {
+        this.distanciaLaboFrontalCangilonEstructura = distanciaLaboFrontalCangilonEstructura;
+    }
+
+    String distanciaLaboFrontalCangilonEstructura;
     String distanciaBordesCangilonEstructura;
     String tipoVentilacion;
     String diametroPoleaMotrizElevadora;
@@ -298,7 +317,16 @@ public class LoginJson {
     String interruptorSeguridad;
     String materialElevadora;
     String ataqueQuimicoElevadora;
-    String getAtaqueTemperaturaElevadora;
+
+    public String getAtaqueTemperaturaElevadora() {
+        return ataqueTemperaturaElevadora;
+    }
+
+    public void setAtaqueTemperaturaElevadora(String ataqueTemperaturaElevadora) {
+        this.ataqueTemperaturaElevadora = ataqueTemperaturaElevadora;
+    }
+
+    String ataqueTemperaturaElevadora;
     String ataqueAceitesElevadora;
     String ataqueAbrasivoElevadora;
     String capacidadElevadora;
@@ -370,7 +398,7 @@ public class LoginJson {
     String velocidadBandaHorizontal;
     String causaFallaCambioBandaHorizontal;
     String tipoPoleaMotrizTransportadora;
-    String bandaCentradaEnPoleaAMotrizElevadora;
+    String bandaCentradaEnPoleaMotrizElevadora;
     String anchoPoleaColaTransportadora;
     String materialPegajosoTransportadora;
     String diametroEjePoleaAmarrePoleaMotriz;
@@ -381,6 +409,24 @@ public class LoginJson {
     String diametroEjePoleaAmarrePoleaCola;
     String integridadSoportesRodilloImpacto;
     String diametroEjeRodilloRetorno;
+    String sistemaAlineacionArtesaCarga;
+
+
+    public String getSistemaAlineacionArtesaCarga() {
+        return sistemaAlineacionArtesaCarga;
+    }
+
+    public void setSistemaAlineacionArtesaCarga(String sistemaAlineacionArtesaCarga) {
+        this.sistemaAlineacionArtesaCarga = sistemaAlineacionArtesaCarga;
+    }
+
+    public String getSistemaAlineacionRetornoPlano() {
+        return sistemaAlineacionRetornoPlano;
+    }
+
+    public void setSistemaAlineacionRetornoPlano(String sistemaAlineacionRetornoPlano) {
+        this.sistemaAlineacionRetornoPlano = sistemaAlineacionRetornoPlano;
+    }
 
     public String getDiametroEjeRodilloRetorno() {
         return diametroEjeRodilloRetorno;
@@ -1372,13 +1418,6 @@ public class LoginJson {
         this.sistemasAlineacionRetornoFuncionando = sistemasAlineacionRetornoFuncionando;
     }
 
-    public String getSistemaAlinecaionRetornoPlano() {
-        return sistemaAlinecaionRetornoPlano;
-    }
-
-    public void setSistemaAlinecaionRetornoPlano(String sistemaAlinecaionRetornoPlano) {
-        this.sistemaAlinecaionRetornoPlano = sistemaAlinecaionRetornoPlano;
-    }
 
     public String getIstemaAlineacionArtesaCarga() {
         return istemaAlineacionArtesaCarga;
@@ -2468,13 +2507,7 @@ public class LoginJson {
         this.distanciaPosteriorBandaEstructura = distanciaPosteriorBandaEstructura;
     }
 
-    public String getDistanciaLabioFrontalCangilonEstructura() {
-        return distanciaLabioFrontalCangilonEstructura;
-    }
 
-    public void setDistanciaLabioFrontalCangilonEstructura(String distanciaLabioFrontalCangilonEstructura) {
-        this.distanciaLabioFrontalCangilonEstructura = distanciaLabioFrontalCangilonEstructura;
-    }
 
     public String getDistanciaBordesCangilonEstructura() {
         return distanciaBordesCangilonEstructura;
@@ -2804,13 +2837,7 @@ public class LoginJson {
         this.ataqueQuimicoElevadora = ataqueQuimicoElevadora;
     }
 
-    public String getGetAtaqueTemperaturaElevadora() {
-        return getAtaqueTemperaturaElevadora;
-    }
 
-    public void setGetAtaqueTemperaturaElevadora(String getAtaqueTemperaturaElevadora) {
-        this.getAtaqueTemperaturaElevadora = getAtaqueTemperaturaElevadora;
-    }
 
     public String getAtaqueAceitesElevadora() {
         return ataqueAceitesElevadora;
@@ -3380,12 +3407,12 @@ public class LoginJson {
         this.tipoPoleaMotrizTransportadora = tipoPoleaMotrizTransportadora;
     }
 
-    public String getBandaCentradaEnPoleaAMotrizElevadora() {
-        return bandaCentradaEnPoleaAMotrizElevadora;
+    public String getBandaCentradaEnPoleaMotrizElevadora() {
+        return bandaCentradaEnPoleaMotrizElevadora;
     }
 
-    public void setBandaCentradaEnPoleaAMotrizElevadora(String bandaCentradaEnPoleaAMotrizElevadora) {
-        this.bandaCentradaEnPoleaAMotrizElevadora = bandaCentradaEnPoleaAMotrizElevadora;
+    public void setBandaCentradaEnPoleaMotrizElevadora(String bandaCentradaEnPoleaMotrizElevadora) {
+        this.bandaCentradaEnPoleaMotrizElevadora = bandaCentradaEnPoleaMotrizElevadora;
     }
 
     public String getAnchoPoleaColaTransportadora() {

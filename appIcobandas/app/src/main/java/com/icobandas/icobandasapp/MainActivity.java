@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            navUsername.setText(Login.cursor.getString(2));
+            navUsername.setText(Login.cursor.getString(1));
 
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentRegistrosRecientes()).commit();
