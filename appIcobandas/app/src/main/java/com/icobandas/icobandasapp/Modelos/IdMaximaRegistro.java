@@ -1,6 +1,6 @@
 package com.icobandas.icobandasapp.Modelos;
 
-public class IdMaximaRegistro {
+public class    IdMaximaRegistro {
 
     String max;
 

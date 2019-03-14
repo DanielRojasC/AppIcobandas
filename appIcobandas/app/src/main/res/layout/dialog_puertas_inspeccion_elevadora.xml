@@ -17,135 +17,222 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvDiametroTornillo"
-                android:layout_width="121dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Ancho PI cabeza elevador (mm):"
-                android:textAlignment="center"
-                android:textColor="#000"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtAnchoCabezaElevador"
-                android:layout_width="159dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="#3000"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textSize="15dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#FFDFDFDF"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout269"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtLargoCabezaElevador"
-                android:layout_width="159dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="#3000"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAnchoCabezaElevador" />
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtAnchoBotaElevador"
-                android:layout_width="159dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="#3000"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtLargoCabezaElevador" />
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtLargoBotaElevador"
-                android:layout_width="159dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="#3000"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAnchoBotaElevador" />
-
-            <TextView
-                android:id="@+id/tvLargoTornillo"
-                android:layout_width="121dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
-                android:text="Largo PI cabeza elevador (mm):"
-                android:textAlignment="center"
-                android:textColor="#000"
-
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDiametroTornillo" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout268"></LinearLayout>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="121dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="12dp"
-                android:text="Ancho PI bota elevador (mm):"
-                android:textAlignment="center"
-                android:textColor="#000"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#FFDFDFDF"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout268"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLargoTornillo" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout267"></LinearLayout>
 
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="121dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:text="Largo PI bota elevador (mm):"
-                android:textAlignment="center"
-                android:textColor="#000"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#FFDFDFDF"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout267"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout266"></LinearLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout269"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout268">
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="121dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Largo PI bota elevador (mm):"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txtLargoBotaElevador"
+                    android:layout_width="159dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#3000"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout268"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout267">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txtAnchoBotaElevador"
+                    android:layout_width="159dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#3000"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="121dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Ancho PI bota elevador (mm):"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout267"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout266">
+
+                <TextView
+                    android:id="@+id/tvLargoTornillo"
+                    android:layout_width="121dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Largo PI cabeza elevador (mm):"
+
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txtLargoCabezaElevador"
+                    android:layout_width="159dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#3000"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout266"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txtAnchoCabezaElevador"
+                    android:layout_width="159dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#3000"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvDiametroTornillo"
+                    android:layout_width="121dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Ancho PI cabeza elevador (mm):"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
 
             <Button
                 android:id="@+id/btnEnviarRegistroBandaElevadora"
                 android:layout_width="156dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/boton_gradient"
                 android:text="Enviar Registro"
                 android:textColor="#fff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.457"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout269" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

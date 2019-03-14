@@ -2,9 +2,9 @@ package com.icobandas.icobandasapp.Modelos;
 
 public class LoginJson {
 
-    String nombreUsuario;
-    String nombreVendedor;
-    String contraseñaUsuario;
+    String codagente;
+    String nombreagte;
+    String pwdagente;
     String idRegistro;
     String fechaRegistro;
     String idTransportador;
@@ -404,13 +404,21 @@ public class LoginJson {
     String diametroEjePoleaAmarrePoleaMotriz;
     String icobandasCentradaPoleaAmarrePoleaMotriz;
     String estadoRevestimientoPoleaAmarrePoleaMotriz;
-    String diametroPoleaAmarrePoleaCola;
+    String dimetroPoleaAmarrePoleaCola;
     String anchoPoleaAmarrePoleaCola;
     String diametroEjePoleaAmarrePoleaCola;
     String integridadSoportesRodilloImpacto;
     String diametroEjeRodilloRetorno;
     String sistemaAlineacionArtesaCarga;
+    String estadoagte;
 
+    public String getEstadoagte() {
+        return estadoagte;
+    }
+
+    public void setEstadoagte(String estadoagte) {
+        this.estadoagte = estadoagte;
+    }
 
     public String getSistemaAlineacionArtesaCarga() {
         return sistemaAlineacionArtesaCarga;
@@ -482,28 +490,28 @@ public class LoginJson {
 
     String largoTuboRodilloLateralCarga;
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getCodagente() {
+        return codagente;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setCodagente(String codagente) {
+        this.codagente = codagente;
     }
 
-    public String getNombreVendedor() {
-        return nombreVendedor;
+    public String getNombreagte() {
+        return nombreagte;
     }
 
-    public void setNombreVendedor(String nombreVendedor) {
-        this.nombreVendedor = nombreVendedor;
+    public void setNombreagte(String nombreagte) {
+        this.nombreagte = nombreagte;
     }
 
-    public String getContraseñaUsuario() {
-        return contraseñaUsuario;
+    public String getPwdagente() {
+        return pwdagente;
     }
 
-    public void setContraseñaUsuario(String contraseñaUsuario) {
-        this.contraseñaUsuario = contraseñaUsuario;
+    public void setPwdagente(String pwdagente) {
+        this.pwdagente = pwdagente;
     }
 
     public String getIdRegistro() {
@@ -3455,12 +3463,12 @@ public class LoginJson {
         this.estadoRevestimientoPoleaAmarrePoleaMotriz = estadoRevestimientoPoleaAmarrePoleaMotriz;
     }
 
-    public String getDiametroPoleaAmarrePoleaCola() {
-        return diametroPoleaAmarrePoleaCola;
+    public String getDimetroPoleaAmarrePoleaCola() {
+        return dimetroPoleaAmarrePoleaCola;
     }
 
-    public void setDiametroPoleaAmarrePoleaCola(String diametroPoleaAmarrePoleaCola) {
-        this.diametroPoleaAmarrePoleaCola = diametroPoleaAmarrePoleaCola;
+    public void setDimetroPoleaAmarrePoleaCola(String dimetroPoleaAmarrePoleaCola) {
+        this.dimetroPoleaAmarrePoleaCola = dimetroPoleaAmarrePoleaCola;
     }
 
     public LoginJson() {

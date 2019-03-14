@@ -2,6 +2,8 @@ package com.icobandas.icobandasapp;
 
 
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,6 +28,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.icobandas.icobandasapp.Database.DbHelper;
+import com.icobandas.icobandasapp.Entities.CiudadesEntities;
+import com.icobandas.icobandasapp.Entities.ClientesEntities;
+import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.tooltip.Tooltip;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -32,6 +39,7 @@ import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -47,6 +55,9 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
     ArrayList<String> listaClientes = new ArrayList<>();
     ArrayList<String> listaCiudades = new ArrayList<>();
 
+    ArrayList<ClientesEntities> clientesEntitiesArrayList;
+    ArrayList<String> clientesList;
+
 
     View view;
     SearchableSpinner spinnerClientes;
@@ -57,6 +68,8 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
     RequestQueue queue;
     ProgressBar progressBar;
     Gson gson = new Gson();
+    DbHelper dbHelper;
+    Cursor cursor;
 
 
 
@@ -75,7 +88,10 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
         getActivity().setTitle("Agregar Plantas");
 
         progressBar.setVisibility(View.INVISIBLE);
-        llenarSpinners();
+
+            llenarSpinnersOffline();
+
+
 
 
 
@@ -99,40 +115,73 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
         queue= Volley.newRequestQueue(getContext());
         btnGuardarPlanta=view.findViewById(R.id.btnCrearPlanta);
         progressBar=view.findViewById(R.id.progressBarAgregarPlanta);
+        dbHelper= new DbHelper(getContext(),"prueba",null,1);
+
     }
 
-    public void llenarSpinners()
+
+    public void llenarSpinnersOffline()
     {
         listaClientes.clear();
+        listaCiudades.clear();
 
-        for (int i = 1; i <= Login.loginJsons.size(); i++) {
-            listaClientes.add(Login.loginJsons.get(i-1).getNit() + " - "+Login.loginJsons.get(i-1).getNameunido());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        cursor=db.rawQuery("Select * from clientes",null);
+        clientesEntitiesArrayList= new ArrayList<>();
+        clientesList = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            ClientesEntities clientesEntities= new ClientesEntities();
+            clientesEntities.setNit(cursor.getString(0));
+            clientesEntities.setNameunido(cursor.getString(1));
+            clientesEntitiesArrayList.add(clientesEntities);
+        }
+        for (int i=1;i<=clientesEntitiesArrayList.size();i++)
+        {
+            clientesList.add(clientesEntitiesArrayList.get(i-1).getNit()+" - "+clientesEntitiesArrayList.get(i-1).getNameunido());
         }
 
+
         Set<String> hs = new HashSet<>();
-        hs.addAll(listaClientes);
-        listaClientes.clear();
-        listaClientes.addAll(hs);
-        listaClientes.add(0,"Seleccione Cliente");
+        hs.addAll(clientesList);
+        clientesList.clear();
+        clientesList.addAll(hs);
+        Collections.sort(clientesList,String.CASE_INSENSITIVE_ORDER);
+        clientesList.add(0,"Seleccione Cliente");
 
 
 
-        ArrayAdapter<String> adapterClientes = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, listaClientes);
+        ArrayAdapter<String> adapterClientes = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, clientesList);
         spinnerClientes.setAdapter(adapterClientes);
 
         /////////////////////////////////////////////////////////////////////////////////////
 
 
+        ArrayList<CiudadesEntities>ciudadesEntitiesArrayList= new ArrayList<>();
+        ciudadesEntitiesArrayList.clear();
+
+
+        cursor=db.rawQuery("Select * from ciudades",null);
+
+        while (cursor.moveToNext())
+        {
+            CiudadesEntities ciudadesEntities= new CiudadesEntities();
+            ciudadesEntities.setIdCiudad(cursor.getString(0));
+            ciudadesEntities.setNombreCiudad(cursor.getString(1));
+            ciudadesEntitiesArrayList.add(ciudadesEntities);
+
+        }
         listaCiudades.clear();
         listaCiudades.add(0,"Seleccione Ciudad");
-        for (int i=1; i<=Login.ciudadesJsons.size(); i++)
+        for (int i=1; i<=ciudadesEntitiesArrayList.size(); i++)
         {
-            listaCiudades.add(Login.ciudadesJsons.get(i-1).getCodpoblado()+" - "+Login.ciudadesJsons.get(i-1).getUnido());
+            listaCiudades.add(ciudadesEntitiesArrayList.get(i-1).getIdCiudad()+" - "+ciudadesEntitiesArrayList.get(i-1).getNombreCiudad());
         }
-
         ArrayAdapter<String> adapterCiudades =new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, listaCiudades);
         spinnerCiudades.setAdapter(adapterCiudades);
+        spinnerCiudades.setTitle("Buscar Ciudad");
+        spinnerCiudades.setPositiveButton("Cerrar");
 
     }
 
@@ -174,70 +223,87 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
 
         else
         {
-            String url=Constants.url+"crearPlanta";
+            final SQLiteDatabase db=dbHelper.getWritableDatabase();
 
-            StringRequest requestCrearPlanta= new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
+            cursor=db.rawQuery("SELECT codplanta FROM plantas ORDER BY codplanta DESC limit 1",null);
 
+            cursor.moveToFirst();
+            String idMax=cursor.getString(0);
+            int idMaxPlanta=Integer.parseInt(idMax);
+            final int plantaFinal=idMaxPlanta+1;
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-
-
-
-
-                    String url = Constants.url + "login/" + Login.loginJsons.get(0).getNombreUsuario() + "&" + Login.loginJsons.get(0).getContraseñaUsuario();
-                    final StringRequest requestLogin = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-
-                            progressBar.setVisibility(View.INVISIBLE);
-                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                            Type type = new TypeToken<List<LoginJson>>() {
-                            }.getType();
-                            Login.loginJsons = gson.fromJson(response, type);
-                            Toast.makeText(getContext(), "Planta agregada correctamente", Toast.LENGTH_SHORT).show();
-                            getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
+            db.execSQL("INSERT INTO plantas (codplanta, agenteplanta, nitplanta, nameplanta,ciudmciapl,dirmciapl,estadoRegistroPlanta) values("+plantaFinal+",'"+Login.nombreUsuario+"','"+nitCliente+"','"+nombrePlanta+"',"+idCiudad+",'"+direccionPlanta+"','Pendiente INSERTAR BD')");
 
 
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+            if(MainActivity.isOnline(getContext()))
+            {
+                String url=Constants.url+"crearPlanta";
 
-                            progressBar.setVisibility(View.INVISIBLE);
-                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                StringRequest requestCrearPlanta= new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String url=Constants.url+"maxPlanta";
+                        StringRequest requestPlanta=new StringRequest(StringRequest.Method.GET, url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
 
-                            MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                FragmentPartesVertical.idMaximaRegistro.clear();
+                                Type type = new TypeToken<List<IdMaximaRegistro>>() {
+                                }.getType();
+                                FragmentPartesVertical.idMaximaRegistro = gson.fromJson(response, type);
 
-                        }
-                    });
-                    queue.add(requestLogin);
+                                MDToast.makeText(MainActivity.context, "Planta agregada correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+                                db.execSQL("update plantas set codplanta="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax()+" where codplanta="+plantaFinal);
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+                                db.execSQL("update plantas set estadoRegistroPlanta='Sincronizado' where codplanta="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
 
-                    progressBar.setVisibility(View.INVISIBLE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
 
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("nitCliente", nitCliente);
-                    params.put("NombrePlanta",nombrePlanta);
-                    params.put("idUsuario",Login.loginJsons.get(0).getNombreUsuario());
-                    params.put("direccionPlanta",direccionPlanta);
-                    params.put("ciudad",idCiudad);
+                            }
+                        });
+                        queue.add(requestPlanta);
 
-                    return params;
-                }
-            };
-            queue.add(requestCrearPlanta);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        progressBar.setVisibility(View.INVISIBLE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("nitCliente", nitCliente);
+                        params.put("NombrePlanta",nombrePlanta);
+                        params.put("idUsuario",Login.nombreUsuario);
+                        params.put("direccionPlanta",direccionPlanta);
+                        params.put("ciudad",idCiudad);
+
+                        return params;
+                    }
+                };
+                requestCrearPlanta.setRetryPolicy(new DefaultRetryPolicy(90000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                queue.add(requestCrearPlanta);
+            }
+            else
+            {
+                MDToast.makeText(getContext(),"Planta agregada correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+                getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
+                progressBar.setVisibility(View.INVISIBLE);
+
+
+            }
         }
 
 

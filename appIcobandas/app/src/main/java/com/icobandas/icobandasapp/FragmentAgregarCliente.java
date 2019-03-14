@@ -4,6 +4,8 @@ package com.icobandas.icobandasapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,6 +33,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.icobandas.icobandasapp.Database.DbHelper;
+import com.icobandas.icobandasapp.Entities.CiudadesEntities;
+import com.icobandas.icobandasapp.Modelos.CiudadesJson;
 import com.icobandas.icobandasapp.Modelos.IdMaxCliente;
 import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.tooltip.Tooltip;
@@ -56,6 +62,7 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
     Button btnGuardarCliente;
     String ciudad;
     Gson gson = new Gson();
+    ArrayList<CiudadesEntities>ciudadesEntitiesArrayList = new ArrayList<>();
 
     RequestQueue queue;
 
@@ -66,6 +73,8 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
     ArrayList<String> listaCiudades= new ArrayList<>();
 
     View view;
+    Cursor cursor;
+    DbHelper dbHelper;
 
     public FragmentAgregarCliente() {
         // Required empty public constructor
@@ -89,12 +98,14 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
         txtDireccion.setOnFocusChangeListener(this);
         progressBar.setVisibility(View.INVISIBLE);
 
-        listas();
+            listasOffline();
+
 
         spinnerCiudades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ciudad= listaCiudades.get(position);
+
             }
 
             @Override
@@ -145,126 +156,150 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                }
                else
                {
-                   String url=Constants.url+"validarNit/"+nitCliente;
-                   StringRequest requestValidarNit = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                       @Override
-                       public void onResponse(String response) {
-                           if(!response.equals("\uFEFF[]"))
-                           {
-                               progressBar.setVisibility(View.INVISIBLE);
-                               getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                               alerta.setTitle("ICOBANDAS S.A dice:");
-                               alerta.setMessage("El NIT de cliente ingresado ya se encuentra registrado");
-                               alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                   @Override
-                                   public void onClick(DialogInterface dialog, int which) {
-                                       dialog.cancel();
-                                   }
-                               });
 
-                               alerta.create();
-                               alerta.show();
+                   SQLiteDatabase db = dbHelper.getReadableDatabase();
+                   cursor=db.rawQuery("SELECT * FROM clientes where nit="+nitCliente,null);
+                   if(cursor.getCount()!=0)
+                   {
+                       progressBar.setVisibility(View.INVISIBLE);
+                       getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                       alerta.setTitle("ICOBANDAS S.A dice:");
+                       alerta.setMessage("El NIT de cliente ingresado ya se encuentra registrado");
+                       alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               dialog.cancel();
                            }
-                           else
-                           {
-                               String url=Constants.url+"crearCliente";
-                               StringRequest requestCrearCliente= new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
-                               {
-                                   @Override
-                                   public void onResponse(String response) {
+                       });
 
-                                       String url=Constants.url+"crearPlanta";
-                                       StringRequest requestCrearPlanta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                       alerta.create();
+                       alerta.show();
+
+                       db.close();
+                   }
+                   else
+                   {
+                       db=dbHelper.getWritableDatabase();
+
+                       cursor=db.rawQuery("SELECT codplanta FROM plantas ORDER BY codplanta DESC limit 1",null);
+
+                       cursor.moveToFirst();
+                       String idMax=cursor.getString(0);
+                       int idMaxPlanta=Integer.parseInt(idMax);
+                       int plantaFinal=idMaxPlanta+1;
+                       getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                       db.execSQL("INSERT INTO clientes values('"+nitCliente+"','"+nombreCliente+"','Pendiente INSERTAR BD')");
+                       db.execSQL("INSERT INTO plantas (codplanta, agenteplanta, nitplanta, nameplanta,ciudmciapl,dirmciapl,estadoRegistroPlanta) values("+plantaFinal+",'"+Login.nombreUsuario+"','"+nitCliente+"','"+nombrePlanta+"',"+ciudad+",'"+direccion+"','Pendiente INSERTAR BD')");
+
+                       if(MainActivity.isOnline(getContext())) {
+                           String url = Constants.url + "validarNit/" + nitCliente;
+                           final SQLiteDatabase finalDb = db;
+                           StringRequest requestValidarNit = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                               @Override
+                               public void onResponse(String response) {
+                                   if (!response.equals("\uFEFF[]")) {
+                                       progressBar.setVisibility(View.INVISIBLE);
+                                       getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                       alerta.setTitle("ICOBANDAS S.A dice:");
+                                       alerta.setMessage("El NIT de cliente ingresado ya se encuentra registrado");
+                                       alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                           @Override
+                                           public void onClick(DialogInterface dialog, int which) {
+                                               dialog.cancel();
+                                           }
+                                       });
+
+                                       alerta.create();
+                                       alerta.show();
+                                   } else {
+                                       String url = Constants.url + "crearCliente";
+                                       StringRequest requestCrearCliente = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                                            @Override
                                            public void onResponse(String response) {
 
-
-                                               String url = Constants.url + "login/" + Login.loginJsons.get(0).getNombreUsuario() + "&" + Login.loginJsons.get(0).getContraseñaUsuario();
-                                               final StringRequest requestLogin = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                                               String url = Constants.url + "crearPlanta";
+                                               StringRequest requestCrearPlanta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                                                    @Override
                                                    public void onResponse(String response) {
-
-                                                       Type type = new TypeToken<List<LoginJson>>() {
-                                                       }.getType();
-                                                       Login.loginJsons = gson.fromJson(response, type);
-                                                       progressBar.setVisibility(View.INVISIBLE);
-                                                       getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                                       Toast.makeText(getContext(), "Cliente agregado correctamente", Toast.LENGTH_SHORT).show();
-
+                                                       MDToast.makeText(MainActivity.context, "Cliente agregado correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+                                                       finalDb.execSQL("update clientes set estadoRegistroCliente='Sincronizado' where nit="+nitCliente);
+                                                       finalDb.execSQL("update plantas set estadoRegistroPlanta='Sincronizado' where nitplanta="+nitCliente);
                                                        getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
+                                                       progressBar.setVisibility(View.INVISIBLE);
+
 
                                                    }
                                                }, new Response.ErrorListener() {
                                                    @Override
                                                    public void onErrorResponse(VolleyError error) {
-
                                                        MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
-
+                                                       progressBar.setVisibility(View.INVISIBLE);
+                                                       getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                                    }
-                                               });
-                                               queue.add(requestLogin);
+                                               }) {
+                                                   @Override
+                                                   protected Map<String, String> getParams() {
+                                                       Map<String, String> params = new HashMap<>();
+                                                       params.put("nitCliente", nitCliente);
+                                                       params.put("NombrePlanta", nombrePlanta);
+                                                       params.put("idUsuario", Login.nombreUsuario);
+                                                       params.put("direccionPlanta", direccion);
+                                                       params.put("ciudad", ciudad);
 
-
-
+                                                       return params;
+                                                   }
+                                               };
+                                               queue.add(requestCrearPlanta);
                                            }
                                        }, new Response.ErrorListener() {
                                            @Override
                                            public void onErrorResponse(VolleyError error) {
-                                               MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+
                                                progressBar.setVisibility(View.INVISIBLE);
                                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                                               MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+
                                            }
-                                       }){
+                                       }) {
                                            @Override
                                            protected Map<String, String> getParams() {
                                                Map<String, String> params = new HashMap<>();
                                                params.put("nitCliente", nitCliente);
-                                               params.put("NombrePlanta",nombrePlanta);
-                                               params.put("idUsuario",Login.loginJsons.get(0).getNombreUsuario());
-                                               params.put("direccionPlanta",direccion);
-                                               params.put("ciudad",ciudad);
+                                               params.put("nombreCliente", nombreCliente);
 
                                                return params;
                                            }
                                        };
-                                       queue.add(requestCrearPlanta);
-                                   }
-                               }, new Response.ErrorListener() {
-                                   @Override
-                                   public void onErrorResponse(VolleyError error) {
-
-                                       progressBar.setVisibility(View.INVISIBLE);
-                                       getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                                       MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                       queue.add(requestCrearCliente);
 
                                    }
-                               }){
-                                   @Override
-                                   protected Map<String, String> getParams() {
-                                       Map<String, String> params = new HashMap<>();
-                                       params.put("nitCliente", nitCliente);
-                                       params.put("nombreCliente",nombreCliente);
 
-                                       return params;
-                                   }
-                               };
-                               queue.add(requestCrearCliente);
+                               }
+                           }, new Response.ErrorListener() {
+                               @Override
+                               public void onErrorResponse(VolleyError error) {
 
-                           }
+                                   MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                   progressBar.setVisibility(View.VISIBLE);
+                                   getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                               }
+                           });
+                           requestValidarNit.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                           queue.add(requestValidarNit);
+                       }
+                       else
+                       {
+                           MDToast.makeText(getContext(),"Cliente agregado correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+                           getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
+                           progressBar.setVisibility(View.INVISIBLE);
+
 
                        }
-                   }, new Response.ErrorListener() {
-                       @Override
-                       public void onErrorResponse(VolleyError error) {
 
-                           MDToast.makeText(getContext(), error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
-                           progressBar.setVisibility(View.VISIBLE);
-                           getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                   }
 
-                       }
-                   });
-                   queue.add(requestValidarNit);
                }
             }
         });
@@ -280,20 +315,39 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
         queue= Volley.newRequestQueue(getContext());
         alerta = new AlertDialog.Builder(getContext());
         progressBar= view.findViewById(R.id.progresBarAgregarCliente);
+        dbHelper= new DbHelper(getContext(),"prueba",null,1);
 
     }
-    public void listas()
+
+
+    public void listasOffline()
     {
+
+        ciudadesEntitiesArrayList.clear();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        cursor=db.rawQuery("Select * from ciudades",null);
+
+        while (cursor.moveToNext())
+        {
+            CiudadesEntities ciudadesEntities= new CiudadesEntities();
+            ciudadesEntities.setIdCiudad(cursor.getString(0));
+            ciudadesEntities.setNombreCiudad(cursor.getString(1));
+            ciudadesEntitiesArrayList.add(ciudadesEntities);
+
+        }
         listaCiudades.clear();
         listaCiudades.add(0,"Seleccione Ciudad");
-        for (int i=1; i<=Login.ciudadesJsons.size(); i++)
+        for (int i=1; i<=ciudadesEntitiesArrayList.size(); i++)
         {
-            listaCiudades.add(Login.ciudadesJsons.get(i-1).getCodpoblado()+" - "+Login.ciudadesJsons.get(i-1).getUnido());
+            listaCiudades.add(ciudadesEntitiesArrayList.get(i-1).getIdCiudad()+" - "+ciudadesEntitiesArrayList.get(i-1).getNombreCiudad());
         }
         ArrayAdapter<String> adapterCiudades =new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, listaCiudades);
         spinnerCiudades.setAdapter(adapterCiudades);
         spinnerCiudades.setTitle("Buscar Ciudad");
         spinnerCiudades.setPositiveButton("Cerrar");
+        db.close();
+
     }
 
     @Override
