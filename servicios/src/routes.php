@@ -19,6 +19,9 @@ $app->group('/api', function () use ($app) {
 	
 	
     $app->get('/login/{nombreUsuario}&{contra}', 'login');
+    $app->get('/loginAdmin', 'loginAdmin');
+    $app->get('/cliente', 'cliente');
+
 
 	
 /*==========  FIN DE LOGIN  ==============*/
@@ -32,6 +35,8 @@ $app->group('/api', function () use ($app) {
     $app->post('/crearRegistro', 'crearRegistro');
     $app->put('/actualizarRegistro', 'actualizarRegistro');
     $app->get('/maxRegistro', 'getMaxRegistro');
+    $app->put('/actualizarEstadoRegistro/{idRegistro}&{estadoRegistro}', 'actualizarEstadoRegistro');
+
 	
 /*==========  FIN DE REGISTROS  ==============*/
     
@@ -43,6 +48,7 @@ $app->group('/api', function () use ($app) {
 	
     $app->post('/crearPlanta', 'crearPlanta');
     $app->get('/ciudades', 'getCiudades');
+    $app->get('/maxPlanta', 'maxPlanta');
 	
 	
 /*==========  FIN DE PLANTAS  ==============*/
@@ -69,11 +75,17 @@ $app->group('/api', function () use ($app) {
 	
 	/*-------------  Crear Transportador  -------------*/
     $app->post('/crearTransportador', 'crearTransportador');
+    $app->get('/maxTransportador', 'maxTransportador');
+    
+
+
     /*--------------------------------------------*/
 	
 	
 	/*-------------  Obtener Transportador  -------------*/
     $app->get('/transportadores/{nombreUsuario}', 'getTransportadores');
+    $app->get('/transportadoresAdmin', 'getTransportadoresAdmin');
+
     $app->get('/buscarRegistroTransportadorVertical/{idTransportador}', 'buscarRegistroTransportadorVertical');
     /*--------------------------------------------*/
     
@@ -101,6 +113,15 @@ $app->group('/api', function () use ($app) {
 /*===================================================================================
 =       				    	 BANDA ELEVADORA 	       	   					   =
 ====================================================================================*/
+	$app->post('/registroSincronizacion', 'registroSincronizacion');
+
+	$app->post('observacionElevadora', 'observacionElevadora');
+	$app->put('/actualizarObservacionElevadora', 'actualizarObservacionElevadora');
+
+
+
+
+
 
 	/*---------------------------  Tornillos  ----------------------------*/
 	$app->post('/registroTornillosElevadora', 'registroTornillosElevadora');
@@ -165,6 +186,8 @@ $app->group('/api', function () use ($app) {
 =								        	 BANDA HORIZONTAL       								   =
 =======================================================================================================*/
 
+$app->post('/observacionTransportadora', 'observacionTransportadora');
+	$app->put('/actualizarObservacionTransportadora', 'actualizarObservacionTransportadora');
 
 /*----------------------------  Banda Horizontal  -------------------------*/
 	$app->post('/registroBandaHorizontal', 'registroBandaHorizontal');
@@ -252,6 +275,18 @@ $app->group('/api', function () use ($app) {
 
 
 /*====================================  End of BANDA HORIZONTAL  =======================================*/
+
+
+/*=============================================
+=        	  SINCRONIZACION		     =
+=============================================*/
+	
+    $app->post('/sincroClientes', 'sincroClientes');
+
+
+
+	
+/*====================================  End of SINCRONIZACION =======================================*/
 
 
 });

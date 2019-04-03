@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity {
 
                         if (isOnline(getApplicationContext()))
                         {
-                            if(usuario.toString().equals("lepe") && contra.toString().equals("lepe2019."))
+                            if(usuario.toString().equals("lepe") && contra.toString().equals("lepe2019.") || usuario.toString().equals("leca") && contra.toString().equals("leca2019."))
                             {
                                 rol="admin";
                                 String url = Constants.url + "loginAdmin";
@@ -130,9 +130,11 @@ public class Login extends AppCompatActivity {
                                             String estadoAdmin=null;
                                             for (int i=0;i< loginJsons.size();i++)
                                             {
-                                                if(loginJsons.get(i).getCodagente().equals("LEPE"))
+                                                if(loginJsons.get(i).getCodagente().equals(usuario.toString().toUpperCase()) || loginJsons.get(i).getCodagente().equals(contra.toString()))
                                                 {
                                                     estadoAdmin=loginJsons.get(i).getEstadoagte();
+                                                    nombreUsuario=loginJsons.get(i).getCodagente();
+
                                                 }
                                             }
                                             if(estadoAdmin.equals("0"))
@@ -170,8 +172,16 @@ public class Login extends AppCompatActivity {
                                                 db.execSQL("DELETE FROM bandaTransportadora");
                                                 db.execSQL("DELETE FROM bandaElevadora");
 
+                                                if(nombreUsuario.equals("LEPE"))
+                                                {
+                                                    db.execSQL("insert into usuario values('LEPE','LEÓN PELÁEZ','cac2cdfa95fb1ee32713f5870318c8b5')");
 
-                                                db.execSQL("insert into usuario values('LEPE','LEÓN PELÁEZ','cac2cdfa95fb1ee32713f5870318c8b5')");
+                                                }
+                                                else
+                                                {
+                                                    db.execSQL("insert into usuario values('LECA','LENIN RAUL CASTRO','483b15a64101886f1e39808fcffd7562')");
+
+                                                }
                                                 Cursor cursor1=db.rawQuery("select * from usuario",null);
                                                 cursor1.moveToFirst();
                                                 nombreAdmin=cursor1.getString(1);
@@ -246,7 +256,6 @@ public class Login extends AppCompatActivity {
                                                                 }
 
                                                                 db.close();
-                                                                nombreUsuario="LEPE";
 
                                                                 startActivity(new Intent(Login.this, MainActivity.class));
                                                                 finish();
