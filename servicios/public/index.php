@@ -416,7 +416,44 @@ function crearTransportador($request)
         $stmt->bindParam(":codplanta", $emp["idPlanta"]);
         $stmt->bindParam(":descripcionTransportador", $emp["descripcionTransportador"]);
 
-        $stmt->execute();
+        if($stmt->execute())
+        {
+            return '{"response":"ok"}';
+
+            // return "ok";
+        }
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+function actualizarTransportador($request)
+{
+    
+    $emp = $request->getParams();
+    foreach ($emp as $key => $value) {
+        if (empty($emp[$key])) {
+            $emp[$key] = null;
+        }
+    }
+
+
+    $sql = "UPDATE transportador SET nombreTransportador=:nombreTransportador, caracteristicaTransportador=:descripcionTransportador where idTransportador=:idTransportador";
+    try {
+        $db   = getConnection();
+        $stmt = $db->prepare($sql);
+        
+        $stmt->bindParam(":idTransportador", $emp["idTransportador"]);
+        $stmt->bindParam(":nombreTransportador", $emp["nombreTransportador"]);
+        $stmt->bindParam(":descripcionTransportador", $emp["descripcionTransportador"]);
+
+         if($stmt->execute())
+        {
+            return '{"response":"ok"}';
+
+            // return "ok";
+        }
 
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
@@ -719,9 +756,11 @@ function crearPlanta($request)
         $stmt->bindParam(":direccionPlanta", $emp["direccionPlanta"]);
         $stmt->bindParam(":ciudad", $emp["ciudad"]);
 
-        if($stmt->execute())
+         if($stmt->execute())
         {
-            return "ok";
+            return '{"response":"ok"}';
+
+            // return "ok";
         }
 
     } catch (PDOException $e) {
@@ -792,17 +831,17 @@ function maxPlanta($response)
 ===========================================================================================================================*/
 
 
-function registroSincronizacion($request)
+function sincronizacionElevadora($request)
 {
     $emp = $request->getParams();
 
     foreach ($emp as $key => $value) {
-        if (empty($emp[$key])) {
+        if (empty($emp[$key]) || $emp[$key]=="") {
             $emp[$key] = null;
         }
     }
 
-    $sql = "INSERT INTO bandaElevadora (idRegistro, marcaBandaElevadora, anchoBandaElevadora, distanciaEntrePoleasElevadora, noLonaBandaElevadora, tipoLonaBandaElevadora, espesorTotalBandaElevadora, espesorCojinActualElevadora, 
+    $sql = "INSERT INTO bandaElevadora (idRegistro,marcaBandaElevadora, anchoBandaElevadora, distanciaEntrePoleasElevadora, noLonaBandaElevadora, tipoLonaBandaElevadora, espesorTotalBandaElevadora, espesorCojinActualElevadora, 
                          espesorCubiertaSuperiorElevadora, espesorCubiertaInferiorElevadora, tipoCubiertaElevadora, tipoEmpalmeElevadora, estadoEmpalmeElevadora, resistenciaRoturaLonaElevadora, velocidadBandaElevadora, 
                          marcaBandaElevadoraAnterior, anchoBandaElevadoraAnterior, noLonasBandaElevadoraAnterior, tipoLonaBandaElevadoraAnterior, espesorTotalBandaElevadoraAnterior, espesorCubiertaSuperiorBandaElevadoraAnterior, 
                          espesorCojinElevadoraAnterior, espesorCubiertaInferiorBandaElevadoraAnterior, tipoCubiertaElevadoraAnterior, tipoEmpalmeElevadoraAnterior, resistenciaRoturaBandaElevadoraAnterior, 
@@ -816,7 +855,7 @@ function registroSincronizacion($request)
                          largoBotaElevadorPuertaInspeccion, monitorPeligro, rodamiento, monitorDesalineacion, monitorVelocidad, sensorInductivo, indicadorNivel, cajaUnion, alarmaYPantalla, interruptorSeguridad, materialElevadora, 
                          ataqueQuimicoElevadora, ataqueTemperaturaElevadora, ataqueAceitesElevadora, ataqueAbrasivoElevadora, capacidadElevadora, horasTrabajoDiaElevadora, diasTrabajoSemanaElevadora, abrasividadElevadora, 
                          porcentajeFinosElevadora, maxGranulometriaElevadora, densidadMaterialElevadora, tempMaxMaterialSobreBandaElevadora, tempPromedioMaterialSobreBandaElevadora, variosPuntosDeAlimentacion, lluviaDeMaterial, 
-                         anchoPiernaElevador, profundidadPiernaElevador, tempAmbienteMin, tempAmbienteMax, tipoDescarga, tipoCarga, observacionRegistroElevadora
+                         anchoPiernaElevador, profundidadPiernaElevador, tempAmbienteMin, tempAmbienteMax, tipoDescarga, tipoCarga, observacionRegistroElevadora)
 
   VALUES (:idRegistro, :marcaBandaElevadora, :anchoBandaElevadora, :distanciaEntrePoleasElevadora, :noLonaBandaElevadora, :tipoLonaBandaElevadora, :espesorTotalBandaElevadora, :espesorCojinActualElevadora, 
                          :espesorCubiertaSuperiorElevadora, :espesorCubiertaInferiorElevadora, :tipoCubiertaElevadora, :tipoEmpalmeElevadora, :estadoEmpalmeElevadora, :resistenciaRoturaLonaElevadora, :velocidadBandaElevadora, 
@@ -832,15 +871,272 @@ function registroSincronizacion($request)
                          :largoBotaElevadorPuertaInspeccion, :monitorPeligro, :rodamiento, :monitorDesalineacion, :monitorVelocidad, :sensorInductivo, :indicadorNivel, :cajaUnion, :alarmaYPantalla, :interruptorSeguridad, :materialElevadora, 
                          :ataqueQuimicoElevadora, :ataqueTemperaturaElevadora, :ataqueAceitesElevadora, :ataqueAbrasivoElevadora, :capacidadElevadora, :horasTrabajoDiaElevadora, :diasTrabajoSemanaElevadora, :abrasividadElevadora, 
                          :porcentajeFinosElevadora, :maxGranulometriaElevadora, :densidadMaterialElevadora, :tempMaxMaterialSobreBandaElevadora, :tempPromedioMaterialSobreBandaElevadora, :variosPuntosDeAlimentacion, :lluviaDeMaterial, 
-                         :anchoPiernaElevador, :profundidadPiernaElevador, :tempAmbienteMin, :tempAmbienteMax, :tipoDescarga, :tipoCarga, :observacionRegistroElevadora";
+                         :anchoPiernaElevador, :profundidadPiernaElevador, :tempAmbienteMin, :tempAmbienteMax, :tipoDescarga, :tipoCarga, :observacionRegistroElevadora)";
 
     try {
         $db   = getConnection();
         $stmt = $db->prepare($sql);
+        
         $stmt->bindParam(':idRegistro', $emp["idRegistro"]);
+        $stmt->bindParam(":marcaBandaElevadora", $emp["marcaBandaElevadora"]);
+        $stmt->bindParam(":anchoBandaElevadora", $emp["anchoBandaElevadora"]);
+        $stmt->bindParam(":distanciaEntrePoleasElevadora", $emp["distanciaEntrePoleasElevadora"]);
+        $stmt->bindParam(":noLonaBandaElevadora", $emp["noLonaBandaElevadora"]);
+        $stmt->bindParam(":tipoLonaBandaElevadora", $emp["tipoLonaBandaElevadora"]);
+        $stmt->bindParam(":espesorTotalBandaElevadora", $emp["espesorTotalBandaElevadora"]);
+        $stmt->bindParam(":espesorCojinActualElevadora", $emp["espesorCojinActualElevadora"]);
+        $stmt->bindParam(":espesorCubiertaSuperiorElevadora", $emp["espesorCubiertaSuperiorElevadora"]);
+        $stmt->bindParam(":espesorCubiertaInferiorElevadora", $emp["espesorCubiertaInferiorElevadora"]);
+        $stmt->bindParam(":tipoCubiertaElevadora", $emp["tipoCubiertaElevadora"]);
+        $stmt->bindParam(":tipoEmpalmeElevadora", $emp["tipoEmpalmeElevadora"]);
+        $stmt->bindParam(":estadoEmpalmeElevadora", $emp["estadoEmpalmeElevadora"]);
+        $stmt->bindParam(":resistenciaRoturaLonaElevadora", $emp["resistenciaRoturaLonaElevadora"]);
+        $stmt->bindParam(":velocidadBandaElevadora", $emp["velocidadBandaElevadora"]);
+        $stmt->bindParam(":marcaBandaElevadoraAnterior", $emp["marcaBandaElevadoraAnterior"]);
+        $stmt->bindParam(":anchoBandaElevadoraAnterior", $emp["anchoBandaElevadoraAnterior"]);
+        $stmt->bindParam(":noLonasBandaElevadoraAnterior", $emp["noLonasBandaElevadoraAnterior"]);
+        $stmt->bindParam(":tipoLonaBandaElevadoraAnterior", $emp["tipoLonaBandaElevadoraAnterior"]);
+        $stmt->bindParam(":espesorTotalBandaElevadoraAnterior", $emp["espesorTotalBandaElevadoraAnterior"]);
+        $stmt->bindParam(":espesorCubiertaSuperiorBandaElevadoraAnterior", $emp["espesorCubiertaSuperiorBandaElevadoraAnterior"]);
+        $stmt->bindParam(":espesorCojinElevadoraAnterior", $emp["espesorCojinElevadoraAnterior"]);
+        $stmt->bindParam(":espesorCubiertaInferiorBandaElevadoraAnterior", $emp["espesorCubiertaInferiorBandaElevadoraAnterior"]);
+        $stmt->bindParam(":tipoCubiertaElevadoraAnterior", $emp["tipoCubiertaElevadoraAnterior"]);
+        $stmt->bindParam(":tipoEmpalmeElevadoraAnterior", $emp["tipoEmpalmeElevadoraAnterior"]);
+        $stmt->bindParam(":resistenciaRoturaBandaElevadoraAnterior", $emp["resistenciaRoturaBandaElevadoraAnterior"]);
+        $stmt->bindParam(":tonsTransportadasBandaElevadoraAnterior", $emp["tonsTransportadasBandaElevadoraAnterior"]);
+        $stmt->bindParam(":velocidadBandaElevadoraAnterior", $emp["velocidadBandaElevadoraAnterior"]);
+        $stmt->bindParam(":causaFallaCambioBandaElevadoraAnterior", $emp["causaFallaCambioBandaElevadoraAnterior"]);
+        $stmt->bindParam(":pesoMaterialEnCadaCangilon", $emp["pesoMaterialEnCadaCangilon"]);
+        $stmt->bindParam(":pesoCangilonVacio", $emp["pesoCangilonVacio"]);
+        $stmt->bindParam(":longitudCangilon", $emp["longitudCangilon"]);
+        $stmt->bindParam(":materialCangilon", $emp["materialCangilon"]);
+        $stmt->bindParam(":tipoCangilon", $emp["tipoCangilon"]);
+        $stmt->bindParam(":proyeccionCangilon", $emp["proyeccionCangilon"]);
+        $stmt->bindParam(":profundidadCangilon", $emp["profundidadCangilon"]);
+        $stmt->bindParam(":marcaCangilon", $emp["marcaCangilon"]);
+        $stmt->bindParam(":referenciaCangilon", $emp["referenciaCangilon"]);
+        $stmt->bindParam(":capacidadCangilon", $emp["capacidadCangilon"]);
+        $stmt->bindParam(":noFilasCangilones", $emp["noFilasCangilones"]);
+        $stmt->bindParam(":separacionCangilones", $emp["separacionCangilones"]);
+        $stmt->bindParam(":noAgujeros", $emp["noAgujeros"]);
+        $stmt->bindParam(":distanciaBordeBandaEstructura", $emp["distanciaBordeBandaEstructura"]);
+        $stmt->bindParam(":distanciaPosteriorBandaEstructura", $emp["distanciaPosteriorBandaEstructura"]);
+        $stmt->bindParam(":distanciaLaboFrontalCangilonEstructura", $emp["distanciaLaboFrontalCangilonEstructura"]);
+        $stmt->bindParam(":distanciaBordesCangilonEstructura", $emp["distanciaBordesCangilonEstructura"]);
+        $stmt->bindParam(":tipoVentilacion", $emp["tipoVentilacion"]);
+        $stmt->bindParam(":diametroPoleaMotrizElevadora", $emp["diametroPoleaMotrizElevadora"]);
+        $stmt->bindParam(":anchoPoleaMotrizElevadora", $emp["anchoPoleaMotrizElevadora"]);
+        $stmt->bindParam(":tipoPoleaMotrizElevadora", $emp["tipoPoleaMotrizElevadora"]);
+        $stmt->bindParam(":largoEjeMotrizElevadora", $emp["largoEjeMotrizElevadora"]);
+        $stmt->bindParam(":diametroEjeMotrizElevadora", $emp["diametroEjeMotrizElevadora"]);
+        $stmt->bindParam(":bandaCentradaEnPoleaMotrizElevadora", $emp["bandaCentradaEnPoleaMotrizElevadora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaMotrizElevadora", $emp["estadoRevestimientoPoleaMotrizElevadora"]);
+        $stmt->bindParam(":potenciaMotorMotrizElevadora", $emp["potenciaMotorMotrizElevadora"]);
+        $stmt->bindParam(":rpmSalidaReductorMotrizElevadora", $emp["rpmSalidaReductorMotrizElevadora"]);
+        $stmt->bindParam(":guardaReductorPoleaMotrizElevadora", $emp["guardaReductorPoleaMotrizElevadora"]);
+        $stmt->bindParam(":diametroPoleaColaElevadora", $emp["diametroPoleaColaElevadora"]);
+        $stmt->bindParam(":anchoPoleaColaElevadora", $emp["anchoPoleaColaElevadora"]);
+        $stmt->bindParam(":tipoPoleaColaElevadora", $emp["tipoPoleaColaElevadora"]);
+        $stmt->bindParam(":largoEjePoleaColaElevadora", $emp["largoEjePoleaColaElevadora"]);
+        $stmt->bindParam(":diametroEjePoleaColaElevadora", $emp["diametroEjePoleaColaElevadora"]);
+        $stmt->bindParam(":bandaCentradaEnPoleaColaElevadora", $emp["bandaCentradaEnPoleaColaElevadora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaColaElevadora", $emp["estadoRevestimientoPoleaColaElevadora"]);
+        $stmt->bindParam(":longitudTensorTornilloPoleaColaElevadora", $emp["longitudTensorTornilloPoleaColaElevadora"]);
+        $stmt->bindParam(":longitudRecorridoContrapesaPoleaColaElevadora", $emp["longitudRecorridoContrapesaPoleaColaElevadora"]);
+        $stmt->bindParam(":cargaTrabajoBandaElevadora", $emp["cargaTrabajoBandaElevadora"]);
+        $stmt->bindParam(":temperaturaMaterialElevadora", $emp["temperaturaMaterialElevadora"]);
+        $stmt->bindParam(":empalmeMecanicoElevadora", $emp["empalmeMecanicoElevadora"]);
         $stmt->bindParam(":diametroRoscaElevadora", $emp["diametroRoscaElevadora"]);
         $stmt->bindParam(":largoTornilloElevadora", $emp["largoTornilloElevadora"]);
         $stmt->bindParam(":materialTornilloElevadora", $emp["materialTornilloElevadora"]);
+        $stmt->bindParam(":anchoCabezaElevadorPuertaInspeccion", $emp["anchoCabezaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":largoCabezaElevadorPuertaInspeccion", $emp["largoCabezaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":anchoBotaElevadorPuertaInspeccion", $emp["anchoBotaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":largoBotaElevadorPuertaInspeccion", $emp["largoBotaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":monitorPeligro", $emp["monitorPeligro"]);
+        $stmt->bindParam(":rodamiento", $emp["rodamiento"]);
+        $stmt->bindParam(":monitorDesalineacion", $emp["monitorDesalineacion"]);
+        $stmt->bindParam(":monitorVelocidad", $emp["monitorVelocidad"]);
+        $stmt->bindParam(":sensorInductivo", $emp["sensorInductivo"]);
+        $stmt->bindParam(":indicadorNivel", $emp["indicadorNivel"]);
+        $stmt->bindParam(":cajaUnion", $emp["cajaUnion"]);
+        $stmt->bindParam(":alarmaYPantalla", $emp["alarmaYPantalla"]);
+        $stmt->bindParam(":interruptorSeguridad", $emp["interruptorSeguridad"]);
+        $stmt->bindParam(":materialElevadora", $emp["materialElevadora"]);
+        $stmt->bindParam(":ataqueQuimicoElevadora", $emp["ataqueQuimicoElevadora"]);
+        $stmt->bindParam(":ataqueTemperaturaElevadora", $emp["ataqueTemperaturaElevadora"]);
+        $stmt->bindParam(":ataqueAceitesElevadora", $emp["ataqueAceitesElevadora"]);
+        $stmt->bindParam(":ataqueAbrasivoElevadora", $emp["ataqueAbrasivoElevadora"]);
+        $stmt->bindParam(":capacidadElevadora", $emp["capacidadElevadora"]);
+        $stmt->bindParam(":horasTrabajoDiaElevadora", $emp["horasTrabajoDiaElevadora"]);
+        $stmt->bindParam(":diasTrabajoSemanaElevadora", $emp["diasTrabajoSemanaElevadora"]);
+        $stmt->bindParam(":abrasividadElevadora", $emp["abrasividadElevadora"]);
+        $stmt->bindParam(":porcentajeFinosElevadora", $emp["porcentajeFinosElevadora"]);
+        $stmt->bindParam(":maxGranulometriaElevadora", $emp["maxGranulometriaElevadora"]);
+        $stmt->bindParam(":densidadMaterialElevadora", $emp["densidadMaterialElevadora"]);
+        $stmt->bindParam(":tempMaxMaterialSobreBandaElevadora", $emp["tempMaxMaterialSobreBandaElevadora"]);
+        $stmt->bindParam(":tempPromedioMaterialSobreBandaElevadora", $emp["tempPromedioMaterialSobreBandaElevadora"]);
+        $stmt->bindParam(":variosPuntosDeAlimentacion", $emp["variosPuntosDeAlimentacion"]);
+        $stmt->bindParam(":lluviaDeMaterial", $emp["lluviaDeMaterial"]);
+        $stmt->bindParam(":anchoPiernaElevador", $emp["anchoPiernaElevador"]);
+        $stmt->bindParam(":profundidadPiernaElevador", $emp["profundidadPiernaElevador"]);
+        $stmt->bindParam(":tempAmbienteMin", $emp["tempAmbienteMin"]);
+        $stmt->bindParam(":tempAmbienteMax", $emp["tempAmbienteMax"]);
+        $stmt->bindParam(":tipoDescarga", $emp["tipoDescarga"]);
+        $stmt->bindParam(":tipoCarga", $emp["tipoCarga"]);
+        $stmt->bindParam(":observacionRegistroElevadora", $emp["observacionRegistroElevadora"]);
+        
+
+        $stmt->execute();
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+
+
+function actualizarElevadora($request)
+{
+    $emp = $request->getParams();
+
+    foreach ($emp as $key => $value) {
+        if (empty($emp[$key]) || $emp[$key]=="") {
+            $emp[$key] = null;
+        }
+    }
+
+    $sql = "UPDATE bandaElevadora set marcaBandaElevadora=:marcaBandaElevadora, anchoBandaElevadora=:anchoBandaElevadora, distanciaEntrePoleasElevadora=:distanciaEntrePoleasElevadora, noLonaBandaElevadora=:noLonaBandaElevadora, tipoLonaBandaElevadora=:tipoLonaBandaElevadora, espesorTotalBandaElevadora=:espesorTotalBandaElevadora, espesorCojinActualElevadora=:espesorCojinActualElevadora, 
+                         espesorCubiertaSuperiorElevadora=:espesorCubiertaSuperiorElevadora, espesorCubiertaInferiorElevadora=:espesorCubiertaInferiorElevadora, tipoCubiertaElevadora=:tipoCubiertaElevadora, tipoEmpalmeElevadora=:tipoEmpalmeElevadora, estadoEmpalmeElevadora=:estadoEmpalmeElevadora, resistenciaRoturaLonaElevadora=:resistenciaRoturaLonaElevadora, velocidadBandaElevadora=:velocidadBandaElevadora, 
+                         marcaBandaElevadoraAnterior=:marcaBandaElevadoraAnterior, anchoBandaElevadoraAnterior=:anchoBandaElevadoraAnterior, noLonasBandaElevadoraAnterior=:noLonasBandaElevadoraAnterior, tipoLonaBandaElevadoraAnterior=:tipoLonaBandaElevadoraAnterior, espesorTotalBandaElevadoraAnterior=:espesorTotalBandaElevadoraAnterior, espesorCubiertaSuperiorBandaElevadoraAnterior=:espesorCubiertaSuperiorBandaElevadoraAnterior, 
+                         espesorCojinElevadoraAnterior=:espesorCojinElevadoraAnterior, espesorCubiertaInferiorBandaElevadoraAnterior=:espesorCubiertaInferiorBandaElevadoraAnterior, tipoCubiertaElevadoraAnterior=:tipoCubiertaElevadoraAnterior, tipoEmpalmeElevadoraAnterior=:tipoEmpalmeElevadoraAnterior, resistenciaRoturaBandaElevadoraAnterior=:resistenciaRoturaBandaElevadoraAnterior, 
+                         tonsTransportadasBandaElevadoraAnterior=:tonsTransportadasBandaElevadoraAnterior, velocidadBandaElevadoraAnterior=:velocidadBandaElevadoraAnterior, causaFallaCambioBandaElevadoraAnterior=:causaFallaCambioBandaElevadoraAnterior, pesoMaterialEnCadaCangilon=:pesoMaterialEnCadaCangilon, pesoCangilonVacio=:pesoCangilonVacio, longitudCangilon=:longitudCangilon, materialCangilon=:materialCangilon, tipoCangilon=:tipoCangilon, 
+                         proyeccionCangilon=:proyeccionCangilon, profundidadCangilon=:profundidadCangilon, marcaCangilon=:marcaCangilon, referenciaCangilon=:referenciaCangilon, capacidadCangilon=:capacidadCangilon, noFilasCangilones=:noFilasCangilones, separacionCangilones=:separacionCangilones, noAgujeros=:noAgujeros, distanciaBordeBandaEstructura=:distanciaBordeBandaEstructura, distanciaPosteriorBandaEstructura=:distanciaPosteriorBandaEstructura, 
+                         distanciaLaboFrontalCangilonEstructura=:distanciaLaboFrontalCangilonEstructura, distanciaBordesCangilonEstructura=:distanciaBordesCangilonEstructura, tipoVentilacion=:tipoVentilacion, diametroPoleaMotrizElevadora=:diametroPoleaMotrizElevadora, anchoPoleaMotrizElevadora=:anchoPoleaMotrizElevadora, tipoPoleaMotrizElevadora=:tipoPoleaMotrizElevadora, largoEjeMotrizElevadora=:largoEjeMotrizElevadora, 
+                         diametroEjeMotrizElevadora=:diametroEjeMotrizElevadora, bandaCentradaEnPoleaMotrizElevadora=:bandaCentradaEnPoleaMotrizElevadora, estadoRevestimientoPoleaMotrizElevadora=:estadoRevestimientoPoleaMotrizElevadora, potenciaMotorMotrizElevadora=:potenciaMotorMotrizElevadora, rpmSalidaReductorMotrizElevadora=:rpmSalidaReductorMotrizElevadora, guardaReductorPoleaMotrizElevadora=:guardaReductorPoleaMotrizElevadora, 
+                         diametroPoleaColaElevadora=:diametroPoleaColaElevadora, anchoPoleaColaElevadora=:anchoPoleaColaElevadora, tipoPoleaColaElevadora=:tipoPoleaColaElevadora, largoEjePoleaColaElevadora=:largoEjePoleaColaElevadora, diametroEjePoleaColaElevadora=:diametroEjePoleaColaElevadora, bandaCentradaEnPoleaColaElevadora=:bandaCentradaEnPoleaColaElevadora, 
+                         estadoRevestimientoPoleaColaElevadora=:estadoRevestimientoPoleaColaElevadora, longitudTensorTornilloPoleaColaElevadora=:longitudTensorTornilloPoleaColaElevadora, longitudRecorridoContrapesaPoleaColaElevadora=:longitudRecorridoContrapesaPoleaColaElevadora, cargaTrabajoBandaElevadora=:cargaTrabajoBandaElevadora, temperaturaMaterialElevadora=:temperaturaMaterialElevadora, 
+                         empalmeMecanicoElevadora=:empalmeMecanicoElevadora, diametroRoscaElevadora=:diametroRoscaElevadora, largoTornilloElevadora=:largoTornilloElevadora, materialTornilloElevadora=:materialTornilloElevadora, anchoCabezaElevadorPuertaInspeccion=:anchoCabezaElevadorPuertaInspeccion, largoCabezaElevadorPuertaInspeccion=:largoCabezaElevadorPuertaInspeccion, anchoBotaElevadorPuertaInspeccion=:anchoBotaElevadorPuertaInspeccion, 
+                         largoBotaElevadorPuertaInspeccion=:largoBotaElevadorPuertaInspeccion, monitorPeligro=:monitorPeligro, rodamiento=:rodamiento, monitorDesalineacion=:monitorDesalineacion, monitorVelocidad=:monitorVelocidad, sensorInductivo=:sensorInductivo, indicadorNivel=:indicadorNivel, cajaUnion=:cajaUnion, alarmaYPantalla=:alarmaYPantalla, interruptorSeguridad=:interruptorSeguridad, materialElevadora=:materialElevadora, 
+                         ataqueQuimicoElevadora=:ataqueQuimicoElevadora, ataqueTemperaturaElevadora=:ataqueTemperaturaElevadora, ataqueAceitesElevadora=:ataqueAceitesElevadora, ataqueAbrasivoElevadora=:ataqueAbrasivoElevadora, capacidadElevadora=:capacidadElevadora, horasTrabajoDiaElevadora=:horasTrabajoDiaElevadora, diasTrabajoSemanaElevadora=:diasTrabajoSemanaElevadora, abrasividadElevadora=:abrasividadElevadora, 
+                         porcentajeFinosElevadora=:porcentajeFinosElevadora, maxGranulometriaElevadora=:maxGranulometriaElevadora, densidadMaterialElevadora=:densidadMaterialElevadora, tempMaxMaterialSobreBandaElevadora=:tempMaxMaterialSobreBandaElevadora, tempPromedioMaterialSobreBandaElevadora=:tempPromedioMaterialSobreBandaElevadora, variosPuntosDeAlimentacion=:variosPuntosDeAlimentacion, lluviaDeMaterial=:lluviaDeMaterial, 
+                         anchoPiernaElevador=:anchoPiernaElevador, profundidadPiernaElevador=:profundidadPiernaElevador, tempAmbienteMin=:tempAmbienteMin, tempAmbienteMax=:tempAmbienteMax, tipoDescarga=:tipoDescarga, tipoCarga=:tipoCarga, observacionRegistroElevadora=:observacionRegistroElevadora where idRegistro=:idRegistro";
+
+ 
+
+    try {
+        $db   = getConnection();
+        $stmt = $db->prepare($sql);
+        
+        $stmt->bindParam(':idRegistro', $emp["idRegistro"]);
+        $stmt->bindParam(":marcaBandaElevadora", $emp["marcaBandaElevadora"]);
+        $stmt->bindParam(":anchoBandaElevadora", $emp["anchoBandaElevadora"]);
+        $stmt->bindParam(":distanciaEntrePoleasElevadora", $emp["distanciaEntrePoleasElevadora"]);
+        $stmt->bindParam(":noLonaBandaElevadora", $emp["noLonaBandaElevadora"]);
+        $stmt->bindParam(":tipoLonaBandaElevadora", $emp["tipoLonaBandaElevadora"]);
+        $stmt->bindParam(":espesorTotalBandaElevadora", $emp["espesorTotalBandaElevadora"]);
+        $stmt->bindParam(":espesorCojinActualElevadora", $emp["espesorCojinActualElevadora"]);
+        $stmt->bindParam(":espesorCubiertaSuperiorElevadora", $emp["espesorCubiertaSuperiorElevadora"]);
+        $stmt->bindParam(":espesorCubiertaInferiorElevadora", $emp["espesorCubiertaInferiorElevadora"]);
+        $stmt->bindParam(":tipoCubiertaElevadora", $emp["tipoCubiertaElevadora"]);
+        $stmt->bindParam(":tipoEmpalmeElevadora", $emp["tipoEmpalmeElevadora"]);
+        $stmt->bindParam(":estadoEmpalmeElevadora", $emp["estadoEmpalmeElevadora"]);
+        $stmt->bindParam(":resistenciaRoturaLonaElevadora", $emp["resistenciaRoturaLonaElevadora"]);
+        $stmt->bindParam(":velocidadBandaElevadora", $emp["velocidadBandaElevadora"]);
+        $stmt->bindParam(":marcaBandaElevadoraAnterior", $emp["marcaBandaElevadoraAnterior"]);
+        $stmt->bindParam(":anchoBandaElevadoraAnterior", $emp["anchoBandaElevadoraAnterior"]);
+        $stmt->bindParam(":noLonasBandaElevadoraAnterior", $emp["noLonasBandaElevadoraAnterior"]);
+        $stmt->bindParam(":tipoLonaBandaElevadoraAnterior", $emp["tipoLonaBandaElevadoraAnterior"]);
+        $stmt->bindParam(":espesorTotalBandaElevadoraAnterior", $emp["espesorTotalBandaElevadoraAnterior"]);
+        $stmt->bindParam(":espesorCubiertaSuperiorBandaElevadoraAnterior", $emp["espesorCubiertaSuperiorBandaElevadoraAnterior"]);
+        $stmt->bindParam(":espesorCojinElevadoraAnterior", $emp["espesorCojinElevadoraAnterior"]);
+        $stmt->bindParam(":espesorCubiertaInferiorBandaElevadoraAnterior", $emp["espesorCubiertaInferiorBandaElevadoraAnterior"]);
+        $stmt->bindParam(":tipoCubiertaElevadoraAnterior", $emp["tipoCubiertaElevadoraAnterior"]);
+        $stmt->bindParam(":tipoEmpalmeElevadoraAnterior", $emp["tipoEmpalmeElevadoraAnterior"]);
+        $stmt->bindParam(":resistenciaRoturaBandaElevadoraAnterior", $emp["resistenciaRoturaBandaElevadoraAnterior"]);
+        $stmt->bindParam(":tonsTransportadasBandaElevadoraAnterior", $emp["tonsTransportadasBandaElevadoraAnterior"]);
+        $stmt->bindParam(":velocidadBandaElevadoraAnterior", $emp["velocidadBandaElevadoraAnterior"]);
+        $stmt->bindParam(":causaFallaCambioBandaElevadoraAnterior", $emp["causaFallaCambioBandaElevadoraAnterior"]);
+        $stmt->bindParam(":pesoMaterialEnCadaCangilon", $emp["pesoMaterialEnCadaCangilon"]);
+        $stmt->bindParam(":pesoCangilonVacio", $emp["pesoCangilonVacio"]);
+        $stmt->bindParam(":longitudCangilon", $emp["longitudCangilon"]);
+        $stmt->bindParam(":materialCangilon", $emp["materialCangilon"]);
+        $stmt->bindParam(":tipoCangilon", $emp["tipoCangilon"]);
+        $stmt->bindParam(":proyeccionCangilon", $emp["proyeccionCangilon"]);
+        $stmt->bindParam(":profundidadCangilon", $emp["profundidadCangilon"]);
+        $stmt->bindParam(":marcaCangilon", $emp["marcaCangilon"]);
+        $stmt->bindParam(":referenciaCangilon", $emp["referenciaCangilon"]);
+        $stmt->bindParam(":capacidadCangilon", $emp["capacidadCangilon"]);
+        $stmt->bindParam(":noFilasCangilones", $emp["noFilasCangilones"]);
+        $stmt->bindParam(":separacionCangilones", $emp["separacionCangilones"]);
+        $stmt->bindParam(":noAgujeros", $emp["noAgujeros"]);
+        $stmt->bindParam(":distanciaBordeBandaEstructura", $emp["distanciaBordeBandaEstructura"]);
+        $stmt->bindParam(":distanciaPosteriorBandaEstructura", $emp["distanciaPosteriorBandaEstructura"]);
+        $stmt->bindParam(":distanciaLaboFrontalCangilonEstructura", $emp["distanciaLaboFrontalCangilonEstructura"]);
+        $stmt->bindParam(":distanciaBordesCangilonEstructura", $emp["distanciaBordesCangilonEstructura"]);
+        $stmt->bindParam(":tipoVentilacion", $emp["tipoVentilacion"]);
+        $stmt->bindParam(":diametroPoleaMotrizElevadora", $emp["diametroPoleaMotrizElevadora"]);
+        $stmt->bindParam(":anchoPoleaMotrizElevadora", $emp["anchoPoleaMotrizElevadora"]);
+        $stmt->bindParam(":tipoPoleaMotrizElevadora", $emp["tipoPoleaMotrizElevadora"]);
+        $stmt->bindParam(":largoEjeMotrizElevadora", $emp["largoEjeMotrizElevadora"]);
+        $stmt->bindParam(":diametroEjeMotrizElevadora", $emp["diametroEjeMotrizElevadora"]);
+        $stmt->bindParam(":bandaCentradaEnPoleaMotrizElevadora", $emp["bandaCentradaEnPoleaMotrizElevadora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaMotrizElevadora", $emp["estadoRevestimientoPoleaMotrizElevadora"]);
+        $stmt->bindParam(":potenciaMotorMotrizElevadora", $emp["potenciaMotorMotrizElevadora"]);
+        $stmt->bindParam(":rpmSalidaReductorMotrizElevadora", $emp["rpmSalidaReductorMotrizElevadora"]);
+        $stmt->bindParam(":guardaReductorPoleaMotrizElevadora", $emp["guardaReductorPoleaMotrizElevadora"]);
+        $stmt->bindParam(":diametroPoleaColaElevadora", $emp["diametroPoleaColaElevadora"]);
+        $stmt->bindParam(":anchoPoleaColaElevadora", $emp["anchoPoleaColaElevadora"]);
+        $stmt->bindParam(":tipoPoleaColaElevadora", $emp["tipoPoleaColaElevadora"]);
+        $stmt->bindParam(":largoEjePoleaColaElevadora", $emp["largoEjePoleaColaElevadora"]);
+        $stmt->bindParam(":diametroEjePoleaColaElevadora", $emp["diametroEjePoleaColaElevadora"]);
+        $stmt->bindParam(":bandaCentradaEnPoleaColaElevadora", $emp["bandaCentradaEnPoleaColaElevadora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaColaElevadora", $emp["estadoRevestimientoPoleaColaElevadora"]);
+        $stmt->bindParam(":longitudTensorTornilloPoleaColaElevadora", $emp["longitudTensorTornilloPoleaColaElevadora"]);
+        $stmt->bindParam(":longitudRecorridoContrapesaPoleaColaElevadora", $emp["longitudRecorridoContrapesaPoleaColaElevadora"]);
+        $stmt->bindParam(":cargaTrabajoBandaElevadora", $emp["cargaTrabajoBandaElevadora"]);
+        $stmt->bindParam(":temperaturaMaterialElevadora", $emp["temperaturaMaterialElevadora"]);
+        $stmt->bindParam(":empalmeMecanicoElevadora", $emp["empalmeMecanicoElevadora"]);
+        $stmt->bindParam(":diametroRoscaElevadora", $emp["diametroRoscaElevadora"]);
+        $stmt->bindParam(":largoTornilloElevadora", $emp["largoTornilloElevadora"]);
+        $stmt->bindParam(":materialTornilloElevadora", $emp["materialTornilloElevadora"]);
+        $stmt->bindParam(":anchoCabezaElevadorPuertaInspeccion", $emp["anchoCabezaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":largoCabezaElevadorPuertaInspeccion", $emp["largoCabezaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":anchoBotaElevadorPuertaInspeccion", $emp["anchoBotaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":largoBotaElevadorPuertaInspeccion", $emp["largoBotaElevadorPuertaInspeccion"]);
+        $stmt->bindParam(":monitorPeligro", $emp["monitorPeligro"]);
+        $stmt->bindParam(":rodamiento", $emp["rodamiento"]);
+        $stmt->bindParam(":monitorDesalineacion", $emp["monitorDesalineacion"]);
+        $stmt->bindParam(":monitorVelocidad", $emp["monitorVelocidad"]);
+        $stmt->bindParam(":sensorInductivo", $emp["sensorInductivo"]);
+        $stmt->bindParam(":indicadorNivel", $emp["indicadorNivel"]);
+        $stmt->bindParam(":cajaUnion", $emp["cajaUnion"]);
+        $stmt->bindParam(":alarmaYPantalla", $emp["alarmaYPantalla"]);
+        $stmt->bindParam(":interruptorSeguridad", $emp["interruptorSeguridad"]);
+        $stmt->bindParam(":materialElevadora", $emp["materialElevadora"]);
+        $stmt->bindParam(":ataqueQuimicoElevadora", $emp["ataqueQuimicoElevadora"]);
+        $stmt->bindParam(":ataqueTemperaturaElevadora", $emp["ataqueTemperaturaElevadora"]);
+        $stmt->bindParam(":ataqueAceitesElevadora", $emp["ataqueAceitesElevadora"]);
+        $stmt->bindParam(":ataqueAbrasivoElevadora", $emp["ataqueAbrasivoElevadora"]);
+        $stmt->bindParam(":capacidadElevadora", $emp["capacidadElevadora"]);
+        $stmt->bindParam(":horasTrabajoDiaElevadora", $emp["horasTrabajoDiaElevadora"]);
+        $stmt->bindParam(":diasTrabajoSemanaElevadora", $emp["diasTrabajoSemanaElevadora"]);
+        $stmt->bindParam(":abrasividadElevadora", $emp["abrasividadElevadora"]);
+        $stmt->bindParam(":porcentajeFinosElevadora", $emp["porcentajeFinosElevadora"]);
+        $stmt->bindParam(":maxGranulometriaElevadora", $emp["maxGranulometriaElevadora"]);
+        $stmt->bindParam(":densidadMaterialElevadora", $emp["densidadMaterialElevadora"]);
+        $stmt->bindParam(":tempMaxMaterialSobreBandaElevadora", $emp["tempMaxMaterialSobreBandaElevadora"]);
+        $stmt->bindParam(":tempPromedioMaterialSobreBandaElevadora", $emp["tempPromedioMaterialSobreBandaElevadora"]);
+        $stmt->bindParam(":variosPuntosDeAlimentacion", $emp["variosPuntosDeAlimentacion"]);
+        $stmt->bindParam(":lluviaDeMaterial", $emp["lluviaDeMaterial"]);
+        $stmt->bindParam(":anchoPiernaElevador", $emp["anchoPiernaElevador"]);
+        $stmt->bindParam(":profundidadPiernaElevador", $emp["profundidadPiernaElevador"]);
+        $stmt->bindParam(":tempAmbienteMin", $emp["tempAmbienteMin"]);
+        $stmt->bindParam(":tempAmbienteMax", $emp["tempAmbienteMax"]);
+        $stmt->bindParam(":tipoDescarga", $emp["tipoDescarga"]);
+        $stmt->bindParam(":tipoCarga", $emp["tipoCarga"]);
+        $stmt->bindParam(":observacionRegistroElevadora", $emp["observacionRegistroElevadora"]);
+        
 
         $stmt->execute();
 
@@ -1758,7 +2054,6 @@ function actualizarBandaPesada($request)
     print_r($emp);
 
     $sql = "UPDATE bandaTransmision set anchoBandaTransmision=:anchoBandaTransmision, distanciaEntreCentrosTransmision=:distanciaEntreCentrosTransmision, potenciaMotorTransmision=:potenciaMotorTransmision, rpmSalidaReductorTransmision=:rpmSalidaReductorTransmision, diametroPoleaConducidaTransmision=:diametroPoleaConducidaTransmision, anchoPoleaConducidaTransmision=:anchoPoleaConducidaTransmision, diametroPoleaMotrizTransmision=:diametroPoleaMotrizTransmision, anchoPoleaMotrizTransmision=:anchoPoleaMotrizTransmision, tipoParteTransmision=:tipoParteTransmision, observacionRegistro=:observacionRegistroPesada
-
   where idRegistro=:idRegistro";
     try {
         $db   = getConnection();
@@ -1773,11 +2068,12 @@ function actualizarBandaPesada($request)
         $stmt->bindParam(":diametroPoleaMotrizTransmision", $emp["diametroPoleaMotrizTransmision"]);
         $stmt->bindParam(':anchoPoleaMotrizTransmision', $emp["anchoPoleaMotrizTransmision"]);
         $stmt->bindParam(':tipoParteTransmision', $emp["tipoParteTransmision"]);
-        $stmt->bindParam(':observacionRegistro', $emp["observacionRegistroPesada"]);
+        $stmt->bindParam(':observacionRegistroPesada', $emp["observacionRegistroPesada"]);
         
-
-        print_r($stmt);
+        
         $stmt->execute();
+        print_r($sql);
+
 
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
@@ -3378,8 +3674,684 @@ function actualizarRodilloRetorno($request)
 }
 /*------------------------------------------------ FIN DE RODILLO RETORNO ---------------------------------------------*/
 
+function sincronizarHorizontal($request)
+{
+    $emp = $request->getParams();
+    foreach ($emp as $key => $value) {
+        if (empty($emp[$key])) {
+            $emp[$key] = null;
+        }
+    };
+
+    // print_r($emp);
+
+    $sql = "INSERT into bandaTransportadora (idRegistro, marcaBandaTransportadora, anchoBandaTransportadora, noLonasBandaTransportadora, tipoLonaBandaTransportadora, espesorTotalBandaTransportadora, espesorCubiertaSuperiorTransportadora, 
+                         espesorCojinTransportadora, espesorCubiertaInferiorTransportadora, tipoCubiertaTransportadora, tipoEmpalmeTransportadora, estadoEmpalmeTransportadora, distanciaEntrePoleasBandaHorizontal, 
+                         inclinacionBandaHorizontal, recorridoUtilTensorBandaHorizontal, longitudSinfinBandaHorizontal, resistenciaRoturaLonaTransportadora, localizacionTensorTransportadora, bandaReversible, bandaDeArrastre, 
+                         velocidadBandaHorizontal, marcaBandaHorizontalAnterior, anchoBandaHorizontalAnterior, noLonasBandaHorizontalAnterior, tipoLonaBandaHorizontalAnterior, espesorTotalBandaHorizontalAnterior, 
+                         espesorCubiertaSuperiorBandaHorizontalAnterior, espesorCubiertaInferiorBandaHorizontalAnterior, espesorCojinBandaHorizontalAnterior, tipoEmpalmeBandaHorizontalAnterior, resistenciaRoturaLonaBandaHorizontalAnterior, 
+                         tipoCubiertaBandaHorizontalAnterior, tonsTransportadasBandaHoizontalAnterior, causaFallaCambioBandaHorizontal, diametroPoleaColaTransportadora, anchoPoleaColaTransportadora, tipoPoleaColaTransportadora, 
+                         largoEjePoleaColaTransportadora, diametroEjePoleaColaHorizontal, icobandasCentradaPoleaColaTransportadora, anguloAmarrePoleaColaTransportadora, estadoRvtoPoleaColaTransportadora, 
+                         tipoTransicionPoleaColaTransportadora, distanciaTransicionPoleaColaTransportadora, longitudTensorTornilloPoleaColaTransportadora, longitudRecorridoContrapesaPoleaColaTransportadora, guardaPoleaColaTransportadora, 
+                         hayDesviador, elDesviadorBascula, presionUniformeALoAnchoDeLaBanda, cauchoVPlow, anchoVPlow, espesorVPlow, tipoRevestimientoTolvaCarga, estadoRevestimientoTolvaCarga, duracionPromedioRevestimiento, 
+                         deflectores, altureCaida, longitudImpacto, material, anguloSobreCarga, ataqueQuimicoTransportadora, ataqueTemperaturaTransportadora, ataqueAceiteTransportadora, ataqueImpactoTransportadora, capacidadTransportadora, 
+                         horasTrabajoPorDiaTransportadora, diasTrabajPorSemanaTransportadora, alimentacionCentradaTransportadora, abrasividadTransportadora, porcentajeFinosTransportadora, maxGranulometriaTransportadora, 
+                         maxPesoTransportadora, densidadTransportadora, tempMaximaMaterialSobreBandaTransportadora, tempPromedioMaterialSobreBandaTransportadora, fugaDeMaterialesEnLaColaDelChute, fugaDeMaterialesPorLosCostados, 
+                         fugaMateriales, cajaColaDeTolva, fugaDeMaterialParticulaALaSalidaDelChute, anchoChute, largoChute, alturaChute, abrazadera, cauchoGuardabandas, triSealMultiSeal, espesorGuardaBandas, anchoGuardaBandas, 
+                         largoGuardaBandas, protectorGuardaBandas, cortinaAntiPolvo1, cortinaAntiPolvo2, cortinaAntiPolvo3, boquillasCanonesDeAire, tempAmbienteMaxTransportadora, tempAmbienteMinTransportadora, tieneRodillosImpacto, 
+                         camaImpacto, camaSellado, basculaPesaje, rodilloCarga, rodilloImpacto, basculaASGCO, barraImpacto, barraDeslizamiento, espesorUHMV, anchoBarra, largoBarra, anguloAcanalamientoArtesa1, anguloAcanalamientoArtesa2, 
+                         anguloAcanalamientoArtesa3, anguloAcanalamientoArtesa1AntesPoleaMotriz, anguloAcanalamientoArtesa2AntesPoleaMotriz, anguloAcanalamientoArtesa3AntesPoleaMotriz, integridadSoportesRodilloImpacto, 
+                         materialAtrapadoEntreCortinas, materialAtrapadoEntreGuardabandas, materialAtrapadoEnBanda, integridadSoportesCamaImpacto, inclinacionZonaCargue, sistemaAlineacionCarga, cantidadSistemaAlineacionEnCarga, 
+                         sistemasAlineacionCargaFuncionando, sistemaAlineacionEnRetorno, cantidadSistemaAlineacionEnRetorno, sistemasAlineacionRetornoFuncionando, sistemaAlineacionRetornoPlano, sistemaAlineacionArtesaCarga, 
+                         sistemaAlineacionRetornoEnV, largoEjeRodilloCentralCarga, diametroEjeRodilloCentralCarga, largoTuboRodilloCentralCarga, largoEjeRodilloLateralCarga, diametroEjeRodilloLateralCarga, diametroRodilloLateralCarga, 
+                         largoTuboRodilloLateralCarga, tipoRodilloCarga, distanciaEntreArtesasCarga, anchoInternoChasisRodilloCarga, anchoExternoChasisRodilloCarga, anguloAcanalamientoArtesaCArga, detalleRodilloCentralCarga, 
+                         detalleRodilloLateralCarg, diametroPoleaMotrizTransportadora, anchoPoleaMotrizTransportadora, tipoPoleaMotrizTransportadora, largoEjePoleaMotrizTransportadora, diametroEjeMotrizTransportadora, 
+                         icobandasCentraEnPoleaMotrizTransportadora, anguloAmarrePoleaMotrizTransportadora, estadoRevestimientoPoleaMotrizTransportadora, tipoTransicionPoleaMotrizTransportadora, 
+                         distanciaTransicionPoleaMotrizTransportadora, potenciaMotorTransportadora, guardaPoleaMotrizTransportadora, anchoEstructura, anchoTrayectoCarga, pasarelaRespectoAvanceBanda, materialAlimenticioTransportadora, 
+                         materialAcidoTransportadora, materialTempEntre80y150Transportadora, materialSecoTransportadora, materialHumedoTransportadora, materialAbrasivoFinoTransportadora, materialPegajosoTransportadora, 
+                         materialGrasosoAceitosoTransportadora, marcaLimpiadorPrimario, referenciaLimpiadorPrimario, anchoCuchillaLimpiadorPrimario, altoCuchillaLimpiadorPrimario, estadoCuchillaLimpiadorPrimario, 
+                         estadoTensorLimpiadorPrimario, estadoTuboLimpiadorPrimario, frecuenciaRevisionCuchilla, cuchillaEnContactoConBanda, marcaLimpiadorSecundario, referenciaLimpiadorSecundario, anchoCuchillaLimpiadorSecundario, 
+                         altoCuchillaLimpiadorSecundario, estadoCuchillaLimpiadorSecundario, estadoTensorLimpiadorSecundario, estadoTuboLimpiadorSecundario, frecuenciaRevisionCuchilla1, cuchillaEnContactoConBanda1, sistemaDribbleChute, 
+                         marcaLimpiadorTerciario, referenciaLimpiadorTerciario, anchoCuchillaLimpiadorTerciario, altoCuchillaLimpiadorTerciario, estadoCuchillaLimpiadorTerciario, estadoTensorLimpiadorTerciario, estadoTuboLimpiadorTerciario, 
+                         frecuenciaRevisionCuchilla2, cuchillaEnContactoConBanda2, estadoRodilloRetorno, largoEjeRodilloRetorno, diametroEjeRodilloRetorno, diametroRodilloRetorno, largoTuboRodilloRetorno, tipoRodilloRetorno, 
+                         distanciaEntreRodillosRetorno, anchoInternoChasisRetorno, anchoExternoChasisRetorno, detalleRodilloRetorno, diametroPoleaAmarrePoleaMotriz, anchoPoleaAmarrePoleaMotriz, tipoPoleaAmarrePoleaMotriz, 
+                         largoEjePoleaAmarrePoleaMotriz, diametroEjePoleaAmarrePoleaMotriz, icobandasCentradaPoleaAmarrePoleaMotriz, estadoRevestimientoPoleaAmarrePoleaMotriz, dimetroPoleaAmarrePoleaCola, anchoPoleaAmarrePoleaCola, 
+                         largoEjePoleaAmarrePoleaCola, tipoPoleaAmarrePoleaCola, diametroEjePoleaAmarrePoleaCola, icobandasCentradaPoleaAmarrePoleaCola, estadoRevestimientoPoleaAmarrePoleaCola, diametroPoleaTensora, 
+                         anchoPoleaTensora, tipoPoleaTensora, largoEjePoleaTensora, diametroEjePoleaTensora, icobandasCentradaEnPoleaTensora, recorridoPoleaTensora, estadoRevestimientoPoleaTensora, tipoTransicionPoleaTensora, 
+                         distanciaTransicionPoleaColaTensora, potenciaMotorPoleaTensora, guardaPoleaTensora, puertasInspeccion, guardaRodilloRetornoPlano, guardaTruTrainer, guardaPoleaDeflectora, guardaZonaDeTransito, guardaMotores, 
+                         guardaCadenas, guardaCorreas, interruptoresDeSeguridad, sirenasDeSeguridad, guardaRodilloRetornoV, diametroRodilloCentralCarga, tipoRodilloImpacto, integridadSoporteCamaSellado, ataqueAbrasivoTransportadora, 
+                         observacionRegistroTransportadora)
+
+  values(:idRegistro, :marcaBandaTransportadora, :anchoBandaTransportadora, :noLonasBandaTransportadora, :tipoLonaBandaTransportadora, :espesorTotalBandaTransportadora, :espesorCubiertaSuperiorTransportadora, 
+                         :espesorCojinTransportadora, :espesorCubiertaInferiorTransportadora, :tipoCubiertaTransportadora, :tipoEmpalmeTransportadora, :estadoEmpalmeTransportadora, :distanciaEntrePoleasBandaHorizontal, 
+                         :inclinacionBandaHorizontal, :recorridoUtilTensorBandaHorizontal, :longitudSinfinBandaHorizontal, :resistenciaRoturaLonaTransportadora, :localizacionTensorTransportadora, :bandaReversible, :bandaDeArrastre, 
+                         :velocidadBandaHorizontal, :marcaBandaHorizontalAnterior, :anchoBandaHorizontalAnterior, :noLonasBandaHorizontalAnterior, :tipoLonaBandaHorizontalAnterior, :espesorTotalBandaHorizontalAnterior, 
+                         :espesorCubiertaSuperiorBandaHorizontalAnterior, :espesorCubiertaInferiorBandaHorizontalAnterior, :espesorCojinBandaHorizontalAnterior, :tipoEmpalmeBandaHorizontalAnterior, :resistenciaRoturaLonaBandaHorizontalAnterior, 
+                         :tipoCubiertaBandaHorizontalAnterior, :tonsTransportadasBandaHoizontalAnterior, :causaFallaCambioBandaHorizontal, :diametroPoleaColaTransportadora, :anchoPoleaColaTransportadora, :tipoPoleaColaTransportadora, 
+                         :largoEjePoleaColaTransportadora, :diametroEjePoleaColaHorizontal, :icobandasCentradaPoleaColaTransportadora, :anguloAmarrePoleaColaTransportadora, :estadoRvtoPoleaColaTransportadora, 
+                         :tipoTransicionPoleaColaTransportadora, :distanciaTransicionPoleaColaTransportadora, :longitudTensorTornilloPoleaColaTransportadora, :longitudRecorridoContrapesaPoleaColaTransportadora, :guardaPoleaColaTransportadora, 
+                         :hayDesviador, :elDesviadorBascula, :presionUniformeALoAnchoDeLaBanda, :cauchoVPlow, :anchoVPlow, :espesorVPlow, :tipoRevestimientoTolvaCarga, :estadoRevestimientoTolvaCarga, :duracionPromedioRevestimiento, 
+                         :deflectores, :altureCaida, :longitudImpacto, :material, :anguloSobreCarga, :ataqueQuimicoTransportadora, :ataqueTemperaturaTransportadora, :ataqueAceiteTransportadora, :ataqueImpactoTransportadora, :capacidadTransportadora, 
+                         :horasTrabajoPorDiaTransportadora, :diasTrabajPorSemanaTransportadora, :alimentacionCentradaTransportadora, :abrasividadTransportadora, :porcentajeFinosTransportadora, :maxGranulometriaTransportadora, 
+                         :maxPesoTransportadora, :densidadTransportadora, :tempMaximaMaterialSobreBandaTransportadora, :tempPromedioMaterialSobreBandaTransportadora, :fugaDeMaterialesEnLaColaDelChute, :fugaDeMaterialesPorLosCostados, 
+                         :fugaMateriales, :cajaColaDeTolva, :fugaDeMaterialParticulaALaSalidaDelChute, :anchoChute, :largoChute, :alturaChute, :abrazadera, :cauchoGuardabandas, :triSealMultiSeal, :espesorGuardaBandas, :anchoGuardaBandas, 
+                         :largoGuardaBandas, :protectorGuardaBandas, :cortinaAntiPolvo1, :cortinaAntiPolvo2, :cortinaAntiPolvo3, :boquillasCanonesDeAire, :tempAmbienteMaxTransportadora, :tempAmbienteMinTransportadora, :tieneRodillosImpacto, 
+                         :camaImpacto, :camaSellado, :basculaPesaje, :rodilloCarga, :rodilloImpacto, :basculaASGCO, :barraImpacto, :barraDeslizamiento, :espesorUHMV, :anchoBarra, :largoBarra, :anguloAcanalamientoArtesa1, :anguloAcanalamientoArtesa2, 
+                         :anguloAcanalamientoArtesa3, :anguloAcanalamientoArtesa1AntesPoleaMotriz, :anguloAcanalamientoArtesa2AntesPoleaMotriz, :anguloAcanalamientoArtesa3AntesPoleaMotriz, :integridadSoportesRodilloImpacto, 
+                         :materialAtrapadoEntreCortinas, :materialAtrapadoEntreGuardabandas, :materialAtrapadoEnBanda, :integridadSoportesCamaImpacto, :inclinacionZonaCargue, :sistemaAlineacionCarga, :cantidadSistemaAlineacionEnCarga, 
+                         :sistemasAlineacionCargaFuncionando, :sistemaAlineacionEnRetorno, :cantidadSistemaAlineacionEnRetorno, :sistemasAlineacionRetornoFuncionando, :sistemaAlineacionRetornoPlano, :sistemaAlineacionArtesaCarga, 
+                         :sistemaAlineacionRetornoEnV, :largoEjeRodilloCentralCarga, :diametroEjeRodilloCentralCarga, :largoTuboRodilloCentralCarga, :largoEjeRodilloLateralCarga, :diametroEjeRodilloLateralCarga, :diametroRodilloLateralCarga, 
+                         :largoTuboRodilloLateralCarga, :tipoRodilloCarga, :distanciaEntreArtesasCarga, :anchoInternoChasisRodilloCarga, :anchoExternoChasisRodilloCarga, :anguloAcanalamientoArtesaCArga, :detalleRodilloCentralCarga, 
+                         :detalleRodilloLateralCarg, :diametroPoleaMotrizTransportadora, :anchoPoleaMotrizTransportadora, :tipoPoleaMotrizTransportadora, :largoEjePoleaMotrizTransportadora, :diametroEjeMotrizTransportadora, 
+                         :icobandasCentraEnPoleaMotrizTransportadora, :anguloAmarrePoleaMotrizTransportadora, :estadoRevestimientoPoleaMotrizTransportadora, :tipoTransicionPoleaMotrizTransportadora, 
+                         :distanciaTransicionPoleaMotrizTransportadora, :potenciaMotorTransportadora, :guardaPoleaMotrizTransportadora, :anchoEstructura, :anchoTrayectoCarga, :pasarelaRespectoAvanceBanda, :materialAlimenticioTransportadora, 
+                         :materialAcidoTransportadora, :materialTempEntre80y150Transportadora, :materialSecoTransportadora, :materialHumedoTransportadora, :materialAbrasivoFinoTransportadora, :materialPegajosoTransportadora, 
+                         :materialGrasosoAceitosoTransportadora, :marcaLimpiadorPrimario, :referenciaLimpiadorPrimario, :anchoCuchillaLimpiadorPrimario, :altoCuchillaLimpiadorPrimario, :estadoCuchillaLimpiadorPrimario, 
+                         :estadoTensorLimpiadorPrimario, :estadoTuboLimpiadorPrimario, :frecuenciaRevisionCuchilla, :cuchillaEnContactoConBanda, :marcaLimpiadorSecundario, :referenciaLimpiadorSecundario, :anchoCuchillaLimpiadorSecundario, 
+                         :altoCuchillaLimpiadorSecundario, :estadoCuchillaLimpiadorSecundario, :estadoTensorLimpiadorSecundario, :estadoTuboLimpiadorSecundario, :frecuenciaRevisionCuchilla1, :cuchillaEnContactoConBanda1, :sistemaDribbleChute, 
+                         :marcaLimpiadorTerciario, :referenciaLimpiadorTerciario, :anchoCuchillaLimpiadorTerciario, :altoCuchillaLimpiadorTerciario, :estadoCuchillaLimpiadorTerciario, :estadoTensorLimpiadorTerciario, :estadoTuboLimpiadorTerciario, 
+                         :frecuenciaRevisionCuchilla2, :cuchillaEnContactoConBanda2, :estadoRodilloRetorno, :largoEjeRodilloRetorno, :diametroEjeRodilloRetorno, :diametroRodilloRetorno, :largoTuboRodilloRetorno, :tipoRodilloRetorno, 
+                         :distanciaEntreRodillosRetorno, :anchoInternoChasisRetorno, :anchoExternoChasisRetorno, :detalleRodilloRetorno, :diametroPoleaAmarrePoleaMotriz, :anchoPoleaAmarrePoleaMotriz, :tipoPoleaAmarrePoleaMotriz, 
+                         :largoEjePoleaAmarrePoleaMotriz, :diametroEjePoleaAmarrePoleaMotriz, :icobandasCentradaPoleaAmarrePoleaMotriz, :estadoRevestimientoPoleaAmarrePoleaMotriz, :dimetroPoleaAmarrePoleaCola, :anchoPoleaAmarrePoleaCola, 
+                         :largoEjePoleaAmarrePoleaCola, :tipoPoleaAmarrePoleaCola, :diametroEjePoleaAmarrePoleaCola, :icobandasCentradaPoleaAmarrePoleaCola, :estadoRevestimientoPoleaAmarrePoleaCola, :diametroPoleaTensora, 
+                         :anchoPoleaTensora, :tipoPoleaTensora, :largoEjePoleaTensora, :diametroEjePoleaTensora, :icobandasCentradaEnPoleaTensora, :recorridoPoleaTensora, :estadoRevestimientoPoleaTensora, :tipoTransicionPoleaTensora, 
+                         :distanciaTransicionPoleaColaTensora, :potenciaMotorPoleaTensora, :guardaPoleaTensora, :puertasInspeccion, :guardaRodilloRetornoPlano, :guardaTruTrainer, :guardaPoleaDeflectora, :guardaZonaDeTransito, :guardaMotores, 
+                         :guardaCadenas, :guardaCorreas, :interruptoresDeSeguridad, :sirenasDeSeguridad, :guardaRodilloRetornoV, :diametroRodilloCentralCarga, :tipoRodilloImpacto, :integridadSoporteCamaSellado, :ataqueAbrasivoTransportadora, 
+                         :observacionRegistroTransportadora)";
+    try {
+        $db   = getConnection();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(":idRegistro", $emp["idRegistro"]);
+        $stmt->bindParam(":marcaBandaTransportadora", $emp["marcaBandaTransportadora"]);
+        $stmt->bindParam(":anchoBandaTransportadora", $emp["anchoBandaTransportadora"]);
+        $stmt->bindParam(":noLonasBandaTransportadora", $emp["noLonasBandaTransportadora"]);
+        $stmt->bindParam(":tipoLonaBandaTransportadora", $emp["tipoLonaBandaTransportadora"]);
+        $stmt->bindParam(":espesorTotalBandaTransportadora", $emp["espesorTotalBandaTransportadora"]);
+        $stmt->bindParam(":espesorCubiertaSuperiorTransportadora", $emp["espesorCubiertaSuperiorTransportadora"]); 
+        $stmt->bindParam(":espesorCojinTransportadora", $emp["espesorCojinTransportadora"]);
+        $stmt->bindParam(":espesorCubiertaInferiorTransportadora", $emp["espesorCubiertaInferiorTransportadora"]);
+        $stmt->bindParam(":tipoCubiertaTransportadora", $emp["tipoCubiertaTransportadora"]);
+        $stmt->bindParam(":tipoEmpalmeTransportadora", $emp["tipoEmpalmeTransportadora"]);
+        $stmt->bindParam(":estadoEmpalmeTransportadora", $emp["estadoEmpalmeTransportadora"]);
+        $stmt->bindParam(":distanciaEntrePoleasBandaHorizontal", $emp["distanciaEntrePoleasBandaHorizontal"]); 
+        $stmt->bindParam(":inclinacionBandaHorizontal", $emp["inclinacionBandaHorizontal"]);
+        $stmt->bindParam(":recorridoUtilTensorBandaHorizontal", $emp["recorridoUtilTensorBandaHorizontal"]);
+        $stmt->bindParam(":longitudSinfinBandaHorizontal", $emp["longitudSinfinBandaHorizontal"]);
+        $stmt->bindParam(":resistenciaRoturaLonaTransportadora", $emp["resistenciaRoturaLonaTransportadora"]);
+        $stmt->bindParam(":localizacionTensorTransportadora", $emp["localizacionTensorTransportadora"]);
+        $stmt->bindParam(":bandaReversible", $emp["bandaReversible"]);
+        $stmt->bindParam(":bandaDeArrastre", $emp["bandaDeArrastre"]); 
+        $stmt->bindParam(":velocidadBandaHorizontal", $emp["velocidadBandaHorizontal"]);
+        $stmt->bindParam(":marcaBandaHorizontalAnterior", $emp["marcaBandaHorizontalAnterior"]);
+        $stmt->bindParam(":anchoBandaHorizontalAnterior", $emp["anchoBandaHorizontalAnterior"]);
+        $stmt->bindParam(":noLonasBandaHorizontalAnterior", $emp["noLonasBandaHorizontalAnterior"]);
+        $stmt->bindParam(":tipoLonaBandaHorizontalAnterior", $emp["tipoLonaBandaHorizontalAnterior"]);
+        $stmt->bindParam(":espesorTotalBandaHorizontalAnterior", $emp["espesorTotalBandaHorizontalAnterior"]); 
+        $stmt->bindParam(":espesorCubiertaSuperiorBandaHorizontalAnterior", $emp["espesorCubiertaSuperiorBandaHorizontalAnterior"]);
+        $stmt->bindParam(":espesorCubiertaInferiorBandaHorizontalAnterior", $emp["espesorCubiertaInferiorBandaHorizontalAnterior"]);
+        $stmt->bindParam(":espesorCojinBandaHorizontalAnterior", $emp["espesorCojinBandaHorizontalAnterior"]);
+        $stmt->bindParam(":tipoEmpalmeBandaHorizontalAnterior", $emp["tipoEmpalmeBandaHorizontalAnterior"]);
+        $stmt->bindParam(":resistenciaRoturaLonaBandaHorizontalAnterior", $emp["resistenciaRoturaLonaBandaHorizontalAnterior"]); 
+        $stmt->bindParam(":tipoCubiertaBandaHorizontalAnterior", $emp["tipoCubiertaBandaHorizontalAnterior"]);
+        $stmt->bindParam(":tonsTransportadasBandaHoizontalAnterior", $emp["tonsTransportadasBandaHoizontalAnterior"]);
+        $stmt->bindParam(":causaFallaCambioBandaHorizontal", $emp["causaFallaCambioBandaHorizontal"]);
+        $stmt->bindParam(":diametroPoleaColaTransportadora", $emp["diametroPoleaColaTransportadora"]);
+        $stmt->bindParam(":anchoPoleaColaTransportadora", $emp["anchoPoleaColaTransportadora"]);
+        $stmt->bindParam(":tipoPoleaColaTransportadora", $emp["tipoPoleaColaTransportadora"]); 
+        $stmt->bindParam(":largoEjePoleaColaTransportadora", $emp["largoEjePoleaColaTransportadora"]);
+        $stmt->bindParam(":diametroEjePoleaColaHorizontal", $emp["diametroEjePoleaColaHorizontal"]);
+        $stmt->bindParam(":icobandasCentradaPoleaColaTransportadora", $emp["icobandasCentradaPoleaColaTransportadora"]);
+        $stmt->bindParam(":anguloAmarrePoleaColaTransportadora", $emp["anguloAmarrePoleaColaTransportadora"]);
+        $stmt->bindParam(":estadoRvtoPoleaColaTransportadora", $emp["estadoRvtoPoleaColaTransportadora"]); 
+        $stmt->bindParam(":tipoTransicionPoleaColaTransportadora", $emp["tipoTransicionPoleaColaTransportadora"]);
+        $stmt->bindParam(":distanciaTransicionPoleaColaTransportadora", $emp["distanciaTransicionPoleaColaTransportadora"]);
+        $stmt->bindParam(":longitudTensorTornilloPoleaColaTransportadora", $emp["longitudTensorTornilloPoleaColaTransportadora"]);
+        $stmt->bindParam(":longitudRecorridoContrapesaPoleaColaTransportadora", $emp["longitudRecorridoContrapesaPoleaColaTransportadora"]);
+        $stmt->bindParam(":guardaPoleaColaTransportadora", $emp["guardaPoleaColaTransportadora"]); 
+        $stmt->bindParam(":hayDesviador", $emp["hayDesviador"]);
+        $stmt->bindParam(":elDesviadorBascula", $emp["elDesviadorBascula"]);
+        $stmt->bindParam(":presionUniformeALoAnchoDeLaBanda", $emp["presionUniformeALoAnchoDeLaBanda"]);
+        $stmt->bindParam(":cauchoVPlow", $emp["cauchoVPlow"]);
+        $stmt->bindParam(":anchoVPlow", $emp["anchoVPlow"]);
+        $stmt->bindParam(":espesorVPlow", $emp["espesorVPlow"]);
+        $stmt->bindParam(":tipoRevestimientoTolvaCarga", $emp["tipoRevestimientoTolvaCarga"]);
+        $stmt->bindParam(":estadoRevestimientoTolvaCarga", $emp["estadoRevestimientoTolvaCarga"]);
+        $stmt->bindParam(":duracionPromedioRevestimiento", $emp["duracionPromedioRevestimiento"]); 
+        $stmt->bindParam(":deflectores", $emp["deflectores"]);
+        $stmt->bindParam(":altureCaida", $emp["altureCaida"]);
+        $stmt->bindParam(":longitudImpacto", $emp["longitudImpacto"]);
+        $stmt->bindParam(":material", $emp["material"]);
+        $stmt->bindParam(":anguloSobreCarga", $emp["anguloSobreCarga"]);
+        $stmt->bindParam(":ataqueQuimicoTransportadora", $emp["ataqueQuimicoTransportadora"]);
+        $stmt->bindParam(":ataqueTemperaturaTransportadora", $emp["ataqueTemperaturaTransportadora"]);
+        $stmt->bindParam(":ataqueAceiteTransportadora", $emp["ataqueAceiteTransportadora"]);
+        $stmt->bindParam(":ataqueImpactoTransportadora", $emp["ataqueImpactoTransportadora"]);
+        $stmt->bindParam(":capacidadTransportadora", $emp["capacidadTransportadora"]); 
+        $stmt->bindParam(":horasTrabajoPorDiaTransportadora", $emp["horasTrabajoPorDiaTransportadora"]);
+        $stmt->bindParam(":diasTrabajPorSemanaTransportadora", $emp["diasTrabajPorSemanaTransportadora"]);
+        $stmt->bindParam(":alimentacionCentradaTransportadora", $emp["alimentacionCentradaTransportadora"]);
+        $stmt->bindParam(":abrasividadTransportadora", $emp["abrasividadTransportadora"]);
+        $stmt->bindParam(":porcentajeFinosTransportadora", $emp["porcentajeFinosTransportadora"]);
+        $stmt->bindParam(":maxGranulometriaTransportadora", $emp["maxGranulometriaTransportadora"]); 
+        $stmt->bindParam(":maxPesoTransportadora", $emp["maxPesoTransportadora"]);
+        $stmt->bindParam(":densidadTransportadora", $emp["densidadTransportadora"]);
+        $stmt->bindParam(":tempMaximaMaterialSobreBandaTransportadora", $emp["tempMaximaMaterialSobreBandaTransportadora"]);
+        $stmt->bindParam(":tempPromedioMaterialSobreBandaTransportadora", $emp["tempPromedioMaterialSobreBandaTransportadora"]);
+        $stmt->bindParam(":fugaDeMaterialesEnLaColaDelChute", $emp["fugaDeMaterialesEnLaColaDelChute"]);
+        $stmt->bindParam(":fugaDeMaterialesPorLosCostados", $emp["fugaDeMaterialesPorLosCostados"]); 
+        $stmt->bindParam(":fugaMateriales", $emp["fugaMateriales"]);
+        $stmt->bindParam(":cajaColaDeTolva", $emp["cajaColaDeTolva"]);
+        $stmt->bindParam(":fugaDeMaterialParticulaALaSalidaDelChute", $emp["fugaDeMaterialParticulaALaSalidaDelChute"]);
+        $stmt->bindParam(":anchoChute", $emp["anchoChute"]);
+        $stmt->bindParam(":largoChute", $emp["largoChute"]);
+        $stmt->bindParam(":alturaChute", $emp["alturaChute"]);
+        $stmt->bindParam(":abrazadera", $emp["abrazadera"]);
+        $stmt->bindParam(":cauchoGuardabandas", $emp["cauchoGuardabandas"]);
+        $stmt->bindParam(":triSealMultiSeal", $emp["triSealMultiSeal"]);
+        $stmt->bindParam(":espesorGuardaBandas", $emp["espesorGuardaBandas"]);
+        $stmt->bindParam(":anchoGuardaBandas", $emp["anchoGuardaBandas"]); 
+        $stmt->bindParam(":largoGuardaBandas", $emp["largoGuardaBandas"]);
+        $stmt->bindParam(":protectorGuardaBandas", $emp["protectorGuardaBandas"]);
+        $stmt->bindParam(":cortinaAntiPolvo1", $emp["cortinaAntiPolvo1"]);
+        $stmt->bindParam(":cortinaAntiPolvo2", $emp["cortinaAntiPolvo2"]);
+        $stmt->bindParam(":cortinaAntiPolvo3", $emp["cortinaAntiPolvo3"]);
+        $stmt->bindParam(":boquillasCanonesDeAire", $emp["boquillasCanonesDeAire"]);
+        $stmt->bindParam(":tempAmbienteMaxTransportadora", $emp["tempAmbienteMaxTransportadora"]);
+        $stmt->bindParam(":tempAmbienteMinTransportadora", $emp["tempAmbienteMinTransportadora"]);
+        $stmt->bindParam(":tieneRodillosImpacto", $emp["tieneRodillosImpacto"]); 
+        $stmt->bindParam(":camaImpacto", $emp["camaImpacto"]);
+        $stmt->bindParam(":camaSellado", $emp["camaSellado"]);
+        $stmt->bindParam(":basculaPesaje", $emp["basculaPesaje"]);
+        $stmt->bindParam(":rodilloCarga", $emp["rodilloCarga"]);
+        $stmt->bindParam(":rodilloImpacto", $emp["rodilloImpacto"]);
+        $stmt->bindParam(":basculaASGCO", $emp["basculaASGCO"]);
+        $stmt->bindParam(":barraImpacto", $emp["barraImpacto"]);
+        $stmt->bindParam(":barraDeslizamiento", $emp["barraDeslizamiento"]);
+        $stmt->bindParam(":espesorUHMV", $emp["espesorUHMV"]);
+        $stmt->bindParam(":anchoBarra", $emp["anchoBarra"]);
+        $stmt->bindParam(":largoBarra", $emp["largoBarra"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa1", $emp["anguloAcanalamientoArtesa1"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa2", $emp["anguloAcanalamientoArtesa2"]); 
+        $stmt->bindParam(":anguloAcanalamientoArtesa3", $emp["anguloAcanalamientoArtesa3"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa1AntesPoleaMotriz", $emp["anguloAcanalamientoArtesa1AntesPoleaMotriz"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa2AntesPoleaMotriz", $emp["anguloAcanalamientoArtesa2AntesPoleaMotriz"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa3AntesPoleaMotriz", $emp["anguloAcanalamientoArtesa3AntesPoleaMotriz"]);
+        $stmt->bindParam(":integridadSoportesRodilloImpacto", $emp["integridadSoportesRodilloImpacto"]); 
+        $stmt->bindParam(":materialAtrapadoEntreCortinas", $emp["materialAtrapadoEntreCortinas"]);
+        $stmt->bindParam(":materialAtrapadoEntreGuardabandas", $emp["materialAtrapadoEntreGuardabandas"]);
+        $stmt->bindParam(":materialAtrapadoEnBanda", $emp["materialAtrapadoEnBanda"]);
+        $stmt->bindParam(":integridadSoportesCamaImpacto", $emp["integridadSoportesCamaImpacto"]);
+        $stmt->bindParam(":inclinacionZonaCargue", $emp["inclinacionZonaCargue"]);
+        $stmt->bindParam(":sistemaAlineacionCarga", $emp["sistemaAlineacionCarga"]);
+        $stmt->bindParam(":cantidadSistemaAlineacionEnCarga", $emp["cantidadSistemaAlineacionEnCarga"]); 
+        $stmt->bindParam(":sistemasAlineacionCargaFuncionando", $emp["sistemasAlineacionCargaFuncionando"]);
+        $stmt->bindParam(":sistemaAlineacionEnRetorno", $emp["sistemaAlineacionEnRetorno"]);
+        $stmt->bindParam(":cantidadSistemaAlineacionEnRetorno", $emp["cantidadSistemaAlineacionEnRetorno"]);
+        $stmt->bindParam(":sistemasAlineacionRetornoFuncionando", $emp["sistemasAlineacionRetornoFuncionando"]);
+        $stmt->bindParam(":sistemaAlineacionRetornoPlano", $emp["sistemaAlineacionRetornoPlano"]);
+        $stmt->bindParam(":sistemaAlineacionArtesaCarga", $emp["sistemaAlineacionArtesaCarga"]); 
+        $stmt->bindParam(":sistemaAlineacionRetornoEnV", $emp["sistemaAlineacionRetornoEnV"]);
+        $stmt->bindParam(":largoEjeRodilloCentralCarga", $emp["largoEjeRodilloCentralCarga"]);
+        $stmt->bindParam(":diametroEjeRodilloCentralCarga", $emp["diametroEjeRodilloCentralCarga"]);
+        $stmt->bindParam(":largoTuboRodilloCentralCarga", $emp["largoTuboRodilloCentralCarga"]);
+        $stmt->bindParam(":largoEjeRodilloLateralCarga", $emp["largoEjeRodilloLateralCarga"]);
+        $stmt->bindParam(":diametroEjeRodilloLateralCarga", $emp["diametroEjeRodilloLateralCarga"]);
+        $stmt->bindParam(":diametroRodilloLateralCarga", $emp["diametroRodilloLateralCarga"]); 
+        $stmt->bindParam(":largoTuboRodilloLateralCarga", $emp["largoTuboRodilloLateralCarga"]);
+        $stmt->bindParam(":tipoRodilloCarga", $emp["tipoRodilloCarga"]);
+        $stmt->bindParam(":distanciaEntreArtesasCarga", $emp["distanciaEntreArtesasCarga"]);
+        $stmt->bindParam(":anchoInternoChasisRodilloCarga", $emp["anchoInternoChasisRodilloCarga"]);
+        $stmt->bindParam(":anchoExternoChasisRodilloCarga", $emp["anchoExternoChasisRodilloCarga"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesaCArga", $emp["anguloAcanalamientoArtesaCArga"]);
+        $stmt->bindParam(":detalleRodilloCentralCarga", $emp["detalleRodilloCentralCarga"]); 
+        $stmt->bindParam(":detalleRodilloLateralCarg", $emp["detalleRodilloLateralCarg"]);
+        $stmt->bindParam(":diametroPoleaMotrizTransportadora", $emp["diametroPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":anchoPoleaMotrizTransportadora", $emp["anchoPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":tipoPoleaMotrizTransportadora", $emp["tipoPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":largoEjePoleaMotrizTransportadora", $emp["largoEjePoleaMotrizTransportadora"]);
+        $stmt->bindParam(":diametroEjeMotrizTransportadora", $emp["diametroEjeMotrizTransportadora"]); 
+        $stmt->bindParam(":icobandasCentraEnPoleaMotrizTransportadora", $emp["icobandasCentraEnPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":anguloAmarrePoleaMotrizTransportadora", $emp["anguloAmarrePoleaMotrizTransportadora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaMotrizTransportadora", $emp["estadoRevestimientoPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":tipoTransicionPoleaMotrizTransportadora", $emp["tipoTransicionPoleaMotrizTransportadora"]); 
+        $stmt->bindParam(":distanciaTransicionPoleaMotrizTransportadora", $emp["distanciaTransicionPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":potenciaMotorTransportadora", $emp["potenciaMotorTransportadora"]);
+        $stmt->bindParam(":guardaPoleaMotrizTransportadora", $emp["guardaPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":anchoEstructura", $emp["anchoEstructura"]);
+        $stmt->bindParam(":anchoTrayectoCarga", $emp["anchoTrayectoCarga"]);
+        $stmt->bindParam(":pasarelaRespectoAvanceBanda", $emp["pasarelaRespectoAvanceBanda"]);
+        $stmt->bindParam(":materialAlimenticioTransportadora", $emp["materialAlimenticioTransportadora"]); 
+        $stmt->bindParam(":materialAcidoTransportadora", $emp["materialAcidoTransportadora"]);
+        $stmt->bindParam(":materialTempEntre80y150Transportadora", $emp["materialTempEntre80y150Transportadora"]);
+        $stmt->bindParam(":materialSecoTransportadora", $emp["materialSecoTransportadora"]);
+        $stmt->bindParam(":materialHumedoTransportadora", $emp["materialHumedoTransportadora"]);
+        $stmt->bindParam(":materialAbrasivoFinoTransportadora", $emp["materialAbrasivoFinoTransportadora"]);
+        $stmt->bindParam(":materialPegajosoTransportadora", $emp["materialPegajosoTransportadora"]); 
+        $stmt->bindParam(":materialGrasosoAceitosoTransportadora", $emp["materialGrasosoAceitosoTransportadora"]);
+        $stmt->bindParam(":marcaLimpiadorPrimario", $emp["marcaLimpiadorPrimario"]);
+        $stmt->bindParam(":referenciaLimpiadorPrimario", $emp["referenciaLimpiadorPrimario"]);
+        $stmt->bindParam(":anchoCuchillaLimpiadorPrimario", $emp["anchoCuchillaLimpiadorPrimario"]);
+        $stmt->bindParam(":altoCuchillaLimpiadorPrimario", $emp["altoCuchillaLimpiadorPrimario"]);
+        $stmt->bindParam(":estadoCuchillaLimpiadorPrimario", $emp["estadoCuchillaLimpiadorPrimario"]); 
+        $stmt->bindParam(":estadoTensorLimpiadorPrimario", $emp["estadoTensorLimpiadorPrimario"]);
+        $stmt->bindParam(":estadoTuboLimpiadorPrimario", $emp["estadoTuboLimpiadorPrimario"]);
+        $stmt->bindParam(":frecuenciaRevisionCuchilla", $emp["frecuenciaRevisionCuchilla"]);
+        $stmt->bindParam(":cuchillaEnContactoConBanda", $emp["cuchillaEnContactoConBanda"]);
+        $stmt->bindParam(":marcaLimpiadorSecundario", $emp["marcaLimpiadorSecundario"]);
+        $stmt->bindParam(":referenciaLimpiadorSecundario", $emp["referenciaLimpiadorSecundario"]);
+        $stmt->bindParam(":anchoCuchillaLimpiadorSecundario", $emp["anchoCuchillaLimpiadorSecundario"]); 
+        $stmt->bindParam(":altoCuchillaLimpiadorSecundario", $emp["altoCuchillaLimpiadorSecundario"]);
+        $stmt->bindParam(":estadoCuchillaLimpiadorSecundario", $emp["estadoCuchillaLimpiadorSecundario"]);
+        $stmt->bindParam(":estadoTensorLimpiadorSecundario", $emp["estadoTensorLimpiadorSecundario"]);
+        $stmt->bindParam(":estadoTuboLimpiadorSecundario", $emp["estadoTuboLimpiadorSecundario"]);
+        $stmt->bindParam(":frecuenciaRevisionCuchilla1", $emp["frecuenciaRevisionCuchilla1"]);
+        $stmt->bindParam(":cuchillaEnContactoConBanda1", $emp["cuchillaEnContactoConBanda1"]);
+        $stmt->bindParam(":sistemaDribbleChute", $emp["sistemaDribbleChute"]); 
+        $stmt->bindParam(":marcaLimpiadorTerciario", $emp["marcaLimpiadorTerciario"]);
+        $stmt->bindParam(":referenciaLimpiadorTerciario", $emp["referenciaLimpiadorTerciario"]);
+        $stmt->bindParam(":anchoCuchillaLimpiadorTerciario", $emp["anchoCuchillaLimpiadorTerciario"]);
+        $stmt->bindParam(":altoCuchillaLimpiadorTerciario", $emp["altoCuchillaLimpiadorTerciario"]);
+        $stmt->bindParam(":estadoCuchillaLimpiadorTerciario", $emp["estadoCuchillaLimpiadorTerciario"]);
+        $stmt->bindParam(":estadoTensorLimpiadorTerciario", $emp["estadoTensorLimpiadorTerciario"]);
+        $stmt->bindParam(":estadoTuboLimpiadorTerciario", $emp["estadoTuboLimpiadorTerciario"]); 
+        $stmt->bindParam(":frecuenciaRevisionCuchilla2", $emp["frecuenciaRevisionCuchilla2"]);
+        $stmt->bindParam(":cuchillaEnContactoConBanda2", $emp["cuchillaEnContactoConBanda2"]);
+        $stmt->bindParam(":estadoRodilloRetorno", $emp["estadoRodilloRetorno"]);
+        $stmt->bindParam(":largoEjeRodilloRetorno", $emp["largoEjeRodilloRetorno"]);
+        $stmt->bindParam(":diametroEjeRodilloRetorno", $emp["diametroEjeRodilloRetorno"]);
+        $stmt->bindParam(":diametroRodilloRetorno", $emp["diametroRodilloRetorno"]);
+        $stmt->bindParam(":largoTuboRodilloRetorno", $emp["largoTuboRodilloRetorno"]);
+        $stmt->bindParam(":tipoRodilloRetorno", $emp["tipoRodilloRetorno"]); 
+        $stmt->bindParam(":distanciaEntreRodillosRetorno", $emp["distanciaEntreRodillosRetorno"]);
+        $stmt->bindParam(":anchoInternoChasisRetorno", $emp["anchoInternoChasisRetorno"]);
+        $stmt->bindParam(":anchoExternoChasisRetorno", $emp["anchoExternoChasisRetorno"]);
+        $stmt->bindParam(":detalleRodilloRetorno", $emp["detalleRodilloRetorno"]);
+        $stmt->bindParam(":diametroPoleaAmarrePoleaMotriz", $emp["diametroPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":anchoPoleaAmarrePoleaMotriz", $emp["anchoPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":tipoPoleaAmarrePoleaMotriz", $emp["tipoPoleaAmarrePoleaMotriz"]); 
+        $stmt->bindParam(":largoEjePoleaAmarrePoleaMotriz", $emp["largoEjePoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":diametroEjePoleaAmarrePoleaMotriz", $emp["diametroEjePoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":icobandasCentradaPoleaAmarrePoleaMotriz", $emp["icobandasCentradaPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaAmarrePoleaMotriz", $emp["estadoRevestimientoPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":dimetroPoleaAmarrePoleaCola", $emp["dimetroPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":anchoPoleaAmarrePoleaCola", $emp["anchoPoleaAmarrePoleaCola"]); 
+        $stmt->bindParam(":largoEjePoleaAmarrePoleaCola", $emp["largoEjePoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":tipoPoleaAmarrePoleaCola", $emp["tipoPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":diametroEjePoleaAmarrePoleaCola", $emp["diametroEjePoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":icobandasCentradaPoleaAmarrePoleaCola", $emp["icobandasCentradaPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaAmarrePoleaCola", $emp["estadoRevestimientoPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":diametroPoleaTensora", $emp["diametroPoleaTensora"]); 
+        $stmt->bindParam(":anchoPoleaTensora", $emp["anchoPoleaTensora"]);
+        $stmt->bindParam(":tipoPoleaTensora", $emp["tipoPoleaTensora"]);
+        $stmt->bindParam(":largoEjePoleaTensora", $emp["largoEjePoleaTensora"]);
+        $stmt->bindParam(":diametroEjePoleaTensora", $emp["diametroEjePoleaTensora"]);
+        $stmt->bindParam(":icobandasCentradaEnPoleaTensora", $emp["icobandasCentradaEnPoleaTensora"]);
+        $stmt->bindParam(":recorridoPoleaTensora", $emp["recorridoPoleaTensora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaTensora", $emp["estadoRevestimientoPoleaTensora"]);
+        $stmt->bindParam(":tipoTransicionPoleaTensora", $emp["tipoTransicionPoleaTensora"]); 
+        $stmt->bindParam(":distanciaTransicionPoleaColaTensora", $emp["distanciaTransicionPoleaColaTensora"]);
+        $stmt->bindParam(":potenciaMotorPoleaTensora", $emp["potenciaMotorPoleaTensora"]);
+        $stmt->bindParam(":guardaPoleaTensora", $emp["guardaPoleaTensora"]);
+        $stmt->bindParam(":puertasInspeccion", $emp["puertasInspeccion"]);
+        $stmt->bindParam(":guardaRodilloRetornoPlano", $emp["guardaRodilloRetornoPlano"]);
+        $stmt->bindParam(":guardaTruTrainer", $emp["guardaTruTrainer"]);
+        $stmt->bindParam(":guardaPoleaDeflectora", $emp["guardaPoleaDeflectora"]);
+        $stmt->bindParam(":guardaZonaDeTransito", $emp["guardaZonaDeTransito"]);
+        $stmt->bindParam(":guardaMotores", $emp["guardaMotores"]); 
+        $stmt->bindParam(":guardaCadenas", $emp["guardaCadenas"]);
+        $stmt->bindParam(":guardaCorreas", $emp["guardaCorreas"]);
+        $stmt->bindParam(":interruptoresDeSeguridad", $emp["interruptoresDeSeguridad"]);
+        $stmt->bindParam(":sirenasDeSeguridad", $emp["sirenasDeSeguridad"]);
+        $stmt->bindParam(":guardaRodilloRetornoV", $emp["guardaRodilloRetornoV"]);
+        $stmt->bindParam(":diametroRodilloCentralCarga", $emp["diametroRodilloCentralCarga"]);
+        $stmt->bindParam(":tipoRodilloImpacto", $emp["tipoRodilloImpacto"]);
+        $stmt->bindParam(":integridadSoporteCamaSellado", $emp["integridadSoporteCamaSellado"]);
+        $stmt->bindParam(":ataqueAbrasivoTransportadora", $emp["ataqueAbrasivoTransportadora"]); 
+        $stmt->bindParam(":observacionRegistroTransportadora", $emp["observacionRegistroTransportadora"]);
+        
+        // print_r($sql);
+
+        if($stmt->execute())
+        {
+          return "ok";
+        }
+        else
+        {
+          return "error";
+
+        }
+
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+
+function actualizarHorizontal($request)
+{
+    $emp = $request->getParams();
+    foreach ($emp as $key => $value) {
+        if (empty($emp[$key])) {
+            $emp[$key] = null;
+        }
+    };
+
+    // print_r($emp);
+
+    $sql = "UPDATE bandaTransportadora set marcaBandaTransportadora=:marcaBandaTransportadora, anchoBandaTransportadora=:anchoBandaTransportadora, noLonasBandaTransportadora=:noLonasBandaTransportadora, tipoLonaBandaTransportadora=:tipoLonaBandaTransportadora, espesorTotalBandaTransportadora=:espesorTotalBandaTransportadora, espesorCubiertaSuperiorTransportadora=:espesorCubiertaSuperiorTransportadora, 
+                         espesorCojinTransportadora=:espesorCojinTransportadora, espesorCubiertaInferiorTransportadora=:espesorCubiertaInferiorTransportadora, tipoCubiertaTransportadora=:tipoCubiertaTransportadora, tipoEmpalmeTransportadora=:tipoEmpalmeTransportadora, estadoEmpalmeTransportadora=:estadoEmpalmeTransportadora, distanciaEntrePoleasBandaHorizontal=:distanciaEntrePoleasBandaHorizontal, 
+                         inclinacionBandaHorizontal=:inclinacionBandaHorizontal, recorridoUtilTensorBandaHorizontal=:recorridoUtilTensorBandaHorizontal, longitudSinfinBandaHorizontal=:longitudSinfinBandaHorizontal, resistenciaRoturaLonaTransportadora=:resistenciaRoturaLonaTransportadora, localizacionTensorTransportadora=:localizacionTensorTransportadora, bandaReversible=:bandaReversible, bandaDeArrastre=:bandaDeArrastre, 
+                         velocidadBandaHorizontal=:velocidadBandaHorizontal, marcaBandaHorizontalAnterior=:marcaBandaHorizontalAnterior, anchoBandaHorizontalAnterior=:anchoBandaHorizontalAnterior, noLonasBandaHorizontalAnterior=:noLonasBandaHorizontalAnterior, tipoLonaBandaHorizontalAnterior=:tipoLonaBandaHorizontalAnterior, espesorTotalBandaHorizontalAnterior=:espesorTotalBandaHorizontalAnterior, 
+                         espesorCubiertaSuperiorBandaHorizontalAnterior=:espesorCubiertaSuperiorBandaHorizontalAnterior, espesorCubiertaInferiorBandaHorizontalAnterior=:espesorCubiertaInferiorBandaHorizontalAnterior, espesorCojinBandaHorizontalAnterior=:espesorCojinBandaHorizontalAnterior, tipoEmpalmeBandaHorizontalAnterior=:tipoEmpalmeBandaHorizontalAnterior, resistenciaRoturaLonaBandaHorizontalAnterior=:resistenciaRoturaLonaBandaHorizontalAnterior, 
+                         tipoCubiertaBandaHorizontalAnterior=:tipoCubiertaBandaHorizontalAnterior, tonsTransportadasBandaHoizontalAnterior=:tonsTransportadasBandaHoizontalAnterior, causaFallaCambioBandaHorizontal=:causaFallaCambioBandaHorizontal, diametroPoleaColaTransportadora=:diametroPoleaColaTransportadora, anchoPoleaColaTransportadora=:anchoPoleaColaTransportadora, tipoPoleaColaTransportadora=:tipoPoleaColaTransportadora, 
+                         largoEjePoleaColaTransportadora=:largoEjePoleaColaTransportadora, diametroEjePoleaColaHorizontal=:diametroEjePoleaColaHorizontal, icobandasCentradaPoleaColaTransportadora=:icobandasCentradaPoleaColaTransportadora, anguloAmarrePoleaColaTransportadora=:anguloAmarrePoleaColaTransportadora, estadoRvtoPoleaColaTransportadora=:estadoRvtoPoleaColaTransportadora, 
+                         tipoTransicionPoleaColaTransportadora=:tipoTransicionPoleaColaTransportadora, distanciaTransicionPoleaColaTransportadora=:distanciaTransicionPoleaColaTransportadora, longitudTensorTornilloPoleaColaTransportadora=:longitudTensorTornilloPoleaColaTransportadora, longitudRecorridoContrapesaPoleaColaTransportadora=:longitudRecorridoContrapesaPoleaColaTransportadora, guardaPoleaColaTransportadora=:guardaPoleaColaTransportadora, 
+                         hayDesviador=:hayDesviador, elDesviadorBascula=:elDesviadorBascula, presionUniformeALoAnchoDeLaBanda=:presionUniformeALoAnchoDeLaBanda, cauchoVPlow=:cauchoVPlow, anchoVPlow=:anchoVPlow, espesorVPlow=:espesorVPlow, tipoRevestimientoTolvaCarga=:tipoRevestimientoTolvaCarga, estadoRevestimientoTolvaCarga=:estadoRevestimientoTolvaCarga, duracionPromedioRevestimiento=:duracionPromedioRevestimiento, 
+                         deflectores=:deflectores, altureCaida=:altureCaida, longitudImpacto=:longitudImpacto, material=:material, anguloSobreCarga=:anguloSobreCarga, ataqueQuimicoTransportadora=:ataqueQuimicoTransportadora, ataqueTemperaturaTransportadora=:ataqueTemperaturaTransportadora, ataqueAceiteTransportadora=:ataqueAceiteTransportadora, ataqueImpactoTransportadora=:ataqueImpactoTransportadora, capacidadTransportadora=:capacidadTransportadora, 
+                         horasTrabajoPorDiaTransportadora=:horasTrabajoPorDiaTransportadora, diasTrabajPorSemanaTransportadora=:diasTrabajPorSemanaTransportadora, alimentacionCentradaTransportadora=:alimentacionCentradaTransportadora, abrasividadTransportadora=:abrasividadTransportadora, porcentajeFinosTransportadora=:porcentajeFinosTransportadora, maxGranulometriaTransportadora=:maxGranulometriaTransportadora, 
+                         maxPesoTransportadora=:maxPesoTransportadora, densidadTransportadora=:densidadTransportadora, tempMaximaMaterialSobreBandaTransportadora=:tempMaximaMaterialSobreBandaTransportadora, tempPromedioMaterialSobreBandaTransportadora=:tempPromedioMaterialSobreBandaTransportadora, fugaDeMaterialesEnLaColaDelChute=:fugaDeMaterialesEnLaColaDelChute, fugaDeMaterialesPorLosCostados=:fugaDeMaterialesPorLosCostados, 
+                         fugaMateriales=:fugaMateriales, cajaColaDeTolva=:cajaColaDeTolva, fugaDeMaterialParticulaALaSalidaDelChute=:fugaDeMaterialParticulaALaSalidaDelChute, anchoChute=:anchoChute, largoChute=:largoChute, alturaChute=:alturaChute, abrazadera=:abrazadera, cauchoGuardabandas=:cauchoGuardabandas, triSealMultiSeal=:triSealMultiSeal, espesorGuardaBandas=:espesorGuardaBandas, anchoGuardaBandas=:anchoGuardaBandas, 
+                         largoGuardaBandas=:largoGuardaBandas, protectorGuardaBandas=:protectorGuardaBandas, cortinaAntiPolvo1=:cortinaAntiPolvo1, cortinaAntiPolvo2=:cortinaAntiPolvo2, cortinaAntiPolvo3=:cortinaAntiPolvo3, boquillasCanonesDeAire=:boquillasCanonesDeAire, tempAmbienteMaxTransportadora=:tempAmbienteMaxTransportadora, tempAmbienteMinTransportadora=:tempAmbienteMinTransportadora, tieneRodillosImpacto=:tieneRodillosImpacto, 
+                         camaImpacto=:camaImpacto, camaSellado=:camaSellado, basculaPesaje=:basculaPesaje, rodilloCarga=:rodilloCarga, rodilloImpacto=:rodilloImpacto, basculaASGCO=:basculaASGCO, barraImpacto=:barraImpacto, barraDeslizamiento=:barraDeslizamiento, espesorUHMV=:espesorUHMV, anchoBarra=:anchoBarra, largoBarra=:largoBarra, anguloAcanalamientoArtesa1=:anguloAcanalamientoArtesa1, anguloAcanalamientoArtesa2=:anguloAcanalamientoArtesa2, 
+                         anguloAcanalamientoArtesa3=:anguloAcanalamientoArtesa3, anguloAcanalamientoArtesa1AntesPoleaMotriz=:anguloAcanalamientoArtesa1AntesPoleaMotriz, anguloAcanalamientoArtesa2AntesPoleaMotriz=:anguloAcanalamientoArtesa2AntesPoleaMotriz, anguloAcanalamientoArtesa3AntesPoleaMotriz=:anguloAcanalamientoArtesa3AntesPoleaMotriz, integridadSoportesRodilloImpacto=:integridadSoportesRodilloImpacto, 
+                         materialAtrapadoEntreCortinas=:materialAtrapadoEntreCortinas, materialAtrapadoEntreGuardabandas=:materialAtrapadoEntreGuardabandas, materialAtrapadoEnBanda=:materialAtrapadoEnBanda, integridadSoportesCamaImpacto=:integridadSoportesCamaImpacto, inclinacionZonaCargue=:inclinacionZonaCargue, sistemaAlineacionCarga=:sistemaAlineacionCarga, cantidadSistemaAlineacionEnCarga=:cantidadSistemaAlineacionEnCarga, 
+                         sistemasAlineacionCargaFuncionando=:sistemasAlineacionCargaFuncionando, sistemaAlineacionEnRetorno=:sistemaAlineacionEnRetorno, cantidadSistemaAlineacionEnRetorno=:cantidadSistemaAlineacionEnRetorno, sistemasAlineacionRetornoFuncionando=:sistemasAlineacionRetornoFuncionando, sistemaAlineacionRetornoPlano=:sistemaAlineacionRetornoPlano, sistemaAlineacionArtesaCarga=:sistemaAlineacionArtesaCarga, 
+                         sistemaAlineacionRetornoEnV=:sistemaAlineacionRetornoEnV, largoEjeRodilloCentralCarga=:largoEjeRodilloCentralCarga, diametroEjeRodilloCentralCarga=:diametroEjeRodilloCentralCarga, largoTuboRodilloCentralCarga=:largoTuboRodilloCentralCarga, largoEjeRodilloLateralCarga=:largoEjeRodilloLateralCarga, diametroEjeRodilloLateralCarga=:diametroEjeRodilloLateralCarga, diametroRodilloLateralCarga=:diametroRodilloLateralCarga, 
+                         largoTuboRodilloLateralCarga=:largoTuboRodilloLateralCarga, tipoRodilloCarga=:tipoRodilloCarga, distanciaEntreArtesasCarga=:distanciaEntreArtesasCarga, anchoInternoChasisRodilloCarga=:anchoInternoChasisRodilloCarga, anchoExternoChasisRodilloCarga=:anchoExternoChasisRodilloCarga, anguloAcanalamientoArtesaCArga=:anguloAcanalamientoArtesaCArga, detalleRodilloCentralCarga=:detalleRodilloCentralCarga, 
+                         detalleRodilloLateralCarg=:detalleRodilloLateralCarg, diametroPoleaMotrizTransportadora=:diametroPoleaMotrizTransportadora, anchoPoleaMotrizTransportadora=:anchoPoleaMotrizTransportadora, tipoPoleaMotrizTransportadora=:tipoPoleaMotrizTransportadora, largoEjePoleaMotrizTransportadora=:largoEjePoleaMotrizTransportadora, diametroEjeMotrizTransportadora=:diametroEjeMotrizTransportadora, 
+                         icobandasCentraEnPoleaMotrizTransportadora=:icobandasCentraEnPoleaMotrizTransportadora, anguloAmarrePoleaMotrizTransportadora=:anguloAmarrePoleaMotrizTransportadora, estadoRevestimientoPoleaMotrizTransportadora=:estadoRevestimientoPoleaMotrizTransportadora, tipoTransicionPoleaMotrizTransportadora=:tipoTransicionPoleaMotrizTransportadora, 
+                         distanciaTransicionPoleaMotrizTransportadora=:distanciaTransicionPoleaMotrizTransportadora, potenciaMotorTransportadora=:potenciaMotorTransportadora, guardaPoleaMotrizTransportadora=:guardaPoleaMotrizTransportadora, anchoEstructura=:anchoEstructura, anchoTrayectoCarga=:anchoTrayectoCarga, pasarelaRespectoAvanceBanda=:pasarelaRespectoAvanceBanda, materialAlimenticioTransportadora=:materialAlimenticioTransportadora, 
+                         materialAcidoTransportadora=:materialAcidoTransportadora, materialTempEntre80y150Transportadora=:materialTempEntre80y150Transportadora, materialSecoTransportadora=:materialSecoTransportadora, materialHumedoTransportadora=:materialHumedoTransportadora, materialAbrasivoFinoTransportadora=:materialAbrasivoFinoTransportadora, materialPegajosoTransportadora=:materialPegajosoTransportadora, 
+                         materialGrasosoAceitosoTransportadora=:materialGrasosoAceitosoTransportadora, marcaLimpiadorPrimario=:marcaLimpiadorPrimario, referenciaLimpiadorPrimario=:referenciaLimpiadorPrimario, anchoCuchillaLimpiadorPrimario=:anchoCuchillaLimpiadorPrimario, altoCuchillaLimpiadorPrimario=:altoCuchillaLimpiadorPrimario, estadoCuchillaLimpiadorPrimario=:estadoCuchillaLimpiadorPrimario, 
+                         estadoTensorLimpiadorPrimario=:estadoTensorLimpiadorPrimario, estadoTuboLimpiadorPrimario=:estadoTuboLimpiadorPrimario, frecuenciaRevisionCuchilla=:frecuenciaRevisionCuchilla, cuchillaEnContactoConBanda=:cuchillaEnContactoConBanda, marcaLimpiadorSecundario=:marcaLimpiadorSecundario, referenciaLimpiadorSecundario=:referenciaLimpiadorSecundario, anchoCuchillaLimpiadorSecundario=:anchoCuchillaLimpiadorSecundario, 
+                         altoCuchillaLimpiadorSecundario=:altoCuchillaLimpiadorSecundario, estadoCuchillaLimpiadorSecundario=:estadoCuchillaLimpiadorSecundario, estadoTensorLimpiadorSecundario=:estadoTensorLimpiadorSecundario, estadoTuboLimpiadorSecundario=:estadoTuboLimpiadorSecundario, frecuenciaRevisionCuchilla1=:frecuenciaRevisionCuchilla1, cuchillaEnContactoConBanda1=:cuchillaEnContactoConBanda1, sistemaDribbleChute=:sistemaDribbleChute, 
+                         marcaLimpiadorTerciario=:marcaLimpiadorTerciario, referenciaLimpiadorTerciario=:referenciaLimpiadorTerciario, anchoCuchillaLimpiadorTerciario=:anchoCuchillaLimpiadorTerciario, altoCuchillaLimpiadorTerciario=:altoCuchillaLimpiadorTerciario, estadoCuchillaLimpiadorTerciario=:estadoCuchillaLimpiadorTerciario, estadoTensorLimpiadorTerciario=:estadoTensorLimpiadorTerciario, estadoTuboLimpiadorTerciario=:estadoTuboLimpiadorTerciario, 
+                         frecuenciaRevisionCuchilla2=:frecuenciaRevisionCuchilla2, cuchillaEnContactoConBanda2=:cuchillaEnContactoConBanda2, estadoRodilloRetorno=:estadoRodilloRetorno, largoEjeRodilloRetorno=:largoEjeRodilloRetorno, diametroEjeRodilloRetorno=:diametroEjeRodilloRetorno, diametroRodilloRetorno=:diametroRodilloRetorno, largoTuboRodilloRetorno=:largoTuboRodilloRetorno, tipoRodilloRetorno=:tipoRodilloRetorno, 
+                         distanciaEntreRodillosRetorno=:distanciaEntreRodillosRetorno, anchoInternoChasisRetorno=:anchoInternoChasisRetorno, anchoExternoChasisRetorno=:anchoExternoChasisRetorno, detalleRodilloRetorno=:detalleRodilloRetorno, diametroPoleaAmarrePoleaMotriz=:diametroPoleaAmarrePoleaMotriz, anchoPoleaAmarrePoleaMotriz=:anchoPoleaAmarrePoleaMotriz, tipoPoleaAmarrePoleaMotriz=:tipoPoleaAmarrePoleaMotriz, 
+                         largoEjePoleaAmarrePoleaMotriz=:largoEjePoleaAmarrePoleaMotriz, diametroEjePoleaAmarrePoleaMotriz=:diametroEjePoleaAmarrePoleaMotriz, icobandasCentradaPoleaAmarrePoleaMotriz=:icobandasCentradaPoleaAmarrePoleaMotriz, estadoRevestimientoPoleaAmarrePoleaMotriz=:estadoRevestimientoPoleaAmarrePoleaMotriz, dimetroPoleaAmarrePoleaCola=:dimetroPoleaAmarrePoleaCola, anchoPoleaAmarrePoleaCola=:anchoPoleaAmarrePoleaCola, 
+                         largoEjePoleaAmarrePoleaCola=:largoEjePoleaAmarrePoleaCola, tipoPoleaAmarrePoleaCola=:tipoPoleaAmarrePoleaCola, diametroEjePoleaAmarrePoleaCola=:diametroEjePoleaAmarrePoleaCola, icobandasCentradaPoleaAmarrePoleaCola=:icobandasCentradaPoleaAmarrePoleaCola, estadoRevestimientoPoleaAmarrePoleaCola=:estadoRevestimientoPoleaAmarrePoleaCola, diametroPoleaTensora=:diametroPoleaTensora, 
+                         anchoPoleaTensora=:anchoPoleaTensora, tipoPoleaTensora=:tipoPoleaTensora, largoEjePoleaTensora=:largoEjePoleaTensora, diametroEjePoleaTensora=:diametroEjePoleaTensora, icobandasCentradaEnPoleaTensora=:icobandasCentradaEnPoleaTensora, recorridoPoleaTensora=:recorridoPoleaTensora, estadoRevestimientoPoleaTensora=:estadoRevestimientoPoleaTensora, tipoTransicionPoleaTensora=:tipoTransicionPoleaTensora, 
+                         distanciaTransicionPoleaColaTensora=:distanciaTransicionPoleaColaTensora, potenciaMotorPoleaTensora=:potenciaMotorPoleaTensora, guardaPoleaTensora=:guardaPoleaTensora, puertasInspeccion=:puertasInspeccion, guardaRodilloRetornoPlano=:guardaRodilloRetornoPlano, guardaTruTrainer=:guardaTruTrainer, guardaPoleaDeflectora=:guardaPoleaDeflectora, guardaZonaDeTransito=:guardaZonaDeTransito, guardaMotores=:guardaMotores, 
+                         guardaCadenas=:guardaCadenas, guardaCorreas=:guardaCorreas, interruptoresDeSeguridad=:interruptoresDeSeguridad, sirenasDeSeguridad=:sirenasDeSeguridad, guardaRodilloRetornoV=:guardaRodilloRetornoV, diametroRodilloCentralCarga=:diametroRodilloCentralCarga, tipoRodilloImpacto=:tipoRodilloImpacto, integridadSoporteCamaSellado=:integridadSoporteCamaSellado, ataqueAbrasivoTransportadora=:ataqueAbrasivoTransportadora, 
+                         observacionRegistroTransportadora=:observacionRegistroTransportadora where idRegistro=:idRegistro";
+    try {
+        $db   = getConnection();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(":idRegistro", $emp["idRegistro"]);
+        $stmt->bindParam(":marcaBandaTransportadora", $emp["marcaBandaTransportadora"]);
+        $stmt->bindParam(":anchoBandaTransportadora", $emp["anchoBandaTransportadora"]);
+        $stmt->bindParam(":noLonasBandaTransportadora", $emp["noLonasBandaTransportadora"]);
+        $stmt->bindParam(":tipoLonaBandaTransportadora", $emp["tipoLonaBandaTransportadora"]);
+        $stmt->bindParam(":espesorTotalBandaTransportadora", $emp["espesorTotalBandaTransportadora"]);
+        $stmt->bindParam(":espesorCubiertaSuperiorTransportadora", $emp["espesorCubiertaSuperiorTransportadora"]); 
+        $stmt->bindParam(":espesorCojinTransportadora", $emp["espesorCojinTransportadora"]);
+        $stmt->bindParam(":espesorCubiertaInferiorTransportadora", $emp["espesorCubiertaInferiorTransportadora"]);
+        $stmt->bindParam(":tipoCubiertaTransportadora", $emp["tipoCubiertaTransportadora"]);
+        $stmt->bindParam(":tipoEmpalmeTransportadora", $emp["tipoEmpalmeTransportadora"]);
+        $stmt->bindParam(":estadoEmpalmeTransportadora", $emp["estadoEmpalmeTransportadora"]);
+        $stmt->bindParam(":distanciaEntrePoleasBandaHorizontal", $emp["distanciaEntrePoleasBandaHorizontal"]); 
+        $stmt->bindParam(":inclinacionBandaHorizontal", $emp["inclinacionBandaHorizontal"]);
+        $stmt->bindParam(":recorridoUtilTensorBandaHorizontal", $emp["recorridoUtilTensorBandaHorizontal"]);
+        $stmt->bindParam(":longitudSinfinBandaHorizontal", $emp["longitudSinfinBandaHorizontal"]);
+        $stmt->bindParam(":resistenciaRoturaLonaTransportadora", $emp["resistenciaRoturaLonaTransportadora"]);
+        $stmt->bindParam(":localizacionTensorTransportadora", $emp["localizacionTensorTransportadora"]);
+        $stmt->bindParam(":bandaReversible", $emp["bandaReversible"]);
+        $stmt->bindParam(":bandaDeArrastre", $emp["bandaDeArrastre"]); 
+        $stmt->bindParam(":velocidadBandaHorizontal", $emp["velocidadBandaHorizontal"]);
+        $stmt->bindParam(":marcaBandaHorizontalAnterior", $emp["marcaBandaHorizontalAnterior"]);
+        $stmt->bindParam(":anchoBandaHorizontalAnterior", $emp["anchoBandaHorizontalAnterior"]);
+        $stmt->bindParam(":noLonasBandaHorizontalAnterior", $emp["noLonasBandaHorizontalAnterior"]);
+        $stmt->bindParam(":tipoLonaBandaHorizontalAnterior", $emp["tipoLonaBandaHorizontalAnterior"]);
+        $stmt->bindParam(":espesorTotalBandaHorizontalAnterior", $emp["espesorTotalBandaHorizontalAnterior"]); 
+        $stmt->bindParam(":espesorCubiertaSuperiorBandaHorizontalAnterior", $emp["espesorCubiertaSuperiorBandaHorizontalAnterior"]);
+        $stmt->bindParam(":espesorCubiertaInferiorBandaHorizontalAnterior", $emp["espesorCubiertaInferiorBandaHorizontalAnterior"]);
+        $stmt->bindParam(":espesorCojinBandaHorizontalAnterior", $emp["espesorCojinBandaHorizontalAnterior"]);
+        $stmt->bindParam(":tipoEmpalmeBandaHorizontalAnterior", $emp["tipoEmpalmeBandaHorizontalAnterior"]);
+        $stmt->bindParam(":resistenciaRoturaLonaBandaHorizontalAnterior", $emp["resistenciaRoturaLonaBandaHorizontalAnterior"]); 
+        $stmt->bindParam(":tipoCubiertaBandaHorizontalAnterior", $emp["tipoCubiertaBandaHorizontalAnterior"]);
+        $stmt->bindParam(":tonsTransportadasBandaHoizontalAnterior", $emp["tonsTransportadasBandaHoizontalAnterior"]);
+        $stmt->bindParam(":causaFallaCambioBandaHorizontal", $emp["causaFallaCambioBandaHorizontal"]);
+        $stmt->bindParam(":diametroPoleaColaTransportadora", $emp["diametroPoleaColaTransportadora"]);
+        $stmt->bindParam(":anchoPoleaColaTransportadora", $emp["anchoPoleaColaTransportadora"]);
+        $stmt->bindParam(":tipoPoleaColaTransportadora", $emp["tipoPoleaColaTransportadora"]); 
+        $stmt->bindParam(":largoEjePoleaColaTransportadora", $emp["largoEjePoleaColaTransportadora"]);
+        $stmt->bindParam(":diametroEjePoleaColaHorizontal", $emp["diametroEjePoleaColaHorizontal"]);
+        $stmt->bindParam(":icobandasCentradaPoleaColaTransportadora", $emp["icobandasCentradaPoleaColaTransportadora"]);
+        $stmt->bindParam(":anguloAmarrePoleaColaTransportadora", $emp["anguloAmarrePoleaColaTransportadora"]);
+        $stmt->bindParam(":estadoRvtoPoleaColaTransportadora", $emp["estadoRvtoPoleaColaTransportadora"]); 
+        $stmt->bindParam(":tipoTransicionPoleaColaTransportadora", $emp["tipoTransicionPoleaColaTransportadora"]);
+        $stmt->bindParam(":distanciaTransicionPoleaColaTransportadora", $emp["distanciaTransicionPoleaColaTransportadora"]);
+        $stmt->bindParam(":longitudTensorTornilloPoleaColaTransportadora", $emp["longitudTensorTornilloPoleaColaTransportadora"]);
+        $stmt->bindParam(":longitudRecorridoContrapesaPoleaColaTransportadora", $emp["longitudRecorridoContrapesaPoleaColaTransportadora"]);
+        $stmt->bindParam(":guardaPoleaColaTransportadora", $emp["guardaPoleaColaTransportadora"]); 
+        $stmt->bindParam(":hayDesviador", $emp["hayDesviador"]);
+        $stmt->bindParam(":elDesviadorBascula", $emp["elDesviadorBascula"]);
+        $stmt->bindParam(":presionUniformeALoAnchoDeLaBanda", $emp["presionUniformeALoAnchoDeLaBanda"]);
+        $stmt->bindParam(":cauchoVPlow", $emp["cauchoVPlow"]);
+        $stmt->bindParam(":anchoVPlow", $emp["anchoVPlow"]);
+        $stmt->bindParam(":espesorVPlow", $emp["espesorVPlow"]);
+        $stmt->bindParam(":tipoRevestimientoTolvaCarga", $emp["tipoRevestimientoTolvaCarga"]);
+        $stmt->bindParam(":estadoRevestimientoTolvaCarga", $emp["estadoRevestimientoTolvaCarga"]);
+        $stmt->bindParam(":duracionPromedioRevestimiento", $emp["duracionPromedioRevestimiento"]); 
+        $stmt->bindParam(":deflectores", $emp["deflectores"]);
+        $stmt->bindParam(":altureCaida", $emp["altureCaida"]);
+        $stmt->bindParam(":longitudImpacto", $emp["longitudImpacto"]);
+        $stmt->bindParam(":material", $emp["material"]);
+        $stmt->bindParam(":anguloSobreCarga", $emp["anguloSobreCarga"]);
+        $stmt->bindParam(":ataqueQuimicoTransportadora", $emp["ataqueQuimicoTransportadora"]);
+        $stmt->bindParam(":ataqueTemperaturaTransportadora", $emp["ataqueTemperaturaTransportadora"]);
+        $stmt->bindParam(":ataqueAceiteTransportadora", $emp["ataqueAceiteTransportadora"]);
+        $stmt->bindParam(":ataqueImpactoTransportadora", $emp["ataqueImpactoTransportadora"]);
+        $stmt->bindParam(":capacidadTransportadora", $emp["capacidadTransportadora"]); 
+        $stmt->bindParam(":horasTrabajoPorDiaTransportadora", $emp["horasTrabajoPorDiaTransportadora"]);
+        $stmt->bindParam(":diasTrabajPorSemanaTransportadora", $emp["diasTrabajPorSemanaTransportadora"]);
+        $stmt->bindParam(":alimentacionCentradaTransportadora", $emp["alimentacionCentradaTransportadora"]);
+        $stmt->bindParam(":abrasividadTransportadora", $emp["abrasividadTransportadora"]);
+        $stmt->bindParam(":porcentajeFinosTransportadora", $emp["porcentajeFinosTransportadora"]);
+        $stmt->bindParam(":maxGranulometriaTransportadora", $emp["maxGranulometriaTransportadora"]); 
+        $stmt->bindParam(":maxPesoTransportadora", $emp["maxPesoTransportadora"]);
+        $stmt->bindParam(":densidadTransportadora", $emp["densidadTransportadora"]);
+        $stmt->bindParam(":tempMaximaMaterialSobreBandaTransportadora", $emp["tempMaximaMaterialSobreBandaTransportadora"]);
+        $stmt->bindParam(":tempPromedioMaterialSobreBandaTransportadora", $emp["tempPromedioMaterialSobreBandaTransportadora"]);
+        $stmt->bindParam(":fugaDeMaterialesEnLaColaDelChute", $emp["fugaDeMaterialesEnLaColaDelChute"]);
+        $stmt->bindParam(":fugaDeMaterialesPorLosCostados", $emp["fugaDeMaterialesPorLosCostados"]); 
+        $stmt->bindParam(":fugaMateriales", $emp["fugaMateriales"]);
+        $stmt->bindParam(":cajaColaDeTolva", $emp["cajaColaDeTolva"]);
+        $stmt->bindParam(":fugaDeMaterialParticulaALaSalidaDelChute", $emp["fugaDeMaterialParticulaALaSalidaDelChute"]);
+        $stmt->bindParam(":anchoChute", $emp["anchoChute"]);
+        $stmt->bindParam(":largoChute", $emp["largoChute"]);
+        $stmt->bindParam(":alturaChute", $emp["alturaChute"]);
+        $stmt->bindParam(":abrazadera", $emp["abrazadera"]);
+        $stmt->bindParam(":cauchoGuardabandas", $emp["cauchoGuardabandas"]);
+        $stmt->bindParam(":triSealMultiSeal", $emp["triSealMultiSeal"]);
+        $stmt->bindParam(":espesorGuardaBandas", $emp["espesorGuardaBandas"]);
+        $stmt->bindParam(":anchoGuardaBandas", $emp["anchoGuardaBandas"]); 
+        $stmt->bindParam(":largoGuardaBandas", $emp["largoGuardaBandas"]);
+        $stmt->bindParam(":protectorGuardaBandas", $emp["protectorGuardaBandas"]);
+        $stmt->bindParam(":cortinaAntiPolvo1", $emp["cortinaAntiPolvo1"]);
+        $stmt->bindParam(":cortinaAntiPolvo2", $emp["cortinaAntiPolvo2"]);
+        $stmt->bindParam(":cortinaAntiPolvo3", $emp["cortinaAntiPolvo3"]);
+        $stmt->bindParam(":boquillasCanonesDeAire", $emp["boquillasCanonesDeAire"]);
+        $stmt->bindParam(":tempAmbienteMaxTransportadora", $emp["tempAmbienteMaxTransportadora"]);
+        $stmt->bindParam(":tempAmbienteMinTransportadora", $emp["tempAmbienteMinTransportadora"]);
+        $stmt->bindParam(":tieneRodillosImpacto", $emp["tieneRodillosImpacto"]); 
+        $stmt->bindParam(":camaImpacto", $emp["camaImpacto"]);
+        $stmt->bindParam(":camaSellado", $emp["camaSellado"]);
+        $stmt->bindParam(":basculaPesaje", $emp["basculaPesaje"]);
+        $stmt->bindParam(":rodilloCarga", $emp["rodilloCarga"]);
+        $stmt->bindParam(":rodilloImpacto", $emp["rodilloImpacto"]);
+        $stmt->bindParam(":basculaASGCO", $emp["basculaASGCO"]);
+        $stmt->bindParam(":barraImpacto", $emp["barraImpacto"]);
+        $stmt->bindParam(":barraDeslizamiento", $emp["barraDeslizamiento"]);
+        $stmt->bindParam(":espesorUHMV", $emp["espesorUHMV"]);
+        $stmt->bindParam(":anchoBarra", $emp["anchoBarra"]);
+        $stmt->bindParam(":largoBarra", $emp["largoBarra"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa1", $emp["anguloAcanalamientoArtesa1"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa2", $emp["anguloAcanalamientoArtesa2"]); 
+        $stmt->bindParam(":anguloAcanalamientoArtesa3", $emp["anguloAcanalamientoArtesa3"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa1AntesPoleaMotriz", $emp["anguloAcanalamientoArtesa1AntesPoleaMotriz"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa2AntesPoleaMotriz", $emp["anguloAcanalamientoArtesa2AntesPoleaMotriz"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesa3AntesPoleaMotriz", $emp["anguloAcanalamientoArtesa3AntesPoleaMotriz"]);
+        $stmt->bindParam(":integridadSoportesRodilloImpacto", $emp["integridadSoportesRodilloImpacto"]); 
+        $stmt->bindParam(":materialAtrapadoEntreCortinas", $emp["materialAtrapadoEntreCortinas"]);
+        $stmt->bindParam(":materialAtrapadoEntreGuardabandas", $emp["materialAtrapadoEntreGuardabandas"]);
+        $stmt->bindParam(":materialAtrapadoEnBanda", $emp["materialAtrapadoEnBanda"]);
+        $stmt->bindParam(":integridadSoportesCamaImpacto", $emp["integridadSoportesCamaImpacto"]);
+        $stmt->bindParam(":inclinacionZonaCargue", $emp["inclinacionZonaCargue"]);
+        $stmt->bindParam(":sistemaAlineacionCarga", $emp["sistemaAlineacionCarga"]);
+        $stmt->bindParam(":cantidadSistemaAlineacionEnCarga", $emp["cantidadSistemaAlineacionEnCarga"]); 
+        $stmt->bindParam(":sistemasAlineacionCargaFuncionando", $emp["sistemasAlineacionCargaFuncionando"]);
+        $stmt->bindParam(":sistemaAlineacionEnRetorno", $emp["sistemaAlineacionEnRetorno"]);
+        $stmt->bindParam(":cantidadSistemaAlineacionEnRetorno", $emp["cantidadSistemaAlineacionEnRetorno"]);
+        $stmt->bindParam(":sistemasAlineacionRetornoFuncionando", $emp["sistemasAlineacionRetornoFuncionando"]);
+        $stmt->bindParam(":sistemaAlineacionRetornoPlano", $emp["sistemaAlineacionRetornoPlano"]);
+        $stmt->bindParam(":sistemaAlineacionArtesaCarga", $emp["sistemaAlineacionArtesaCarga"]); 
+        $stmt->bindParam(":sistemaAlineacionRetornoEnV", $emp["sistemaAlineacionRetornoEnV"]);
+        $stmt->bindParam(":largoEjeRodilloCentralCarga", $emp["largoEjeRodilloCentralCarga"]);
+        $stmt->bindParam(":diametroEjeRodilloCentralCarga", $emp["diametroEjeRodilloCentralCarga"]);
+        $stmt->bindParam(":largoTuboRodilloCentralCarga", $emp["largoTuboRodilloCentralCarga"]);
+        $stmt->bindParam(":largoEjeRodilloLateralCarga", $emp["largoEjeRodilloLateralCarga"]);
+        $stmt->bindParam(":diametroEjeRodilloLateralCarga", $emp["diametroEjeRodilloLateralCarga"]);
+        $stmt->bindParam(":diametroRodilloLateralCarga", $emp["diametroRodilloLateralCarga"]); 
+        $stmt->bindParam(":largoTuboRodilloLateralCarga", $emp["largoTuboRodilloLateralCarga"]);
+        $stmt->bindParam(":tipoRodilloCarga", $emp["tipoRodilloCarga"]);
+        $stmt->bindParam(":distanciaEntreArtesasCarga", $emp["distanciaEntreArtesasCarga"]);
+        $stmt->bindParam(":anchoInternoChasisRodilloCarga", $emp["anchoInternoChasisRodilloCarga"]);
+        $stmt->bindParam(":anchoExternoChasisRodilloCarga", $emp["anchoExternoChasisRodilloCarga"]);
+        $stmt->bindParam(":anguloAcanalamientoArtesaCArga", $emp["anguloAcanalamientoArtesaCArga"]);
+        $stmt->bindParam(":detalleRodilloCentralCarga", $emp["detalleRodilloCentralCarga"]); 
+        $stmt->bindParam(":detalleRodilloLateralCarg", $emp["detalleRodilloLateralCarg"]);
+        $stmt->bindParam(":diametroPoleaMotrizTransportadora", $emp["diametroPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":anchoPoleaMotrizTransportadora", $emp["anchoPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":tipoPoleaMotrizTransportadora", $emp["tipoPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":largoEjePoleaMotrizTransportadora", $emp["largoEjePoleaMotrizTransportadora"]);
+        $stmt->bindParam(":diametroEjeMotrizTransportadora", $emp["diametroEjeMotrizTransportadora"]); 
+        $stmt->bindParam(":icobandasCentraEnPoleaMotrizTransportadora", $emp["icobandasCentraEnPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":anguloAmarrePoleaMotrizTransportadora", $emp["anguloAmarrePoleaMotrizTransportadora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaMotrizTransportadora", $emp["estadoRevestimientoPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":tipoTransicionPoleaMotrizTransportadora", $emp["tipoTransicionPoleaMotrizTransportadora"]); 
+        $stmt->bindParam(":distanciaTransicionPoleaMotrizTransportadora", $emp["distanciaTransicionPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":potenciaMotorTransportadora", $emp["potenciaMotorTransportadora"]);
+        $stmt->bindParam(":guardaPoleaMotrizTransportadora", $emp["guardaPoleaMotrizTransportadora"]);
+        $stmt->bindParam(":anchoEstructura", $emp["anchoEstructura"]);
+        $stmt->bindParam(":anchoTrayectoCarga", $emp["anchoTrayectoCarga"]);
+        $stmt->bindParam(":pasarelaRespectoAvanceBanda", $emp["pasarelaRespectoAvanceBanda"]);
+        $stmt->bindParam(":materialAlimenticioTransportadora", $emp["materialAlimenticioTransportadora"]); 
+        $stmt->bindParam(":materialAcidoTransportadora", $emp["materialAcidoTransportadora"]);
+        $stmt->bindParam(":materialTempEntre80y150Transportadora", $emp["materialTempEntre80y150Transportadora"]);
+        $stmt->bindParam(":materialSecoTransportadora", $emp["materialSecoTransportadora"]);
+        $stmt->bindParam(":materialHumedoTransportadora", $emp["materialHumedoTransportadora"]);
+        $stmt->bindParam(":materialAbrasivoFinoTransportadora", $emp["materialAbrasivoFinoTransportadora"]);
+        $stmt->bindParam(":materialPegajosoTransportadora", $emp["materialPegajosoTransportadora"]); 
+        $stmt->bindParam(":materialGrasosoAceitosoTransportadora", $emp["materialGrasosoAceitosoTransportadora"]);
+        $stmt->bindParam(":marcaLimpiadorPrimario", $emp["marcaLimpiadorPrimario"]);
+        $stmt->bindParam(":referenciaLimpiadorPrimario", $emp["referenciaLimpiadorPrimario"]);
+        $stmt->bindParam(":anchoCuchillaLimpiadorPrimario", $emp["anchoCuchillaLimpiadorPrimario"]);
+        $stmt->bindParam(":altoCuchillaLimpiadorPrimario", $emp["altoCuchillaLimpiadorPrimario"]);
+        $stmt->bindParam(":estadoCuchillaLimpiadorPrimario", $emp["estadoCuchillaLimpiadorPrimario"]); 
+        $stmt->bindParam(":estadoTensorLimpiadorPrimario", $emp["estadoTensorLimpiadorPrimario"]);
+        $stmt->bindParam(":estadoTuboLimpiadorPrimario", $emp["estadoTuboLimpiadorPrimario"]);
+        $stmt->bindParam(":frecuenciaRevisionCuchilla", $emp["frecuenciaRevisionCuchilla"]);
+        $stmt->bindParam(":cuchillaEnContactoConBanda", $emp["cuchillaEnContactoConBanda"]);
+        $stmt->bindParam(":marcaLimpiadorSecundario", $emp["marcaLimpiadorSecundario"]);
+        $stmt->bindParam(":referenciaLimpiadorSecundario", $emp["referenciaLimpiadorSecundario"]);
+        $stmt->bindParam(":anchoCuchillaLimpiadorSecundario", $emp["anchoCuchillaLimpiadorSecundario"]); 
+        $stmt->bindParam(":altoCuchillaLimpiadorSecundario", $emp["altoCuchillaLimpiadorSecundario"]);
+        $stmt->bindParam(":estadoCuchillaLimpiadorSecundario", $emp["estadoCuchillaLimpiadorSecundario"]);
+        $stmt->bindParam(":estadoTensorLimpiadorSecundario", $emp["estadoTensorLimpiadorSecundario"]);
+        $stmt->bindParam(":estadoTuboLimpiadorSecundario", $emp["estadoTuboLimpiadorSecundario"]);
+        $stmt->bindParam(":frecuenciaRevisionCuchilla1", $emp["frecuenciaRevisionCuchilla1"]);
+        $stmt->bindParam(":cuchillaEnContactoConBanda1", $emp["cuchillaEnContactoConBanda1"]);
+        $stmt->bindParam(":sistemaDribbleChute", $emp["sistemaDribbleChute"]); 
+        $stmt->bindParam(":marcaLimpiadorTerciario", $emp["marcaLimpiadorTerciario"]);
+        $stmt->bindParam(":referenciaLimpiadorTerciario", $emp["referenciaLimpiadorTerciario"]);
+        $stmt->bindParam(":anchoCuchillaLimpiadorTerciario", $emp["anchoCuchillaLimpiadorTerciario"]);
+        $stmt->bindParam(":altoCuchillaLimpiadorTerciario", $emp["altoCuchillaLimpiadorTerciario"]);
+        $stmt->bindParam(":estadoCuchillaLimpiadorTerciario", $emp["estadoCuchillaLimpiadorTerciario"]);
+        $stmt->bindParam(":estadoTensorLimpiadorTerciario", $emp["estadoTensorLimpiadorTerciario"]);
+        $stmt->bindParam(":estadoTuboLimpiadorTerciario", $emp["estadoTuboLimpiadorTerciario"]); 
+        $stmt->bindParam(":frecuenciaRevisionCuchilla2", $emp["frecuenciaRevisionCuchilla2"]);
+        $stmt->bindParam(":cuchillaEnContactoConBanda2", $emp["cuchillaEnContactoConBanda2"]);
+        $stmt->bindParam(":estadoRodilloRetorno", $emp["estadoRodilloRetorno"]);
+        $stmt->bindParam(":largoEjeRodilloRetorno", $emp["largoEjeRodilloRetorno"]);
+        $stmt->bindParam(":diametroEjeRodilloRetorno", $emp["diametroEjeRodilloRetorno"]);
+        $stmt->bindParam(":diametroRodilloRetorno", $emp["diametroRodilloRetorno"]);
+        $stmt->bindParam(":largoTuboRodilloRetorno", $emp["largoTuboRodilloRetorno"]);
+        $stmt->bindParam(":tipoRodilloRetorno", $emp["tipoRodilloRetorno"]); 
+        $stmt->bindParam(":distanciaEntreRodillosRetorno", $emp["distanciaEntreRodillosRetorno"]);
+        $stmt->bindParam(":anchoInternoChasisRetorno", $emp["anchoInternoChasisRetorno"]);
+        $stmt->bindParam(":anchoExternoChasisRetorno", $emp["anchoExternoChasisRetorno"]);
+        $stmt->bindParam(":detalleRodilloRetorno", $emp["detalleRodilloRetorno"]);
+        $stmt->bindParam(":diametroPoleaAmarrePoleaMotriz", $emp["diametroPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":anchoPoleaAmarrePoleaMotriz", $emp["anchoPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":tipoPoleaAmarrePoleaMotriz", $emp["tipoPoleaAmarrePoleaMotriz"]); 
+        $stmt->bindParam(":largoEjePoleaAmarrePoleaMotriz", $emp["largoEjePoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":diametroEjePoleaAmarrePoleaMotriz", $emp["diametroEjePoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":icobandasCentradaPoleaAmarrePoleaMotriz", $emp["icobandasCentradaPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaAmarrePoleaMotriz", $emp["estadoRevestimientoPoleaAmarrePoleaMotriz"]);
+        $stmt->bindParam(":dimetroPoleaAmarrePoleaCola", $emp["dimetroPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":anchoPoleaAmarrePoleaCola", $emp["anchoPoleaAmarrePoleaCola"]); 
+        $stmt->bindParam(":largoEjePoleaAmarrePoleaCola", $emp["largoEjePoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":tipoPoleaAmarrePoleaCola", $emp["tipoPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":diametroEjePoleaAmarrePoleaCola", $emp["diametroEjePoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":icobandasCentradaPoleaAmarrePoleaCola", $emp["icobandasCentradaPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaAmarrePoleaCola", $emp["estadoRevestimientoPoleaAmarrePoleaCola"]);
+        $stmt->bindParam(":diametroPoleaTensora", $emp["diametroPoleaTensora"]); 
+        $stmt->bindParam(":anchoPoleaTensora", $emp["anchoPoleaTensora"]);
+        $stmt->bindParam(":tipoPoleaTensora", $emp["tipoPoleaTensora"]);
+        $stmt->bindParam(":largoEjePoleaTensora", $emp["largoEjePoleaTensora"]);
+        $stmt->bindParam(":diametroEjePoleaTensora", $emp["diametroEjePoleaTensora"]);
+        $stmt->bindParam(":icobandasCentradaEnPoleaTensora", $emp["icobandasCentradaEnPoleaTensora"]);
+        $stmt->bindParam(":recorridoPoleaTensora", $emp["recorridoPoleaTensora"]);
+        $stmt->bindParam(":estadoRevestimientoPoleaTensora", $emp["estadoRevestimientoPoleaTensora"]);
+        $stmt->bindParam(":tipoTransicionPoleaTensora", $emp["tipoTransicionPoleaTensora"]); 
+        $stmt->bindParam(":distanciaTransicionPoleaColaTensora", $emp["distanciaTransicionPoleaColaTensora"]);
+        $stmt->bindParam(":potenciaMotorPoleaTensora", $emp["potenciaMotorPoleaTensora"]);
+        $stmt->bindParam(":guardaPoleaTensora", $emp["guardaPoleaTensora"]);
+        $stmt->bindParam(":puertasInspeccion", $emp["puertasInspeccion"]);
+        $stmt->bindParam(":guardaRodilloRetornoPlano", $emp["guardaRodilloRetornoPlano"]);
+        $stmt->bindParam(":guardaTruTrainer", $emp["guardaTruTrainer"]);
+        $stmt->bindParam(":guardaPoleaDeflectora", $emp["guardaPoleaDeflectora"]);
+        $stmt->bindParam(":guardaZonaDeTransito", $emp["guardaZonaDeTransito"]);
+        $stmt->bindParam(":guardaMotores", $emp["guardaMotores"]); 
+        $stmt->bindParam(":guardaCadenas", $emp["guardaCadenas"]);
+        $stmt->bindParam(":guardaCorreas", $emp["guardaCorreas"]);
+        $stmt->bindParam(":interruptoresDeSeguridad", $emp["interruptoresDeSeguridad"]);
+        $stmt->bindParam(":sirenasDeSeguridad", $emp["sirenasDeSeguridad"]);
+        $stmt->bindParam(":guardaRodilloRetornoV", $emp["guardaRodilloRetornoV"]);
+        $stmt->bindParam(":diametroRodilloCentralCarga", $emp["diametroRodilloCentralCarga"]);
+        $stmt->bindParam(":tipoRodilloImpacto", $emp["tipoRodilloImpacto"]);
+        $stmt->bindParam(":integridadSoporteCamaSellado", $emp["integridadSoporteCamaSellado"]);
+        $stmt->bindParam(":ataqueAbrasivoTransportadora", $emp["ataqueAbrasivoTransportadora"]); 
+        $stmt->bindParam(":observacionRegistroTransportadora", $emp["observacionRegistroTransportadora"]);
+        
+        // print_r($sql);
+
+        if($stmt->execute())
+        {
+          return "ok";
+        }
+        else
+        {
+          return "error";
+
+        }
+
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+
+
+
+
 /*=================================================================================================================================
-=                                                        FIN BANDA HORIZONTAL                                           =
+=                                      FIN BANDA HORIZONTAL                                           =
 ==================================================================================================================================*/
 
 function utf8($arreglo)

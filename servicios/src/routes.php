@@ -76,6 +76,8 @@ $app->group('/api', function () use ($app) {
 	/*-------------  Crear Transportador  -------------*/
     $app->post('/crearTransportador', 'crearTransportador');
     $app->get('/maxTransportador', 'maxTransportador');
+    $app->put('/actualizarTransportador/{idTransportador}', 'actualizarTransportador');
+
     
 
 
@@ -113,7 +115,8 @@ $app->group('/api', function () use ($app) {
 /*===================================================================================
 =       				    	 BANDA ELEVADORA 	       	   					   =
 ====================================================================================*/
-	$app->post('/registroSincronizacion', 'registroSincronizacion');
+	$app->post('/sincronizacionElevadora', 'sincronizacionElevadora');
+	$app->put('/actualizarElevadora', 'actualizarElevadora');
 
 	$app->post('observacionElevadora', 'observacionElevadora');
 	$app->put('/actualizarObservacionElevadora', 'actualizarObservacionElevadora');
@@ -185,6 +188,10 @@ $app->group('/api', function () use ($app) {
 /*======================================================================================================
 =								        	 BANDA HORIZONTAL       								   =
 =======================================================================================================*/
+
+$app->post('/sincronizarHorizontal', 'sincronizarHorizontal');
+$app->put('/actualizarHorizontal', 'actualizarHorizontal');
+
 
 $app->post('/observacionTransportadora', 'observacionTransportadora');
 	$app->put('/actualizarObservacionTransportadora', 'actualizarObservacionTransportadora');
