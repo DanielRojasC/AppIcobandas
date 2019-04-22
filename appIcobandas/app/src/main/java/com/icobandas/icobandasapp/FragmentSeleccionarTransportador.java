@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageButton;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,32 +27,21 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.icobandas.icobandasapp.Database.DbHelper;
 import com.icobandas.icobandasapp.Entities.ClientesEntities;
 import com.icobandas.icobandasapp.Entities.PlantasEntities;
 import com.icobandas.icobandasapp.Entities.TransportadorEntities;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
-import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -68,6 +58,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
     ArrayList<PlantasEntities> plantasEntitiesArrayList = new ArrayList<>();
     ArrayList<TransportadorEntities> transportadorEntitiesArrayList = new ArrayList<>();
     static ArrayList<String> vacio = new ArrayList<>();
+    AppCompatImageButton btnEditarTransportador;
 
     public static String seleccion;
     View view;
@@ -80,7 +71,9 @@ public class FragmentSeleccionarTransportador extends Fragment {
     RequestQueue queue;
     Gson gson = new Gson();
     DbHelper dbHelper;
+    ArrayList<String> transportadores;
     Cursor cursor;
+    ArrayAdapter<String> adapterTransportadores;
 
     public static ArrayAdapter<String> adapterClientes;
 
@@ -99,6 +92,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_seleccionar_transportador, container, false);
+        MainActivity.txtTitulo.setText("Crear Registro");
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         inicializar();
@@ -118,6 +112,103 @@ public class FragmentSeleccionarTransportador extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        btnEditarTransportador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(spinnerTransportadores.getSelectedItem().toString().equals("Seleccione Transportador"))
+                {
+                    TextView errorText = (TextView) spinnerTransportadores.getSelectedView();
+                    errorText.setError("anything here, just to add the icon");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("Debe Escoger un transportador");//
+                }
+                else
+                {
+                    SQLiteDatabase db = dbHelper.getReadableDatabase();
+                    final String idTransportador=spinnerTransportadores.getSelectedItem().toString().split(" - ")[0];
+                    final Cursor cursor1;
+                    cursor1=db.rawQuery("Select * from transportador where idTransportador='"+idTransportador+"'", null);
+
+                    Log.e("SENTENCIA", "Select * from transportador where idTransportador='"+idTransportador+"'");
+                    final Dialog dialogEditarTransportador=new Dialog(getContext());
+                    dialogEditarTransportador.setContentView(R.layout.dialog_crear_transportador);
+                    dialogEditarTransportador.setCancelable(true);
+
+                    final TextInputEditText txtNombreTransportador = dialogEditarTransportador.findViewById(R.id.txtNombreTransportador);
+                    final TextInputEditText txtDescripcionTransportador = dialogEditarTransportador.findViewById(R.id.txtDescripcionTransportador);
+
+                    final SearchableSpinner spinnerPlanta = dialogEditarTransportador.findViewById(R.id.spinnerPlanta);
+                    final Spinner spinnerTipoTransportador = dialogEditarTransportador.findViewById(R.id.spinnerTipoTransportador);
+
+                    final ProgressBar progressBarTranspor = dialogEditarTransportador.findViewById(R.id.progressBarTranspor);
+                    progressBarTranspor.setVisibility(View.INVISIBLE);
+                    llenarSpinnerDialog(spinnerPlanta, spinnerTipoTransportador);
+
+                    spinnerPlanta.setEnabled(false);
+                    spinnerPlanta.setTitle("Buscar Planta");
+                    spinnerPlanta.setPositiveButton("Cerrar");
+                    String tipoTransportador;
+                    cursor1.moveToFirst();
+                    if(cursor1.getString(cursor1.getColumnIndex("tipoTransportador")).equals("B.T"))
+                    {
+                        tipoTransportador="Transportador horizontal o inclinado";
+                    }
+                    else if(cursor1.getString(cursor1.getColumnIndex("tipoTransportador")).equals("B.E"))
+                    {
+                        tipoTransportador="Transportador vertical";
+                    }
+                    else
+                    {
+                        tipoTransportador="Transportador de transmisión pesada";
+                    }
+                    spinnerTipoTransportador.setSelection(adapterTransportadores.getPosition(tipoTransportador));
+                    spinnerTipoTransportador.setEnabled(false);
+                    String plantaTransportador = null;
+
+                    txtNombreTransportador.setText(cursor1.getString(cursor1.getColumnIndex("nombreTransportador")));
+                    for(int i=0;i<listaClientes.size();i++)
+                    {
+                        if(listaClientes.get(i).split(" - ")[0].equals(cursor1.getString(3)))
+                        {
+                            plantaTransportador=listaClientes.get(i);
+                            i=listaClientes.size()+1;
+                        }
+                    }
+                   spinnerPlanta.setSelection(adapterClientes.getPosition(plantaTransportador));
+                    txtDescripcionTransportador.setText(cursor1.getString(4));
+
+
+                    Button btnCrearTransportador = dialogEditarTransportador.findViewById(R.id.btnAgregarTransportador);
+                    btnCrearTransportador.setText("Editar Transportador");
+
+                    btnCrearTransportador.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+                            String estadoTransportador;
+                            if(cursor1.getString(5).equals("Sincronizado"))
+                            {
+                                estadoTransportador="Actualizar con DB";
+                            }
+                            else
+                            {
+                                estadoTransportador="Pendiente INSERTAR BD";
+                            }
+                            db.execSQL("update transportador set nombreTransportador='"+txtNombreTransportador.getText().toString().toUpperCase()+"', caracteristicaTransportador='"+txtDescripcionTransportador.getText().toString().toUpperCase()+"', estadoRegistroTransportador='"+estadoTransportador+"' where idTransportador='"+idTransportador+"'");
+                            dialogEditarTransportador.cancel();
+                            MDToast.makeText(getContext(),"Transportador editado correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+                            llenarSpinnerOffline();
+
+                        }
+                    });
+
+
+
+                    dialogEditarTransportador.show();
+                }
             }
         });
 
@@ -280,6 +371,8 @@ public class FragmentSeleccionarTransportador extends Fragment {
         btnAgregarTransportador = view.findViewById(R.id.btnCrearTransportador);
         queue = Volley.newRequestQueue(getContext());
         dbHelper = new DbHelper(getContext(), "prueba", null, 1);
+        btnEditarTransportador=view.findViewById(R.id.btnEliminarTransportador);
+        btnEditarTransportador.setVisibility(View.INVISIBLE);
 
     }
 
@@ -325,11 +418,14 @@ public class FragmentSeleccionarTransportador extends Fragment {
         listaClientes.add(0, "Seleccione Planta");
 
 
-        ArrayAdapter adapterClientes = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, listaClientes);
+        adapterClientes = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, listaClientes);
         spinnerClientes.setAdapter(adapterClientes);
     }
 
     public void llenarSpinnerTransportadores(String idRegistro) {
+
+            btnEditarTransportador.setVisibility(View.INVISIBLE);
+            lista.clear();
 
             if (!cliente.equals("Seleccione Planta")) {
                 lista.clear();
@@ -349,6 +445,10 @@ public class FragmentSeleccionarTransportador extends Fragment {
                 for (int i = 1; i <= transportadorEntitiesArrayList.size(); i++) {
                     lista.add(transportadorEntitiesArrayList.get(i - 1).getIdTransportador() + " - " + transportadorEntitiesArrayList.get(i - 1).getNombreTransportadro() + " - " + transportadorEntitiesArrayList.get(i - 1).getTipoTransportador() + " - " + transportadorEntitiesArrayList.get(i - 1).getCaracteristicaTransportador());
                 }
+                if(lista.size()>1)
+                {
+                    btnEditarTransportador.setVisibility(View.VISIBLE);
+                }
             }
 
 
@@ -365,6 +465,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
         dialogAgregarTransportador = new Dialog(getContext());
         dialogAgregarTransportador.setContentView(R.layout.dialog_crear_transportador);
+        dialogAgregarTransportador.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final TextInputEditText txtNombreTransportador = dialogAgregarTransportador.findViewById(R.id.txtNombreTransportador);
         final TextInputEditText txtDescripcionTransportador = dialogAgregarTransportador.findViewById(R.id.txtDescripcionTransportador);
 
@@ -387,7 +488,24 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
                 progressBarTranspor.setVisibility(View.VISIBLE);
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                if (spinnerPlanta.getSelectedItem().toString().equals("Seleccione Planta")) {
+
+                  if(spinnerTipoTransportador.getSelectedItem().toString().equals("Seleccione Transportador"))
+                {
+                    TextView errorText = (TextView) spinnerTipoTransportador.getSelectedView();
+                    errorText.setError("anything here, just to add the icon");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("Debe Escoger un tipo de transportador");//
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    progressBarTranspor.setVisibility(View.INVISIBLE);
+                }
+                  else if (txtNombreTransportador.getText().toString().equals("")) {
+                      txtNombreTransportador.setError("Debe ingresar un nombre para el transportador");
+                      getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                      progressBarTranspor.setVisibility(View.INVISIBLE);
+
+                  }
+                else if (spinnerPlanta.getSelectedItem().toString().equals("Seleccione Planta"))
+                {
                     TextView errorText = (TextView) spinnerPlanta.getSelectedView();
                     errorText.setError("anything here, just to add the icon");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
@@ -395,16 +513,15 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     progressBarTranspor.setVisibility(View.INVISIBLE);
-                } else if (txtNombreTransportador.getText().toString().equals("")) {
-                    txtNombreTransportador.setError("Debe ingresar un nombre para el transportador");
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    progressBarTranspor.setVisibility(View.INVISIBLE);
-
-                } else if (txtDescripcionTransportador.getText().toString().equals("")) {
+                }
+                else if (txtDescripcionTransportador.getText().toString().equals(""))
+                {
                     txtDescripcionTransportador.setError("Debe ingresar una descripción abreviada del transportador");
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     progressBarTranspor.setVisibility(View.INVISIBLE);
-                } else {
+                }
+                else
+                {
                     final String nombreTransportador = txtNombreTransportador.getText().toString().toUpperCase();
                     final String descripcionTransportador = txtDescripcionTransportador.getText().toString().toUpperCase();
                     final String tipoTransportador = validarTipoTransportador(spinnerTipoTransportador.getSelectedItem().toString());
@@ -420,12 +537,9 @@ public class FragmentSeleccionarTransportador extends Fragment {
                         idInsertar = 1;
                     }
                     else
-
                     {
-
                         idMaximaTransportador = Integer.parseInt(cursor.getString(0));
                         idInsertar = idMaximaTransportador + 1;
-
                     }
                     String idPlanta = spinnerPlanta.getSelectedItem().toString().split(" - ")[0];
                     db.execSQL("INSERT INTO transportador (idTransportador, tipoTransportador, nombreTransportador, codplanta, caracteristicaTransportador, estadoRegistroTransportador) values(" + idInsertar + ",'" + tipoTransportador + "','" + nombreTransportador + "','" + idPlanta + "','" + descripcionTransportador + "','Pendiente INSERTAR BD')");
@@ -434,7 +548,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
 
 
-                    if (MainActivity.isOnline(getContext())) {
+                   /* if (MainActivity.isOnline(getContext())) {
                         String url = Constants.url + "crearTransportador";
                         StringRequest requestCrearTransportador = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
@@ -485,13 +599,13 @@ public class FragmentSeleccionarTransportador extends Fragment {
                             }
                         };
                         queue.add(requestCrearTransportador);
-                    } else {
+                    } else {*/
                         MDToast.makeText(getContext(), "TRANSPORTADOR REGISTRADO CORRECTAMENTE", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                         recargarTodo(progressBarTranspor);
                         dialogAgregarTransportador.cancel();
 
 
-                    }
+                    //}
 
                 }
             }
@@ -513,13 +627,13 @@ public class FragmentSeleccionarTransportador extends Fragment {
         spinnerPlanta.setAdapter(adapterClientes);
 
 
-        ArrayList<String> transportadores = new ArrayList<>();
+        transportadores = new ArrayList<>();
+        transportadores.add("Seleccione Transportador");
+        transportadores.add("Transportador horizontal o inclinado");
+        transportadores.add("Transportador vertical");
+        transportadores.add("Transportador de transmisión pesada");
 
-        transportadores.add("TRANSPORTADOR HORIZONTAL");
-        transportadores.add("TRANSPORTADOR VERTICAL");
-        transportadores.add("TRANSMISIÓN PESADA");
-
-        ArrayAdapter<String> adapterTransportadores = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, transportadores);
+        adapterTransportadores = new ArrayAdapter(getContext(), R.layout.estilo_spinner, transportadores);
         spinnerTipoTransportador.setAdapter(adapterTransportadores);
     }
 
@@ -535,9 +649,9 @@ public class FragmentSeleccionarTransportador extends Fragment {
     }
 
     public String validarTipoTransportador(String s) {
-        if (s.equals("TRANSPORTADOR VERTICAL")) {
+        if (s.equals("Transportador vertical")) {
             return "B.E";
-        } else if (s.equals("TRANSPORTADOR HORIZONTAL")) {
+        } else if (s.equals("Transportador horizontal o inclinado")) {
             return "B.T";
         } else {
             return "B.DSF";

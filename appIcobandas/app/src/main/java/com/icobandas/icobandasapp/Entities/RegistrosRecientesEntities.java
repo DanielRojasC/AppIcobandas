@@ -11,6 +11,15 @@ public class RegistrosRecientesEntities {
     String nombrePlanta;
     String nombreCliente;
     String tipoTransportador;
+    String registroActivado;
+
+    public String getRegistroActivado() {
+        return registroActivado;
+    }
+
+    public void setRegistroActivado(String registroActivado) {
+        this.registroActivado = registroActivado;
+    }
 
     public String getTipoTransportador() {
         return tipoTransportador;

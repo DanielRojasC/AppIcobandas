@@ -1,13 +1,19 @@
 package com.icobandas.icobandasapp.Adapters;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.icobandas.icobandasapp.Database.DbHelper;
 import com.icobandas.icobandasapp.Entities.RegistrosRecientesEntities;
+import com.icobandas.icobandasapp.FragmentRegistrosRecientes;
 import com.icobandas.icobandasapp.R;
 
 import java.util.ArrayList;
@@ -19,6 +25,8 @@ import java.util.ArrayList;
 public class AdapterRegistrosRecientesOffline  extends RecyclerView.Adapter<AdapterRegistrosRecientesOffline.Holder> {
 
     ArrayList<RegistrosRecientesEntities> registrosRecienteEntities;
+    AlertDialog.Builder alerta;
+
 
     private OnClickListener mlistener;
     public interface OnClickListener
@@ -26,10 +34,14 @@ public class AdapterRegistrosRecientesOffline  extends RecyclerView.Adapter<Adap
         void itemClick(int position, View itemView);
     }
 
+    Context context;
 
-    public AdapterRegistrosRecientesOffline(ArrayList<RegistrosRecientesEntities> registrosRecienteEntities)
+    DbHelper dbHelper;
+
+    public AdapterRegistrosRecientesOffline(ArrayList<RegistrosRecientesEntities> registrosRecienteEntities, Context context)
     {
         this.registrosRecienteEntities = registrosRecienteEntities;
+        this.context=context;
     }
 
     public void setMlistener(OnClickListener mlistener)
@@ -66,7 +78,7 @@ public class AdapterRegistrosRecientesOffline  extends RecyclerView.Adapter<Adap
     public class Holder extends RecyclerView.ViewHolder
     {
 
-
+        public Switch swtichRegistroActivo;
         TextView txtFecha,txtParte,txtPlanta, txtCliente;
         public Holder(final View itemView)
         {
@@ -92,18 +104,90 @@ public class AdapterRegistrosRecientesOffline  extends RecyclerView.Adapter<Adap
             txtParte  = itemView.findViewById(R.id.txtParte);
             txtPlanta =itemView.findViewById(R.id.txtNombrePlanta);
             txtCliente=itemView.findViewById(R.id.txtNombreCliente);
-
-
+            swtichRegistroActivo=itemView.findViewById(R.id.switchActivarDesactivarRegistro);
 
         }
 
-        public void fijarDatos(RegistrosRecientesEntities registrosRecientesEntities)
+        public void fijarDatos(final RegistrosRecientesEntities registrosRecientesEntities)
         {
 
-            txtFecha.setText(registrosRecientesEntities.getFechaRegistro());
-            txtParte.setText(registrosRecientesEntities.getNombreTransportador());
-            txtPlanta.setText(registrosRecientesEntities.getNombrePlanta());
-            txtCliente.setText(registrosRecientesEntities.getNombreCliente());
+            alerta= new AlertDialog.Builder(context);
+            if(!registrosRecientesEntities.getRegistroActivado().equals("0"))
+            {
+                txtFecha.setText(registrosRecientesEntities.getFechaRegistro());
+                txtParte.setText(registrosRecientesEntities.getNombreTransportador());
+                txtPlanta.setText(registrosRecientesEntities.getNombrePlanta());
+                txtCliente.setText(registrosRecientesEntities.getNombreCliente());
+                if(registrosRecientesEntities.getRegistroActivado().equals("1"))
+                {
+                    swtichRegistroActivo.setChecked(true);
+                }
+            }
+            else
+            {
+                txtFecha.setText(registrosRecientesEntities.getFechaRegistro());
+                txtParte.setText(registrosRecientesEntities.getNombreTransportador());
+                txtPlanta.setText(registrosRecientesEntities.getNombrePlanta());
+                txtCliente.setText(registrosRecientesEntities.getNombreCliente());
+                if(registrosRecientesEntities.getRegistroActivado().equals("0"))
+                {
+                    swtichRegistroActivo.setChecked(false);
+                }
+            }
+
+            swtichRegistroActivo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!swtichRegistroActivo.isChecked())
+                    {
+                        alerta.setTitle("ICOBANDAS S.A dice:");
+                        alerta.setMessage("¿Desea desactivar este registro?");
+                        alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                FragmentRegistrosRecientes.actualizarActivado(registrosRecientesEntities.getIdRegistro(),"0");
+                            }
+                        });
+                        alerta.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                swtichRegistroActivo.setChecked(true);
+                            }
+                        });
+                        alerta.create();
+
+                        alerta.show();
+
+                    }
+                    else
+                    {
+                        alerta.setTitle("ICOBANDAS S.A dice:");
+                        alerta.setMessage("¿Desea reactivar este registro?");
+                        alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                FragmentRegistrosRecientes.actualizarActivado(registrosRecientesEntities.getIdRegistro(),"1");
+                            }
+                        });
+                        alerta.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                swtichRegistroActivo.setChecked(false);
+                            }
+                        });
+                        alerta.create();
+
+                        alerta.show();
+
+                    }
+
+                }
+            });
+
 
         }
     }

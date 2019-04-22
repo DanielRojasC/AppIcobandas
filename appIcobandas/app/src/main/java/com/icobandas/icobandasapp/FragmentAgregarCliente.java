@@ -90,7 +90,8 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
         view= inflater.inflate(R.layout.fragment_agregar_cliente, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         inicializar();
-        getActivity().setTitle("Agregar Clientes");
+        MainActivity.txtTitulo.setText("Crear clientes");
+
 
         txtNit.setOnFocusChangeListener(this);
         txtNombrePlanta.setOnFocusChangeListener(this);
@@ -191,7 +192,7 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                        db.execSQL("INSERT INTO clientes values('"+nitCliente+"','"+nombreCliente+"','Pendiente INSERTAR BD')");
                        db.execSQL("INSERT INTO plantas (codplanta, agenteplanta, nitplanta, nameplanta,ciudmciapl,dirmciapl,estadoRegistroPlanta) values("+plantaFinal+",'"+Login.nombreUsuario+"','"+nitCliente+"','"+nombrePlanta+"',"+ciudad+",'"+direccion+"','Pendiente INSERTAR BD')");
 
-                       if(MainActivity.isOnline(getContext())) {
+                       /*if(MainActivity.isOnline(getContext())) {
                            String url = Constants.url + "validarNit/" + nitCliente;
                            final SQLiteDatabase finalDb = db;
                            StringRequest requestValidarNit = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -288,15 +289,14 @@ public class FragmentAgregarCliente extends Fragment implements View.OnFocusChan
                            });
                            requestValidarNit.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                            queue.add(requestValidarNit);
-                       }
-                       else
-                       {
+                       }*/
+
                            MDToast.makeText(getContext(),"Cliente agregado correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                            getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
                            progressBar.setVisibility(View.INVISIBLE);
 
 
-                       }
+
 
                    }
 

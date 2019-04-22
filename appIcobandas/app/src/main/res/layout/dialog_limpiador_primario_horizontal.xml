@@ -977,7 +977,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout157">
 
                 <TextView
-                    android:id="@+id/tvAnchoPoleaMotrizElevadora"
+                    android:id="@+id/tvAnchoTrayectoCarga"
                     android:layout_width="121dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -986,6 +986,7 @@
                     android:text="Ancho trayecto carga(mm):"
                     android:textAlignment="center"
                     android:textColor="#000"
+                    android:textStyle="bold"
                     android:textSize="14dp"
 
                     app:layout_constraintBottom_toBottomOf="parent"

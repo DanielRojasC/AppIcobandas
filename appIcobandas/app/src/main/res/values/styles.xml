@@ -28,5 +28,15 @@
         <item name="android:textSize">8dp</item>
     </style>
 
+    <style name="Switch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#178800</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#FF2626</item>
+
+
+    </style>
+
 
 </resources>

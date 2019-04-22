@@ -15,6 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(Utilities.CREAR_TABLA_USUARIOS);
         db.execSQL(Utilities.CREAR_TABLA_CLIENTES);
         db.execSQL(Utilities.CREAR_TABLA_CIUDAD);
@@ -38,5 +39,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS bandaTransportadora");
         db.execSQL("DROP TABLE IF EXISTS bandaElevadora");
         db.execSQL("DROP TABLE IF EXISTS bandaTransmision");
+        onCreate(db);
+
     }
 }

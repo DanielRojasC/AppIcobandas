@@ -5,10 +5,33 @@
     android:id="@+id/registrosRecientes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@drawable/fondo_posible"
     tools:context=".FragmentRegistrosRecientes">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/txtSinRegistros2"
+        android:layout_width="116dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="Filtrar por agente:"
+        android:textAlignment="center"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSinRegistros4" />
+
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        android:id="@+id/spinnerFiltroAgente"
+        android:layout_width="197dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#2000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFiltroTransportador"></com.toptoche.searchablespinnerlibrary.SearchableSpinner>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerviewRecientes"
         android:layout_width="match_parent"
@@ -17,12 +40,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFiltroTransportador"
-        app:layout_constraintVertical_bias="0.104"></android.support.v7.widget.RecyclerView>
+        app:layout_constraintVertical_bias="1.0"></android.support.v7.widget.RecyclerView>
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/spinnerFiltroPlanta"
@@ -70,7 +94,7 @@
         android:id="@+id/txtSinRegistros3"
         android:layout_width="116dp"
         android:layout_height="20dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
         android:text="Filtrar por plantas:"
@@ -83,13 +107,24 @@
         android:id="@+id/txtSinRegistros4"
         android:layout_width="116dp"
         android:layout_height="20dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:text="Filtrar por equipos:"
         android:textAlignment="center"
         android:textSize="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSinRegistros3" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/botonRegistrosDesactivados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#9c262e"
+        app:backgroundTint="#9c262e"
+        android:src="@drawable/registros_ocultos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

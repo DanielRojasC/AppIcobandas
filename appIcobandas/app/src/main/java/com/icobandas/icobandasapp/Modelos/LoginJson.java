@@ -2,6 +2,16 @@ package com.icobandas.icobandasapp.Modelos;
 
 public class LoginJson {
 
+    String estadoRegistro;
+
+    public String getEstadoRegistro() {
+        return estadoRegistro;
+    }
+
+    public void setEstadoRegistro(String estadoRegistro) {
+        this.estadoRegistro = estadoRegistro;
+    }
+
     String codagente;
     String nombreagte;
     String pwdagente;
@@ -10,6 +20,9 @@ public class LoginJson {
     String idTransportador;
     String codplanta;
     String usuarioRegistro;
+    String observacionRegistro;
+    String observacionRegistroElevadora;
+    String observacionRegistroTransportadora;
     String tipoParteTransportadora;
     String marcaBandaTransportadora;
     String anchoBandaTransportadora;
@@ -318,13 +331,6 @@ public class LoginJson {
     String materialElevadora;
     String ataqueQuimicoElevadora;
 
-    public String getAtaqueTemperaturaElevadora() {
-        return ataqueTemperaturaElevadora;
-    }
-
-    public void setAtaqueTemperaturaElevadora(String ataqueTemperaturaElevadora) {
-        this.ataqueTemperaturaElevadora = ataqueTemperaturaElevadora;
-    }
 
     String ataqueTemperaturaElevadora;
     String ataqueAceitesElevadora;
@@ -1058,6 +1064,30 @@ public class LoginJson {
         this.fugaDeMaterialesEnLaColaDelChute = fugaDeMaterialesEnLaColaDelChute;
     }
 
+    public String getObservacionRegistro() {
+        return observacionRegistro;
+    }
+
+    public void setObservacionRegistro(String observacionRegistro) {
+        this.observacionRegistro = observacionRegistro;
+    }
+
+    public String getObservacionRegistroElevadora() {
+        return observacionRegistroElevadora;
+    }
+
+    public void setObservacionRegistroElevadora(String observacionRegistroElevadora) {
+        this.observacionRegistroElevadora = observacionRegistroElevadora;
+    }
+
+    public String getObservacionRegistroTransportadora() {
+        return observacionRegistroTransportadora;
+    }
+
+    public void setObservacionRegistroTransportadora(String observacionRegistroTransportadora) {
+        this.observacionRegistroTransportadora = observacionRegistroTransportadora;
+    }
+
     public String getFugaDeMaterialesPorLosCostados() {
         return fugaDeMaterialesPorLosCostados;
     }
@@ -1397,6 +1427,14 @@ public class LoginJson {
     public String getSistemasAlineacionCargFuncionando() {
         return sistemasAlineacionCargFuncionando;
     }
+    public String getAtaqueTemperaturaElevadora() {
+        return ataqueTemperaturaElevadora;
+    }
+
+    public void setAtaqueTemperaturaElevadora(String ataqueTemperaturaElevadora) {
+        this.ataqueTemperaturaElevadora = ataqueTemperaturaElevadora;
+    }
+
 
     public void setSistemasAlineacionCargFuncionando(String sistemasAlineacionCargFuncionando) {
         this.sistemasAlineacionCargFuncionando = sistemasAlineacionCargFuncionando;

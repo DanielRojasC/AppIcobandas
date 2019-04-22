@@ -9,6 +9,17 @@
     tools:context=".FragmentPartesHorizontal"
     tools:layout_editor_absoluteY="25dp">
 
+    <ImageButton
+        android:id="@+id/btnObservacionRegistroElevadora"
+        android:layout_width="53dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/boton_gradient"
+        android:src="@drawable/writing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/imgCompleta"

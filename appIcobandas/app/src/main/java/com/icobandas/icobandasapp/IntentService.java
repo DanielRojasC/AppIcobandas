@@ -13,7 +13,7 @@ public class IntentService extends android.app.IntentService {
     public static final String EXTRA_PARAM1 = "com.herprogramacion.abtesting.extra.PARAM1";
     public static final String EXTRA_PARAM2 = "com.herprogramacion.abtesting.extra.PARAM2";
 
-    public IntentService() {
+    public IntentService(String simpleName) {
         super("IntentService");
     }
 
