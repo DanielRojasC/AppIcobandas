@@ -12,9 +12,11 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -54,7 +56,6 @@ public class Login extends AppCompatActivity {
     RequestQueue queue;
     Gson gson = new Gson();
     DbHelper dbHelper;
-    Cursor cursorUsuario;
     public static ArrayList<LoginJson> loginJsons = new ArrayList<>();
 
     public static Cursor cursor;
@@ -94,12 +95,10 @@ public class Login extends AppCompatActivity {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBarLogin.setVisibility(View.INVISIBLE);
                     } else if (!usuario.toString().equals("") && !contra.toString().equals("")) {
-                            SQLiteDatabase db = dbHelper.getReadableDatabase();
-                            cursorUsuario=db.rawQuery("Select * from usuario", null);
 
-                        if (isOnline(getApplicationContext()) && cursorUsuario.getCount()==0)
+                        if (isOnline(getApplicationContext()))
                         {
-                            if(usuario.toString().equals("lepe") && contra.toString().equals("lepe2019.") || usuario.toString().equals("leca") && contra.toString().equals("leca2019.") || usuario.toString().equals("maza") && contra.toString().equals("maza2019."))
+                            if(usuario.toString().equals("lepe") && contra.toString().equals("lepe2019.") || usuario.toString().equals("leca") && contra.toString().equals("leca2019."))
                             {
                                 rol="admin";
                                 String url = Constants.url + "loginAdmin";
@@ -178,14 +177,10 @@ public class Login extends AppCompatActivity {
                                                     db.execSQL("insert into usuario values('LEPE','LEÓN PELÁEZ','cac2cdfa95fb1ee32713f5870318c8b5','admin')");
 
                                                 }
-                                                else if(nombreUsuario.equals("LECA"))
+                                                else
                                                 {
                                                     db.execSQL("insert into usuario values('LECA','LENIN RAUL CASTRO','483b15a64101886f1e39808fcffd7562','admin')");
 
-                                                }
-                                                else
-                                                {
-                                                    db.execSQL("insert into usuario values('MAZA','MANUEL J ZAMBRANO','dba4c5bbb94dc6ce72647de7d841d7e7','admin')");
                                                 }
                                                 Cursor cursor1=db.rawQuery("select * from usuario",null);
                                                 cursor1.moveToFirst();
@@ -271,7 +266,7 @@ public class Login extends AppCompatActivity {
                                                         }, new Response.ErrorListener() {
                                                             @Override
                                                             public void onErrorResponse(VolleyError error) {
-                                                                MDToast.makeText(Login.this, "ERROR DE CONEXIÓN, INTENTE NUEVAMENTE O CONTACTE CON EL ADMINISTRADOR", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                                                MDToast.makeText(Login.this, error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                                                 progressBarLogin.setVisibility(View.INVISIBLE);
                                                             }
@@ -283,7 +278,7 @@ public class Login extends AppCompatActivity {
                                                     @Override
                                                     public void onErrorResponse(VolleyError error) {
 
-                                                        MDToast.makeText(Login.this, "ERROR DE CONEXIÓN, INTENTE NUEVAMENTE O CONTACTE CON EL ADMINISTRADOR", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                                        MDToast.makeText(Login.this, error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                                         progressBarLogin.setVisibility(View.INVISIBLE);
                                                     }
@@ -301,7 +296,7 @@ public class Login extends AppCompatActivity {
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         progressBarLogin.setVisibility(View.INVISIBLE);
 
-                                        MDToast.makeText(Login.this, "ERROR DE CONEXIÓN, INTENTE NUEVAMENTE O CONTACTE CON EL ADMINISTRADOR", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                        MDToast.makeText(Login.this, error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     }
                                 });
 
@@ -455,7 +450,7 @@ public class Login extends AppCompatActivity {
                                                         }, new Response.ErrorListener() {
                                                             @Override
                                                             public void onErrorResponse(VolleyError error) {
-                                                                MDToast.makeText(Login.this, "ERROR DE CONEXIÓN, INTENTE NUEVAMENTE O CONTACTE CON EL ADMINISTRADOR", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                                                MDToast.makeText(Login.this, error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                                                 progressBarLogin.setVisibility(View.INVISIBLE);
                                                             }
@@ -467,7 +462,7 @@ public class Login extends AppCompatActivity {
                                                     @Override
                                                     public void onErrorResponse(VolleyError error) {
 
-                                                        MDToast.makeText(Login.this, "ERROR DE CONEXIÓN, INTENTE NUEVAMENTE O CONTACTE CON EL ADMINISTRADOR", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                                        MDToast.makeText(Login.this, error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                                         progressBarLogin.setVisibility(View.INVISIBLE);
                                                     }
@@ -485,7 +480,7 @@ public class Login extends AppCompatActivity {
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         progressBarLogin.setVisibility(View.INVISIBLE);
 
-                                        MDToast.makeText(Login.this, "ERROR DE CONEXIÓN, INTENTE NUEVAMENTE O CONTACTE CON EL ADMINISTRADOR", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
+                                        MDToast.makeText(Login.this, error.toString(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show();
                                     }
                                 });
 
@@ -495,9 +490,9 @@ public class Login extends AppCompatActivity {
 
                         }
 
-                        else if(MainActivity.isOnline(getApplicationContext()) && cursorUsuario.getCount()>=1 || !MainActivity.isOnline(getApplicationContext()) && cursorUsuario.getCount()>=1)
+                        else
                         {
-                            db = dbHelper.getReadableDatabase();
+                            SQLiteDatabase db = dbHelper.getReadableDatabase();
                             try
                             {
                                 String contraEnc=encriptar(contra.toString());
@@ -524,7 +519,6 @@ public class Login extends AppCompatActivity {
 
                                     nombreUsuario=cursor.getString(0);
                                     rol=cursor.getString(3);
-                                    nombreAdmin=cursor.getString(1);
 
                                     startActivity(new Intent(Login.this, MainActivity.class));
                                     finish();
@@ -535,22 +529,6 @@ public class Login extends AppCompatActivity {
                             {
                                 Toast.makeText(Login.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else
-                        {
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            progressBarLogin.setVisibility(View.INVISIBLE);
-                            alerta.setTitle("ICOBANDAS S.A dice:");
-                            alerta.setMessage("No se encuentran datos para inicio de sesión");
-                            alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    txtContraseña.setText("");
-                                    dialog.cancel();
-                                }
-                            });
-                            alerta.create();
-                            alerta.show();
                         }
 
                     }

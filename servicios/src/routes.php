@@ -33,9 +33,9 @@ $app->group('/api', function () use ($app) {
 =============================================*/
 	
     $app->post('/crearRegistro', 'crearRegistro');
-    $app->put('/actualizarRegistro', 'actualizarRegistro');
+    $app->post('/actualizarRegistro', 'actualizarRegistro');
     $app->get('/maxRegistro', 'getMaxRegistro');
-    $app->put('/actualizarEstadoRegistro/{idRegistro}&{estadoRegistro}', 'actualizarEstadoRegistro');
+    $app->post('/actualizarEstadoRegistro/{idRegistro}&{estadoRegistro}', 'actualizarEstadoRegistro');
 
 	
 /*==========  FIN DE REGISTROS  ==============*/
@@ -76,7 +76,7 @@ $app->group('/api', function () use ($app) {
 	/*-------------  Crear Transportador  -------------*/
     $app->post('/crearTransportador', 'crearTransportador');
     $app->get('/maxTransportador', 'maxTransportador');
-    $app->put('/actualizarTransportador/{idTransportador}', 'actualizarTransportador');
+    $app->post('/actualizarTransportador/{idTransportador}', 'actualizarTransportador');
 
     
 
@@ -103,7 +103,7 @@ $app->group('/api', function () use ($app) {
 ==============================================================*/
 	
 	$app->post('/registroBandaPesada', 'registroBandaPesada');
-	$app->put('/actualizarBandaPesada', 'actualizarBandaPesada');
+	$app->post('/actualizarBandaPesada', 'actualizarBandaPesada');
     
 	
 /*=================  FIN DE BANDA PESADA  ====================*/
@@ -116,10 +116,10 @@ $app->group('/api', function () use ($app) {
 =       				    	 BANDA ELEVADORA 	       	   					   =
 ====================================================================================*/
 	$app->post('/sincronizacionElevadora', 'sincronizacionElevadora');
-	$app->put('/actualizarElevadora', 'actualizarElevadora');
+	$app->post('/actualizarElevadora', 'actualizarElevadora');
 
 	$app->post('observacionElevadora', 'observacionElevadora');
-	$app->put('/actualizarObservacionElevadora', 'actualizarObservacionElevadora');
+	$app->post('/actualizarObservacionElevadora', 'actualizarObservacionElevadora');
 
 
 
@@ -128,55 +128,55 @@ $app->group('/api', function () use ($app) {
 
 	/*---------------------------  Tornillos  ----------------------------*/
 	$app->post('/registroTornillosElevadora', 'registroTornillosElevadora');
-	$app->put('/actualizarTornillos', 'actualizarTornillosElevadora');
+	$app->post('/actualizarTornillos', 'actualizarTornillosElevadora');
     /*--------------------------------------------------------------------*/
 	
 
 	/*---------------------------  Empalme  ----------------------------*/
 	$app->post('/registroEmpalmeElevadora', 'registroEmpalmeElevadora');
-	$app->put('/actualizarEmpalmeElevadora', 'actualizarEmpalmeElevadora');
+	$app->post('/actualizarEmpalmeElevadora', 'actualizarEmpalmeElevadora');
     /*--------------------------------------------------------------------*/
 
 	
 	/*-----------------------  Puertas Inspeccion -----------------------*/
 	$app->post('/registroPuertaInspeccion', 'registroPuertaInspeccion');
-	$app->put('/actualizarPuertaInspeccion', 'actualizarPuertaInspeccion');
+	$app->post('/actualizarPuertaInspeccion', 'actualizarPuertaInspeccion');
     /*--------------------------------------------------------------------*/
 
 
     /*-----------------------  Seguridad Elevadora -----------------------*/
 	$app->post('/registroSeguridadElevadora', 'registroSeguridadElevadora');
-	$app->put('/actualizarSeguridadElevadora', 'actualizarSeguridadElevadora');
+	$app->post('/actualizarSeguridadElevadora', 'actualizarSeguridadElevadora');
     /*--------------------------------------------------------------------*/
 
 
     /*-----------------------  Polea Motriz Elevadora -----------------------*/
 	$app->post('/registroPoleaMotrizElevadora', 'registroPoleaMotrizElevadora');
-	$app->put('/actualizarPoleaMotrizElevadora', 'actualizarPoleaMotrizElevadora');
+	$app->post('/actualizarPoleaMotrizElevadora', 'actualizarPoleaMotrizElevadora');
     /*--------------------------------------------------------------------*/
 
 
       /*-----------------------  Polea Cola Elevadora -----------------------*/
 	$app->post('/registroPoleaColaElevadora', 'registroPoleaColaElevadora');
-	$app->put('/actualizarPoleaColaElevadora', 'actualizarPoleaColaElevadora');
+	$app->post('/actualizarPoleaColaElevadora', 'actualizarPoleaColaElevadora');
     /*--------------------------------------------------------------------*/
 
 
       /*------------------------  Cangilón -----------------------------*/
 	$app->post('/registroCangilon', 'registroCangilon');
-	$app->put('/actualizarCangilon', 'actualizarCangilon');
+	$app->post('/actualizarCangilon', 'actualizarCangilon');
     /*--------------------------------------------------------------------*/
 
 	
 	 /*-------------------  Condiciones Carga Elevadora --------------------*/
 	$app->post('/registroCondicionesCargaElevadora', 'registroCondicionesCargaElevadora');
-	$app->put('/actualizarCondicionesCargaElevadora', 'actualizarCondicionesCargaElevadora');
+	$app->post('/actualizarCondicionesCargaElevadora', 'actualizarCondicionesCargaElevadora');
     /*--------------------------------------------------------------------*/
 
 	
 	 /*------------------------- Banda Elevadora --------------------------*/
 	$app->post('/registroBandaElevadora', 'registroBandaElevadora');
-	$app->put('/actualizarBandaElevadora', 'actualizarBandaElevadora');
+	$app->post('/actualizarBandaElevadora', 'actualizarBandaElevadora');
     /*--------------------------------------------------------------------*/
 
 /*===============================  FIN BANDA ELEVADORA ====================================*/
@@ -190,94 +190,94 @@ $app->group('/api', function () use ($app) {
 =======================================================================================================*/
 
 $app->post('/sincronizarHorizontal', 'sincronizarHorizontal');
-$app->put('/actualizarHorizontal', 'actualizarHorizontal');
+$app->post('/actualizarHorizontal', 'actualizarHorizontal');
 
 
 $app->post('/observacionTransportadora', 'observacionTransportadora');
-	$app->put('/actualizarObservacionTransportadora', 'actualizarObservacionTransportadora');
+	$app->post('/actualizarObservacionTransportadora', 'actualizarObservacionTransportadora');
 
 /*----------------------------  Banda Horizontal  -------------------------*/
 	$app->post('/registroBandaHorizontal', 'registroBandaHorizontal');
-	$app->put('/actualizarBandaHorizontal', 'actualizarBandaHorizontal');
+	$app->post('/actualizarBandaHorizontal', 'actualizarBandaHorizontal');
 /*-------------------------------------------------------------------------*/
 
 
 /*--------------------------------- Desviador ----------------------------*/
 	$app->post('/registroDesviador', 'registroDesviador');
-	$app->put('/actualizarDesviador', 'actualizarDesviador');
+	$app->post('/actualizarDesviador', 'actualizarDesviador');
 /*-------------------------------------------------------------------------*/
 
 
 /*------------------------------- Polea Tensora ----------------------------*/
 	$app->post('/registroPoleaTensora', 'registroPoleaTensora');
-	$app->put('/actualizarPoleaTensora', 'actualizarPoleaTensora');
+	$app->post('/actualizarPoleaTensora', 'actualizarPoleaTensora');
 /*-------------------------------------------------------------------------*/
 
 
 /*---------------------------- Sistema Alineación -----------------------*/
 	$app->post('/registroAlineacion', 'registroAlineacion');
-	$app->put('/actualizarAlineacion', 'actualizarAlineacion');
+	$app->post('/actualizarAlineacion', 'actualizarAlineacion');
 /*-------------------------------------------------------------------------*/
 
 
 /*--------------------------------- Seguridad -----------------------------*/
 	$app->post('/registroSeguridad', 'registroSeguridad');
-	$app->put('/actualizarSeguridad', 'actualizarSeguridad');
+	$app->post('/actualizarSeguridad', 'actualizarSeguridad');
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Polea Motriz -----------------------------*/
 	$app->post('/registroPoleaMotrizHorizontal', 'registroPoleaMotrizHorizontal');
-	$app->put('/actualizarPoleaMotrizHorizontal', 'actualizarPoleaMotrizHorizontal');
+	$app->post('/actualizarPoleaMotrizHorizontal', 'actualizarPoleaMotrizHorizontal');
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Polea Cola -----------------------------*/
 	$app->post('/registroPoleaColaHorizontal', 'registroPoleaColaHorizontal');
-	$app->put('/actualizarPoleaColaHorizontal', 'actualizarPoleaColaHorizontal');
+	$app->post('/actualizarPoleaColaHorizontal', 'actualizarPoleaColaHorizontal');
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Soporte Carga -----------------------------*/
 	$app->post('/registroSoporteCarga', 'registroSoporteCarga');
-	$app->put('/actualizarSoporteCarga', 'actualizarSoporteCarga');
+	$app->post('/actualizarSoporteCarga', 'actualizarSoporteCarga');
 
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Condicion Carga -----------------------------*/
 	$app->post('/registroCondicionCargaTransportadora', 'registroCondicionCargaTransportadora');
-	$app->put('/actualizarCondicionCargaTransportadora', 'actualizarCondicionCargaTransportadora');
+	$app->post('/actualizarCondicionCargaTransportadora', 'actualizarCondicionCargaTransportadora');
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Limpiador Primario -----------------------------*/
 	$app->post('/registroLimpiadorPrimario', 'registroLimpiadorPrimario');
-	$app->put('/actualizarLimpiadorPrimario', 'actualizarLimpiadorPrimario');
+	$app->post('/actualizarLimpiadorPrimario', 'actualizarLimpiadorPrimario');
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Limpiador Primario -----------------------------*/
 	$app->post('/registroLimpiadorSecundario', 'registroLimpiadorSecundario');
-	$app->put('/actualizarLimpiadorSecundaro', 'actualizarLimpiadorSecundaro');
+	$app->post('/actualizarLimpiadorSecundaro', 'actualizarLimpiadorSecundaro');
 /*-------------------------------------------------------------------------*/
 
 
 
 /*----------------------------- Polea Amarre -----------------------------*/
 	$app->post('/registroPoleaAmarre', 'registroPoleaAmarre');
-	$app->put('/actualizarPoleaAmarre', 'actualizarPoleaAmarre');
+	$app->post('/actualizarPoleaAmarre', 'actualizarPoleaAmarre');
 /*-------------------------------------------------------------------------*/
 
 
 /*----------------------------- Rodillo Carga -----------------------------*/
 	$app->post('/registroRodilloCarga', 'registroRodilloCarga');
-	$app->put('/actualizarRodilloCarga', 'actualizarRodilloCarga');
+	$app->post('/actualizarRodilloCarga', 'actualizarRodilloCarga');
 /*-------------------------------------------------------------------------*/
 
 /*----------------------------- Rodillo Retorno -----------------------------*/
 	$app->post('/registroRodilloRetorno', 'registroRodilloRetorno');
-	$app->put('/actualizarRodilloRetorno', 'actualizarRodilloRetorno');
+	$app->post('/actualizarRodilloRetorno', 'actualizarRodilloRetorno');
 /*-------------------------------------------------------------------------*/
 
 
@@ -289,6 +289,8 @@ $app->post('/observacionTransportadora', 'observacionTransportadora');
 =============================================*/
 	
     $app->post('/sincroClientes', 'sincroClientes');
+
+    $app->post('/sincronizarBasesDatosClientes', 'sincronizarBasesDatosClientes');
 
 
 

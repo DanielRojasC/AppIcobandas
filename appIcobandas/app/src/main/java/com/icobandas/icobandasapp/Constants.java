@@ -2,7 +2,8 @@ package com.icobandas.icobandasapp;
 
 public class Constants
 {
-    public  static  String url= "http://icobandasapp.com/servicios/public/index.php/api/";
+    public  static  String url= "http://edcd6916.ngrok.io" +
+            "/api/";
 
     public static String[] porcentajeFinos = new String[21];
     public static String[] tempMinAmbiente = new String[67];
@@ -27,7 +28,7 @@ public class Constants
     };
 
     public static final String [] tipoCubierta={
-            "Sin información","DIN-A (Alimenticia, antiadherente) / | ANL-S", "DIN-A (Alimenticia blanca) / ANL-B","DIN-XW (Antiabrasiva) / ANL", "DIN-C (Químicos)","ISO-D (Antiabrasiva) / ANL","DIN-E (Antiestática)","DIN-G (Aceites) / ANL-A","ISO-H (Antiabrasiva) / ANL","DIN-K (Antillama) / ANL-F","ISO-K (Antillama) / ANL-F","ISO-L (Antiabrasiva) / ANL","DIN-R (Resistente al frío)","DIN-S (Antllama con o sin cubiertas)","DIN-T (Alta temperatura) / ANL-T","DIN-V (Autoextinguible)","DIN-W (Antiabrasiva) / ANL","DIN-X (Antiabrasiva) / ANL","DIN-Y (Antiabrasiva)","DIN-Z (Antiabrasiva)"
+            "Sin información","DIN-A (Alimenticia, antiadherente) / ANL-S", "DIN-A (Alimenticia blanca) / ANL-B","DIN-XW (Antiabrasiva) / ANL", "DIN-C (Químicos)","ISO-D (Antiabrasiva) / ANL","DIN-E (Antiestática)","DIN-G (Aceites) / ANL-A","ISO-H (Antiabrasiva) / ANL","DIN-K (Antillama) / ANL-F","ISO-K (Antillama) / ANL-F","ISO-L (Antiabrasiva) / ANL","DIN-R (Resistente al frío)","DIN-S (Antllama con o sin cubiertas)","DIN-T (Alta temperatura) / ANL-T","DIN-V (Autoextinguible)","DIN-W (Antiabrasiva) / ANL","DIN-X (Antiabrasiva) / ANL","DIN-Y (Antiabrasiva)","DIN-Z (Antiabrasiva)"
     };
 
     public static final String [] tipoEmpalme={

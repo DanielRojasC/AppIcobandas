@@ -4,15 +4,6 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/registrarCliente"
-            android:icon="@drawable/agregar_cliente"
-            android:title="Agregar Cliente" />
-        <item
-            android:id="@+id/agregarPlantas"
-            android:icon="@drawable/agregar_plantas"
-            android:title="Agregar Plantas" />
         <item
             android:id="@+id/ingresarDatos"
             android:icon="@drawable/crear_registro"
@@ -21,6 +12,14 @@
             android:id="@+id/historialRegistros"
             android:icon="@drawable/registrar_datos"
             android:title="Historial de Registros" />
+        <item
+            android:id="@+id/registrarCliente"
+            android:icon="@drawable/agregar_cliente"
+            android:title="Agregar Cliente" />
+        <item
+            android:id="@+id/agregarPlantas"
+            android:icon="@drawable/agregar_plantas"
+            android:title="Agregar Plantas" />
     </group>
     <item android:title="Salir">
         <menu>

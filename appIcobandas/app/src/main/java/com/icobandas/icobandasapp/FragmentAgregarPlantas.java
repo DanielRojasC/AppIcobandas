@@ -85,8 +85,7 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
         view= inflater.inflate(R.layout.fragment_agregar_plantas, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         inicializar();
-        MainActivity.txtTitulo.setText("Crear plantas");
-
+        getActivity().setTitle("Agregar Plantas");
 
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -237,7 +236,7 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
             db.execSQL("INSERT INTO plantas (codplanta, agenteplanta, nitplanta, nameplanta,ciudmciapl,dirmciapl,estadoRegistroPlanta) values("+plantaFinal+",'"+Login.nombreUsuario+"','"+nitCliente+"','"+nombrePlanta+"',"+idCiudad+",'"+direccionPlanta+"','Pendiente INSERTAR BD')");
 
 
-            /*if(MainActivity.isOnline(getContext()))
+            if(MainActivity.isOnline(getContext()))
             {
                 String url=Constants.url+"crearPlanta";
 
@@ -298,13 +297,13 @@ public class FragmentAgregarPlantas extends Fragment implements View.OnFocusChan
                 queue.add(requestCrearPlanta);
             }
             else
-            {*/
+            {
                 MDToast.makeText(getContext(),"Planta agregada correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                 getFragmentManager().beginTransaction().replace(R.id.contenedor, new FragmentSeleccionarTransportador()).commit();
                 progressBar.setVisibility(View.INVISIBLE);
 
 
-            //}
+            }
         }
 
 

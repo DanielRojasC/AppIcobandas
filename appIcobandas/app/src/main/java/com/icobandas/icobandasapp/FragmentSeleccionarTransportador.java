@@ -27,21 +27,32 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.icobandas.icobandasapp.Database.DbHelper;
 import com.icobandas.icobandasapp.Entities.ClientesEntities;
 import com.icobandas.icobandasapp.Entities.PlantasEntities;
 import com.icobandas.icobandasapp.Entities.TransportadorEntities;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
+import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -92,7 +103,6 @@ public class FragmentSeleccionarTransportador extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_seleccionar_transportador, container, false);
-        MainActivity.txtTitulo.setText("Crear Registro");
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         inicializar();
@@ -197,7 +207,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
                             {
                                 estadoTransportador="Pendiente INSERTAR BD";
                             }
-                            db.execSQL("update transportador set nombreTransportador='"+txtNombreTransportador.getText().toString().toUpperCase()+"', caracteristicaTransportador='"+txtDescripcionTransportador.getText().toString().toUpperCase()+"', estadoRegistroTransportador='"+estadoTransportador+"' where idTransportador='"+idTransportador+"'");
+                            db.execSQL("update transportador set nombreTransportador='"+txtNombreTransportador.getText().toString()+"', caracteristicaTransportador='"+txtDescripcionTransportador.getText().toString()+"', estadoRegistroTransportador='"+estadoTransportador+"' where idTransportador='"+idTransportador+"'");
                             dialogEditarTransportador.cancel();
                             MDToast.makeText(getContext(),"Transportador editado correctamente", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                             llenarSpinnerOffline();
@@ -465,7 +475,6 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
         dialogAgregarTransportador = new Dialog(getContext());
         dialogAgregarTransportador.setContentView(R.layout.dialog_crear_transportador);
-        dialogAgregarTransportador.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final TextInputEditText txtNombreTransportador = dialogAgregarTransportador.findViewById(R.id.txtNombreTransportador);
         final TextInputEditText txtDescripcionTransportador = dialogAgregarTransportador.findViewById(R.id.txtDescripcionTransportador);
 
@@ -548,7 +557,7 @@ public class FragmentSeleccionarTransportador extends Fragment {
 
 
 
-                   /* if (MainActivity.isOnline(getContext())) {
+                    if (MainActivity.isOnline(getContext())) {
                         String url = Constants.url + "crearTransportador";
                         StringRequest requestCrearTransportador = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
@@ -599,13 +608,13 @@ public class FragmentSeleccionarTransportador extends Fragment {
                             }
                         };
                         queue.add(requestCrearTransportador);
-                    } else {*/
+                    } else {
                         MDToast.makeText(getContext(), "TRANSPORTADOR REGISTRADO CORRECTAMENTE", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                         recargarTodo(progressBarTranspor);
                         dialogAgregarTransportador.cancel();
 
 
-                    //}
+                    }
 
                 }
             }

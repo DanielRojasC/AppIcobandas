@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -41,11 +44,15 @@ import com.icobandas.icobandasapp.Modelos.LoginJson;
 import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
@@ -100,8 +107,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_partes_vertical, container, false);
-
-        MainActivity.txtTitulo.setText("Transportador Vertical");
+        getActivity().setTitle("Transportador Vertical");
 
         inicializar();
 
@@ -301,7 +307,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
                         db = dbHelper.getWritableDatabase();
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
                             ContentValues params = new ContentValues();
@@ -418,7 +435,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -566,13 +583,13 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 dialogCarga.cancel();
                                 dialogParte.cancel();
-                            //}
+                            }
 
                         } else {
 
@@ -669,11 +686,9 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                              db = dbHelper.getWritableDatabase();
 
-
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
-                            //db.execSQL("update bandaElevadora set marcaBandaElevadora="+params.get("marcaBandaElevadora")+",anchoBandaElevadora="+params.get("anchoBandaElevadora")+",noLonaBandaElevadora="+params.get("noLonaBandaElevadora")+",distanciaEntrePoleasElevadora="+params.get("distanciaEntrePoleasElevadora")+",tipoLonaBandaElevadora="+params.get("tipoLonaBandaElevadora")+",espesorTotalBandaElevadora="+params.get("espesorTotalBandaElevadora")+",espesorCojinActualElevadora="+params.get("espesorCojinActualElevadora")+",espesorCubiertaSuperiorElevadora="+params.get("espesorCubiertaSuperiorElevadora")+",espesorCubiertaInferiorElevadora="+params.get("espesorCubiertaInferiorElevadora")+",tipoCubiertaElevadora="+params.get("tipoCubiertaElevadora")+",tipoEmpalmeElevadora="+params.get("tipoEmpalmeElevadora")+",estadoEmpalmeElevadora="+params.get("estadoEmpalmeElevadora")+",resistenciaRoturaLonaElevadora="+params.get("resistenciaRoturaLonaElevadora")+",velocidadBandaElevadora="+params.get("velocidadBandaElevadora")+",marcaBandaElevadoraAnterior="+params.get("marcaBandaElevadoraAnterior")+",anchoBandaElevadoraAnterior="+params.get("anchoBandaElevadoraAnterior")+",noLonasBandaElevadoraAnterior="+params.get("noLonasBandaElevadoraAnterior")+",tipoLonaBandaElevadoraAnterior="+params.get("tipoLonaBandaElevadoraAnterior")+",espesorTotalBandaElevadoraAnterior="+params.get("espesorTotalBandaElevadoraAnterior")+",espesorCubiertaSuperiorBandaElevadoraAnterior="+params.get("espesorCubiertaSuperiorBandaElevadoraAnterior")+",espesorCojinElevadoraAnterior="+params.get("espesorCojinElevadoraAnterior")+",espesorCubiertaInferiorBandaElevadoraAnterior="+params.get("espesorCubiertaInferiorBandaElevadoraAnterior")+",tipoCubiertaElevadoraAnterior="+params.get("tipoCubiertaElevadoraAnterior")+",tipoEmpalmeElevadoraAnterior="+params.get("tipoEmpalmeElevadoraAnterior")+"resistenciaRoturaBandaElevadoraAnterior="+params.get("resistenciaRoturaBandaElevadoraAnterior")+",tonsTransportadasBandaElevadoraAnterior="+params.get("tonsTransportadasBandaElevadoraAnterior")+",       causaFallaCambioBandaElevadoraAnterior="+params.get("causaFallaCambioBandaElevadoraAnterior")+",velocidadBandaElevadoraAnterior="+params.get("velocidadBandaElevadoraAnterior")+"where idRegistro="+ FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -800,7 +815,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 //db.execSQL("UPDATE bandaTransmision set anchoBandaTransmision='"+String.valueOf(Float.parseFloat(txtAnchoBandaTransmision.getText().toString()))+"', distanciaEntreCentrosTransmision='"+txtDistanciaEntreCentros.getText().toString()+"', potenciaMotorTransmision='"+txtPotenciaMotor.getText().toString()+"', rpmSalidaReductorTransmision='"+txtRpmSalidaReductor.getText().toString()+"', diametroPoleaConducidaTransmision='"+txtDiametroPoleaConducida.getText().toString()+"', anchoPoleaConducidaTransmision='"+txtAnchoPoleaConducida.getText().toString()+"', diametroPoleaMotrizTransmision='"+txtDiametroPoleaMotriz.getText().toString()+"', anchoPoleaMotrizTransmision='"+txtAnchoPoleaMotriz.getText().toString()+"', tipoParteTransmision='"+spinnerTipoTransmision.getSelectedItem().toString()+"' WHERE idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
 
@@ -810,7 +825,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
 
                         }
 
@@ -858,7 +873,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
@@ -896,7 +922,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -971,7 +997,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
@@ -979,7 +1005,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         } else {
 
                             ContentValues params = new ContentValues();
@@ -1005,7 +1031,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -1060,14 +1086,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         }
 
                     }
@@ -1180,7 +1206,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
@@ -1272,7 +1309,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -1397,12 +1434,12 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                            //}
+                            }
 
                         } else {
 
@@ -1481,7 +1518,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -1589,14 +1626,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
 
                         }
 
@@ -1673,7 +1710,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
@@ -1742,7 +1790,9 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
+
+
 
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
@@ -1848,7 +1898,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
@@ -1857,7 +1907,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 dialogParte.dismiss();
 
 
-                           // }
+                            }
 
 
                         } else {
@@ -1915,7 +1965,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
                             
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -2002,7 +2052,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }
                                 };
                                 queue.add(requestRegistro);
-                            } else {*/
+                            } else {
 
                                
                                 //db.execSQL("UPDATE bandaTransmision set anchoBandaTransmision='"+String.valueOf(Float.parseFloat(txtAnchoBandaTransmision.getText().toString()))+"', distanciaEntreCentrosTransmision='"+txtDistanciaEntreCentros.getText().toString()+"', potenciaMotorTransmision='"+txtPotenciaMotor.getText().toString()+"', rpmSalidaReductorTransmision='"+txtRpmSalidaReductor.getText().toString()+"', diametroPoleaConducidaTransmision='"+txtDiametroPoleaConducida.getText().toString()+"', anchoPoleaConducidaTransmision='"+txtAnchoPoleaConducida.getText().toString()+"', diametroPoleaMotrizTransmision='"+txtDiametroPoleaMotriz.getText().toString()+"', anchoPoleaMotrizTransmision='"+txtAnchoPoleaMotriz.getText().toString()+"', tipoParteTransmision='"+spinnerTipoTransmision.getSelectedItem().toString()+"' WHERE idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
@@ -2013,7 +2063,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
 
                         }
                     }
@@ -2091,7 +2141,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
@@ -2162,7 +2223,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -2267,14 +2328,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
 
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                           // }
+                            }
                         } else {
 
                             ContentValues params = new ContentValues();
@@ -2329,7 +2390,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -2413,7 +2474,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }
                                 };
                                 queue.add(requestRegistro);
-                            } else {*/
+                            } else {
 
 
                                 //db.execSQL("UPDATE bandaTransmision set anchoBandaTransmision='"+String.valueOf(Float.parseFloat(txtAnchoBandaTransmision.getText().toString()))+"', distanciaEntreCentrosTransmision='"+txtDistanciaEntreCentros.getText().toString()+"', potenciaMotorTransmision='"+txtPotenciaMotor.getText().toString()+"', rpmSalidaReductorTransmision='"+txtRpmSalidaReductor.getText().toString()+"', diametroPoleaConducidaTransmision='"+txtDiametroPoleaConducida.getText().toString()+"', anchoPoleaConducidaTransmision='"+txtAnchoPoleaConducida.getText().toString()+"', diametroPoleaMotrizTransmision='"+txtDiametroPoleaMotriz.getText().toString()+"', anchoPoleaMotrizTransmision='"+txtAnchoPoleaMotriz.getText().toString()+"', tipoParteTransmision='"+spinnerTipoTransmision.getSelectedItem().toString()+"' WHERE idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
@@ -2424,7 +2485,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
 
                         }
                     }
@@ -2472,7 +2533,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
@@ -2521,7 +2593,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -2606,14 +2678,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
 
-                            } else {*/
+                            } else {
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
 
-                            //}
+                            }
                         } else {
                             ContentValues params = new ContentValues();
                             params.put("idRegistro", FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
@@ -2648,7 +2720,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             db = dbHelper.getWritableDatabase();
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -2714,14 +2786,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
 
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         }
 
                     }
@@ -2784,7 +2856,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
@@ -2827,7 +2910,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -2907,7 +2990,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
@@ -2915,7 +2998,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         } else {
 
                             ContentValues params = new ContentValues();
@@ -2945,7 +3028,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                           /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -3004,14 +3087,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                           // }
+                            }
                         }
 
                     }
@@ -3059,7 +3142,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
@@ -3112,7 +3206,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -3205,14 +3299,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }
                                 };
                                 queue.add(requestRegistro);
-                            } else {*/
+                            } else {
 
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         } else {
 
                             ContentValues params = new ContentValues();
@@ -3255,7 +3349,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -3324,14 +3418,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }
                                 };
                                 queue.add(requestRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                           // }
+                            }
                         }
 
                     }
@@ -3411,7 +3505,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
@@ -3458,7 +3563,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -3540,14 +3645,14 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                           // }
+                            }
                         } else {
 
                             ContentValues params = new ContentValues();
@@ -3582,7 +3687,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -3644,7 +3749,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                     }
                                 };
                                 queue.add(requestRegistro);
-                            } else {*/
+                            } else {
 
                                 //db.execSQL("UPDATE bandaTransmision set anchoBandaTransmision='"+String.valueOf(Float.parseFloat(txtAnchoBandaTransmision.getText().toString()))+"', distanciaEntreCentrosTransmision='"+txtDistanciaEntreCentros.getText().toString()+"', potenciaMotorTransmision='"+txtPotenciaMotor.getText().toString()+"', rpmSalidaReductorTransmision='"+txtRpmSalidaReductor.getText().toString()+"', diametroPoleaConducidaTransmision='"+txtDiametroPoleaConducida.getText().toString()+"', anchoPoleaConducidaTransmision='"+txtAnchoPoleaConducida.getText().toString()+"', diametroPoleaMotrizTransmision='"+txtDiametroPoleaMotriz.getText().toString()+"', anchoPoleaMotrizTransmision='"+txtAnchoPoleaMotriz.getText().toString()+"', tipoParteTransmision='"+spinnerTipoTransmision.getSelectedItem().toString()+"' WHERE idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
 
@@ -3652,7 +3757,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         }
 
                     }
@@ -3787,7 +3892,18 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarga.show();
 
-                  
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
+
+                            if(cursor.getString(107).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaElevadora where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
 
@@ -3861,7 +3977,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                             db.insert("bandaElevadora", null, params);
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -3974,7 +4090,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
@@ -3982,7 +4098,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
                                 dialogCarga.dismiss();
                                 dialogParte.dismiss();
-                            //}
+                            }
                         } else {
 
                             ContentValues params = new ContentValues();
@@ -4043,7 +4159,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                             db.update("bandaElevadora", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -4136,7 +4252,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
 
 
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
@@ -4144,7 +4260,7 @@ public class FragmentPartesVertical extends Fragment implements View.OnFocusChan
 
                                 dialogCarga.cancel();
                                 dialogParte.dismiss();
-                            //}
+                            }
 
                         }
 

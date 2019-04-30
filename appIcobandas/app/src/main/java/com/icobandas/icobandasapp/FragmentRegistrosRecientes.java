@@ -11,6 +11,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
@@ -24,7 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.icobandas.icobandasapp.Adapters.AdapterRegistrosRecientes;
 import com.icobandas.icobandasapp.Adapters.AdapterRegistrosRecientesOffline;
 import com.icobandas.icobandasapp.Database.DbHelper;
 import com.icobandas.icobandasapp.Entities.AgentesEntities;
@@ -39,7 +44,9 @@ import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -66,7 +73,6 @@ public class FragmentRegistrosRecientes extends Fragment {
     TextView txtFiltroPorAgente;
     SearchableSpinner spinnerAgentes;
 
-
     public FragmentRegistrosRecientes() {
         // Required empty public constructor
     }
@@ -78,14 +84,15 @@ public class FragmentRegistrosRecientes extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_registros_recientes, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        MainActivity.txtTitulo.setText("Historial de Registros");
-        txtFiltroPorAgente = view.findViewById(R.id.txtSinRegistros2);
-        spinnerAgentes = view.findViewById(R.id.spinnerFiltroAgente);
+        getActivity().setTitle("Registro de Equipos");
+        txtFiltroPorAgente=view.findViewById(R.id.txtSinRegistros2);
+        spinnerAgentes=view.findViewById(R.id.spinnerFiltroAgente);
         txtFiltroPorAgente.setVisibility(View.INVISIBLE);
         spinnerAgentes.setVisibility(View.INVISIBLE);
         inicializar();
 
-        if (Login.rol.equals("admin")) {
+        if(Login.rol.equals("admin"))
+        {
             txtFiltroPorAgente.setVisibility(View.VISIBLE);
             spinnerAgentes.setVisibility(View.VISIBLE);
             ConstraintSet set = new ConstraintSet();
@@ -393,7 +400,7 @@ public class FragmentRegistrosRecientes extends Fragment {
         spinnerAgentes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String codigoAgente = spinnerAgentes.getSelectedItem().toString().split(" - ")[0];
+                String codigoAgente=spinnerAgentes.getSelectedItem().toString().split(" - ")[0];
                 loginJsonArrayListFiltro.clear();
 
 
@@ -402,7 +409,7 @@ public class FragmentRegistrosRecientes extends Fragment {
                     registrosRecientesEntitiesArrayList.clear();
                     SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-                    cursor = db.rawQuery("select distinct registro.*,transportador.nombreTransportador, plantas.nameplanta,clientes.nameunido, transportador.tipoTransportador from registro join transportador on(registro.idTransportador=transportador.idTransportador) join plantas on (plantas.codplanta=registro.codplanta)join clientes on (clientes.nit=plantas.nitplanta) where registroActivado!='0' and registro.usuarioRegistro='" + codigoAgente + "'", null);
+                    cursor = db.rawQuery("select distinct registro.*,transportador.nombreTransportador, plantas.nameplanta,clientes.nameunido, transportador.tipoTransportador from registro join transportador on(registro.idTransportador=transportador.idTransportador) join plantas on (plantas.codplanta=registro.codplanta)join clientes on (clientes.nit=plantas.nitplanta) where registroActivado!='0' and registro.usuarioRegistro='" + codigoAgente+"'", null);
 
                     if (cursor.getCount() == 0) {
                         txtSinRegistros.setVisibility(View.VISIBLE);
@@ -410,7 +417,8 @@ public class FragmentRegistrosRecientes extends Fragment {
                         recyclerViewRecientes.setAdapter(adapterRegistrosRecientesOffline);
 
                     } else {
-                        while (cursor.moveToNext()) {
+                        while (cursor.moveToNext())
+                        {
                             RegistrosRecientesEntities registrosRecientesEntities = new RegistrosRecientesEntities();
                             registrosRecientesEntities.setIdRegistro(cursor.getString(0));
                             registrosRecientesEntities.setFechaRegistro(cursor.getString(1));
@@ -484,7 +492,8 @@ public class FragmentRegistrosRecientes extends Fragment {
                         });
 
                     }
-                } else {
+                }
+                else {
 
                     spinnerFiltroPlanta.setSelection(0);
                     llenarRecyclerOffline();
@@ -654,7 +663,7 @@ public class FragmentRegistrosRecientes extends Fragment {
     public static void actualizarActivado(final String idRegistro, final String estadoRegistro) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("update registro set registroActivado='" + estadoRegistro + "' where idRegistro='" + idRegistro + "'");
-        /*if (MainActivity.isOnline(MainActivity.context)) {
+        if (MainActivity.isOnline(MainActivity.context)) {
             String url = Constants.url + "actualizarEstadoRegistro/" + idRegistro + "&" + estadoRegistro;
             StringRequest request = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                 @Override
@@ -688,86 +697,92 @@ public class FragmentRegistrosRecientes extends Fragment {
                     return params;
                 }
             };
-            queue.add(request);*/
-        //} else {
-        if (estadoRegistro.equals("0")) {
-            MDToast.makeText(MainActivity.context, "Registro Desactivado", Toast.LENGTH_SHORT, MDToast.TYPE_INFO).show();
-
+            queue.add(request);
         } else {
-            MDToast.makeText(MainActivity.context, "Registro Activado", Toast.LENGTH_SHORT, MDToast.TYPE_INFO).show();
+            if(estadoRegistro.equals("0"))
+            {
+                MDToast.makeText(MainActivity.context, "Registro Desactivado", Toast.LENGTH_SHORT, MDToast.TYPE_INFO).show();
 
-        }
+            }
+            else
+            {
+                MDToast.makeText(MainActivity.context, "Registro Activado", Toast.LENGTH_SHORT, MDToast.TYPE_INFO).show();
 
-
-        Fragment fragmentRegistrosRecientes = new FragmentRegistrosRecientes();
-
-        MainActivity.fragmentManager.beginTransaction().detach(fragmentRegistrosRecientes).replace(R.id.contenedor, new FragmentRegistrosRecientes(), null).commit();
-
-
-        //}
-
-    }
-
-    public void abrirDialogRegistrosDesactivados() {
-
-        registrosRecientesEntitiesArrayList.clear();
-
-        dialogRegistrosDesactivados = new Dialog(getContext());
-        dialogRegistrosDesactivados.setContentView(R.layout.dialog_reactivar_registros);
-        dialogRegistrosDesactivados.setCancelable(true);
-        TextView txtRegistrosDesactivados = dialogRegistrosDesactivados.findViewById(R.id.txtRegistrosDesactivados);
-        RecyclerView recyclerRegistrosDesactivados = dialogRegistrosDesactivados.findViewById(R.id.recyclerReactivarRegistros);
-        dialogRegistrosDesactivados.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("select distinct registro.*,transportador.nombreTransportador, plantas.nameplanta,clientes.nameunido, transportador.tipoTransportador from registro join transportador on(registro.idTransportador=transportador.idTransportador) join plantas on (plantas.codplanta=registro.codplanta)join clientes on (clientes.nit=plantas.nitplanta) where registroActivado='0'", null);
-        if (cursor.getCount() == 0) {
-            txtRegistrosDesactivados.setVisibility(View.VISIBLE);
-        } else {
-            txtRegistrosDesactivados.setVisibility(View.INVISIBLE);
-            while (cursor.moveToNext()) {
-
-                RegistrosRecientesEntities registrosRecientesEntities = new RegistrosRecientesEntities();
-                registrosRecientesEntities.setIdRegistro(cursor.getString(0));
-                registrosRecientesEntities.setFechaRegistro(cursor.getString(1));
-                registrosRecientesEntities.setIdTransportador(cursor.getString(2));
-                registrosRecientesEntities.setCodplanta(cursor.getString(3));
-                registrosRecientesEntities.setUsuarioRegistro(cursor.getString(4));
-                registrosRecientesEntities.setNombreTransportador(cursor.getString(7));
-                registrosRecientesEntities.setNombrePlanta(cursor.getString(8));
-                registrosRecientesEntities.setNombreCliente(cursor.getString(9));
-                registrosRecientesEntities.setTipoTransportador(cursor.getString(10));
-                registrosRecientesEntities.setRegistroActivado(cursor.getString(6));
-                registrosRecientesEntitiesArrayList.add(registrosRecientesEntities);
             }
 
+            Fragment fragmentRegistrosRecientes = new FragmentRegistrosRecientes();
 
-            adapterRegistrosRecientesOffline = new AdapterRegistrosRecientesOffline(registrosRecientesEntitiesArrayList, getContext());
-            recyclerRegistrosDesactivados.setAdapter(adapterRegistrosRecientesOffline);
-            recyclerRegistrosDesactivados.setLayoutManager(new LinearLayoutManager(MainActivity.context, LinearLayoutManager.VERTICAL, false));
-            recyclerRegistrosDesactivados.setHasFixedSize(true);
+            MainActivity.fragmentManager.beginTransaction().detach(fragmentRegistrosRecientes).replace(R.id.contenedor, new FragmentRegistrosRecientes(), null).commit();
 
 
         }
-        dialogRegistrosDesactivados.show();
 
     }
 
-    public void llenarSpinnerAgentes() {
+    public void abrirDialogRegistrosDesactivados()
+    {
+        ArrayList<RegistrosRecientesEntities> registrosRecientesEntities= new ArrayList<>();
+        dialogRegistrosDesactivados= new Dialog(getContext());
+        dialogRegistrosDesactivados.setContentView(R.layout.dialog_reactivar_registros);
+        dialogRegistrosDesactivados.setCancelable(true);
+        TextView txtRegistrosDesactivados=dialogRegistrosDesactivados.findViewById(R.id.txtRegistrosDesactivados);
+        RecyclerView recyclerRegistrosDesactivados= dialogRegistrosDesactivados.findViewById(R.id.recyclerReactivarRegistros);
+        dialogRegistrosDesactivados.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        cursor=db.rawQuery("select distinct registro.*,transportador.nombreTransportador, plantas.nameplanta,clientes.nameunido, transportador.tipoTransportador from registro join transportador on(registro.idTransportador=transportador.idTransportador) join plantas on (plantas.codplanta=registro.codplanta)join clientes on (clientes.nit=plantas.nitplanta) where registroActivado='0'", null);
+        if(cursor.getCount()==0)
+        {
+            txtRegistrosDesactivados.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            txtRegistrosDesactivados.setVisibility(View.INVISIBLE);
+
+            while (cursor.moveToNext())
+            {
+                RegistrosRecientesEntities recientesEntities= new RegistrosRecientesEntities();
+                recientesEntities.setIdRegistro(cursor.getString(0));
+                recientesEntities.setFechaRegistro(cursor.getString(1));
+                recientesEntities.setIdTransportador(cursor.getString(2));
+                recientesEntities.setCodplanta(cursor.getString(3));
+                recientesEntities.setUsuarioRegistro(cursor.getString(4));
+                recientesEntities.setNombreTransportador(cursor.getString(7));
+                recientesEntities.setNombrePlanta(cursor.getString(8));
+                recientesEntities.setNombreCliente(cursor.getString(9));
+                recientesEntities.setTipoTransportador(cursor.getString(10));
+                recientesEntities.setRegistroActivado(cursor.getString(6));
+                registrosRecientesEntities.add(recientesEntities);
+            }
+        }
+
+
+        AdapterRegistrosRecientesOffline adapterRegistrosRecientesOffline= new AdapterRegistrosRecientesOffline(registrosRecientesEntities, getContext());
+        recyclerRegistrosDesactivados.setAdapter(adapterRegistrosRecientesOffline);
+        recyclerRegistrosDesactivados.setLayoutManager(new LinearLayoutManager(MainActivity.context, LinearLayoutManager.VERTICAL, false));
+        recyclerRegistrosDesactivados.setHasFixedSize(true);
+
+        dialogRegistrosDesactivados.show();
+    }
+
+    public void llenarSpinnerAgentes()
+    {
         ArrayList<AgentesEntities> agentesEntitiesArrayList = new ArrayList<>();
         ArrayList<String> agentesArrayList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("Select distinct * from usuario where nombreUsuario!='LEPE' and nombreUsuario!='LECA'", null);
-        while (cursor.moveToNext()) {
+        cursor= db.rawQuery("Select distinct * from usuario where nombreUsuario!='LEPE' and nombreUsuario!='LECA'", null);
+        while (cursor.moveToNext())
+        {
             AgentesEntities agentesEntities = new AgentesEntities();
             agentesEntities.setCodAgente(cursor.getString(0));
             agentesEntities.setNombreAgente(cursor.getString(1));
             agentesEntitiesArrayList.add(agentesEntities);
         }
         agentesArrayList.add(0, "Seleccione Agente");
-        for (int i = 1; i < agentesEntitiesArrayList.size(); i++) {
+        for (int i=1;i<agentesEntitiesArrayList.size();i++)
+        {
             //if(!agentesEntitiesArrayList.get(i-1).getCodAgente().equals("LEPE") || !agentesEntitiesArrayList.get(i-1).getCodAgente().equals("LECA"))
             //{
-            agentesArrayList.add(agentesEntitiesArrayList.get(i - 1).getCodAgente() + " - " + agentesEntitiesArrayList.get(i - 1).getNombreAgente());
+                agentesArrayList.add(agentesEntitiesArrayList.get(i-1).getCodAgente()+" - "+agentesEntitiesArrayList.get(i-1).getNombreAgente());
 
             //}
         }

@@ -7,28 +7,50 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.icobandas.icobandasapp.Database.DbHelper;
+import com.icobandas.icobandasapp.Modelos.CiudadesJson;
 import com.icobandas.icobandasapp.Modelos.IdMaximaRegistro;
+import com.icobandas.icobandasapp.Modelos.LoginJson;
+import com.icobandas.icobandasapp.Modelos.LoginTransportadores;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import dmax.dialog.SpotsDialog;
+
+import static com.icobandas.icobandasapp.Login.ciudadesJsons;
+import static com.icobandas.icobandasapp.Login.loginJsons;
+import static com.icobandas.icobandasapp.Login.loginTransportadores;
 
 
 /**
@@ -78,9 +100,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_partes_pesada, container, false);
-
-        MainActivity.txtTitulo.setText("Transportador horizontal o inclinado");
-
+        getActivity().setTitle("Banda de Transmisión Pesada");
         inicializar();
         if (FragmentSeleccionarTransportador.bandera.equals("Actualizar")) {
             llenarRegistros();
@@ -112,7 +132,18 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                     public void onClick(final DialogInterface dialog, int which) {
                         dialogCarga.show();
                         db = dbHelper.getWritableDatabase();
+                        if(FragmentSeleccionarTransportador.bandera.equals("Actualizar"))
+                        {
+                            cursor=db.rawQuery("SELECT * FROM bandaTransmision where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax(),null);
+                            cursor.moveToFirst();
 
+                            if(cursor.getString(10).equals("Pendiente INSERTAR BD"))
+                            {
+                                db.execSQL("DELETE FROM bandaTransmision where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                db.execSQL("DELETE FROM registro where idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
+                                FragmentSeleccionarTransportador.bandera="Nuevo";
+                            }
+                        }
 
 
                         if (FragmentSeleccionarTransportador.bandera.equals("Nuevo")) {
@@ -180,7 +211,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                             db.insert("bandaTransmision", null, params);
                             FragmentSeleccionarTransportador.bandera = "Actualizar";
 
-                            /*if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "crearRegistro";
                                 StringRequest requestCrearRegistro = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
                                     @Override
@@ -294,10 +325,10 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                                 };
                                 requestCrearRegistro.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 queue.add(requestCrearRegistro);
-                            } else {*/
+                            } else {
                                 MDToast.makeText(getContext(), "REGISTRO EXITOSO", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 dialogCarga.dismiss();
-                           // }
+                            }
 
                         } else {
 
@@ -361,7 +392,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                             }
                             db.update("bandaTransmision", params, "idRegistro=" + FragmentPartesVertical.idMaximaRegistro.get(0).getMax(), null);
 
-                           /* if (MainActivity.isOnline(getContext())) {
+                            if (MainActivity.isOnline(getContext())) {
                                 String url = Constants.url + "actualizarBandaPesada";
                                 StringRequest requestRegistroTornillos = new StringRequest(StringRequest.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
@@ -429,8 +460,8 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                                     }
                                 };
                                 requestRegistroTornillos.setRetryPolicy(new DefaultRetryPolicy(90000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                                queue.add(requestRegistroTornillos);*/
-                            //} else {
+                                queue.add(requestRegistroTornillos);
+                            } else {
 
 
                                 //db.execSQL("UPDATE bandaTransmision set anchoBandaTransmision='"+String.valueOf(Float.parseFloat(txtAnchoBandaTransmision.getText().toString()))+"', distanciaEntreCentrosTransmision='"+txtDistanciaEntreCentros.getText().toString()+"', potenciaMotorTransmision='"+txtPotenciaMotor.getText().toString()+"', rpmSalidaReductorTransmision='"+txtRpmSalidaReductor.getText().toString()+"', diametroPoleaConducidaTransmision='"+txtDiametroPoleaConducida.getText().toString()+"', anchoPoleaConducidaTransmision='"+txtAnchoPoleaConducida.getText().toString()+"', diametroPoleaMotrizTransmision='"+txtDiametroPoleaMotriz.getText().toString()+"', anchoPoleaMotrizTransmision='"+txtAnchoPoleaMotriz.getText().toString()+"', tipoParteTransmision='"+spinnerTipoTransmision.getSelectedItem().toString()+"' WHERE idRegistro="+FragmentPartesVertical.idMaximaRegistro.get(0).getMax());
@@ -440,7 +471,7 @@ public class FragmentPartesPesada extends Fragment implements View.OnClickListen
                                 FragmentSeleccionarTransportador.bandera = "Actualizar";
 
                                 dialogCarga.dismiss();
-                           // }
+                            }
 
                         }
 

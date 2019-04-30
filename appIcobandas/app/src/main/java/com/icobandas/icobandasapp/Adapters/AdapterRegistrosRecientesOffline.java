@@ -3,19 +3,25 @@ package com.icobandas.icobandasapp.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.icobandas.icobandasapp.Database.DbHelper;
 import com.icobandas.icobandasapp.Entities.RegistrosRecientesEntities;
 import com.icobandas.icobandasapp.FragmentRegistrosRecientes;
+import com.icobandas.icobandasapp.MainActivity;
 import com.icobandas.icobandasapp.R;
 
+import java.nio.channels.AlreadyBoundException;
 import java.util.ArrayList;
 
 /**
@@ -110,7 +116,8 @@ public class AdapterRegistrosRecientesOffline  extends RecyclerView.Adapter<Adap
 
         public void fijarDatos(final RegistrosRecientesEntities registrosRecientesEntities)
         {
-
+            dbHelper = new DbHelper(context,"prueba", null ,1);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
             alerta= new AlertDialog.Builder(context);
             if(!registrosRecientesEntities.getRegistroActivado().equals("0"))
             {
@@ -121,17 +128,6 @@ public class AdapterRegistrosRecientesOffline  extends RecyclerView.Adapter<Adap
                 if(registrosRecientesEntities.getRegistroActivado().equals("1"))
                 {
                     swtichRegistroActivo.setChecked(true);
-                }
-            }
-            else
-            {
-                txtFecha.setText(registrosRecientesEntities.getFechaRegistro());
-                txtParte.setText(registrosRecientesEntities.getNombreTransportador());
-                txtPlanta.setText(registrosRecientesEntities.getNombrePlanta());
-                txtCliente.setText(registrosRecientesEntities.getNombreCliente());
-                if(registrosRecientesEntities.getRegistroActivado().equals("0"))
-                {
-                    swtichRegistroActivo.setChecked(false);
                 }
             }
 
