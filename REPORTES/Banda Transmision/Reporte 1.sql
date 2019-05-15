@@ -1,0 +1,10 @@
+select registro.idRegistro,registro.estadoRegistro,registro.fechaRegistro,registro.usuarioRegistro, plantas.nameplanta, transportador.tipoTransportador, anchoBandaTransmision, distanciaEntreCentrosTransmision, potenciaMotorTransmision, rpmSalidaReductorTransmision, diametroPoleaConducidaTransmision, anchoPoleaConducidaTransmision, diametroPoleaMotrizTransmision, anchoPoleaMotrizTransmision, tipoParteTransmision, observacionRegistro
+
+from registro
+join plantas on registro.codplanta=plantas.codplanta
+join transportador on transportador.idTransportador=registro.idTransportador
+join bandaTransmision on registro.idRegistro=bandaTransmision.idRegistro
+where transportador.tipoTransportador='B.DSF'
+
+
+group by registro.idRegistro,registro.estadoRegistro,registro.fechaRegistro,registro.usuarioRegistro, plantas.nameplanta, transportador.tipoTransportador, anchoBandaTransmision, distanciaEntreCentrosTransmision, potenciaMotorTransmision, rpmSalidaReductorTransmision, diametroPoleaConducidaTransmision, anchoPoleaConducidaTransmision, diametroPoleaMotrizTransmision, anchoPoleaMotrizTransmision, tipoParteTransmision, observacionRegistro
